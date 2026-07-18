@@ -106,9 +106,9 @@ export default function Navbar() {
                     <Link
                         href="/contact"
                         onClick={() => setMobileOpen(false)}
-                        className="mt-4 block text-center rounded-full bg-amber-400 px-5 py-3 text-sm font-light text-black hover:bg-amber-300 transition-colors duration-300"
+                        className="mt-4 block text-center rounded-full bg-btn px-5 py-3 text-sm font-light text-white hover:bg-btn transition-colors duration-300"
                     >
-                        Get a Quote
+                        Let&apos;s Talk !
                     </Link>
                 </div>
             </div>
