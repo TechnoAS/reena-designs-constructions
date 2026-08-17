@@ -1,0 +1,10 @@
+{
+  "description": "Showcases architectural design and construction services with an interactive portfolio, client testimonials, and seamless contact options for prospective clients.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
