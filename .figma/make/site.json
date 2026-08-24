@@ -1,10 +1,12 @@
 {
-  "description": "Showcases architectural design and construction services with an interactive portfolio, client testimonials, and seamless contact options for prospective clients.",
+  "description": "Design-led construction company based in Midnapur, Paschim Midnapur, delivering turnkey building construction, architectural design, interiors and renovation across India. 250+ projects, 15+ years, on-time handover.",
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,
     "ignoreReducedMotion": false
-  }
+  },
+  "title": "Reena Designs & Constructions | Construction & Interior Design in Midnapur, India",
+  "language": "en"
 }

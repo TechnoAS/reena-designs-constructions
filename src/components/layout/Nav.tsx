@@ -6,18 +6,18 @@ import { NAV_CONTAINER, SITE_CONTAINER, NAV_LINKS } from "./constants"
 function DropdownMenu({ items }: { items: typeof NAV_LINKS[3]["dropdown"] }) {
   return (
     <div
-      className="absolute top-full left-0 mt-1 rounded-xl shadow-2xl py-2 z-50 min-w-56"
-      style={{ background: "#fff", border: "1.5px solid #e8e8e8" }}
+      className="absolute top-full left-0 z-50 min-w-56 pt-2"
     >
+      <div className="rounded-xl py-2 shadow-2xl" style={{ background: "#fff", border: "1.5px solid #e8e8e8" }}>
       {items!.map((item) => {
         if ("children" in item && item.children) {
           return (
             <div key={item.label} className="group relative">
-              <div className="px-4 py-2.5 text-sm font-600 flex items-center justify-between cursor-default" style={{ color: "#1a2744" }}>
+              <Link to={item.children[0].href} className="flex items-center justify-between px-4 py-2.5 text-sm font-600 transition-colors hover:bg-orange-50" style={{ color: "#1a2744" }}>
                 {item.label}
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round"/></svg>
-              </div>
-              <div className="absolute left-full top-0 hidden group-hover:block rounded-xl shadow-xl py-2 min-w-48" style={{ background: "#fff", border: "1.5px solid #e8e8e8" }}>
+              </Link>
+              <div className="absolute left-full top-0 hidden min-w-48 rounded-xl py-2 shadow-xl group-hover:block" style={{ background: "#fff", border: "1.5px solid #e8e8e8" }}>
                 {item.children.map((child) => (
                   <Link key={child.href} to={child.href} className="block px-4 py-2.5 text-sm hover:bg-orange-50 transition-colors" style={{ color: "#444" }}>
                     {child.label}
@@ -34,6 +34,7 @@ function DropdownMenu({ items }: { items: typeof NAV_LINKS[3]["dropdown"] }) {
           </Link>
         )
       })}
+      </div>
     </div>
   )
 }
@@ -82,14 +83,18 @@ export default function Nav() {
                 onMouseEnter={() => setDropOpen(true)}
                 onMouseLeave={() => setDropOpen(false)}
               >
-                <button
+                <Link
+                  to={link.href}
+                  aria-haspopup="true"
+                  aria-expanded={dropOpen}
+                  onClick={() => setDropOpen(false)}
                   className="flex items-center gap-1 pb-0.5 text-sm font-500 transition-colors"
                   style={{ color: isActive(link.href) ? "#FF5E00" : navTextColor }}
                 >
                   {link.label}
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`transition-transform duration-200 ${dropOpen ? "rotate-180" : ""}`}><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
                   {isActive(link.href) && <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full" style={{ background: "#FF5E00" }} />}
-                </button>
+                </Link>
                 {dropOpen && <DropdownMenu items={link.dropdown} />}
               </div>
             ) : (

@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom"
+import ChatBot from "./components/ui/ChatBot"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Services from "./pages/Services"
@@ -20,7 +21,8 @@ import {
 
 export default function App() {
   return (
-    <Routes>
+    <>
+      <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/services" element={<Services />} />
@@ -83,7 +85,11 @@ export default function App() {
       />
       <Route path="/our-work/testimonials" element={<TestimonialsPage />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      {/* Mounted outside <Routes> so it survives navigation and stays pinned
+          to the viewport on every page. */}
+      <ChatBot />
+    </>
   )
 }

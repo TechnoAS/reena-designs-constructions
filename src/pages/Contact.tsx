@@ -13,7 +13,7 @@ export default function Contact() {
     {
       icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.24 2 5 4.24 5 7c0 4.5 5 11 5 11s5-6.5 5-11c0-2.76-2.24-5-5-5zm0 6.5A1.5 1.5 0 1110 5a1.5 1.5 0 010 3.5z" fill="#FF5E00"/></svg>,
       label: "Address",
-      value: "123, Construction Street\nKolkata, India",
+      value: "Midnapur, Paschim Midnapur\nWest Bengal 721101, India",
     },
     {
       icon: <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.6 2A1.6 1.6 0 002 3.6v.9C2 10.6 9.4 18 16.5 18h.9A1.6 1.6 0 0019 16.4v-1.95a1.6 1.6 0 00-1.14-1.54l-2-.55a1.6 1.6 0 00-1.6.46l-.6.6a9.23 9.23 0 01-3.08-3.08l.6-.6a1.6 1.6 0 00.46-1.6l-.55-2A1.6 1.6 0 007.55 2H3.6z" fill="#FF5E00"/></svg>,
@@ -166,13 +166,13 @@ export default function Contact() {
         <div className="rounded-2xl overflow-hidden" style={{ height: 280, border: "1.5px solid #e8e8e8" }}>
           <img
             src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1200&h=350&fit=crop&auto=format"
-            alt="Map location - Kolkata, India"
+            alt="Map location - Midnapur, Paschim Midnapur, West Bengal"
             className="w-full h-full object-cover"
           />
           <div className="relative -top-full h-full flex items-center justify-center" style={{ background: "rgba(26,39,68,0.25)" }}>
             <div className="bg-white rounded-xl px-6 py-3 shadow-lg text-center">
               <div className="montserrat font-800 text-sm mb-0.5" style={{ color: "#1a2744" }}>📍 Reena Designs & Constructions</div>
-              <div className="text-xs text-gray-500">123, Construction Street, Kolkata, India</div>
+              <div className="text-xs text-gray-500">Midnapur, Paschim Midnapur, West Bengal 721101</div>
             </div>
           </div>
         </div>

@@ -38,3 +38,248 @@ img {
     @apply inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition duration-200 hover:border-orange-400 hover:text-orange-500;
   }
 }
+
+/* ── Typography scale ───────────────────────────────────────────────
+   These class names are used throughout the app. Tailwind has no
+   `font-700/800/900` utility and no `montserrat` class, so without
+   these definitions every heading silently rendered at body weight. */
+@layer components {
+  .montserrat {
+    font-family: 'Inter', 'Montserrat', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .font-500 { font-weight: 500; }
+  .font-600 { font-weight: 600; }
+  .font-700 { font-weight: 700; }
+  .font-800 { font-weight: 800; }
+  .font-900 { font-weight: 900; }
+
+  /* Heading row used by SectionTitle — keeps the accent bar inline
+     with the heading and centres the pair by default. */
+  .section-title-row {
+    @apply flex items-center justify-center gap-3;
+  }
+
+  /* Service card — premium lift on hover. */
+  .svc-card {
+    @apply rounded-2xl border border-slate-200 bg-white transition duration-300;
+  }
+  .svc-card:hover {
+    @apply -translate-y-1 border-orange-300 shadow-xl shadow-slate-900/5;
+  }
+
+  /* Stat cell — subtle divider rhythm across the row. */
+  .stat-item {
+    @apply border-slate-100 transition duration-300;
+  }
+  .stat-item:hover {
+    @apply bg-slate-50/70;
+  }
+}
+
+/* ── Flow pulse ─────────────────────────────────────────────────────
+   A travelling highlight that runs along a connector, like fluid moving
+   through a pipe. Used by the process tree and the hero blueprint. The
+   element paints a moving gradient over its own background. */
+@layer components {
+  .flow-line {
+    position: relative;
+    overflow: hidden;
+  }
+  .flow-line::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(255, 94, 0, 0.15) 35%,
+      #ff5e00 50%,
+      rgba(255, 94, 0, 0.15) 65%,
+      transparent 100%
+    );
+    background-size: 100% 250%;
+    animation: flow-down 3.2s linear infinite;
+    animation-delay: var(--flow-delay, 0s);
+  }
+  /* Horizontal runs (the fork bar) sweep left-to-right instead. */
+  .flow-line-x::after {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 94, 0, 0.15) 35%,
+      #ff5e00 50%,
+      rgba(255, 94, 0, 0.15) 65%,
+      transparent 100%
+    );
+    background-size: 250% 100%;
+    animation-name: flow-right;
+  }
+}
+
+@keyframes flow-down {
+  from { background-position: 0 -150%; }
+  to   { background-position: 0 250%; }
+}
+
+@keyframes flow-right {
+  from { background-position: -150% 0; }
+  to   { background-position: 250% 0; }
+}
+
+/* Respect users who have asked for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .flow-line::after {
+    animation: none;
+    opacity: 0.35;
+  }
+}
+
+/* ── Blueprint: draw-on ─────────────────────────────────────────────
+   Each line is dashed to its own length and starts fully offset, so the
+   stroke appears to be drawn by hand. `--dl` is the path length and
+   `--dd` the delay; both are set per element. `forwards` holds the
+   finished state so the drawing stays complete. */
+.bp-draw {
+  stroke-dasharray: var(--dl, 1200);
+  stroke-dashoffset: var(--dl, 1200);
+  animation: bp-draw-in 1.5s cubic-bezier(0.33, 0, 0.15, 1) forwards;
+  animation-delay: var(--dd, 0s);
+}
+
+@keyframes bp-draw-in {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Elements that fade in rather than draw (text, hatching, fills). */
+.bp-fade {
+  opacity: 0;
+  animation: bp-fade-in 0.9s ease-out forwards;
+  animation-delay: var(--dd, 0s);
+}
+
+@keyframes bp-fade-in {
+  to { opacity: var(--o, 1); }
+}
+
+/* ── Blueprint: flow ────────────────────────────────────────────────
+   A bright segment travelling a path at a genuinely constant speed.
+
+   Each path gets its own dash geometry, computed from its measured length:
+   `--seg` is the visible pulse, `--gap` the dark remainder, and the offset
+   animates from `--fl` to `--end`. The gap is padded with idle distance so
+   every line shares one cycle length while the pulse still crosses each at the
+   same px/sec — otherwise short lines strobe and long ones crawl. Timing is
+   linear because anything else varies the speed mid-travel. */
+.bp-flow {
+  stroke-dasharray: var(--seg, 90) var(--gap, 1650);
+  stroke-dashoffset: var(--fl, 900);
+  animation: bp-flow-run var(--fd, 5.5s) linear infinite;
+  animation-delay: var(--dd, 0s);
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+
+/* Held back until the line it rides on has been drawn. */
+.bp-flow.bp-flow-live { opacity: 0.95; }
+
+@keyframes bp-flow-run {
+  from { stroke-dashoffset: var(--fl, 900); }
+  to   { stroke-dashoffset: var(--end, -90); }
+}
+
+.bp-node {
+  opacity: 0;
+  animation: bp-node-in 0.5s ease-out forwards, bp-node-pulse 3.4s ease-in-out infinite;
+  animation-delay: var(--dd, 0s), calc(var(--dd, 0s) + 0.5s);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes bp-node-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bp-node-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-draw, .bp-fade, .bp-flow, .bp-node { animation: none; }
+  .bp-draw { stroke-dashoffset: 0; stroke-dasharray: none; }
+  .bp-fade { opacity: var(--o, 1); }
+  .bp-flow { opacity: 0.35; stroke-dashoffset: 0; stroke-dasharray: none; }
+  .bp-node { opacity: 0.8; }
+}
+
+/* ── Chat ───────────────────────────────────────────────────────────
+   Bubble entry + typing indicator for the assistant. */
+.chat-bubble-in {
+  animation: chat-pop 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes chat-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.chat-dot {
+  animation: chat-dot-bounce 1.15s ease-in-out infinite;
+}
+.chat-dot:nth-child(2) { animation-delay: 0.15s; }
+.chat-dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes chat-dot-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+  30%           { transform: translateY(-4px); opacity: 1; }
+}
+
+/* Slim scrollbar inside the chat log */
+.chat-scroll { scrollbar-width: thin; scrollbar-color: #d8dde5 transparent; }
+.chat-scroll::-webkit-scrollbar { width: 6px; }
+.chat-scroll::-webkit-scrollbar-thumb { background: #d8dde5; border-radius: 999px; }
+.chat-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* Attention pulse on the collapsed launcher */
+.chat-ping::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 94, 0, 0.5);
+  animation: chat-ping 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes chat-ping {
+  0%   { transform: scale(1); opacity: 0.7; }
+  70%  { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-bubble-in, .chat-dot, .chat-ping::before { animation: none; }
+}
+
+/* ── Build simulator ────────────────────────────────────────────────
+   Scene layers cross-fade as the stage changes, so the building appears
+   to be assembled rather than swapped. `visibility` is animated too so
+   hidden layers cannot intercept pointer events. */
+.bs-layer {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.55s;
+}
+.bs-layer.is-on {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bs-layer { transition: opacity 0.15s linear, visibility 0.15s; transform: none; }
+  .bs-layer.is-on { transform: none; }
+}

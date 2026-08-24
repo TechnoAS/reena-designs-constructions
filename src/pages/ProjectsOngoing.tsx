@@ -7,12 +7,12 @@ import ProjectCard from "@/components/ui/ProjectCard"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 
 const allProjects = [
-  { name: "Horizon Heights", location: "Kolkata, India", type: "Residential", progress: 65, expected: "Aug 2024", tag: "Residential", img: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=400&h=220&fit=crop&auto=format" },
-  { name: "Blue Pearl Villa", location: "Kolkata, India", type: "Residential", progress: 40, expected: "Aug 2024", tag: "Residential", img: "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=400&h=220&fit=crop&auto=format" },
-  { name: "Central Business Hub", location: "Kolkata, India", type: "Commercial", progress: 30, expected: "Aug 2024", tag: "Commercial", img: "https://images.unsplash.com/photo-1783705094622-f2c01a9787b5?w=400&h=220&fit=crop&auto=format" },
-  { name: "Lakewood Residency", location: "Kolkata, India", type: "Residential", progress: 55, expected: "Sep 2024", tag: "Residential", img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&h=220&fit=crop&auto=format" },
-  { name: "Pinnacle Towers", location: "Kolkata, India", type: "Commercial", progress: 20, expected: "Sep 2024", tag: "Commercial", img: "https://images.unsplash.com/photo-1760246964044-1384f71665b9?w=400&h=220&fit=crop&auto=format" },
-  { name: "Palm Crest Bungalow", location: "Kolkata, India", type: "Residential", progress: 10, expected: "Oct 2024", tag: "Residential", img: "https://images.unsplash.com/photo-1706164971309-fb4785fe6ceb?w=400&h=220&fit=crop&auto=format" },
+  { name: "Horizon Heights", location: "Midnapur, West Bengal", type: "Residential", progress: 65, expected: "Aug 2024", tag: "Residential", img: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=400&h=220&fit=crop&auto=format" },
+  { name: "Blue Pearl Villa", location: "Ghatal, West Bengal", type: "Residential", progress: 40, expected: "Aug 2024", tag: "Residential", img: "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=400&h=220&fit=crop&auto=format" },
+  { name: "Central Business Hub", location: "Kharagpur, West Bengal", type: "Commercial", progress: 30, expected: "Aug 2024", tag: "Commercial", img: "https://images.unsplash.com/photo-1783705094622-f2c01a9787b5?w=400&h=220&fit=crop&auto=format" },
+  { name: "Lakewood Residency", location: "Midnapur, West Bengal", type: "Residential", progress: 55, expected: "Sep 2024", tag: "Residential", img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&h=220&fit=crop&auto=format" },
+  { name: "Pinnacle Towers", location: "Kharagpur, West Bengal", type: "Commercial", progress: 20, expected: "Sep 2024", tag: "Commercial", img: "https://images.unsplash.com/photo-1760246964044-1384f71665b9?w=400&h=220&fit=crop&auto=format" },
+  { name: "Palm Crest Bungalow", location: "Salboni, West Bengal", type: "Residential", progress: 10, expected: "Oct 2024", tag: "Residential", img: "https://images.unsplash.com/photo-1706164971309-fb4785fe6ceb?w=400&h=220&fit=crop&auto=format" },
 ]
 
 const tabs = ["All", "Residential", "Commercial"] as const

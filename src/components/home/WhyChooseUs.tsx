@@ -1,25 +1,33 @@
+import { Building2, CalendarClock, Users, ShieldCheck } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import SectionTitle from "@/components/ui/SectionTitle"
 
 const stats = [
-  { num: "250+", label: "Projects Completed", icon: <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="13" cy="12" r="5" stroke="#1a2744" strokeWidth="1.6"/><circle cx="23" cy="12" r="5" stroke="#1a2744" strokeWidth="1.6"/><path d="M4 31c0-5 4-9 9-9M14 31c0-5 4-9 9-9" stroke="#1a2744" strokeWidth="1.6" strokeLinecap="round"/></svg> },
-  { num: "15+", label: "Years of Experience", icon: <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M7 33V16l11-9 11 9v17" stroke="#1a2744" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/><rect x="13" y="22" width="10" height="11" rx="0.5" stroke="#1a2744" strokeWidth="1.5"/><path d="M7 20l11-8 11 8" stroke="#FF5E00" strokeWidth="1.7" strokeLinecap="round"/></svg> },
-  { num: "200+", label: "Happy Clients", icon: <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="13" cy="12" r="5" stroke="#1a2744" strokeWidth="1.6"/><circle cx="23" cy="12" r="5" stroke="#1a2744" strokeWidth="1.6"/><path d="M4 31c0-5 4-9 9-9M14 31c0-5 4-9 9-9" stroke="#1a2744" strokeWidth="1.6" strokeLinecap="round"/><path d="M25 22l2.5 2.5L33 19" stroke="#FF5E00" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-  { num: "100%", label: "Quality Assurance", icon: <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 4l3 8h8l-6.5 4.7 2.5 8L18 20.2l-7 4.5 2.5-8L7 12h8L18 4z" stroke="#1a2744" strokeWidth="1.6" strokeLinejoin="round"/></svg> },
+  { num: "250+", label: "Projects delivered", sub: "Across Paschim Midnapur & India", Icon: Building2 },
+  { num: "15+", label: "Years of experience", sub: "Since 2010, without a lapsed site", Icon: CalendarClock },
+  { num: "200+", label: "Happy clients", sub: "4.9/5 average client rating", Icon: Users },
+  { num: "100%", label: "Quality assurance", sub: "Engineer-supervised, ISI-grade material", Icon: ShieldCheck },
 ]
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-10 border-t border-b" style={{ background: "#fff", borderColor: "#f0f0f0" }}>
+    <section className="border-t border-b py-16" style={{ background: "#fff", borderColor: "#f0f0f0" }}>
       <div className={SITE_CONTAINER}>
-        <SectionTitle title="WHY CHOOSE US" />
-        <div className="grid grid-cols-2 md:grid-cols-4">
-          {stats.map((s) => (
-            <div key={s.label} className="stat-item flex items-center gap-4 px-6 py-4">
-              {s.icon}
+        <SectionTitle
+          eyebrow="Why choose us"
+          title="A TRACK RECORD YOU CAN AUDIT"
+          subtitle="We publish the numbers because they hold up. Fixed timelines, transparent costing and engineer-supervised quality control on every site we run."
+        />
+        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-slate-100 bg-slate-100 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map(({ num, label, sub, Icon }) => (
+            <div key={label} className="stat-item flex items-start gap-4 bg-white px-6 py-7">
+              <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-orange-50 text-orange-500">
+                <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
+              </span>
               <div>
-                <div className="montserrat font-900 text-2xl" style={{ color: "#FF5E00" }}>{s.num}</div>
-                <div className="text-sm text-gray-500">{s.label}</div>
+                <div className="montserrat font-900 text-3xl leading-none" style={{ color: "#FF5E00" }}>{num}</div>
+                <div className="montserrat font-700 mt-1.5 text-sm" style={{ color: "#1a2744" }}>{label}</div>
+                <div className="mt-0.5 text-[12px] leading-relaxed text-slate-400">{sub}</div>
               </div>
             </div>
           ))}

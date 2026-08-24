@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom"
+import { MapPin, Phone, Mail, ArrowRight } from "lucide-react"
+import { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon } from "@/components/ui/SocialIcons"
 import v4Logo from "@/imports/V4.png"
 import { SITE_CONTAINER } from "./constants"
 
@@ -119,52 +121,93 @@ export default function Footer() {
         </svg>
       </div>
 
-      <div className={`${SITE_CONTAINER} relative z-10 py-12 grid md:grid-cols-4 gap-10`}>
-        <div>
-          <div className="flex items-center gap-2.5 mb-4">
-            <img src={v4Logo} alt="Logo" className="w-[52px] h-[52px] object-contain rounded opacity-90" />
+      <div className={`${SITE_CONTAINER} relative z-10 grid gap-12 py-20 md:grid-cols-4 md:gap-10 lg:py-24`}>
+        <div className="md:pr-4">
+          <div className="mb-5 flex items-center gap-2.5">
+            <img src={v4Logo} alt="Reena Designs & Constructions logo" className="h-[52px] w-[52px] rounded object-contain opacity-90" />
             <div>
               <div className="montserrat font-900 text-sm text-white">REENA</div>
               <div className="text-white/40" style={{ fontSize: "9px", letterSpacing: "0.07em" }}>DESIGNS &amp; CONSTRUCTIONS</div>
             </div>
           </div>
-          <p className="text-white/45 text-xs leading-relaxed mb-5">We provide end-to-end building solutions that bring your vision to life with quality, integrity and trust.</p>
+          <p className="mb-6 text-xs leading-6 text-white/45">
+            A design-led construction company based in Midnapur, Paschim Midnapur, delivering turnkey construction,
+            architecture, interiors and renovation. 250+ projects completed over 15+ years — every one
+            handed over to the approved drawing, on the date we committed to.
+          </p>
           <div className="flex gap-2.5">
-            {["f", "ig", "in", "yt"].map((s) => (
-              <a key={s} href="#" className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.15)" }}>
-                <span className="text-white/50 font-700" style={{ fontSize: "10px" }}>{s}</span>
+            {[
+              { label: "Facebook", Icon: FacebookIcon },
+              { label: "Instagram", Icon: InstagramIcon },
+              { label: "LinkedIn", Icon: LinkedinIcon },
+              { label: "YouTube", Icon: YoutubeIcon },
+            ].map(({ label, Icon }) => (
+              <a
+                key={label}
+                href="#"
+                aria-label={`Reena Designs & Constructions on ${label}`}
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-white/50 transition duration-300 hover:bg-orange-500 hover:text-white"
+                style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.15)" }}
+              >
+                <Icon size={15} />
               </a>
             ))}
           </div>
         </div>
+
         <div>
-          <h4 className="montserrat font-800 text-xs tracking-widest text-white uppercase mb-5">Quick Links</h4>
+          <h4 className="montserrat font-800 mb-6 text-xs uppercase tracking-widest text-white">Quick Links</h4>
           {[["Home", "/"], ["About Us", "/about"], ["Services", "/services"], ["Our Work", "/our-work"], ["Contact Us", "/contact"]].map(([l, h]) => (
-            <Link key={l} to={h} className="block text-white/45 text-xs mb-3 hover:text-white/80 transition-colors">{l}</Link>
+            <Link key={l} to={h} className="group mb-3.5 flex items-center gap-1.5 text-xs text-white/45 transition-colors hover:text-white/85">
+              <ArrowRight size={11} strokeWidth={2.2} className="text-orange-500/0 transition-all duration-300 group-hover:text-orange-500" aria-hidden="true" />
+              {l}
+            </Link>
           ))}
         </div>
+
         <div>
-          <h4 className="montserrat font-800 text-xs tracking-widest text-white uppercase mb-5">Services</h4>
-          {["Building Construction", "Architectural Design", "Interior Design", "Renovation & Remodeling", "Turnkey Solutions"].map((l) => (
-            <a key={l} href="#" className="block text-white/45 text-xs mb-3 hover:text-white/80 transition-colors">{l}</a>
-          ))}
-        </div>
-        <div>
-          <h4 className="montserrat font-800 text-xs tracking-widest text-white uppercase mb-5">Contact Info</h4>
+          <h4 className="montserrat font-800 mb-6 text-xs uppercase tracking-widest text-white">Services</h4>
           {[
-            { icon: "📍", text: "123, Construction Street, Kolkata, India" },
-            { icon: "📞", text: "+91 98765 43210" },
-            { icon: "✉️", text: "info@reenabuild.com" },
-          ].map((item) => (
-            <div key={item.text} className="flex items-start gap-2 mb-3">
-              <span style={{ fontSize: "12px" }}>{item.icon}</span>
-              <span className="text-white/45 text-xs leading-relaxed">{item.text}</span>
+            ["Building Construction", "/services"],
+            ["Architectural Design", "/services"],
+            ["Interior Design", "/our-work/interior/residential"],
+            ["Renovation & Remodeling", "/our-work/renovation"],
+            ["Turnkey Solutions", "/contact"],
+          ].map(([l, h]) => (
+            <Link key={l} to={h} className="group mb-3.5 flex items-center gap-1.5 text-xs text-white/45 transition-colors hover:text-white/85">
+              <ArrowRight size={11} strokeWidth={2.2} className="text-orange-500/0 transition-all duration-300 group-hover:text-orange-500" aria-hidden="true" />
+              {l}
+            </Link>
+          ))}
+        </div>
+
+        <div>
+          <h4 className="montserrat font-800 mb-6 text-xs uppercase tracking-widest text-white">Contact Info</h4>
+          {[
+            { Icon: MapPin, text: "Midnapur, Paschim Midnapur, West Bengal 721101, India", href: null },
+            { Icon: Phone, text: "+91 98765 43210", href: "tel:+919876543210" },
+            { Icon: Mail, text: "info@reenabuild.com", href: "mailto:info@reenabuild.com" },
+          ].map(({ Icon, text, href }) => (
+            <div key={text} className="mb-4 flex items-start gap-2.5">
+              <Icon size={14} strokeWidth={1.9} className="mt-0.5 flex-none text-orange-500" aria-hidden="true" />
+              {href ? (
+                <a href={href} className="text-xs leading-relaxed text-white/45 transition-colors hover:text-white/85">{text}</a>
+              ) : (
+                <span className="text-xs leading-relaxed text-white/45">{text}</span>
+              )}
             </div>
           ))}
+          <div className="mt-6 rounded-xl px-4 py-3.5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }}>
+            <div className="montserrat font-700 text-[10px] uppercase tracking-[0.2em] text-orange-400">Office hours</div>
+            <div className="mt-1.5 text-xs text-white/50">Mon – Sat · 9:30 AM – 7:00 PM</div>
+          </div>
         </div>
       </div>
-      <div className="border-t py-5 text-center" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
-        <span className="text-white/30 text-xs">© 2024 Reena Designs & Constructions. All Rights Reserved.</span>
+
+      <div className="relative z-10 border-t py-6 text-center" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+        <span className="text-xs text-white/30">
+          © {new Date().getFullYear()} Reena Designs &amp; Constructions. All Rights Reserved.
+        </span>
       </div>
     </footer>
   )
