@@ -11,6 +11,7 @@ import {
   renoImgs,
   beforeAfterImgs,
 } from "@/data/galleryData"
+import pressMics from "@/imports/testimonials-press-mics.jpg"
 
 /**
  * The gallery index.
@@ -64,6 +65,12 @@ const GALLERIES = [
     href: "/our-work/before-after",
     img: beforeAfterImgs[0],
   },
+  {
+    label: "Client Testimonials",
+    blurb: "What 200+ clients said after handover.",
+    href: "/our-work/testimonials",
+    img: pressMics,
+  },
 ] as const
 
 /** A section heading, matching About, Services and Contact. */
@@ -100,8 +107,7 @@ export default function OurWork() {
       </section>
 
       {/* Full-bleed and divided by hairline seams, the ledger used across the
-          site. The eighth cell is deliberately not a photograph: testimonials
-          are not a gallery, and giving them a cover would have implied one. */}
+          site. Eight covers fill the four-column grid exactly. */}
       <div className="grid gap-px border-y border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-4">
         {GALLERIES.map(({ label, blurb, href, img }) => (
           <Link
@@ -138,26 +144,6 @@ export default function OurWork() {
           </Link>
         ))}
 
-        <Link
-          to="/our-work/testimonials"
-          className="group relative flex aspect-[4/3] flex-col justify-end p-6 transition-colors duration-300"
-          style={{ background: "linear-gradient(160deg, #1a2744 0%, #24365c 60%, #1e2d4e 100%)" }}
-        >
-          <span
-            className="h-0.5 w-9 rounded-full bg-brand transition-all duration-500 group-hover:w-14"
-            aria-hidden="true"
-          />
-          <h3 className="montserrat font-800 mt-3.5 text-[15px] leading-snug text-white">
-            Client Testimonials
-          </h3>
-          <p className="mt-1.5 text-[12.5px] leading-relaxed text-white/65">
-            What 200+ clients said after handover.
-          </p>
-          <span className="montserrat font-700 mt-3 inline-flex items-center gap-1 text-[12px] text-orange-300 transition duration-500 md:translate-y-1 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
-            Read them
-            <ArrowUpRight size={13} strokeWidth={2.4} aria-hidden="true" />
-          </span>
-        </Link>
       </div>
     </PageWrapper>
   )
