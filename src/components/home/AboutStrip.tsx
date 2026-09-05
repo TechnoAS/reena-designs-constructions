@@ -1,21 +1,18 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, BadgeCheck, HardHat, Ruler } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import drawingImg from "@/imports/about-drawing-to-interior.jpg"
 
 const PILLARS = [
   {
-    Icon: Ruler,
     title: "Design-led",
     copy: "Architecture and interiors resolved before a single brick is laid.",
   },
   {
-    Icon: HardHat,
     title: "Self-executed",
     copy: "Our own site engineers and crews — no subcontracted guesswork.",
   },
   {
-    Icon: BadgeCheck,
     title: "Accountable",
     copy: "Fixed-cost contracts, staged billing and a written handover date.",
   },
@@ -92,15 +89,10 @@ export default function AboutStrip() {
 
           {/* 3 Pillars in a clean, uncluttered layout */}
           <ul className="mt-8 space-y-4">
-            {PILLARS.map(({ Icon, title, copy }) => (
-              <li key={title} className="flex items-start gap-3.5">
-                <span className="mt-0.5 inline-flex h-8 w-8 flex-none items-center justify-center rounded-lg bg-orange-50 text-orange-600">
-                  <Icon size={16} strokeWidth={2} aria-hidden="true" />
-                </span>
-                <div>
-                  <div className="montserrat font-700 text-sm text-navy">{title}</div>
-                  <div className="text-[13px] leading-relaxed text-slate-500">{copy}</div>
-                </div>
+            {PILLARS.map(({ title, copy }) => (
+              <li key={title}>
+                <div className="montserrat font-700 text-sm text-navy">{title}</div>
+                <div className="mt-0.5 text-[13px] leading-relaxed text-slate-500">{copy}</div>
               </li>
             ))}
           </ul>

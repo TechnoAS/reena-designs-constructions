@@ -27,24 +27,26 @@ export default function PageHeader({ title, crumbs, backdrop = false }: PageHead
   return (
     <div
       className="relative isolate overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #111a2e 0%, #1a2744 55%, #16223c 100%)" }}
+      style={{ background: "linear-gradient(160deg, #1a2744 0%, #24365c 55%, #1e2d4e 100%)" }}
     >
       {/*
-        The skyline rises out of the band rather than sitting in it: anchored to
-        the bottom edge and masked to transparent going up, so the crop across
-        the crane tops never shows as a hard line. The artwork's own sunset does
-        the lighting — there is no separate glow behind it.
+        The artwork is a wide silhouette strip, so it sits along the bottom at
+        its own aspect ratio rather than being stretched to cover the band —
+        `object-cover` would crop the machinery out of a strip this shallow.
+        Only its upper edge is masked, which softens the cut across the building
+        tops into the navy instead of leaving a hard orange line. The artwork's
+        own sunset does the lighting; there is no separate glow behind it.
       */}
       <img
         src={skyline}
         alt=""
         aria-hidden="true"
-        width={1920}
-        height={768}
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-full w-full select-none object-cover object-bottom"
+        width={1983}
+        height={192}
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-auto w-full select-none"
         style={{
-          maskImage: "linear-gradient(to top, #000 0%, #000 30%, transparent 92%)",
-          WebkitMaskImage: "linear-gradient(to top, #000 0%, #000 30%, transparent 92%)",
+          maskImage: "linear-gradient(to top, #000 0%, #000 62%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to top, #000 0%, #000 62%, transparent 100%)",
         }}
       />
 
@@ -58,12 +60,12 @@ export default function PageHeader({ title, crumbs, backdrop = false }: PageHead
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(to right, #0d1527 0%, rgba(13,21,39,0.82) 35%, rgba(13,21,39,0.25) 70%, transparent 100%)",
+            "linear-gradient(to right, rgba(26,39,68,0.99) 0%, rgba(26,39,68,0.92) 26%, rgba(26,39,68,0.62) 55%, rgba(26,39,68,0.24) 80%, transparent 100%)",
         }}
         aria-hidden="true"
       />
 
-      <div className={`${SITE_CONTAINER} relative py-16 md:py-20 lg:py-24`}>
+      <div className={`${SITE_CONTAINER} relative py-10 md:py-12 lg:py-14`}>
         <Breadcrumb items={crumbs} onDark />
         <h1 className="montserrat font-900 text-3xl text-white md:text-4xl lg:text-5xl">{title}</h1>
       </div>

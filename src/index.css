@@ -156,8 +156,10 @@ img {
   /* Form field. Replaces six copies of an onFocus/onBlur handler that mutated
      `e.target.style.borderColor` by hand — CSS already does this, and the
      inline version skipped keyboard users' focus-visible ring entirely. */
+  /* Square, to sit with the square button system. Used only by the contact
+     form, so the shape change is contained to that page. */
   .field {
-    @apply w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-slate-700 outline-none transition;
+    @apply w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition;
   }
   .field:focus {
     @apply border-brand ring-2 ring-orange-500/20;

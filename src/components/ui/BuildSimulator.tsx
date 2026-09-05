@@ -4,17 +4,12 @@ import BuildScene from "./BuildScene"
 import { STAGES, PHASE_META } from "@/data/buildStages"
 
 const TOTAL = STAGES.length
-const TICK = 2600
+const TICK = 2800
 
 /**
  * Interactive build simulator.
- *
- * Replaces the earlier step list, which named the nineteen steps without ever
- * showing what happens in them. Here the drawing *is* the explanation: the plot
- * is surveyed, the design is ghosted in, the foundation goes down, the frame
- * rises behind scaffolding, services thread through the walls, the shell is
- * finished and furnished, and the keys are handed over — with the crane leaving
- * when its work is done.
+ * Redesigned in the precision architectural design language of Reena Designs & Constructions:
+ * clean technical framing, executive client deliverables, and an interactive CAD timeline.
  */
 export default function BuildSimulator() {
   const [step, setStep] = useState(1)
@@ -25,7 +20,7 @@ export default function BuildSimulator() {
   const phase = PHASE_META[stage.phase - 1]
   const pct = Math.round((step / TOTAL) * 100)
 
-  // Never autoplay for visitors who have asked for reduced motion.
+  // Respect user preference for reduced motion
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPlaying(false)
   }, [])
@@ -38,7 +33,7 @@ export default function BuildSimulator() {
     }
   }, [playing])
 
-  // Any manual move takes over from the autoplay.
+  // Manual navigation pauses auto-play
   const goTo = useCallback((n: number) => {
     setPlaying(false)
     setStep(Math.min(Math.max(n, 1), TOTAL))
@@ -46,157 +41,206 @@ export default function BuildSimulator() {
 
   return (
     <div
-      className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5"
+      className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 transition-all"
       onKeyDown={(e) => {
         if (e.key === "ArrowRight") goTo(step + 1)
         if (e.key === "ArrowLeft") goTo(step - 1)
       }}
       tabIndex={0}
       role="group"
-      aria-label="Interactive build process"
+      aria-label="Interactive build process simulator"
     >
-      <div className="grid lg:grid-cols-[1.35fr_1fr]">
-        {/* ── Scene ──────────────────────────────────────────── */}
-        <div className="relative border-b border-slate-200 p-5 lg:border-b-0 lg:border-r lg:p-7">
-          <BuildScene step={step} />
-
-          {/* Phase badge over the drawing */}
-          <div className="pointer-events-none absolute left-8 top-8 flex items-center gap-2">
-            <span
-              className="montserrat font-800 rounded-lg px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white bg-brand"
-            >
-              {phase.tag}
-            </span>
-            <span className="montserrat font-700 rounded-lg bg-white/85 px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-slate-600 backdrop-blur-sm">
-              {phase.name}
-            </span>
-          </div>
+      {/* ── Architectural Viewport Top Bar ─────────────────────── */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-surface px-5 py-3.5 sm:px-7">
+        <div className="flex items-center gap-3">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-orange-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-brand border border-orange-200/60">
+            {phase.tag}
+          </span>
+          <span className="hidden text-slate-300 sm:inline">|</span>
+          <span className="montserrat font-700 text-xs tracking-wider text-navy uppercase">
+            {phase.name}
+          </span>
         </div>
 
-        {/* ── Readout ────────────────────────────────────────── */}
-        <div className="flex flex-col p-7 lg:p-9">
-          <div className="flex items-baseline gap-2">
-            <span className="montserrat font-900 text-5xl leading-none text-brand">
-              {String(step).padStart(2, "0")}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <span className={`h-2 w-2 rounded-full ${playing ? "bg-emerald-500 animate-pulse" : "bg-slate-300"}`} />
+            <span className="font-mono text-[11px] font-semibold text-slate-500">
+              {playing ? "SIMULATION ACTIVE" : "PAUSED"}
             </span>
-            <span className="montserrat font-700 text-sm text-slate-300">/ {TOTAL}</span>
+          </div>
+          <span className="rounded bg-slate-200/70 px-2 py-0.5 font-mono text-[11px] font-bold text-navy">
+            {String(step).padStart(2, "0")} / {TOTAL}
+          </span>
+        </div>
+      </div>
+
+      {/* ── Main View: Scene & Readout ─────────────────────────── */}
+      <div className="grid lg:grid-cols-[1.38fr_1fr]">
+        {/* Scene Viewport */}
+        <div className="relative flex items-center justify-center border-b border-slate-200 bg-slate-50/40 p-4 sm:p-6 lg:border-b-0 lg:border-r lg:p-8">
+          <BuildScene step={step} />
+        </div>
+
+        {/* Readout Column */}
+        <div className="flex flex-col justify-between p-6 sm:p-8 lg:p-9">
+          <div>
+            {/* Stage Counter & Kicker */}
+            <div className="flex items-center gap-2">
+              <span className="h-0.5 w-6 rounded-full bg-brand" aria-hidden="true" />
+              <span className="montserrat font-700 text-[10.5px] uppercase tracking-[0.22em] text-brand">
+                Stage {String(step).padStart(2, "0")} of {TOTAL}
+              </span>
+            </div>
+
+            {/* Stage Title */}
+            <h3 className="montserrat font-800 mt-2.5 text-2xl leading-tight text-navy" aria-live="polite">
+              {stage.label}
+            </h3>
+
+            {/* Stage Description */}
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              {stage.blurb}
+            </p>
+
+            {/* Client Deliverable Assurance Card */}
+            <div className="mt-6 rounded-xl border border-slate-200/90 bg-slate-50/80 p-4.5 transition-all">
+              <div className="flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-brand">
+                <Check size={13} strokeWidth={2.8} aria-hidden="true" />
+                <span>Client Deliverable</span>
+              </div>
+              <p className="mt-1 text-[13.5px] font-medium leading-relaxed text-navy">
+                {stage.gain}
+              </p>
+            </div>
+
+            {/* Overall Progress Gauge */}
+            <div className="mt-6">
+              <div className="mb-2 flex items-center justify-between text-xs font-semibold">
+                <span className="text-slate-400">Total Project Progress</span>
+                <span className="montserrat font-800 text-brand">{pct}%</span>
+              </div>
+              <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                <div
+                  className="h-full rounded-full transition-[width] duration-500 ease-out"
+                  style={{
+                    width: `${pct}%`,
+                    background: "linear-gradient(90deg, #FF7A2F, #FF5E00)",
+                  }}
+                />
+              </div>
+            </div>
           </div>
 
-          <h3 className="montserrat font-800 mt-4 text-xl leading-snug text-navy" aria-live="polite">
-            {stage.label}
-          </h3>
+          {/* Controls Bar */}
+          <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-5">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setPlaying((p) => !p)}
+                aria-label={playing ? "Pause simulation" : "Play simulation"}
+                className="btn-orange montserrat font-700 inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs text-white shadow-xs transition-all active:scale-95"
+              >
+                {playing ? <Pause size={13} strokeWidth={2.5} /> : <Play size={13} strokeWidth={2.5} />}
+                {playing ? "Pause" : "Play"}
+              </button>
 
-          <p className="mt-3 text-[13.5px] leading-7 text-slate-500">{stage.blurb}</p>
-
-          <div className="mt-5 rounded-xl border border-orange-100 bg-orange-50/70 p-4">
-            <div className="montserrat font-800 mb-1.5 flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-orange-600">
-              <Check size={12} strokeWidth={3} aria-hidden="true" />
-              What you get
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => goTo(step - 1)}
+                  disabled={step === 1}
+                  aria-label="Previous stage"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-navy transition hover:border-brand hover:text-brand disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-navy"
+                >
+                  <ChevronLeft size={16} strokeWidth={2.4} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => goTo(step + 1)}
+                  disabled={step === TOTAL}
+                  aria-label="Next stage"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-navy transition hover:border-brand hover:text-brand disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-navy"
+                >
+                  <ChevronRight size={16} strokeWidth={2.4} />
+                </button>
+              </div>
             </div>
-            <p className="text-[13px] leading-relaxed text-slate-600">{stage.gain}</p>
-          </div>
 
-          {/* Progress */}
-          <div className="mt-7">
-            <div className="mb-2 flex items-center justify-between text-[11px] font-semibold text-slate-400">
-              <span>Project completion</span>
-              <span style={{ color: "#FF5E00" }}>{pct}%</span>
-            </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
-              <div
-                className="h-full rounded-full transition-[width] duration-700 ease-out"
-                style={{ width: `${pct}%`, background: "linear-gradient(90deg,#FF8A3D,#FF5E00)" }}
-              />
-            </div>
-          </div>
-
-          {/* Controls */}
-          <div className="mt-6 flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setPlaying((p) => !p)}
-              aria-label={playing ? "Pause the build" : "Play the build"}
-              className="montserrat font-700 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[12px] text-white transition hover:opacity-90"
-              style={{ background: "#1a2744" }}
-            >
-              {playing ? <Pause size={13} strokeWidth={2.4} /> : <Play size={13} strokeWidth={2.4} />}
-              {playing ? "Pause" : "Play"}
-            </button>
-            <button
-              type="button"
-              onClick={() => goTo(step - 1)}
-              disabled={step === 1}
-              aria-label="Previous step"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-orange-300 hover:text-orange-600 disabled:opacity-35"
-            >
-              <ChevronLeft size={15} strokeWidth={2.4} />
-            </button>
-            <button
-              type="button"
-              onClick={() => goTo(step + 1)}
-              disabled={step === TOTAL}
-              aria-label="Next step"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-orange-300 hover:text-orange-600 disabled:opacity-35"
-            >
-              <ChevronRight size={15} strokeWidth={2.4} />
-            </button>
             <button
               type="button"
               onClick={() => {
                 setStep(1)
                 setPlaying(true)
               }}
-              aria-label="Restart from step one"
-              className="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-orange-300 hover:text-orange-600"
+              title="Restart from step one"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 transition hover:text-brand"
             >
-              <RotateCcw size={14} strokeWidth={2.2} />
+              <RotateCcw size={13} strokeWidth={2.2} />
+              <span>Reset</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* ── Scrubber: all 19 steps, grouped by phase ─────────── */}
-      <div className="border-t border-slate-200 bg-slate-50/70 px-5 py-5 lg:px-7">
-        <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+      {/* ── Bottom Phase & Stage Navigator ─────────────────────── */}
+      <div className="border-t border-slate-200 bg-slate-50/60 p-4 sm:p-6">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {PHASE_META.map((p) => {
             const steps = STAGES.filter((s) => s.phase === p.n)
-            const done = steps.filter((s) => s.n < step).length
-            const active = stage.phase === p.n
+            const isCurrentPhase = stage.phase === p.n
+            const doneInPhase = steps.filter((s) => s.n < step).length
+
             return (
-              <div key={p.n} className="flex-1">
-                <div className="mb-2 flex items-center justify-between">
+              <div
+                key={p.n}
+                className={`rounded-xl border p-3.5 transition-colors ${
+                  isCurrentPhase
+                    ? "border-brand/40 bg-white shadow-xs"
+                    : "border-slate-200/80 bg-white/70 hover:border-slate-300"
+                }`}
+              >
+                {/* Phase Title Row */}
+                <div className="mb-2.5 flex items-center justify-between">
                   <span
-                    className={`montserrat font-800 text-[9.5px] uppercase tracking-[0.16em] transition-colors ${
-                      active ? "text-orange-600" : "text-slate-400"
+                    className={`montserrat font-800 text-[10px] uppercase tracking-[0.16em] ${
+                      isCurrentPhase ? "text-brand" : "text-navy"
                     }`}
                   >
-                    {p.tag} · {p.name}
+                    {p.tag}
                   </span>
-                  <span className="text-[9.5px] font-semibold text-slate-300">
-                    {done}/{steps.length}
+                  <span className="font-mono text-[9.5px] font-semibold text-slate-400">
+                    {doneInPhase}/{steps.length}
                   </span>
                 </div>
-                <div className="flex gap-1">
+
+                <div className="mb-3 text-[11px] font-semibold text-slate-600 truncate">
+                  {p.name}
+                </div>
+
+                {/* Stage Pills */}
+                <div className="flex gap-1.5">
                   {steps.map((s) => {
                     const passed = s.n < step
                     const current = s.n === step
+
                     return (
                       <button
                         key={s.n}
                         type="button"
                         onClick={() => goTo(s.n)}
-                        title={`${String(s.n).padStart(2, "0")} · ${s.label}`}
-                        aria-label={`Go to step ${s.n}: ${s.label}`}
+                        title={`Stage ${String(s.n).padStart(2, "0")}: ${s.label}`}
+                        aria-label={`Go to stage ${s.n}: ${s.label}`}
                         aria-current={current}
-                        className="group relative h-1.5 flex-1 rounded-full transition-all duration-300"
-                        style={{
-                          background: current ? "#FF5E00" : passed ? "#FFB380" : "#e2e8f0",
-                          transform: current ? "scaleY(1.9)" : undefined,
-                        }}
+                        className={`h-7 flex-1 rounded-md text-[10px] font-bold transition-all ${
+                          current
+                            ? "bg-brand text-white shadow-xs scale-105 ring-2 ring-brand/30"
+                            : passed
+                            ? "bg-orange-100/80 text-brand hover:bg-orange-200/80"
+                            : "bg-slate-100 text-slate-500 hover:bg-slate-200/80 hover:text-navy"
+                        }`}
                       >
-                        <span className="montserrat font-700 pointer-events-none absolute -top-7 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md bg-slate-900 px-2 py-1 text-[10px] text-white opacity-0 transition group-hover:opacity-100">
-                          {s.label}
-                        </span>
+                        {String(s.n).padStart(2, "0")}
                       </button>
                     )
                   })}

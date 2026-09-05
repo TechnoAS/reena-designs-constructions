@@ -15,6 +15,7 @@ import {
   LinkedinIcon,
   YoutubeIcon,
   WhatsAppIcon,
+  CHANNEL_COLORS,
 } from "@/components/ui/SocialIcons"
 import v4Logo from "@/imports/V4.png"
 import architectArt from "@/imports/architect-drawing.png"
@@ -78,11 +79,11 @@ const SERVICE_LINKS = [
 ] as const
 
 const SOCIAL_LIST = [
-  { label: "Facebook", href: "https://facebook.com/reenadesigns", Icon: FacebookIcon },
-  { label: "Instagram", href: "https://instagram.com/reenadesigns", Icon: InstagramIcon },
-  { label: "LinkedIn", href: "https://linkedin.com/company/reena-designs-constructions", Icon: LinkedinIcon },
-  { label: "YouTube", href: "https://youtube.com/@reenadesigns", Icon: YoutubeIcon },
-  { label: "WhatsApp", href: SITE.whatsappHref, Icon: WhatsAppIcon },
+  { label: "Facebook", href: "https://facebook.com/reenadesigns", Icon: FacebookIcon, colour: CHANNEL_COLORS.Facebook },
+  { label: "Instagram", href: "https://instagram.com/reenadesigns", Icon: InstagramIcon, colour: CHANNEL_COLORS.Instagram },
+  { label: "LinkedIn", href: "https://linkedin.com/company/reena-designs-constructions", Icon: LinkedinIcon, colour: CHANNEL_COLORS.LinkedIn },
+  { label: "YouTube", href: "https://youtube.com/@reenadesigns", Icon: YoutubeIcon, colour: CHANNEL_COLORS.YouTube },
+  { label: "WhatsApp", href: SITE.whatsappHref, Icon: WhatsAppIcon, colour: CHANNEL_COLORS.WhatsApp },
 ]
 
 export default function Footer({ cta }: FooterProps) {
@@ -243,14 +244,19 @@ export default function Footer({ cta }: FooterProps) {
 
             {/* Social channels */}
             <div className="flex items-center gap-2">
-              {SOCIAL_LIST.map(({ label, href, Icon }) => (
+              {/* Each mark lights up in its own brand colour rather than all
+                  five going orange — the row was previously indistinguishable
+                  on hover. The colour is handed in as a custom property so
+                  hover and keyboard focus share one definition. */}
+              {SOCIAL_LIST.map(({ label, href, Icon, colour }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noreferrer noopener"
                   aria-label={`${SITE.name} on ${label}`}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.06] text-white/55 ring-1 ring-white/10 transition duration-200 hover:bg-orange-500 hover:text-white hover:ring-orange-500 hover:-translate-y-0.5"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.06] text-white/55 ring-1 ring-white/10 transition duration-200 hover:-translate-y-0.5 hover:bg-(--c) hover:text-white hover:ring-(--c) focus-visible:bg-(--c) focus-visible:text-white focus-visible:ring-(--c)"
+                  style={{ "--c": colour } as React.CSSProperties}
                 >
                   <Icon size={14} />
                 </a>
