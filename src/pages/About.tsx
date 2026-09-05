@@ -2,6 +2,7 @@ import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
 import { SITE_CONTAINER } from "@/components/layout/constants"
+import draftingTable from "@/imports/about-drafting-table.jpg"
 
 /**
  * Team.
@@ -112,10 +113,10 @@ export default function About() {
           }}
         >
           <img
-            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&h=900&fit=crop&auto=format&q=80"
-            alt="An architect marking up a set of working drawings at a drafting table"
-            width={1400}
-            height={900}
+            src={draftingTable}
+            alt="A Reena Designs & Constructions architect drawing up a working elevation at the drafting table"
+            width={1672}
+            height={941}
             loading="lazy"
             decoding="async"
             className="h-full w-full object-cover object-center"
@@ -161,10 +162,10 @@ export default function About() {
           <div className="md:hidden">
             <div className="relative overflow-hidden py-2">
               <img
-                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1100&h=720&fit=crop&auto=format&q=80"
-                alt="An architect marking up a set of working drawings at a drafting table"
-                width={1100}
-                height={720}
+                src={draftingTable}
+                alt="A Reena Designs & Constructions architect drawing up a working elevation at the drafting table"
+                width={1672}
+                height={941}
                 loading="lazy"
                 decoding="async"
                 className="h-64 sm:h-72 w-full object-cover"

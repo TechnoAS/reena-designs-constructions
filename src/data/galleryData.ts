@@ -12,6 +12,8 @@
  * way `interiorProjects.ts` already does — those are the company's own images
  * and are the model to follow.
  */
+import draftingTable from "@/imports/about-drafting-table.jpg"
+
 const u = (id: string) => `https://images.unsplash.com/${id}?w=500&h=340&fit=crop&auto=format`
 
 export const exteriorImgs = [
@@ -33,7 +35,8 @@ export const archImgs = [
 ]
 
 export const d3Imgs = [
-  u("photo-1503387762-592deb58ef4e"),
+  // The company's own photograph rather than stock — see the note above.
+  draftingTable,
   u("photo-1487958449943-2429e8be8625"),
   u("photo-1494526585095-c41746248156"),
   u("photo-1545324418-cc1a3fa10c00"),

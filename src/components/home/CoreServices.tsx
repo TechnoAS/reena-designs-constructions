@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { ArrowUpRight } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
+import draftingTable from "@/imports/about-drafting-table.jpg"
 
 const stock = (id: string) => `https://images.unsplash.com/${id}?w=800&h=1000&fit=crop&auto=format`
 
@@ -9,8 +10,8 @@ const SERVICES = [
     title: "Building Construction",
     href: "/services",
     copy: "Structurally engineered residential and commercial builds, executed to IS-code standards with third-party tested materials.",
-    img: stock("photo-1503387762-592deb58ef4e"),
-    imgAlt: "Structural frame under construction",
+    img: draftingTable,
+    imgAlt: "A Reena Designs & Constructions architect drawing up a working elevation",
   },
   {
     title: "Architectural Design",
