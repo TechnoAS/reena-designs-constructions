@@ -1,12 +1,19 @@
 import Nav from "./Nav"
-import Footer from "./Footer"
+import Footer, { type FooterCTAProps } from "./Footer"
 
-export default function PageWrapper({ children }: { children: React.ReactNode }) {
+type PageWrapperProps = {
+  children: React.ReactNode
+  cta?: FooterCTAProps | null
+  /** Kept for backward compatibility */
+  overlapFooter?: boolean
+}
+
+export default function PageWrapper({ children, cta }: PageWrapperProps) {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="flex min-h-screen flex-col bg-white">
       <Nav />
-      <div className="pt-20">{children}</div>
-      <Footer />
+      <main className="flex-1 pt-20">{children}</main>
+      <Footer cta={cta} />
     </div>
   )
 }

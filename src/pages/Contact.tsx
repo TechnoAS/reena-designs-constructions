@@ -329,7 +329,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={sending}
-                  className="btn-orange montserrat font-700 gap-2 rounded-lg py-3.5 text-sm disabled:cursor-not-allowed disabled:opacity-60"
+                  className="btn-orange montserrat font-700 gap-2 py-3.5 text-sm disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {sending ? (
                     <>

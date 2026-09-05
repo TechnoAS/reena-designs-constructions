@@ -7,8 +7,6 @@ import CoreServices from "@/components/home/CoreServices"
 import FeaturedProjects from "@/components/home/FeaturedProjects"
 import WhyChooseUs from "@/components/home/WhyChooseUs"
 import Testimonials from "@/components/home/Testimonials"
-import CTABanner from "@/components/ui/CTABanner"
-import FAQ from "@/components/ui/FAQ"
 
 export default function Home() {
   return (
@@ -24,14 +22,14 @@ export default function Home() {
       <FeaturedProjects />
       <WhyChooseUs />
       <Testimonials />
-      <FAQ />
-      <CTABanner
-        title="LET'S BUILD SOMETHING AMAZING TOGETHER"
-        buttonText="Contact Us Today"
-        buttonHref="/contact"
-        fullWidth
+      <Footer
+        cta={{
+          title: "Let's build something amazing together.",
+          subtitle: "Free site visit, itemised quote, and a completion date in writing.",
+          buttonText: "Contact Us Today",
+          buttonHref: "/contact",
+        }}
       />
-      <Footer />
     </div>
   )
 }

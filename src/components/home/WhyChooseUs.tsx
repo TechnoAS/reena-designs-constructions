@@ -1,11 +1,10 @@
-import { Building2, CalendarClock, Users, ShieldCheck } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 
 const stats = [
-  { num: "250+", label: "Projects delivered", sub: "Across Paschim Midnapur & India", Icon: Building2 },
-  { num: "15+", label: "Years of experience", sub: "Since 2010, without a lapsed site", Icon: CalendarClock },
-  { num: "200+", label: "Happy clients", sub: "4.9/5 average client rating", Icon: Users },
-  { num: "100%", label: "Quality assurance", sub: "Engineer-supervised, ISI-grade material", Icon: ShieldCheck },
+  { num: "250+", label: "Projects delivered", sub: "Across Paschim Midnapur & India" },
+  { num: "15+", label: "Years of experience", sub: "Since 2010, without a lapsed site" },
+  { num: "200+", label: "Happy clients", sub: "4.9/5 average client rating" },
+  { num: "100%", label: "Quality assurance", sub: "Engineer-supervised, ISI-grade material" },
 ]
 
 export default function WhyChooseUs() {
@@ -29,10 +28,9 @@ export default function WhyChooseUs() {
 
         {/* Metric Spec Ledger — completely unboxed, no cards, hairline dividers */}
         <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-0 lg:divide-x divide-slate-200/80">
-          {stats.map(({ num, label, sub, Icon }) => (
+          {stats.map(({ num, label, sub }) => (
             <div key={label} className="lg:first:pl-0 lg:px-7">
-              <div className="flex items-center gap-2 mb-2">
-                <Icon size={15} className="text-brand shrink-0" strokeWidth={2.2} aria-hidden="true" />
+              <div className="mb-2">
                 <span className="montserrat font-700 text-[11px] tracking-wider uppercase text-slate-600">
                   {label}
                 </span>

@@ -7,12 +7,12 @@ import { SITE_CONTAINER } from "@/components/layout/constants"
 /**
  * Frequently asked questions.
  *
- * Beyond the accordion, this emits FAQPage structured data while mounted, which
- * is what makes the questions eligible to appear as expandable results in
- * search. The script is removed on unmount so a single page never carries the
+ * Lives on its own /faq route, linked from the footer of every page. Beyond
+ * the accordion, this emits FAQPage structured data while mounted, which is
+ * what makes the questions eligible to appear as expandable results in search. The script is removed on unmount so a single page never carries the
  * markup for content it is no longer showing.
  */
-export default function FAQ() {
+export default function FAQ({ showLabel = true }: { showLabel?: boolean } = {}) {
   const [open, setOpen] = useState<number | null>(0)
 
   useEffect(() => {
@@ -48,11 +48,15 @@ export default function FAQ() {
       <div className={`${SITE_CONTAINER} relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr]`}>
         {/* ── Heading ─────────────────────────────────────────── */}
         <div className="lg:sticky lg:top-28 lg:self-start">
-          <div className="montserrat font-800 mb-4 flex items-center gap-3 text-[13px] uppercase tracking-[0.2em] text-brand">
-            <MessageCircleQuestion size={17} strokeWidth={2.2} aria-hidden="true" />
-            Frequently Asked Questions
-            <span className="h-px flex-1 bg-gradient-to-r from-orange-400 to-transparent" />
-          </div>
+          {/* Hidden on the dedicated FAQ page, whose <h1> already reads
+              "Frequently Asked Questions". */}
+          {showLabel && (
+            <div className="montserrat font-800 mb-4 flex items-center gap-3 text-[13px] uppercase tracking-[0.2em] text-brand">
+              <MessageCircleQuestion size={17} strokeWidth={2.2} aria-hidden="true" />
+              Frequently Asked Questions
+              <span className="h-px flex-1 bg-gradient-to-r from-orange-400 to-transparent" />
+            </div>
+          )}
 
           <h2 className="montserrat font-800 text-2xl leading-snug md:text-3xl text-navy">
             The questions we get asked before every build

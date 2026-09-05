@@ -29,6 +29,7 @@ const InteriorResidential = lazy(() => import("./pages/InteriorResidential"))
 const InteriorCommercial = lazy(() => import("./pages/InteriorCommercial"))
 const TestimonialsPage = lazy(() => import("./pages/TestimonialsPage"))
 const Contact = lazy(() => import("./pages/Contact"))
+const Faq = lazy(() => import("./pages/Faq"))
 const Privacy = lazy(() => import("./pages/Privacy"))
 const Cookies = lazy(() => import("./pages/Cookies"))
 const NotFound = lazy(() => import("./pages/NotFound"))
@@ -102,6 +103,7 @@ export default function App() {
 
           <Route path="/our-work/testimonials" element={<TestimonialsPage />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="*" element={<NotFound />} />

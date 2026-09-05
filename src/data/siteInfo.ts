@@ -16,6 +16,8 @@ export const SITE = {
   phones: ["+91 98765 43210", "+91 98765 43211"],
   /** E.164 for tel: links — no spaces, no punctuation. */
   phoneHref: "tel:+919876543210",
+  whatsappNumber: "+91 98765 43210",
+  whatsappHref: "https://wa.me/919876543210?text=Hello%20Reena%20Designs%2C%20I%20would%20like%20to%20inquire%20about%20a%20construction%20or%20interior%20project.",
   hours: "Mon – Sat · 9:30 AM – 7:00 PM",
   address: {
     street: "Midnapur",
@@ -30,18 +32,12 @@ export const SITE = {
 
 /**
  * Social profiles.
- *
- * `url` is deliberately empty until a real profile exists: an anchor with
- * `href="#"` is a dead link that pushes a bare `#` onto the router's history,
- * and search engines read it as a broken outbound link. Renderers filter on
- * `url`, so an unset profile simply does not appear. Fill one in and it shows
- * up — no other change needed.
  */
 export const SOCIAL_LINKS: { label: string; url: string }[] = [
-  { label: "Facebook", url: "" },
-  { label: "Instagram", url: "" },
-  { label: "LinkedIn", url: "" },
-  { label: "YouTube", url: "" },
+  { label: "Facebook", url: "https://facebook.com/reenadesigns" },
+  { label: "Instagram", url: "https://instagram.com/reenadesigns" },
+  { label: "LinkedIn", url: "https://linkedin.com/company/reena-designs-constructions" },
+  { label: "YouTube", url: "https://youtube.com/@reenadesigns" },
 ]
 
 /** Only the profiles that have actually been published. */

@@ -15,7 +15,14 @@ interface BreadcrumbItem {
  * search result shows the bare URL rather than the readable
  * "Home › Our Work › Interior Design" trail.
  */
-export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
+export default function Breadcrumb({
+  items,
+  onDark = false,
+}: {
+  items: BreadcrumbItem[]
+  /** Inverts the palette for a trail sitting on a dark header. */
+  onDark?: boolean
+}) {
   useEffect(() => {
     if (items.length < 2) return
 
@@ -36,20 +43,32 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
   }, [items])
 
   return (
-    <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-sm text-slate-400">
+    <nav
+      aria-label="Breadcrumb"
+      className={`mb-6 flex items-center gap-2 text-sm ${onDark ? "text-white/35" : "text-slate-400"}`}
+    >
       {items.map((item, i) => {
         const isLast = i === items.length - 1
         return (
           <span key={`${item.label}-${i}`} className="flex items-center gap-2">
             {i > 0 && <span aria-hidden="true">/</span>}
             {item.href && !isLast ? (
-              <Link to={item.href} className="text-slate-600 hover:underline">
+              <Link
+                to={item.href}
+                className={`hover:underline ${onDark ? "text-white/70" : "text-slate-600"}`}
+              >
                 {item.label}
               </Link>
             ) : (
               <span
                 aria-current={isLast ? "page" : undefined}
-                className={isLast ? "font-600 text-navy" : "text-slate-600"}
+                className={
+                  isLast
+                    ? `font-600 ${onDark ? "text-white" : "text-navy"}`
+                    : onDark
+                      ? "text-white/70"
+                      : "text-slate-600"
+                }
               >
                 {item.label}
               </span>

@@ -1,247 +1,417 @@
 import { Link } from "react-router-dom"
-import { MapPin, Phone, Mail, ArrowRight } from "lucide-react"
-import { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon } from "@/components/ui/SocialIcons"
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  ArrowUpRight,
+  ArrowUp,
+  ArrowRight,
+  ShieldCheck,
+} from "lucide-react"
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  YoutubeIcon,
+  WhatsAppIcon,
+} from "@/components/ui/SocialIcons"
 import v4Logo from "@/imports/V4.png"
+import architectArt from "@/imports/architect-drawing.png"
 import { SITE_CONTAINER } from "./constants"
-import { SITE, ACTIVE_SOCIAL_LINKS } from "@/data/siteInfo"
+import { SITE } from "@/data/siteInfo"
 
-const SOCIAL_ICONS = {
-  Facebook: FacebookIcon,
-  Instagram: InstagramIcon,
-  LinkedIn: LinkedinIcon,
-  YouTube: YoutubeIcon,
-} as const
+export interface FooterCTAProps {
+  title: string
+  subtitle?: string
+  buttonText: string
+  buttonHref: string
+  badgeText?: string
+}
 
-export default function Footer() {
+export interface FooterProps {
+  cta?: FooterCTAProps | null
+  overlapped?: boolean
+}
+
+const STATS = [
+  { value: "250+", label: "Delivered" },
+  { value: "15+", label: "Years Experience" },
+  { value: "4.9/5", label: "Client Rating" },
+] as const
+
+/**
+ * A drafting registration mark, the kind that sits outside the trim on a
+ * printed drawing. Four of them frame the CTA button so it reads as a detail
+ * called out on a plan rather than a plain web button — the same language as
+ * the blueprint grid behind the footer.
+ */
+function CropMark({ position }: { position: string }) {
   return (
-    <footer className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #111a2e 0%, #1a2744 100%)" }}>
-      {/* Vector Line Drawing Blueprint Background */}
-      <div className="absolute inset-0 pointer-events-none select-none opacity-[0.35]">
-        <svg className="w-full h-full" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <pattern id="blueprint-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" strokeWidth="0.8" opacity="0.3" />
-              <path d="M 10 0 L 10 40 M 20 0 L 20 40 M 30 0 L 30 40 M 0 10 L 40 10 M 0 20 L 40 20 M 0 30 L 40 30" fill="none" stroke="#ffffff" strokeWidth="0.5" opacity="0.12" />
-            </pattern>
-          </defs>
-          
-          {/* Grid Background */}
-          <rect width="100%" height="100%" fill="url(#blueprint-grid)" />
-          
-          {/* Left Side: Truss Structure & Construction Elevation */}
-          <g transform="translate(60, 40)">
-            {/* Ground & Foundation lines */}
-            <line x1="0" y1="200" x2="350" y2="200" stroke="#ffffff" strokeWidth="1" opacity="0.4" />
-            <line x1="0" y1="220" x2="350" y2="220" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="4,4" opacity="0.3" />
-            
-            {/* Building Frame */}
-            <rect x="30" y="80" width="80" height="120" stroke="#ffffff" strokeWidth="1" opacity="0.4" />
-            <rect x="150" y="50" width="120" height="150" stroke="#ffffff" strokeWidth="1" opacity="0.4" />
-            
-            {/* Diagonal Structural Bracing (Truss-like) */}
-            <path d="M 30 80 L 110 200 M 110 80 L 30 200" stroke="#ffffff" strokeWidth="0.8" opacity="0.3" />
-            <path d="M 150 50 L 270 200 M 270 50 L 150 200" stroke="#ffffff" strokeWidth="0.8" opacity="0.3" />
-            
-            {/* Roof Truss Detail */}
-            <path d="M 20 80 L 70 40 L 120 80 Z" stroke="#ffffff" strokeWidth="1" opacity="0.5" />
-            <line x1="70" y1="40" x2="70" y2="80" stroke="#ffffff" strokeWidth="0.8" opacity="0.4" />
-            <line x1="45" y1="60" x2="45" y2="80" stroke="#ffffff" strokeWidth="0.8" opacity="0.3" />
-            <line x1="95" y1="60" x2="95" y2="80" stroke="#ffffff" strokeWidth="0.8" opacity="0.3" />
-            
-            {/* Dimension Lines */}
-            <line x1="30" y1="235" x2="270" y2="235" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
-            <path d="M 30 231 L 30 239 M 270 231 L 270 239" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
-            <path d="M 30 235 L 35 231 M 30 235 L 35 239 M 270 235 L 265 231 M 270 235 L 265 239" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
-            <text x="150" y="230" fill="#ffffff" fontSize="9" fontFamily="monospace" textAnchor="middle" opacity="0.7">24.00 m</text>
-            
-            {/* Elevation Dimension (Vertical) */}
-            <line x1="295" y1="50" x2="295" y2="200" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
-            <path d="M 291 50 L 299 50 M 291 200 L 299 200" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
-            <text x="305" y="130" fill="#ffffff" fontSize="9" fontFamily="monospace" transform="rotate(90, 305, 130)" textAnchor="middle" opacity="0.7">15.00 m</text>
-            
-            {/* Accent Orange Dimension Line / Circle (Theme connection) */}
-            <circle cx="70" cy="40" r="4" stroke="var(--color-brand)" strokeWidth="1.5" fill="none" opacity="0.7" />
-            <circle cx="150" cy="50" r="4" stroke="var(--color-brand)" strokeWidth="1.5" fill="none" opacity="0.7" />
-          </g>
-          
-          {/* Right Side: Architectural Blueprint Floor Plan */}
-          <g transform="translate(1120, 50)">
-            {/* Wall boundaries */}
-            <rect x="0" y="0" width="220" height="170" stroke="#ffffff" strokeWidth="1.2" opacity="0.55" />
-            
-            {/* Interior wall dividers */}
-            <line x1="80" y1="0" x2="80" y2="170" stroke="#ffffff" strokeWidth="1" opacity="0.4" />
-            <line x1="150" y1="0" x2="150" y2="170" stroke="#ffffff" strokeWidth="1" opacity="0.4" />
-            <line x1="0" y1="70" x2="220" y2="70" stroke="#ffffff" strokeWidth="1" opacity="0.4" />
-            
-            {/* Column Markers (hashed squares) */}
-            <rect x="-3" y="-3" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="77" y="-3" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="147" y="-3" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="217" y="-3" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="-3" y="67" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="77" y="67" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="147" y="67" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="217" y="67" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="-3" y="167" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="77" y="167" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="147" y="167" width="6" height="6" fill="#ffffff" opacity="0.5" />
-            <rect x="217" y="167" width="6" height="6" fill="#ffffff" opacity="0.5" />
+    <span className={`pointer-events-none absolute h-2.5 w-2.5 ${position}`} aria-hidden="true">
+      <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-slate-300 transition-colors duration-300 group-hover/spec:bg-orange-400" />
+      <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-slate-300 transition-colors duration-300 group-hover/spec:bg-orange-400" />
+    </span>
+  )
+}
 
-            {/* Door swing detail */}
-            <path d="M 80 50 A 20 20 0 0 1 100 70" stroke="#ffffff" strokeWidth="0.8" fill="none" opacity="0.45" />
-            <line x1="80" y1="50" x2="80" y2="70" stroke="#ffffff" strokeWidth="0.8" opacity="0.45" />
-            <line x1="80" y1="70" x2="100" y2="70" stroke="#ffffff" strokeWidth="0.8" opacity="0.45" />
-            
-            {/* Stairs layout */}
-            <g opacity="0.4">
-              <line x1="10" y1="10" x2="70" y2="10" stroke="#ffffff" strokeWidth="0.8" />
-              <line x1="10" y1="18" x2="70" y2="18" stroke="#ffffff" strokeWidth="0.8" />
-              <line x1="10" y1="26" x2="70" y2="26" stroke="#ffffff" strokeWidth="0.8" />
-              <line x1="10" y1="34" x2="70" y2="34" stroke="#ffffff" strokeWidth="0.8" />
-              <line x1="10" y1="42" x2="70" y2="42" stroke="#ffffff" strokeWidth="0.8" />
-              <line x1="10" y1="50" x2="70" y2="50" stroke="#ffffff" strokeWidth="0.8" />
-              <line x1="10" y1="58" x2="70" y2="58" stroke="#ffffff" strokeWidth="0.8" />
-              {/* Direction Indicator */}
-              <path d="M 40 55 L 40 15 M 37 20 L 40 15 L 43 20" stroke="#ffffff" strokeWidth="1" fill="none" />
-            </g>
-            
-            {/* Axis grid bubbles */}
-            <circle cx="110" cy="-20" r="10" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
-            <text x="110" y="-16" fill="#ffffff" fontSize="9" fontFamily="monospace" textAnchor="middle" opacity="0.6">B</text>
-            <line x1="110" y1="-10" x2="110" y2="0" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="3,3" opacity="0.5" />
+const [ADDRESS_LINE_1, ADDRESS_LINE_2] = SITE.addressLines.split("\n")
 
-            <circle cx="185" cy="-20" r="10" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
-            <text x="185" y="-16" fill="#ffffff" fontSize="9" fontFamily="monospace" textAnchor="middle" opacity="0.6">C</text>
-            <line x1="185" y1="-10" x2="185" y2="0" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="3,3" opacity="0.5" />
+const EXPLORE_LINKS = [
+  ["Home", "/"],
+  ["About Us", "/about"],
+  ["Services", "/services"],
+  ["Our Work", "/our-work"],
+  ["Before & After", "/our-work/before-after"],
+  ["Testimonials", "/our-work/testimonials"],
+  ["FAQ", "/faq"],
+  ["Contact Us", "/contact"],
+] as const
 
-            <circle cx="240" cy="35" r="10" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
-            <text x="240" y="39" fill="#ffffff" fontSize="9" fontFamily="monospace" textAnchor="middle" opacity="0.6">1</text>
-            <line x1="220" y1="35" x2="230" y2="35" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="3,3" opacity="0.5" />
+const SERVICE_LINKS = [
+  ["Building Construction", "/services"],
+  ["Architectural Design", "/services"],
+  ["Residential Interior", "/our-work/interior/residential"],
+  ["Commercial Interior", "/our-work/interior/commercial"],
+  ["Renovation & Remodeling", "/our-work/renovation"],
+  ["3D Design & Elevation", "/our-work/3d-design"],
+] as const
 
-            <circle cx="240" cy="120" r="10" stroke="#ffffff" strokeWidth="0.8" opacity="0.5" />
-            <text x="240" y="124" fill="#ffffff" fontSize="9" fontFamily="monospace" textAnchor="middle" opacity="0.6">2</text>
-            <line x1="220" y1="120" x2="230" y2="120" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="3,3" opacity="0.5" />
-            
-            {/* Orange Highlight Accent on a structural boundary */}
-            <rect x="150" y="70" width="70" height="100" stroke="var(--color-brand)" strokeWidth="1" strokeDasharray="2,2" fill="none" opacity="0.6" />
-          </g>
-        </svg>
-      </div>
+const SOCIAL_LIST = [
+  { label: "Facebook", href: "https://facebook.com/reenadesigns", Icon: FacebookIcon },
+  { label: "Instagram", href: "https://instagram.com/reenadesigns", Icon: InstagramIcon },
+  { label: "LinkedIn", href: "https://linkedin.com/company/reena-designs-constructions", Icon: LinkedinIcon },
+  { label: "YouTube", href: "https://youtube.com/@reenadesigns", Icon: YoutubeIcon },
+  { label: "WhatsApp", href: SITE.whatsappHref, Icon: WhatsAppIcon },
+]
 
-      <div className={`${SITE_CONTAINER} relative z-10 grid gap-12 py-20 md:grid-cols-4 md:gap-10 lg:py-24`}>
-        <div className="md:pr-4">
-          <div className="mb-5 flex items-center gap-2.5">
-            <img
-              src={v4Logo}
-              alt=""
-              width={52}
-              height={52}
-              loading="lazy"
-              className="h-[52px] w-[52px] rounded object-contain opacity-90"
-            />
-            <div>
-              <div className="montserrat font-900 text-sm text-white">REENA</div>
-              <div className="text-white/40" style={{ fontSize: "9px", letterSpacing: "0.07em" }}>DESIGNS &amp; CONSTRUCTIONS</div>
-            </div>
-          </div>
-          <p className="mb-6 text-xs leading-6 text-white/45">
-            A design-led construction company based in Midnapur, Paschim Midnapur, delivering turnkey construction,
-            architecture, interiors and renovation. 250+ projects completed over 15+ years — every one
-            handed over to the approved drawing, on the date we committed to.
-          </p>
-          {/* Only profiles with a real URL are rendered. These were four
-              `href="#"` anchors, which push a bare hash onto the router and
-              read as broken outbound links to a crawler. Add a URL in
-              siteInfo.ts and the icon appears. */}
-          {ACTIVE_SOCIAL_LINKS.length > 0 && (
-            <div className="flex gap-2.5">
-              {ACTIVE_SOCIAL_LINKS.map(({ label, url }) => {
-                const Icon = SOCIAL_ICONS[label as keyof typeof SOCIAL_ICONS]
-                if (!Icon) return null
-                return (
-                  <a
-                    key={label}
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    aria-label={`${SITE.name} on ${label}`}
-                    className="flex h-9 w-9 items-center justify-center rounded-lg text-white/50 transition duration-300 hover:bg-orange-500 hover:text-white"
-                    style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.15)" }}
-                  >
-                    <Icon size={15} />
-                  </a>
-                )
-              })}
-            </div>
-          )}
-        </div>
+export default function Footer({ cta }: FooterProps) {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
 
-        <div>
-          <h4 className="montserrat font-800 mb-6 text-xs uppercase tracking-widest text-white">Quick Links</h4>
-          {[["Home", "/"], ["About Us", "/about"], ["Services", "/services"], ["Our Work", "/our-work"], ["Contact Us", "/contact"]].map(([l, h]) => (
-            <Link key={l} to={h} className="group mb-3.5 flex items-center gap-1.5 text-xs text-white/45 transition-colors hover:text-white/85">
-              <ArrowRight size={11} strokeWidth={2.2} className="text-orange-500/0 transition-all duration-300 group-hover:text-orange-500" aria-hidden="true" />
-              {l}
-            </Link>
-          ))}
-        </div>
-
-        <div>
-          <h4 className="montserrat font-800 mb-6 text-xs uppercase tracking-widest text-white">Services</h4>
-          {[
-            ["Building Construction", "/services"],
-            ["Architectural Design", "/services"],
-            ["Interior Design", "/our-work/interior/residential"],
-            ["Renovation & Remodeling", "/our-work/renovation"],
-            ["Turnkey Solutions", "/contact"],
-          ].map(([l, h]) => (
-            <Link key={l} to={h} className="group mb-3.5 flex items-center gap-1.5 text-xs text-white/45 transition-colors hover:text-white/85">
-              <ArrowRight size={11} strokeWidth={2.2} className="text-orange-500/0 transition-all duration-300 group-hover:text-orange-500" aria-hidden="true" />
-              {l}
-            </Link>
-          ))}
-        </div>
-
-        <div>
-          <h4 className="montserrat font-800 mb-6 text-xs uppercase tracking-widest text-white">Contact Info</h4>
-          {[
-            { Icon: MapPin, text: `${SITE.address.street}, ${SITE.address.region} ${SITE.address.postalCode}, India`, href: null },
-            { Icon: Phone, text: SITE.phones[0], href: SITE.phoneHref },
-            { Icon: Mail, text: SITE.email, href: `mailto:${SITE.email}` },
-          ].map(({ Icon, text, href }) => (
-            <div key={text} className="mb-4 flex items-start gap-2.5">
-              <Icon size={14} strokeWidth={1.9} className="mt-0.5 flex-none text-orange-500" aria-hidden="true" />
-              {href ? (
-                <a href={href} className="text-xs leading-relaxed text-white/45 transition-colors hover:text-white/85">{text}</a>
-              ) : (
-                <span className="text-xs leading-relaxed text-white/45">{text}</span>
-              )}
-            </div>
-          ))}
-          <div className="mt-6 rounded-xl px-4 py-3.5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }}>
-            <div className="montserrat font-700 text-[10px] uppercase tracking-[0.2em] text-orange-400">Office hours</div>
-            <div className="mt-1.5 text-xs text-white/50">{SITE.hours}</div>
-          </div>
-        </div>
-      </div>
-
+  return (
+    <footer
+      className="relative overflow-hidden text-white"
+      style={{
+        background: "linear-gradient(165deg, #0d1527 0%, #111c35 55%, #080d19 100%)",
+      }}
+    >
+      {/* Blueprint grid background */}
       <div
-        className="relative z-10 flex flex-col items-center justify-between gap-3 border-t py-6 text-center md:flex-row md:px-14"
-        style={{ borderColor: "rgba(255,255,255,0.08)" }}
-      >
-        <span className="text-xs text-white/30">
-          © {new Date().getFullYear()} {SITE.name}. All Rights Reserved.
-        </span>
-        <div className="flex items-center gap-5">
-          <Link to="/privacy" className="text-xs text-white/30 transition-colors hover:text-white/70">
-            Privacy Policy
-          </Link>
-          <Link to="/cookies" className="text-xs text-white/30 transition-colors hover:text-white/70">
-            Cookie Policy
-          </Link>
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+          maskImage: "linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Subtle warm orange ambient light */}
+      <div
+        className="pointer-events-none absolute -left-20 top-0 h-[360px] w-[360px] rounded-full blur-3xl opacity-15"
+        style={{ background: "radial-gradient(circle, rgba(255,94,0,0.35) 0%, transparent 70%)" }}
+        aria-hidden="true"
+      />
+
+      {/* ── Integrated Pre-Footer CTA (if provided) ────────────────── */}
+      {cta && (
+        <div className="relative isolate">
+          {/* 50/50 background split: top half is white to match page content, bottom half is #0d1527 to match footer */}
+          {/* The upper half is `surface`, not white, so it continues the grey
+              the last page section ends on instead of inserting a white stripe
+              between that grey and the navy footer. The card itself stays
+              white, which is what makes it read as lifted off the band. */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-surface" aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[#0d1527]" aria-hidden="true" />
+
+          {/* Padding stays symmetric so the card keeps straddling the 50/50
+              split, and is deep enough that the figure standing proud of the
+              card's top edge is not clipped by the footer's overflow. */}
+          <div className={`${SITE_CONTAINER} relative z-10 py-10 sm:py-14`}>
+            {/* A single-line strip rather than a stacked block: one statement,
+                one action. The pale ground is a deliberate break from the navy
+                blueprint panels used elsewhere — sitting between a white page
+                and a near-black footer, a light bar reads as a divider you act
+                on rather than as another dark section competing with both. */}
+            {/* No `overflow-hidden`: the figure stands on the strip's bottom
+                edge and rises clear of its top. The brand colour moves from an
+                absolutely-placed bar to a left border so it still follows the
+                corner radius without clipping. */}
+            <div className="relative rounded-2xl border border-l-4 border-slate-200/70 border-l-orange-500 bg-white px-6 py-5 shadow-[0_20px_50px_-24px_rgba(8,13,25,0.55)] sm:px-8 lg:px-10">
+              {/* Purely decorative, so it is hidden from assistive tech and
+                  dropped below sm where there is no room for it. */}
+              <img
+                src={architectArt}
+                alt=""
+                width={153}
+                height={320}
+                loading="lazy"
+                aria-hidden="true"
+                className="pointer-events-none absolute bottom-0 left-6 hidden h-[124px] w-auto select-none sm:block"
+              />
+
+              <div className="flex flex-col gap-5 sm:pl-[76px] lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+                <div className="flex min-w-0 items-center gap-4">
+                  <p className="min-w-0 text-[15px] leading-6">
+                    <span className="montserrat font-800 text-navy">{cta.title}</span>
+                    {cta.subtitle && <span className="text-slate-500"> — {cta.subtitle}</span>}
+                  </p>
+                </div>
+
+                <div className="flex flex-none flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-end">
+                  <a
+                    href={SITE.phoneHref}
+                    className="hidden items-center gap-1.5 whitespace-nowrap text-[13px] text-slate-500 transition-colors hover:text-navy md:inline-flex"
+                  >
+                    <Phone size={13} className="text-brand" aria-hidden="true" />
+                    <strong className="font-600 text-navy">{SITE.phones[0]}</strong>
+                  </a>
+
+                  {/* No padding on the wrapper: it shrink-wraps the button, so
+                      each mark centres exactly on a corner and the button's edge
+                      runs through it — the marks belong to the button rather
+                      than floating around it. They stay put while the button
+                      lifts away on hover. */}
+                  <span className="group/spec relative inline-flex">
+                    <CropMark position="-left-[5px] -top-[5px]" />
+                    <CropMark position="-right-[5px] -top-[5px]" />
+                    <CropMark position="-bottom-[5px] -left-[5px]" />
+                    <CropMark position="-bottom-[5px] -right-[5px]" />
+
+                    <Link
+                      to={cta.buttonHref}
+                      className="btn-orange montserrat font-700 group inline-flex w-full items-center justify-center gap-2 whitespace-nowrap px-7 py-3.5 text-sm shadow-[0_10px_24px_-8px_rgba(255,94,0,0.7)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-8px_rgba(255,94,0,0.85)]"
+                    >
+                      {cta.buttonText}
+                      <ArrowRight
+                        size={16}
+                        strokeWidth={2.2}
+                        className="transition-transform duration-300 group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Main Compact Footer Grid ───────────────────────────────── */}
+      <div className={`${SITE_CONTAINER} relative z-10 py-10 lg:py-12`}>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1.1fr_1.3fr] lg:gap-10">
+          {/* Column 1: Brand & Overview */}
+          <div className="sm:col-span-2 lg:col-span-1 lg:pr-4">
+            <Link to="/" className="mb-4 inline-flex items-center gap-2.5">
+              <img
+                src={v4Logo}
+                alt="Reena Designs & Constructions logo"
+                width={42}
+                height={42}
+                loading="lazy"
+                className="h-10 w-10 rounded-lg object-contain"
+              />
+              <div>
+                <div className="montserrat font-900 text-sm tracking-wide text-white">
+                  REENA
+                </div>
+                <div className="text-[9px] uppercase tracking-[0.14em] text-orange-400 font-semibold">
+                  Designs &amp; Constructions
+                </div>
+              </div>
+            </Link>
+
+            <p className="mb-4 max-w-sm text-xs leading-relaxed text-white/55">
+              Midnapur's design-led construction firm. Turnkey civil building, architecture,
+              and interior design under fixed contractual handover timelines.
+            </p>
+
+            {/* Compact Stats */}
+            <div className="grid grid-cols-3 gap-2 border-y border-white/[0.08] py-3 my-4 max-w-sm">
+              {STATS.map(({ value, label }) => (
+                <div key={label}>
+                  <div className="montserrat font-800 text-base text-white">{value}</div>
+                  <div className="text-[9.5px] uppercase tracking-wider text-white/40">{label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Social channels */}
+            <div className="flex items-center gap-2">
+              {SOCIAL_LIST.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={`${SITE.name} on ${label}`}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.06] text-white/55 ring-1 ring-white/10 transition duration-200 hover:bg-orange-500 hover:text-white hover:ring-orange-500 hover:-translate-y-0.5"
+                >
+                  <Icon size={14} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Column 2: Explore Navigation */}
+          <div>
+            <h4 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
+              Explore
+              <span className="mt-2 block h-0.5 w-6 rounded-full bg-orange-500" aria-hidden="true" />
+            </h4>
+            <ul className="space-y-2">
+              {EXPLORE_LINKS.map(([label, href]) => (
+                <li key={label}>
+                  <Link
+                    to={href}
+                    className="group inline-flex items-center gap-1 text-xs text-white/50 transition-colors duration-200 hover:text-white"
+                  >
+                    <span>{label}</span>
+                    <ArrowUpRight
+                      size={11}
+                      strokeWidth={2.2}
+                      aria-hidden="true"
+                      className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:translate-x-0 group-hover:text-orange-400 group-hover:opacity-100"
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Services */}
+          <div>
+            <h4 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
+              Services
+              <span className="mt-2 block h-0.5 w-6 rounded-full bg-orange-500" aria-hidden="true" />
+            </h4>
+            <ul className="space-y-2">
+              {SERVICE_LINKS.map(([label, href]) => (
+                <li key={label}>
+                  <Link
+                    to={href}
+                    className="group inline-flex items-center gap-1 text-xs text-white/50 transition-colors duration-200 hover:text-white"
+                  >
+                    <span>{label}</span>
+                    <ArrowUpRight
+                      size={11}
+                      strokeWidth={2.2}
+                      aria-hidden="true"
+                      className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:translate-x-0 group-hover:text-orange-400 group-hover:opacity-100"
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Office Info */}
+          <div>
+            <h4 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
+              Head Office
+              <span className="mt-2 block h-0.5 w-6 rounded-full bg-orange-500" aria-hidden="true" />
+            </h4>
+
+            <div className="space-y-3 text-xs">
+              <div className="flex items-start gap-2.5">
+                <MapPin size={14} className="mt-0.5 flex-none text-orange-400" />
+                <div className="leading-relaxed text-white/65">
+                  <div>{ADDRESS_LINE_1}</div>
+                  <div>{ADDRESS_LINE_2}</div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2.5">
+                <Phone size={14} className="mt-0.5 flex-none text-orange-400" />
+                <div className="space-y-0.5">
+                  {SITE.phones.map((phone) => (
+                    <a
+                      key={phone}
+                      href={`tel:${phone.replace(/\s+/g, "")}`}
+                      className="block text-white/65 transition-colors hover:text-white"
+                    >
+                      {phone}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Mail size={14} className="flex-none text-orange-400" />
+                <a
+                  href={`mailto:${SITE.email}`}
+                  className="text-white/65 transition-colors hover:text-white"
+                >
+                  {SITE.email}
+                </a>
+              </div>
+
+              <div className="flex items-start gap-2.5">
+                <Clock size={14} className="mt-0.5 flex-none text-orange-400" />
+                <div className="text-white/55">
+                  <div>{SITE.hours}</div>
+                </div>
+              </div>
+
+              {/* Regulatory Assurance */}
+              <div className="mt-3 rounded-lg border border-white/10 bg-white/[0.03] p-2.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-semibold text-orange-300">
+                  <ShieldCheck size={13} className="text-orange-400" />
+                  <span>Licensed Civil Engineers</span>
+                </div>
+                <p className="mt-0.5 text-[10.5px] leading-4 text-white/45">
+                  Municipal approval compliant sanction drawings &amp; structural safety.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Bottom Legal Bar ───────────────────────────────────────── */}
+      <div className="relative z-10 border-t border-white/[0.08] bg-black/25">
+        <div
+          className={`${SITE_CONTAINER} flex flex-col items-center justify-between gap-3 py-4 text-center md:flex-row md:text-left`}
+        >
+          <div className="text-[11px] text-white/40">
+            <span>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</span>
+          </div>
+
+          <div className="flex items-center gap-5">
+            <Link
+              to="/privacy"
+              className="text-[11px] text-white/40 transition-colors hover:text-white"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              to="/cookies"
+              className="text-[11px] text-white/40 transition-colors hover:text-white"
+            >
+              Cookie Policy
+            </Link>
+
+            <button
+              onClick={scrollToTop}
+              type="button"
+              className="group inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] text-white/50 transition duration-200 hover:border-orange-500/50 hover:bg-orange-500/10 hover:text-white cursor-pointer"
+              aria-label="Scroll back to top"
+            >
+              <span>Top</span>
+              <ArrowUp
+                size={11}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 text-orange-400"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </footer>
   )
 }
+

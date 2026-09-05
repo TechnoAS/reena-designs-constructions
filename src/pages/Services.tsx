@@ -12,7 +12,6 @@ import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
-import CTABanner from "@/components/ui/CTABanner"
 import BuildSimulator from "@/components/ui/BuildSimulator"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 
@@ -29,7 +28,14 @@ const services = [
 
 export default function Services() {
   return (
-    <PageWrapper>
+    <PageWrapper
+      cta={{
+        title: "Ready to start your project?",
+        subtitle: "Itemised quote, named materials, and a fixed completion date.",
+        buttonText: "Get a Free Quote",
+        buttonHref: "/contact",
+      }}
+    >
       <Seo
         title="Our Services — Construction, Architecture & Interiors"
         description="Eight disciplines delivered in-house: residential and commercial construction, architectural design, structural engineering, renovation, interiors, exteriors and turnkey delivery across India."
@@ -66,13 +72,6 @@ export default function Services() {
           />
           <BuildSimulator />
         </section>
-
-        <CTABanner
-          title="READY TO START YOUR PROJECT?"
-          subtitle="Tell us about your site and requirements. You will get a detailed, itemised quote and a realistic completion date — with no obligation."
-          buttonText="Get a Free Quote"
-          buttonHref="/contact"
-        />
       </div>
     </PageWrapper>
   )

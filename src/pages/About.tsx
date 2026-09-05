@@ -1,8 +1,6 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
-import SectionTitle from "@/components/ui/SectionTitle"
-import CTABanner from "@/components/ui/CTABanner"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 
 /**
@@ -30,6 +28,27 @@ const initials = (name: string) =>
     .slice(0, 2)
     .join("")
 
+const STORY_STATS = [
+  { value: "2010", label: "Founded" },
+  { value: "250+", label: "Projects delivered" },
+  { value: "4", label: "Disciplines in-house" },
+] as const
+
+const PRINCIPLES = [
+  {
+    title: "Our mission",
+    text: "To deliver high-quality construction services that meet the highest standards of excellence with integrity and innovation.",
+  },
+  {
+    title: "Our vision",
+    text: "To be a leading construction company known for excellence and trust, setting new benchmarks in quality and innovation across every project.",
+  },
+  {
+    title: "Our values",
+    text: "Quality. Integrity. Transparency. Teamwork and customer focus — these are the principles that guide every decision we make.",
+  },
+] as const
+
 const whyUs = [
   "Experienced and skilled professionals",
   "On-time project delivery",
@@ -38,95 +57,245 @@ const whyUs = [
   "Transparent communication",
 ]
 
+const CERTIFICATIONS = [
+  {
+    name: "ISO 9001:2015 Certified",
+    copy: "Our quality management system is independently audited every year.",
+  },
+  {
+    name: "IGBC Green Buildings",
+    copy: "Accredited to design and deliver green-rated, energy-efficient buildings.",
+  },
+  {
+    name: "BIS Certified",
+    copy: "Structural steel and cement conform to Bureau of Indian Standards grades.",
+  },
+  {
+    name: "CIDC Registered",
+    copy: "Registered with the Construction Industry Development Council of India.",
+  },
+] as const
+
+/** A section heading. */
+function Heading({ title, onDark = false }: { title: string; onDark?: boolean }) {
+  return (
+    <h2 className={`montserrat font-800 mb-8 text-xl md:text-2xl ${onDark ? "text-white" : "text-navy"}`}>
+      {title}
+    </h2>
+  )
+}
+
 export default function About() {
   return (
-    <PageWrapper>
+    <PageWrapper
+      cta={{
+        title: "Let's build something amazing together.",
+        subtitle: "Free consultation and a drawing review, at no cost.",
+        buttonText: "Contact Us Today",
+        buttonHref: "/contact",
+      }}
+    >
       <Seo
         title="About Us — 15+ Years of Building in Paschim Midnapur"
         description="Who we are: the architects, engineers and designers behind Reena Designs & Constructions, our story, values, certifications and the team delivering every project in Midnapur and across India."
       />
-      <PageHeader title="ABOUT US" crumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
+      <PageHeader title="ABOUT US" crumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]} backdrop />
 
-      <div className={`${SITE_CONTAINER} py-14 flex flex-col gap-16`}>
+      {/* ── Our story ─────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-14 lg:py-20">
+        {/* Full-bleed background artwork pinned to right edge (0 space from right) */}
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[55%] select-none md:block lg:w-[50%]"
+          style={{
+            maskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.18) 18%, #000 48%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.18) 18%, #000 48%)",
+          }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&h=900&fit=crop&auto=format&q=80"
+            alt="An architect marking up a set of working drawings at a drafting table"
+            width={1400}
+            height={900}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover object-center"
+          />
+        </div>
 
-        {/* Our Story */}
-        <section>
-          <SectionTitle title="OUR STORY" align="left" accentBar />
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                Reena Designs & Constructions was founded with a vision to deliver exceptional construction and design solutions. Starting as a small contracting firm, we have grown into a full-service architectural and construction company trusted by hundreds of clients across the region.
+        <div className={`${SITE_CONTAINER} relative z-10 grid items-center gap-10 md:grid-cols-2`}>
+          <div className="max-w-xl">
+            <Heading title="OUR STORY" />
+
+            <div className="flex flex-col gap-4 text-sm leading-7 text-slate-500">
+              <p>
+                Reena Designs &amp; Constructions was founded with a vision to deliver exceptional
+                construction and design solutions. Starting as a small contracting firm, we have grown
+                into a full-service architectural and construction company trusted by hundreds of
+                clients across the region.
               </p>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                We are committed to quality, transparency and customer satisfaction. Every project we undertake is approached with meticulous planning, skilled execution, and a genuine passion for creating spaces that endure.
+              <p>
+                We are committed to quality, transparency and customer satisfaction. Every project we
+                undertake is approached with meticulous planning, skilled execution, and a genuine
+                passion for creating spaces that endure.
               </p>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                From modest residential homes to large-scale commercial developments, our team of architects, engineers, and designers brings the same dedication and craftsmanship to every build.
+              <p>
+                From modest residential homes to large-scale commercial developments, our team of
+                architects, engineers and designers brings the same dedication and craftsmanship to
+                every build.
               </p>
             </div>
-            <div className="rounded-xl overflow-hidden" style={{ border: "1.5px solid #e8e8e8" }}>
+
+            <dl className="mt-9 flex flex-wrap gap-x-12 gap-y-5 border-t border-hairline pt-7">
+              {STORY_STATS.map(({ value, label }) => (
+                <div key={label}>
+                  <dd className="montserrat font-900 text-2xl leading-none text-navy">{value}</dd>
+                  <dt className="mt-2 text-[10.5px] uppercase tracking-[0.16em] text-slate-400">
+                    {label}
+                  </dt>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {/* Mobile view: softly masked artwork for smaller screens */}
+          <div className="md:hidden">
+            <div className="relative overflow-hidden py-2">
               <img
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&h=440&fit=crop&auto=format"
-                alt="Reena Designs & Constructions site work in progress"
-                width={700}
-                height={440}
+                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1100&h=720&fit=crop&auto=format&q=80"
+                alt="An architect marking up a set of working drawings at a drafting table"
+                width={1100}
+                height={720}
                 loading="lazy"
-                className="h-64 w-full object-cover"
+                decoding="async"
+                className="h-64 sm:h-72 w-full object-cover"
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
+                }}
               />
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Mission / Vision / Values */}
-        <section>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="var(--color-brand)" strokeWidth="1.6"/><path d="M16 10v6l4 3" stroke="var(--color-brand)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-                title: "OUR MISSION",
-                text: "To deliver high-quality construction services that meet the highest standards of excellence with integrity and innovation.",
-              },
-              {
-                icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4C9.37 4 4 9.37 4 16s5.37 12 12 12 12-5.37 12-12S22.63 4 16 4zm0 4a3 3 0 110 6 3 3 0 010-6zm0 17c-3.33 0-6.29-1.7-8-4.3.04-2.65 5.34-4.1 8-4.1s7.96 1.45 8 4.1c-1.71 2.6-4.67 4.3-8 4.3z" fill="var(--color-brand)" opacity="0.85"/></svg>,
-                title: "OUR VISION",
-                text: "To be a leading construction company known for excellence and trust, setting new benchmarks in quality and innovation across every project.",
-              },
-              {
-                icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4l3 8h8l-6.5 4.7 2.5 8L16 20.2l-7 4.5 2.5-8L5 12h8L16 4z" stroke="var(--color-brand)" strokeWidth="1.5" strokeLinejoin="round"/></svg>,
-                title: "OUR VALUES",
-                text: "Quality. Integrity. Transparency. Teamwork and Customer Focus — these are the principles that guide every decision we make.",
-              },
-            ].map((card) => (
-              <div key={card.title} className="svc-card p-7 flex flex-col gap-4">
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ background: "#fff4ef", border: "1px solid #ffe0d0" }}>
-                  {card.icon}
-                </div>
-                <h3 className="montserrat font-800 text-sm tracking-wider text-navy">{card.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{card.text}</p>
+      {/* ── What we stand for ─────────────────────────────────────── */}
+      <section className="border-y border-hairline bg-surface py-14 lg:py-16">
+        <div className={SITE_CONTAINER}>
+          <Heading title="MISSION, VISION & VALUES" />
+          <div className="grid gap-px bg-hairline md:grid-cols-3">
+            {PRINCIPLES.map(({ title, text }) => (
+              <div key={title} className="bg-surface p-7 md:p-8">
+                <h3 className="montserrat font-800 mb-3 text-sm uppercase tracking-wider text-navy">
+                  {title}
+                </h3>
+                <p className="text-sm leading-7 text-slate-500">{text}</p>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Our Team */}
-        <section>
-          <SectionTitle title="OUR TEAM" />
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* ── Why choose us ─────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-14 lg:py-20">
+        {/* Full-bleed left background artwork (mirrored, 0 space on left edge) */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 hidden w-[55%] select-none md:block lg:w-[50%]"
+          style={{
+            maskImage: "linear-gradient(to left, transparent 0%, rgba(0,0,0,0.18) 18%, #000 48%)",
+            WebkitMaskImage: "linear-gradient(to left, transparent 0%, rgba(0,0,0,0.18) 18%, #000 48%)",
+          }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&h=900&fit=crop&auto=format&q=80"
+            alt="A completed contemporary home at dusk, lit from within"
+            width={1400}
+            height={900}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover object-center"
+          />
+        </div>
+
+        <div className={`${SITE_CONTAINER} relative z-10 grid items-center gap-10 md:grid-cols-2`}>
+          {/* Mobile view */}
+          <div className="order-2 md:hidden">
+            <div className="relative overflow-hidden py-2">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1100&h=720&fit=crop&auto=format&q=80"
+                alt="A completed contemporary home at dusk, lit from within"
+                width={1100}
+                height={720}
+                loading="lazy"
+                decoding="async"
+                className="h-64 sm:h-72 w-full object-cover"
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Spacer for desktop layout (artwork sits in left background) */}
+          <div className="hidden md:block" aria-hidden="true" />
+
+          {/* Text column */}
+          <div className="order-1 md:order-2 max-w-xl">
+            <Heading title="WHY CHOOSE US" />
+            <ul className="flex flex-col">
+              {whyUs.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3.5 border-b border-hairline py-3.5 last:border-b-0"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    className="flex-none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2 6l3 3 5-5"
+                      stroke="var(--color-brand)"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="text-sm text-slate-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Team ──────────────────────────────────────────────────── */}
+      <section className="border-t border-hairline py-14 lg:py-16">
+        <div className={SITE_CONTAINER}>
+          <Heading title="OUR TEAM" />
+          <div className="grid grid-cols-2 gap-px bg-hairline md:grid-cols-4">
             {team.map((member) => (
-              <div key={member.name} className="flex flex-col items-center text-center">
-                <div className="mb-4 h-28 w-28 overflow-hidden rounded-full border-[3px] border-hairline">
+              <div key={member.name} className="bg-white p-6">
+                <div className="mb-5 aspect-square w-full overflow-hidden">
                   {member.img ? (
                     <img
                       src={member.img}
                       alt={`${member.name}, ${member.role}`}
-                      width={112}
-                      height={112}
+                      width={280}
+                      height={280}
                       loading="lazy"
                       className="h-full w-full object-cover"
                     />
                   ) : (
                     <div
-                      className="montserrat font-800 flex h-full w-full items-center justify-center text-2xl text-white"
+                      className="montserrat font-800 flex h-full w-full items-center justify-center text-3xl text-white"
                       style={{ background: "linear-gradient(145deg, #1a2744 0%, #23355c 100%)" }}
                       aria-hidden="true"
                     >
@@ -134,71 +303,37 @@ export default function About() {
                     </div>
                   )}
                 </div>
-                <div className="montserrat font-700 text-sm mb-1 text-navy">{member.name}</div>
-                <div className="text-xs text-brand">{member.role}</div>
+                <div className="montserrat font-700 text-sm text-navy">{member.name}</div>
+                <div className="mt-1 text-xs text-brand">{member.role}</div>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Why Choose Us */}
-        <section className="grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <SectionTitle title="WHY CHOOSE US" align="left" accentBar />
-            <div className="flex flex-col gap-4">
-              {whyUs.map((item) => (
-                <div key={item} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#fff4ef", border: "1.5px solid #FF5E00" }}>
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="var(--color-brand)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
-                  <span className="text-sm text-gray-600">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-xl overflow-hidden" style={{ border: "1.5px solid #e8e8e8" }}>
-            <img
-              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&h=440&fit=crop&auto=format"
-              alt="Engineers reviewing drawings on site"
-              width={700}
-              height={440}
-              loading="lazy"
-              className="h-64 w-full object-cover"
-            />
-          </div>
-        </section>
+      {/* ── Certifications ────────────────────────────────────────── */}
+      <section className="border-t border-hairline bg-surface py-14 lg:py-16">
+        <div className={SITE_CONTAINER}>
+          <Heading title="CERTIFICATIONS" />
 
-        {/* Certifications */}
-        <section>
-          <SectionTitle title="CERTIFICATIONS" />
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-            {[
-              "ISO 9001:2015 Certified",
-              "IGBC Green Buildings",
-              "BIS Certified",
-              "CIDC Registered",
-            ].map((cert, i) => (
-              <div key={i} className="svc-card p-6 flex flex-col items-center gap-3 text-center">
-                <div className="w-16 h-16 rounded-xl flex items-center justify-center bg-surface">
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <rect x="4" y="4" width="24" height="24" rx="4" stroke="var(--color-navy)" strokeWidth="1.5"/>
-                    <path d="M10 16l4 4 8-8" stroke="var(--color-brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <span className="montserrat font-700 text-xs text-navy">{cert}</span>
+          <div className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-4">
+            {CERTIFICATIONS.map(({ name, copy }) => (
+              <div
+                key={name}
+                className="group flex flex-col gap-3.5 bg-white p-7 transition-colors duration-300 hover:bg-slate-50/80 lg:p-8"
+              >
+                <span
+                  className="h-0.5 w-9 flex-none rounded-full bg-brand transition-all duration-500 group-hover:w-14"
+                  aria-hidden="true"
+                />
+                <h3 className="montserrat font-800 text-[15px] leading-snug text-navy">{name}</h3>
+                <p className="text-[13px] leading-relaxed text-slate-500">{copy}</p>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA Banner */}
-        <CTABanner
-          title="LET'S BUILD SOMETHING AMAZING TOGETHER"
-          subtitle="Ready to start your dream project? Reach out to us today."
-          buttonText="Contact Us Today"
-          buttonHref="/contact"
-        />
-      </div>
     </PageWrapper>
   )
 }

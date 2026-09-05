@@ -17,7 +17,6 @@ import PageHeader from "@/components/ui/PageHeader"
 import SubNav from "@/components/ui/SubNav"
 import FilterTabs from "@/components/ui/FilterTabs"
 import SectionTitle from "@/components/ui/SectionTitle"
-import CTABanner from "@/components/ui/CTABanner"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import { INTERIOR_PROJECTS, ROOM_TABS, type Room } from "@/data/interiorProjects"
 
@@ -81,7 +80,14 @@ export default function InteriorResidential() {
   }, [openProject, openIndex, visible.length])
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      cta={{
+        title: "Want an interior like this at home?",
+        subtitle: "Send your floor plan for a 3D concept and a fixed quote.",
+        buttonText: "Book a Free Consultation",
+        buttonHref: "/contact",
+      }}
+    >
       <Seo
         title="Residential Interior Design in Midnapur"
         description="Living rooms, bedrooms, modular kitchens and pooja rooms designed in 3D and quoted by named material grade, executed by our own carpentry and electrical teams in Midnapur and across India."
@@ -208,15 +214,6 @@ export default function InteriorResidential() {
             ))}
           </div>
         </section>
-
-        <div className="mt-16">
-          <CTABanner
-            title="WANT AN INTERIOR LIKE THIS IN YOUR HOME?"
-            subtitle="Share your floor plan and we will come back with a 3D concept, a named material specification and a fixed quote."
-            buttonText="Book a Free Consultation"
-            buttonHref="/contact"
-          />
-        </div>
       </div>
 
       {/* ── Detail lightbox ───────────────────────────────────── */}

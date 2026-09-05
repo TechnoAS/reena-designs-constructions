@@ -46,12 +46,18 @@ img {
 }
 
 @layer components {
+  /* Square corners, per the button spec sheet: the primary action is a solid
+     accent fill with no radius. `focus-visible` (not `focus`) so the ring is
+     shown to keyboard users without firing on a mouse press — before this
+     neither button had any focus indicator at all, which left keyboard users
+     with nothing to follow. The offset puts the ring on the surrounding
+     surface rather than on the orange fill, where it would disappear. */
   .btn-orange {
-    @apply inline-flex items-center justify-center rounded-xl bg-orange-500 px-5 py-3 text-sm font-bold text-white transition duration-200 hover:bg-orange-400;
+    @apply inline-flex items-center justify-center bg-orange-500 px-5 py-3 text-sm font-bold text-white transition duration-200 hover:bg-orange-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition duration-200 hover:border-orange-400 hover:text-orange-500;
+    @apply inline-flex items-center justify-center border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition duration-200 hover:border-orange-400 hover:text-orange-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500;
   }
 }
 

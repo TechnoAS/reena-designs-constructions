@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { ArrowRight, BadgeCheck, HardHat, Ruler } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
-import drawingImg from "@/imports/about-drawing-to-building.jpg"
+import drawingImg from "@/imports/about-drawing-to-interior.jpg"
 
 const PILLARS = [
   {
@@ -49,12 +49,12 @@ export default function AboutStrip() {
       <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[64%] select-none md:block lg:w-[58%]">
         <img
           src={drawingImg}
-          alt="Architectural visualization: half technical blueprint drawing transitioning into completed building with lush tree"
-          width={1400}
-          height={1050}
+          alt="Architectural visualisation of a living space, resolving from a line drawing on the left into the finished, furnished interior on the right"
+          width={1672}
+          height={752}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover object-left"
+          className="h-full w-full object-cover object-center"
           style={ARTWORK_MASK}
         />
         {/* Soft warm light bloom so the building sits naturally in warm daylight */}
@@ -136,12 +136,12 @@ export default function AboutStrip() {
           <div className="relative overflow-hidden py-2">
             <img
               src={drawingImg}
-              alt="Architectural visualization: half technical blueprint drawing transitioning into completed building with lush tree"
-              width={1400}
-              height={1050}
+              alt="Architectural visualisation of a living space, resolving from a line drawing on the left into the finished, furnished interior on the right"
+              width={1672}
+              height={752}
               loading="lazy"
               decoding="async"
-              className="h-64 sm:h-72 w-full object-cover object-left"
+              className="h-64 sm:h-72 w-full object-cover object-center"
               style={MOBILE_MASK}
             />
           </div>
