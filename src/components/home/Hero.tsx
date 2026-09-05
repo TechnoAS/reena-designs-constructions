@@ -5,7 +5,14 @@ import { SITE_CONTAINER } from "@/components/layout/constants"
 
 export default function Hero() {
   return (
-    <section id="home" className="relative w-full min-h-screen flex items-center bg-slate-50 overflow-hidden">
+    // `min-h-screen` is 100vh, which on iOS Safari is measured against the
+    // collapsed chrome — so the hero ran under the URL bar and the CTAs sat
+    // below the fold. `100svh` is the small-viewport height, which is the one
+    // actually visible on load.
+    <section
+      id="home"
+      className="relative flex min-h-[100svh] w-full items-center overflow-hidden bg-slate-50"
+    >
       {/* Blueprint artwork — full-bleed across the hero rather than boxed on
           the right, then masked so it dissolves into the section instead of
           ending at a hard edge. The mask fades it out behind the headline on

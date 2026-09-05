@@ -1,6 +1,5 @@
 import { Building2, CalendarClock, Users, ShieldCheck } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
-import SectionTitle from "@/components/ui/SectionTitle"
 
 const stats = [
   { num: "250+", label: "Projects delivered", sub: "Across Paschim Midnapur & India", Icon: Building2 },
@@ -11,24 +10,39 @@ const stats = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="border-t border-b py-16" style={{ background: "#fff", borderColor: "#f0f0f0" }}>
+    <section id="why-choose-us" className="relative bg-surface py-12 md:py-16">
       <div className={SITE_CONTAINER}>
-        <SectionTitle
-          eyebrow="Why choose us"
-          title="A TRACK RECORD YOU CAN AUDIT"
-          subtitle="We publish the numbers because they hold up. Fixed timelines, transparent costing and engineer-supervised quality control on every site we run."
-        />
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-slate-100 bg-slate-100 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Top Header Row — small, refined typography */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-8 pb-8 border-b border-slate-200/80">
+          <div>
+            <p className="montserrat font-700 text-[11px] tracking-[0.25em] text-brand uppercase mb-1.5">
+              Why choose us
+            </p>
+            <h2 className="montserrat font-800 text-xl sm:text-2xl md:text-3xl tracking-wide text-navy uppercase">
+              A TRACK RECORD YOU CAN AUDIT
+            </h2>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-500 max-w-md leading-relaxed md:text-right">
+            We publish the numbers because they hold up. Fixed timelines, transparent costing and engineer-supervised quality control on every site we run.
+          </p>
+        </div>
+
+        {/* Metric Spec Ledger — completely unboxed, no cards, hairline dividers */}
+        <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-0 lg:divide-x divide-slate-200/80">
           {stats.map(({ num, label, sub, Icon }) => (
-            <div key={label} className="stat-item flex items-start gap-4 bg-white px-6 py-7">
-              <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-orange-50 text-orange-500">
-                <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
-              </span>
-              <div>
-                <div className="montserrat font-900 text-3xl leading-none" style={{ color: "#FF5E00" }}>{num}</div>
-                <div className="montserrat font-700 mt-1.5 text-sm" style={{ color: "#1a2744" }}>{label}</div>
-                <div className="mt-0.5 text-[12px] leading-relaxed text-slate-400">{sub}</div>
+            <div key={label} className="lg:first:pl-0 lg:px-7">
+              <div className="flex items-center gap-2 mb-2">
+                <Icon size={15} className="text-brand shrink-0" strokeWidth={2.2} aria-hidden="true" />
+                <span className="montserrat font-700 text-[11px] tracking-wider uppercase text-slate-600">
+                  {label}
+                </span>
               </div>
+              <div className="montserrat font-900 text-2xl sm:text-3xl tracking-tight text-navy">
+                {num}
+              </div>
+              <p className="mt-1 text-[12px] leading-relaxed text-slate-500">
+                {sub}
+              </p>
             </div>
           ))}
         </div>

@@ -1,15 +1,34 @@
 import PageWrapper from "@/components/layout/PageWrapper"
+import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import CTABanner from "@/components/ui/CTABanner"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 
-const team = [
-  { name: "Rajesh Kumar", role: "Chief Architect", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&auto=format" },
-  { name: "Priya Sharma", role: "Interior Designer", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&auto=format" },
-  { name: "Amit Singh", role: "Project Manager", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&auto=format" },
-  { name: "Sunita Patel", role: "Structural Engineer", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&auto=format" },
+/**
+ * Team.
+ *
+ * These were stock Unsplash headshots of unrelated real people, captioned with
+ * staff names and job titles — which misrepresents identifiable individuals and
+ * is a straightforward licensing problem too (Unsplash's licence does not cover
+ * using a recognisable person to imply endorsement or employment).
+ *
+ * Initials stand in until real photographs are supplied. Drop a file into
+ * src/imports and set `img` to use it.
+ */
+const team: { name: string; role: string; img?: string }[] = [
+  { name: "Rajesh Kumar", role: "Chief Architect" },
+  { name: "Priya Sharma", role: "Interior Designer" },
+  { name: "Amit Singh", role: "Project Manager" },
+  { name: "Sunita Patel", role: "Structural Engineer" },
 ]
+
+const initials = (name: string) =>
+  name
+    .split(" ")
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("")
 
 const whyUs = [
   "Experienced and skilled professionals",
@@ -22,6 +41,10 @@ const whyUs = [
 export default function About() {
   return (
     <PageWrapper>
+      <Seo
+        title="About Us — 15+ Years of Building in Paschim Midnapur"
+        description="Who we are: the architects, engineers and designers behind Reena Designs & Constructions, our story, values, certifications and the team delivering every project in Midnapur and across India."
+      />
       <PageHeader title="ABOUT US" crumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
 
       <div className={`${SITE_CONTAINER} py-14 flex flex-col gap-16`}>
@@ -44,8 +67,11 @@ export default function About() {
             <div className="rounded-xl overflow-hidden" style={{ border: "1.5px solid #e8e8e8" }}>
               <img
                 src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&h=440&fit=crop&auto=format"
-                alt="Construction site"
-                className="w-full h-64 object-cover"
+                alt="Reena Designs & Constructions site work in progress"
+                width={700}
+                height={440}
+                loading="lazy"
+                className="h-64 w-full object-cover"
               />
             </div>
           </div>
@@ -56,17 +82,17 @@ export default function About() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="#FF5E00" strokeWidth="1.6"/><path d="M16 10v6l4 3" stroke="#FF5E00" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+                icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="var(--color-brand)" strokeWidth="1.6"/><path d="M16 10v6l4 3" stroke="var(--color-brand)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>,
                 title: "OUR MISSION",
                 text: "To deliver high-quality construction services that meet the highest standards of excellence with integrity and innovation.",
               },
               {
-                icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4C9.37 4 4 9.37 4 16s5.37 12 12 12 12-5.37 12-12S22.63 4 16 4zm0 4a3 3 0 110 6 3 3 0 010-6zm0 17c-3.33 0-6.29-1.7-8-4.3.04-2.65 5.34-4.1 8-4.1s7.96 1.45 8 4.1c-1.71 2.6-4.67 4.3-8 4.3z" fill="#FF5E00" opacity="0.85"/></svg>,
+                icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4C9.37 4 4 9.37 4 16s5.37 12 12 12 12-5.37 12-12S22.63 4 16 4zm0 4a3 3 0 110 6 3 3 0 010-6zm0 17c-3.33 0-6.29-1.7-8-4.3.04-2.65 5.34-4.1 8-4.1s7.96 1.45 8 4.1c-1.71 2.6-4.67 4.3-8 4.3z" fill="var(--color-brand)" opacity="0.85"/></svg>,
                 title: "OUR VISION",
                 text: "To be a leading construction company known for excellence and trust, setting new benchmarks in quality and innovation across every project.",
               },
               {
-                icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4l3 8h8l-6.5 4.7 2.5 8L16 20.2l-7 4.5 2.5-8L5 12h8L16 4z" stroke="#FF5E00" strokeWidth="1.5" strokeLinejoin="round"/></svg>,
+                icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4l3 8h8l-6.5 4.7 2.5 8L16 20.2l-7 4.5 2.5-8L5 12h8L16 4z" stroke="var(--color-brand)" strokeWidth="1.5" strokeLinejoin="round"/></svg>,
                 title: "OUR VALUES",
                 text: "Quality. Integrity. Transparency. Teamwork and Customer Focus — these are the principles that guide every decision we make.",
               },
@@ -75,7 +101,7 @@ export default function About() {
                 <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ background: "#fff4ef", border: "1px solid #ffe0d0" }}>
                   {card.icon}
                 </div>
-                <h3 className="montserrat font-800 text-sm tracking-wider" style={{ color: "#1a2744" }}>{card.title}</h3>
+                <h3 className="montserrat font-800 text-sm tracking-wider text-navy">{card.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{card.text}</p>
               </div>
             ))}
@@ -88,11 +114,28 @@ export default function About() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {team.map((member) => (
               <div key={member.name} className="flex flex-col items-center text-center">
-                <div className="w-28 h-28 rounded-full overflow-hidden mb-4" style={{ border: "3px solid #e8e8e8" }}>
-                  <img src={member.img} alt={member.name} className="w-full h-full object-cover" />
+                <div className="mb-4 h-28 w-28 overflow-hidden rounded-full border-[3px] border-hairline">
+                  {member.img ? (
+                    <img
+                      src={member.img}
+                      alt={`${member.name}, ${member.role}`}
+                      width={112}
+                      height={112}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="montserrat font-800 flex h-full w-full items-center justify-center text-2xl text-white"
+                      style={{ background: "linear-gradient(145deg, #1a2744 0%, #23355c 100%)" }}
+                      aria-hidden="true"
+                    >
+                      {initials(member.name)}
+                    </div>
+                  )}
                 </div>
-                <div className="montserrat font-700 text-sm mb-1" style={{ color: "#1a2744" }}>{member.name}</div>
-                <div className="text-xs" style={{ color: "#FF5E00" }}>{member.role}</div>
+                <div className="montserrat font-700 text-sm mb-1 text-navy">{member.name}</div>
+                <div className="text-xs text-brand">{member.role}</div>
               </div>
             ))}
           </div>
@@ -106,7 +149,7 @@ export default function About() {
               {whyUs.map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#fff4ef", border: "1.5px solid #FF5E00" }}>
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#FF5E00" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="var(--color-brand)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </div>
                   <span className="text-sm text-gray-600">{item}</span>
                 </div>
@@ -116,8 +159,11 @@ export default function About() {
           <div className="rounded-xl overflow-hidden" style={{ border: "1.5px solid #e8e8e8" }}>
             <img
               src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&h=440&fit=crop&auto=format"
-              alt="Team at work"
-              className="w-full h-64 object-cover"
+              alt="Engineers reviewing drawings on site"
+              width={700}
+              height={440}
+              loading="lazy"
+              className="h-64 w-full object-cover"
             />
           </div>
         </section>
@@ -133,13 +179,13 @@ export default function About() {
               "CIDC Registered",
             ].map((cert, i) => (
               <div key={i} className="svc-card p-6 flex flex-col items-center gap-3 text-center">
-                <div className="w-16 h-16 rounded-xl flex items-center justify-center" style={{ background: "#f7f7f7" }}>
+                <div className="w-16 h-16 rounded-xl flex items-center justify-center bg-surface">
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <rect x="4" y="4" width="24" height="24" rx="4" stroke="#1a2744" strokeWidth="1.5"/>
-                    <path d="M10 16l4 4 8-8" stroke="#FF5E00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <rect x="4" y="4" width="24" height="24" rx="4" stroke="var(--color-navy)" strokeWidth="1.5"/>
+                    <path d="M10 16l4 4 8-8" stroke="var(--color-brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <span className="montserrat font-700 text-xs" style={{ color: "#1a2744" }}>{cert}</span>
+                <span className="montserrat font-700 text-xs text-navy">{cert}</span>
               </div>
             ))}
           </div>

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import PageWrapper from "@/components/layout/PageWrapper"
+import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
 import SubNav from "@/components/ui/SubNav"
 import FilterTabs from "@/components/ui/FilterTabs"
@@ -38,6 +39,10 @@ export default function InteriorCommercial() {
 
   return (
     <PageWrapper>
+      <Seo
+        title="Commercial Interior Design — Offices, Retail & Hotels"
+        description="Office, restaurant, retail, hotel and institutional interiors delivered on commercial timelines with minimal disruption to trading, across Midnapur, Kharagpur and West Bengal."
+      />
       <PageHeader
         title="COMMERCIAL INTERIOR"
         crumbs={[
@@ -50,8 +55,8 @@ export default function InteriorCommercial() {
 
       <div className={`${SITE_CONTAINER} py-10`}>
         <SubNav tabs={[
-          { label: "Residential Interior", href: "/our-work/interior/residential", active: false },
-          { label: "Commercial Interior", href: "/our-work/interior/commercial", active: true },
+          { label: "Residential Interior", href: "/our-work/interior/residential" },
+          { label: "Commercial Interior", href: "/our-work/interior/commercial" },
         ]} />
 
         <FilterTabs tabs={tabs} active={active} onSelect={(t) => setActive(t as keyof typeof allProjects)} />
@@ -59,7 +64,7 @@ export default function InteriorCommercial() {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {(allProjects[active] || []).map((p) => (
             <ProjectCard key={p.title} img={p.img} alt={p.title} height={220}>
-              <h3 className="montserrat font-700 text-sm" style={{ color: "#1a2744" }}>{p.title}</h3>
+              <h3 className="montserrat font-700 text-sm text-navy">{p.title}</h3>
             </ProjectCard>
           ))}
         </div>

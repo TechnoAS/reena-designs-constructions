@@ -1,4 +1,5 @@
 import PageWrapper from "@/components/layout/PageWrapper"
+import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
 import StarRating from "@/components/ui/StarRating"
 import { SITE_CONTAINER } from "@/components/layout/constants"
@@ -15,6 +16,10 @@ const reviews = [
 export default function TestimonialsPage() {
   return (
     <PageWrapper>
+      <Seo
+        title="Client Testimonials — What Our Clients Say"
+        description="Homeowners, business owners and developers on working with Reena Designs & Constructions: transparency, on-time handover and the quality of the finished build."
+      />
       <PageHeader
         title="CLIENT TESTIMONIALS"
         crumbs={[{ label: "Home", href: "/" }, { label: "Our Work", href: "/our-work" }, { label: "Client Testimonials" }]}
@@ -26,8 +31,8 @@ export default function TestimonialsPage() {
               <StarRating rating={r.rating} />
               <p className="text-gray-600 text-sm leading-relaxed italic">"{r.text}"</p>
               <div>
-                <div className="montserrat font-700 text-sm" style={{ color: "#1a2744" }}>— {r.name}</div>
-                <div className="text-xs" style={{ color: "#FF5E00" }}>{r.role}</div>
+                <div className="montserrat font-700 text-sm text-navy">— {r.name}</div>
+                <div className="text-xs text-brand">{r.role}</div>
               </div>
             </div>
           ))}

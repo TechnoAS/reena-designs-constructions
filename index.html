@@ -6,6 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><!-- figma:title --></title>
     <!-- figma:head-end -->
+
+    <!--
+      Fonts load here rather than via `@import` in index.css. A CSS @import is
+      discovered only after the stylesheet itself has downloaded and parsed,
+      which serialises two round trips before any text can paint. The
+      preconnects warm both hosts (the CSS comes from googleapis, the font
+      files from gstatic) while the HTML is still being parsed.
+      Weights trimmed from six to the four actually used by the app.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap"
+    />
+
+    <!-- Unsplash serves every gallery image; warming the connection saves a
+         DNS + TLS handshake on the first card that scrolls into view. -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <meta name="keywords" content="construction company in Midnapur, building contractors Paschim Midnapur, construction company Midnapore, civil contractors Medinipur, architectural design India, interior designers Midnapur, home renovation West Bengal, turnkey construction India, contractors Kharagpur, builders Ghatal" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content="Reena Designs & Constructions" />
@@ -13,16 +36,41 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Reena Designs & Constructions" />
     <meta property="og:locale" content="en_IN" />
+    <meta property="og:image" content="https://reenabuild.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://reenabuild.com/og-image.png" />
+
+    <!--
+      LocalBusiness markup for the Midnapur office.
+
+      `aggregateRating` was removed deliberately: Google's structured-data
+      policy requires rating markup to be backed by reviews that are genuinely
+      collected from customers and visible on the same page. The six
+      testimonials on this site are hardcoded marketing copy, so a 4.9/200
+      claim here risks a manual action against the whole domain. Add it back
+      once real reviews are being collected — and emit them as `review` items
+      alongside it.
+    -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "GeneralContractor",
+        "@id": "https://reenabuild.com/#organization",
+        "url": "https://reenabuild.com/",
         "name": "Reena Designs & Constructions",
         "description": "Design-led building construction, architectural design, interior design, renovation and turnkey project delivery. Based in Midnapur, Paschim Midnapur, West Bengal, serving clients across India.",
         "email": "info@reenabuild.com",
         "telephone": "+91-98765-43210",
+        "priceRange": "₹₹",
         "areaServed": ["Midnapur", "Paschim Midnapur", "Kharagpur", "West Bengal", "India"],
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:30",
+          "closes": "19:00"
+        },
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Midnapur",
@@ -30,8 +78,7 @@
           "addressRegion": "Paschim Midnapur, West Bengal",
           "postalCode": "721101",
           "addressCountry": "IN"
-        },
-        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "200" }
+        }
       }
     </script>
   </head>

@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { Quote, Star, ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react"
-import SectionTitle from "@/components/ui/SectionTitle"
+import { SITE_CONTAINER } from "@/components/layout/constants"
 
 const testimonials = [
   {
     name: "Rajesh Mehta",
+    rating: 5,
     role: "Homeowner, Midnapur",
     project: "3,200 sq ft residence",
     quote:
@@ -12,6 +13,7 @@ const testimonials = [
   },
   {
     name: "Priya Dutta",
+    rating: 5,
     role: "Director, Dutta & Associates",
     project: "Office fit-out, Kharagpur",
     quote:
@@ -19,6 +21,7 @@ const testimonials = [
   },
   {
     name: "Amit Banerjee",
+    rating: 5,
     role: "Property Owner, Ghatal",
     project: "Structural renovation",
     quote:
@@ -33,62 +36,91 @@ export default function Testimonials() {
   const go = (dir: number) => setActive((i) => (i + dir + total) % total)
 
   return (
-    <section className="py-20" style={{ background: "#f7f7f7" }}>
-      <div className="mx-auto max-w-4xl px-6">
-        <SectionTitle
-          eyebrow="Client testimonials"
-          title="TRUSTED BY 200+ CLIENTS ACROSS INDIA"
-          subtitle="Rated 4.9 out of 5 across 200+ completed residential and commercial projects."
-        />
+    <section id="testimonials" className="relative bg-surface py-10 md:py-14 overflow-hidden">
+      <div className={`${SITE_CONTAINER} max-w-4xl`}>
+        {/* Refined Header */}
+        <div className="text-center">
+          <p className="montserrat font-700 text-[11px] tracking-[0.25em] text-brand uppercase mb-1.5">
+            Client testimonials
+          </p>
+          <h2 className="montserrat font-800 text-xl sm:text-2xl md:text-3xl tracking-wide text-navy uppercase">
+            TRUSTED BY 200+ CLIENTS ACROSS INDIA
+          </h2>
+          <p className="mt-2 text-xs sm:text-sm text-slate-500 leading-relaxed max-w-md mx-auto">
+            Rated 4.9 out of 5 across 200+ completed residential and commercial projects.
+          </p>
+        </div>
 
-        <div className="relative rounded-2xl bg-white px-8 py-10 text-center md:px-14" style={{ border: "1.5px solid #e8e8e8" }}>
-          <Quote size={36} strokeWidth={1.5} className="mx-auto mb-5 text-orange-500/25" aria-hidden="true" />
-
-          <div className="mb-5 flex justify-center gap-1" aria-label="Rated 5 out of 5">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} size={15} strokeWidth={0} className="fill-orange-500" aria-hidden="true" />
-            ))}
+        {/* Unboxed Quote Stage — Zero cards, zero box borders */}
+        <div
+          className="mt-7 md:mt-8 text-center"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {/* Subtle Quote Symbol & Rating */}
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Quote size={20} className="text-brand/50" aria-hidden="true" />
+            <div className="flex gap-1" role="img" aria-label={`Rated ${t.rating} out of 5 stars`}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  size={14}
+                  strokeWidth={0}
+                  className="fill-amber-400"
+                  aria-hidden="true"
+                />
+              ))}
+            </div>
           </div>
 
-          <blockquote className="mx-auto max-w-2xl text-base leading-8 text-slate-600">
-            {t.quote}
+          {/* Quote Text */}
+          <blockquote className="mx-auto flex max-w-2xl items-center justify-center text-base leading-relaxed font-normal text-slate-700 sm:text-lg md:min-h-[8.25rem] md:text-xl">
+            "{t.quote}"
           </blockquote>
 
-          <div className="montserrat font-800 mt-7 text-sm" style={{ color: "#1a2744" }}>{t.name}</div>
-          <div className="mt-1 text-[12px] text-slate-400">{t.role} · {t.project}</div>
-          <div className="mt-2.5 inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600">
-            <BadgeCheck size={13} strokeWidth={2.2} aria-hidden="true" />
-            Verified client
+          {/* Client Details */}
+          <div className="mt-5 flex flex-col items-center">
+            <div className="montserrat font-800 text-sm md:text-base text-navy">{t.name}</div>
+            <div className="mt-0.5 text-xs text-slate-500">{t.role} · {t.project}</div>
+            <div className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 bg-emerald-50/80 px-2.5 py-0.5 rounded-full border border-emerald-200/50">
+              <BadgeCheck size={12} strokeWidth={2.4} aria-hidden="true" />
+              Verified client
+            </div>
           </div>
 
-          <div className="mt-8 flex items-center justify-center gap-5">
+          {/* Navigation Controls: Prev / Client Selector Pills / Next */}
+          <div className="mt-6 flex items-center justify-center gap-3 sm:gap-4">
             <button
               onClick={() => go(-1)}
               aria-label="Previous testimonial"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-orange-400 hover:text-orange-500"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300/80 text-slate-600 transition hover:border-brand hover:text-brand hover:bg-white"
             >
-              <ChevronLeft size={16} strokeWidth={2.2} aria-hidden="true" />
+              <ChevronLeft size={15} strokeWidth={2.2} aria-hidden="true" />
             </button>
 
-            <div className="flex gap-2">
+            {/* Client names / selector tabs */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {testimonials.map((item, i) => (
                 <button
                   key={item.name}
                   onClick={() => setActive(i)}
-                  aria-label={`Show testimonial from ${item.name}`}
-                  aria-current={i === active}
-                  className="h-1.5 rounded-full transition-all duration-300"
-                  style={i === active ? { width: 28, background: "#FF5E00" } : { width: 10, background: "#ddd" }}
-                />
+                  className={`montserrat font-700 text-[11px] sm:text-xs px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 ${
+                    i === active
+                      ? "bg-navy text-white shadow-xs"
+                      : "bg-white/60 text-slate-600 hover:bg-white hover:text-navy border border-slate-200/60"
+                  }`}
+                >
+                  {item.name.split(" ")[0]}
+                </button>
               ))}
             </div>
 
             <button
               onClick={() => go(1)}
               aria-label="Next testimonial"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-orange-400 hover:text-orange-500"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300/80 text-slate-600 transition hover:border-brand hover:text-brand hover:bg-white"
             >
-              <ChevronRight size={16} strokeWidth={2.2} aria-hidden="true" />
+              <ChevronRight size={15} strokeWidth={2.2} aria-hidden="true" />
             </button>
           </div>
         </div>

@@ -12,6 +12,7 @@ import {
   ChevronRight,
 } from "lucide-react"
 import PageWrapper from "@/components/layout/PageWrapper"
+import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
 import SubNav from "@/components/ui/SubNav"
 import FilterTabs from "@/components/ui/FilterTabs"
@@ -81,6 +82,10 @@ export default function InteriorResidential() {
 
   return (
     <PageWrapper>
+      <Seo
+        title="Residential Interior Design in Midnapur"
+        description="Living rooms, bedrooms, modular kitchens and pooja rooms designed in 3D and quoted by named material grade, executed by our own carpentry and electrical teams in Midnapur and across India."
+      />
       <PageHeader
         title="RESIDENTIAL INTERIOR"
         crumbs={[
@@ -94,8 +99,8 @@ export default function InteriorResidential() {
       <div className={`${SITE_CONTAINER} py-12`}>
         <SubNav
           tabs={[
-            { label: "Residential Interior", href: "/our-work/interior/residential", active: true },
-            { label: "Commercial Interior", href: "/our-work/interior/commercial", active: false },
+            { label: "Residential Interior", href: "/our-work/interior/residential" },
+            { label: "Commercial Interior", href: "/our-work/interior/commercial" },
           ]}
         />
 
@@ -103,7 +108,7 @@ export default function InteriorResidential() {
           <p className="montserrat font-700 mb-3 text-[11px] uppercase tracking-[0.3em] text-orange-600">
             Residential interior design in Midnapur & across India
           </p>
-          <h2 className="montserrat font-800 text-2xl leading-snug md:text-3xl" style={{ color: "#1a2744" }}>
+          <h2 className="montserrat font-800 text-2xl leading-snug md:text-3xl text-navy">
             Interiors detailed to the millimetre, built to last
           </h2>
           <p className="mt-4 text-sm leading-7 text-slate-500">
@@ -136,21 +141,24 @@ export default function InteriorResidential() {
                 <img
                   src={p.img}
                   alt={`${p.title} — ${p.room.toLowerCase()} interior design by Reena Designs & Constructions, Midnapur`}
-                  className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
+                  width={600}
+                  height={224}
                   loading="lazy"
+                  decoding="async"
+                  className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
                 />
                 <span className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
                 <span className="montserrat font-700 absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-3 py-1.5 text-[11px] text-slate-800 opacity-0 transition duration-300 group-hover:opacity-100">
                   <Maximize2 size={12} strokeWidth={2.2} aria-hidden="true" />
                   View details
                 </span>
-                <span className="montserrat font-700 absolute left-3 top-3 rounded-lg px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] text-white" style={{ background: "#FF5E00" }}>
+                <span className="montserrat font-700 absolute left-3 top-3 rounded-lg px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] text-white bg-brand">
                   {p.room}
                 </span>
               </button>
 
               <div className="flex flex-1 flex-col p-5">
-                <h3 className="montserrat font-800 text-sm leading-snug" style={{ color: "#1a2744" }}>
+                <h3 className="montserrat font-800 text-sm leading-snug text-navy">
                   {p.title}
                 </h3>
                 <p className="mt-2 text-[13px] leading-relaxed text-slate-500">{p.summary}</p>
@@ -194,7 +202,7 @@ export default function InteriorResidential() {
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-orange-50 text-orange-500">
                   <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
                 </span>
-                <h3 className="montserrat font-800 text-sm" style={{ color: "#1a2744" }}>{title}</h3>
+                <h3 className="montserrat font-800 text-sm text-navy">{title}</h3>
                 <p className="text-[13px] leading-relaxed text-slate-500">{copy}</p>
               </div>
             ))}
@@ -238,6 +246,11 @@ export default function InteriorResidential() {
                 <img
                   src={openProject.img}
                   alt={`${openProject.title} — ${openProject.room.toLowerCase()} interior by Reena Designs & Constructions`}
+                  width={900}
+                  height={600}
+                  /* Eager: the visitor has just clicked to open this, so
+                     deferring it only shows them an empty panel. */
+                  decoding="async"
                   className="h-72 w-full object-cover lg:h-full"
                 />
                 {visible.length > 1 && (
@@ -266,14 +279,14 @@ export default function InteriorResidential() {
                 <div className="montserrat font-700 text-[10px] uppercase tracking-[0.25em] text-orange-600">
                   {openProject.room}
                 </div>
-                <h3 className="montserrat font-800 mt-2 text-xl leading-snug" style={{ color: "#1a2744" }}>
+                <h3 className="montserrat font-800 mt-2 text-xl leading-snug text-navy">
                   {openProject.title}
                 </h3>
 
                 <p className="mt-4 text-[13px] leading-7 text-slate-600">{openProject.detail}</p>
 
                 <div className="mt-7">
-                  <div className="montserrat font-800 flex items-center gap-2 text-[11px] uppercase tracking-[0.18em]" style={{ color: "#1a2744" }}>
+                  <div className="montserrat font-800 flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-navy">
                     <Sparkles size={14} strokeWidth={2} className="text-orange-500" aria-hidden="true" />
                     Materials &amp; finishes
                   </div>
@@ -287,14 +300,14 @@ export default function InteriorResidential() {
                 </div>
 
                 <div className="mt-7">
-                  <div className="montserrat font-800 flex items-center gap-2 text-[11px] uppercase tracking-[0.18em]" style={{ color: "#1a2744" }}>
+                  <div className="montserrat font-800 flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-navy">
                     <ListChecks size={14} strokeWidth={2} className="text-orange-500" aria-hidden="true" />
                     Scope of work
                   </div>
                   <ul className="mt-3 space-y-2.5">
                     {openProject.scope.map((s) => (
                       <li key={s} className="flex items-start gap-2.5 text-[13px] leading-relaxed text-slate-600">
-                        <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full" style={{ background: "#FF5E00" }} aria-hidden="true" />
+                        <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-brand" aria-hidden="true" />
                         {s}
                       </li>
                     ))}

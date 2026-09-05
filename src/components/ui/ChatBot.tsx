@@ -112,6 +112,9 @@ export default function ChatBot() {
       setTyping(false)
       push({ from: "bot", text: answer.text, link: answer.link })
       setChips(answer.next ?? [])
+      // Drop the handle once it has fired, so a long conversation does not
+      // accumulate a list of dead timer ids for the life of the session.
+      timers.current = timers.current.filter((id) => id !== t)
     }, delay)
     timers.current.push(t)
   }
@@ -223,6 +226,9 @@ export default function ChatBot() {
             className="chat-scroll flex-1 space-y-3 overflow-y-auto px-3.5 py-4"
             style={{ background: "linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%)" }}
             aria-live="polite"
+            aria-relevant="additions"
+            aria-atomic="false"
+            role="log"
           >
             {messages.map((m) => (
               <div key={m.id} className={`chat-bubble-in flex gap-2 ${m.from === "user" ? "justify-end" : "justify-start"}`}>
@@ -315,8 +321,7 @@ export default function ChatBot() {
               type="submit"
               disabled={!draft.trim() || typing}
               aria-label="Send message"
-              className="inline-flex h-9 w-9 flex-none items-center justify-center rounded-full text-white shadow-md transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-              style={{ background: "#FF5E00" }}
+              className="inline-flex h-9 w-9 flex-none items-center justify-center rounded-full text-white shadow-md transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 bg-brand"
             >
               <Send size={15} strokeWidth={2.2} aria-hidden="true" />
             </button>

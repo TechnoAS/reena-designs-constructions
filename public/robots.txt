@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# The 404 page is noindex anyway; keeping crawlers off it saves budget.
+Disallow: /404
+
+Sitemap: https://reenabuild.com/sitemap.xml

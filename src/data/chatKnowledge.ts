@@ -298,10 +298,16 @@ export function matchAnswer(input: string): Answer {
     let score = 0
     for (const k of a.keys) {
       const key = k.toLowerCase()
-      // Phrases and very short words must sit on word boundaries; longer single
-      // words match as a prefix so "cost" still catches "costing".
-      const exact = key.includes(" ") || key.length <= 3
-      const hit = exact ? q.includes(` ${key} `) : q.includes(key)
+      // Very short words must match whole, or "hi" fires on "hire".
+      //
+      // Everything else is anchored to the *start* of a word rather than
+      // matched anywhere in the string. A bare substring test let a key be
+      // found in the middle of an unrelated word — "time" inside "sometimes",
+      // "rate" inside "accurate" or "decorate" — so "Can you decorate my
+      // living room?" scored against the pricing answer. Anchoring keeps the
+      // documented prefix behaviour ("cost" still catches "costing") without
+      // matching mid-word.
+      const hit = key.length <= 3 ? q.includes(` ${key} `) : q.includes(` ${key}`)
       if (hit) score += key.length
     }
     if (score > bestScore) {

@@ -9,6 +9,7 @@ import {
   KeyRound,
 } from "lucide-react"
 import PageWrapper from "@/components/layout/PageWrapper"
+import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import CTABanner from "@/components/ui/CTABanner"
@@ -29,6 +30,10 @@ const services = [
 export default function Services() {
   return (
     <PageWrapper>
+      <Seo
+        title="Our Services — Construction, Architecture & Interiors"
+        description="Eight disciplines delivered in-house: residential and commercial construction, architectural design, structural engineering, renovation, interiors, exteriors and turnkey delivery across India."
+      />
       <PageHeader title="OUR SERVICES" crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]} />
 
       <div className={`${SITE_CONTAINER} flex flex-col gap-20 py-16`}>
@@ -45,7 +50,7 @@ export default function Services() {
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50 text-orange-500 transition duration-300 group-hover:bg-orange-500 group-hover:text-white">
                   <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
                 </span>
-                <h3 className="montserrat font-800 text-sm leading-snug" style={{ color: "#1a2744" }}>{title}</h3>
+                <h3 className="montserrat font-800 text-sm leading-snug text-navy">{title}</h3>
                 <p className="text-[13px] leading-relaxed text-slate-500">{copy}</p>
               </article>
             ))}

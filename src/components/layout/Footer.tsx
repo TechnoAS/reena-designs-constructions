@@ -3,6 +3,14 @@ import { MapPin, Phone, Mail, ArrowRight } from "lucide-react"
 import { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon } from "@/components/ui/SocialIcons"
 import v4Logo from "@/imports/V4.png"
 import { SITE_CONTAINER } from "./constants"
+import { SITE, ACTIVE_SOCIAL_LINKS } from "@/data/siteInfo"
+
+const SOCIAL_ICONS = {
+  Facebook: FacebookIcon,
+  Instagram: InstagramIcon,
+  LinkedIn: LinkedinIcon,
+  YouTube: YoutubeIcon,
+} as const
 
 export default function Footer() {
   return (
@@ -52,8 +60,8 @@ export default function Footer() {
             <text x="305" y="130" fill="#ffffff" fontSize="9" fontFamily="monospace" transform="rotate(90, 305, 130)" textAnchor="middle" opacity="0.7">15.00 m</text>
             
             {/* Accent Orange Dimension Line / Circle (Theme connection) */}
-            <circle cx="70" cy="40" r="4" stroke="#FF5E00" strokeWidth="1.5" fill="none" opacity="0.7" />
-            <circle cx="150" cy="50" r="4" stroke="#FF5E00" strokeWidth="1.5" fill="none" opacity="0.7" />
+            <circle cx="70" cy="40" r="4" stroke="var(--color-brand)" strokeWidth="1.5" fill="none" opacity="0.7" />
+            <circle cx="150" cy="50" r="4" stroke="var(--color-brand)" strokeWidth="1.5" fill="none" opacity="0.7" />
           </g>
           
           {/* Right Side: Architectural Blueprint Floor Plan */}
@@ -116,7 +124,7 @@ export default function Footer() {
             <line x1="220" y1="120" x2="230" y2="120" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="3,3" opacity="0.5" />
             
             {/* Orange Highlight Accent on a structural boundary */}
-            <rect x="150" y="70" width="70" height="100" stroke="#FF5E00" strokeWidth="1" strokeDasharray="2,2" fill="none" opacity="0.6" />
+            <rect x="150" y="70" width="70" height="100" stroke="var(--color-brand)" strokeWidth="1" strokeDasharray="2,2" fill="none" opacity="0.6" />
           </g>
         </svg>
       </div>
@@ -124,7 +132,14 @@ export default function Footer() {
       <div className={`${SITE_CONTAINER} relative z-10 grid gap-12 py-20 md:grid-cols-4 md:gap-10 lg:py-24`}>
         <div className="md:pr-4">
           <div className="mb-5 flex items-center gap-2.5">
-            <img src={v4Logo} alt="Reena Designs & Constructions logo" className="h-[52px] w-[52px] rounded object-contain opacity-90" />
+            <img
+              src={v4Logo}
+              alt=""
+              width={52}
+              height={52}
+              loading="lazy"
+              className="h-[52px] w-[52px] rounded object-contain opacity-90"
+            />
             <div>
               <div className="montserrat font-900 text-sm text-white">REENA</div>
               <div className="text-white/40" style={{ fontSize: "9px", letterSpacing: "0.07em" }}>DESIGNS &amp; CONSTRUCTIONS</div>
@@ -135,24 +150,31 @@ export default function Footer() {
             architecture, interiors and renovation. 250+ projects completed over 15+ years — every one
             handed over to the approved drawing, on the date we committed to.
           </p>
-          <div className="flex gap-2.5">
-            {[
-              { label: "Facebook", Icon: FacebookIcon },
-              { label: "Instagram", Icon: InstagramIcon },
-              { label: "LinkedIn", Icon: LinkedinIcon },
-              { label: "YouTube", Icon: YoutubeIcon },
-            ].map(({ label, Icon }) => (
-              <a
-                key={label}
-                href="#"
-                aria-label={`Reena Designs & Constructions on ${label}`}
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-white/50 transition duration-300 hover:bg-orange-500 hover:text-white"
-                style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.15)" }}
-              >
-                <Icon size={15} />
-              </a>
-            ))}
-          </div>
+          {/* Only profiles with a real URL are rendered. These were four
+              `href="#"` anchors, which push a bare hash onto the router and
+              read as broken outbound links to a crawler. Add a URL in
+              siteInfo.ts and the icon appears. */}
+          {ACTIVE_SOCIAL_LINKS.length > 0 && (
+            <div className="flex gap-2.5">
+              {ACTIVE_SOCIAL_LINKS.map(({ label, url }) => {
+                const Icon = SOCIAL_ICONS[label as keyof typeof SOCIAL_ICONS]
+                if (!Icon) return null
+                return (
+                  <a
+                    key={label}
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={`${SITE.name} on ${label}`}
+                    className="flex h-9 w-9 items-center justify-center rounded-lg text-white/50 transition duration-300 hover:bg-orange-500 hover:text-white"
+                    style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.15)" }}
+                  >
+                    <Icon size={15} />
+                  </a>
+                )
+              })}
+            </div>
+          )}
         </div>
 
         <div>
@@ -184,9 +206,9 @@ export default function Footer() {
         <div>
           <h4 className="montserrat font-800 mb-6 text-xs uppercase tracking-widest text-white">Contact Info</h4>
           {[
-            { Icon: MapPin, text: "Midnapur, Paschim Midnapur, West Bengal 721101, India", href: null },
-            { Icon: Phone, text: "+91 98765 43210", href: "tel:+919876543210" },
-            { Icon: Mail, text: "info@reenabuild.com", href: "mailto:info@reenabuild.com" },
+            { Icon: MapPin, text: `${SITE.address.street}, ${SITE.address.region} ${SITE.address.postalCode}, India`, href: null },
+            { Icon: Phone, text: SITE.phones[0], href: SITE.phoneHref },
+            { Icon: Mail, text: SITE.email, href: `mailto:${SITE.email}` },
           ].map(({ Icon, text, href }) => (
             <div key={text} className="mb-4 flex items-start gap-2.5">
               <Icon size={14} strokeWidth={1.9} className="mt-0.5 flex-none text-orange-500" aria-hidden="true" />
@@ -199,15 +221,26 @@ export default function Footer() {
           ))}
           <div className="mt-6 rounded-xl px-4 py-3.5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }}>
             <div className="montserrat font-700 text-[10px] uppercase tracking-[0.2em] text-orange-400">Office hours</div>
-            <div className="mt-1.5 text-xs text-white/50">Mon – Sat · 9:30 AM – 7:00 PM</div>
+            <div className="mt-1.5 text-xs text-white/50">{SITE.hours}</div>
           </div>
         </div>
       </div>
 
-      <div className="relative z-10 border-t py-6 text-center" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+      <div
+        className="relative z-10 flex flex-col items-center justify-between gap-3 border-t py-6 text-center md:flex-row md:px-14"
+        style={{ borderColor: "rgba(255,255,255,0.08)" }}
+      >
         <span className="text-xs text-white/30">
-          © {new Date().getFullYear()} Reena Designs &amp; Constructions. All Rights Reserved.
+          © {new Date().getFullYear()} {SITE.name}. All Rights Reserved.
         </span>
+        <div className="flex items-center gap-5">
+          <Link to="/privacy" className="text-xs text-white/30 transition-colors hover:text-white/70">
+            Privacy Policy
+          </Link>
+          <Link to="/cookies" className="text-xs text-white/30 transition-colors hover:text-white/70">
+            Cookie Policy
+          </Link>
+        </div>
       </div>
     </footer>
   )

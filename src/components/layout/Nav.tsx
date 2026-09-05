@@ -1,39 +1,52 @@
 import { useState, useRef, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import v4Logo from "@/imports/V4.png"
-import { NAV_CONTAINER, SITE_CONTAINER, NAV_LINKS } from "./constants"
+import { NAV_LINKS, SITE_CONTAINER, type NavChild, type NavDropdownItem } from "./constants"
 
-function DropdownMenu({ items }: { items: typeof NAV_LINKS[3]["dropdown"] }) {
+function hasChildren(item: NavDropdownItem): item is NavChild {
+  return "children" in item && Array.isArray(item.children)
+}
+
+function DropdownMenu({ items }: { items: readonly NavDropdownItem[] }) {
   return (
-    <div
-      className="absolute top-full left-0 z-50 min-w-56 pt-2"
-    >
-      <div className="rounded-xl py-2 shadow-2xl" style={{ background: "#fff", border: "1.5px solid #e8e8e8" }}>
-      {items!.map((item) => {
-        if ("children" in item && item.children) {
-          return (
-            <div key={item.label} className="group relative">
-              <Link to={item.children[0].href} className="flex items-center justify-between px-4 py-2.5 text-sm font-600 transition-colors hover:bg-orange-50" style={{ color: "#1a2744" }}>
+    <div className="absolute top-full left-0 z-50 min-w-56 pt-2">
+      <div className="rounded-xl border-[1.5px] border-hairline bg-white py-2 shadow-2xl">
+        {items.map((item) =>
+          hasChildren(item) ? (
+            <div key={item.label} className="group/sub relative">
+              <Link
+                to={item.children[0].href}
+                className="font-600 flex items-center justify-between px-4 py-2.5 text-sm text-navy transition-colors hover:bg-orange-50"
+              >
                 {item.label}
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path d="M4 2l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
               </Link>
-              <div className="absolute left-full top-0 hidden min-w-48 rounded-xl py-2 shadow-xl group-hover:block" style={{ background: "#fff", border: "1.5px solid #e8e8e8" }}>
+              {/* `focus-within` matters as much as `hover` here — without it the
+                  submenu could only ever be opened with a mouse. */}
+              <div className="absolute left-full top-0 hidden min-w-48 rounded-xl border-[1.5px] border-hairline bg-white py-2 shadow-xl group-hover/sub:block group-focus-within/sub:block">
                 {item.children.map((child) => (
-                  <Link key={child.href} to={child.href} className="block px-4 py-2.5 text-sm hover:bg-orange-50 transition-colors" style={{ color: "#444" }}>
+                  <Link
+                    key={child.href}
+                    to={child.href}
+                    className="block px-4 py-2.5 text-sm text-slate-600 transition-colors hover:bg-orange-50"
+                  >
                     {child.label}
                   </Link>
                 ))}
               </div>
             </div>
-          )
-        }
-        const simple = item as { label: string; href: string }
-        return (
-          <Link key={simple.href} to={simple.href} className="block px-4 py-2.5 text-sm hover:bg-orange-50 transition-colors" style={{ color: "#444" }}>
-            {simple.label}
-          </Link>
-        )
-      })}
+          ) : (
+            <Link
+              key={item.href}
+              to={item.href}
+              className="block px-4 py-2.5 text-sm text-slate-600 transition-colors hover:bg-orange-50"
+            >
+              {item.label}
+            </Link>
+          ),
+        )}
       </div>
     </div>
   )
@@ -42,58 +55,107 @@ function DropdownMenu({ items }: { items: typeof NAV_LINKS[3]["dropdown"] }) {
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [dropOpen, setDropOpen] = useState(false)
-  const [mobileWork, setMobileWork] = useState(false)
+  const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
-  const dropRef = useRef<HTMLDivElement>(null)
+  const dropWrapRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => { setMenuOpen(false); setDropOpen(false) }, [location.pathname])
+  useEffect(() => {
+    setMenuOpen(false)
+    setDropOpen(false)
+    setOpenMobileGroup(null)
+  }, [location.pathname])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
     onScroll()
-    window.addEventListener("scroll", onScroll)
+    window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // Escape closes the dropdown, and a click outside dismisses it — a
+  // hover-only menu strands keyboard users with no way back out.
+  useEffect(() => {
+    if (!dropOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDropOpen(false)
+    }
+    const onPointerDown = (e: PointerEvent) => {
+      if (!dropWrapRef.current?.contains(e.target as Node)) setDropOpen(false)
+    }
+    document.addEventListener("keydown", onKey)
+    document.addEventListener("pointerdown", onPointerDown)
+    return () => {
+      document.removeEventListener("keydown", onKey)
+      document.removeEventListener("pointerdown", onPointerDown)
+    }
+  }, [dropOpen])
+
   const isHomePage = location.pathname === "/"
   const hasBg = scrolled || !isHomePage
-  const navTextColor = "#1f2937"
 
   const isActive = (href: string) =>
     href === "/" ? location.pathname === "/" : location.pathname.startsWith(href)
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${hasBg ? "bg-white/95 shadow-[0_8px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl" : "bg-transparent"}`}>
-      <div className={`${SITE_CONTAINER} py-1.5 flex items-center justify-between`}>
+    <nav
+      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+        hasBg ? "bg-white/95 shadow-[0_8px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl" : "bg-transparent"
+      }`}
+    >
+      <div className={`${SITE_CONTAINER} flex items-center justify-between py-1.5`}>
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5">
-          <img src={v4Logo} alt="Logo" className="w-[58px] h-[58px] object-contain rounded" />
+        <Link to="/" className="flex items-center gap-2.5" aria-label="Reena Designs & Constructions — home">
+          <img
+            src={v4Logo}
+            alt=""
+            width={58}
+            height={58}
+            className="h-[58px] w-[58px] rounded object-contain"
+          />
           <div>
-            <div className="text-base font-black leading-tight" style={{ fontFamily: "Inter, sans-serif", color: "#0f172a" }}>REENA</div>
-            <div className="text-[9px] font-medium leading-tight tracking-[0.08em]" style={{ fontFamily: "Inter, sans-serif", color: "#475569" }}>DESIGNS &amp; CONSTRUCTIONS</div>
+            <div className="text-base leading-tight font-black text-slate-900">REENA</div>
+            <div className="text-[9px] leading-tight font-medium tracking-[0.08em] text-slate-600">
+              DESIGNS &amp; CONSTRUCTIONS
+            </div>
           </div>
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
+        <div className="hidden items-center gap-8 md:flex">
+          {NAV_LINKS.map((link) =>
             link.dropdown ? (
-              <div key={link.label} className="relative" ref={dropRef}
+              <div
+                key={link.label}
+                ref={dropWrapRef}
+                className="relative"
                 onMouseEnter={() => setDropOpen(true)}
                 onMouseLeave={() => setDropOpen(false)}
+                onFocus={() => setDropOpen(true)}
               >
                 <Link
                   to={link.href}
                   aria-haspopup="true"
                   aria-expanded={dropOpen}
                   onClick={() => setDropOpen(false)}
-                  className="flex items-center gap-1 pb-0.5 text-sm font-500 transition-colors"
-                  style={{ color: isActive(link.href) ? "#FF5E00" : navTextColor }}
+                  className={`font-500 relative flex items-center gap-1 pb-0.5 text-sm transition-colors ${
+                    isActive(link.href) ? "text-brand" : "text-slate-800"
+                  }`}
                 >
                   {link.label}
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`transition-transform duration-200 ${dropOpen ? "rotate-180" : ""}`}><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                  {isActive(link.href) && <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full" style={{ background: "#FF5E00" }} />}
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden="true"
+                    className={`transition-transform duration-200 ${dropOpen ? "rotate-180" : ""}`}
+                  >
+                    <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                  {isActive(link.href) && (
+                    <span className="absolute right-0 bottom-0 left-0 h-0.5 rounded-full bg-brand" />
+                  )}
                 </Link>
                 {dropOpen && <DropdownMenu items={link.dropdown} />}
               </div>
@@ -101,52 +163,112 @@ export default function Nav() {
               <Link
                 key={link.label}
                 to={link.href}
-                className="relative pb-0.5 text-sm font-500 transition-colors"
-                style={{ color: isActive(link.href) ? "#FF5E00" : navTextColor }}
+                className={`font-500 relative pb-0.5 text-sm transition-colors ${
+                  isActive(link.href) ? "text-brand" : "text-slate-800"
+                }`}
               >
                 {link.label}
-                {isActive(link.href) && <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full" style={{ background: "#FF5E00" }} />}
+                {isActive(link.href) && (
+                  <span className="absolute right-0 bottom-0 left-0 h-0.5 rounded-full bg-brand" />
+                )}
               </Link>
-            )
-          ))}
+            ),
+          )}
         </div>
 
         {/* CTA */}
-        <Link to="/contact" className="hidden md:flex btn-orange montserrat font-700 text-sm px-5 py-2.5 items-center gap-2">
+        <Link
+          to="/contact"
+          className="btn-orange montserrat font-700 hidden items-center gap-2 px-5 py-2.5 text-sm md:flex"
+        >
           Contact Us
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 5.5A1.5 1.5 0 013.8 4h.7c.5 0 1 .65.8 1.1L4.5 7a1.5 1.5 0 00.35 1.6l.6.6a7 7 0 002.35 1.65l.6.6A1.5 1.5 0 009.9 10.5l1.9-.8c.45-.2 1.1.3 1.1.8v.7A1.5 1.5 0 0111.5 12.6C5.6 12.1 2 6.8 2.5 5.5z" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path
+              d="M2.5 5.5A1.5 1.5 0 013.8 4h.7c.5 0 1 .65.8 1.1L4.5 7a1.5 1.5 0 00.35 1.6l.6.6a7 7 0 002.35 1.65l.6.6A1.5 1.5 0 009.9 10.5l1.9-.8c.45-.2 1.1.3 1.1.8v.7A1.5 1.5 0 0111.5 12.6C5.6 12.1 2 6.8 2.5 5.5z"
+              fill="currentColor"
+            />
+          </svg>
         </Link>
 
         {/* Burger */}
-        <button className="p-2 md:hidden" style={{ color: "#1a2744" }} onClick={() => setMenuOpen(!menuOpen)}>
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            {menuOpen ? <path d="M3 3l16 16M19 3L3 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/> : <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>}
+        <button
+          type="button"
+          className="p-2 text-navy md:hidden"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+        >
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            {menuOpen ? (
+              <path d="M3 3l16 16M19 3L3 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            ) : (
+              <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            )}
           </svg>
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — driven by NAV_LINKS rather than a hand-written copy.
+          The previous hardcoded list had drifted: Architecture Gallery, 3D
+          Design, Before & After and Client Testimonials all existed as routes
+          and in the desktop dropdown, but were unreachable on a phone. */}
       {menuOpen && (
-        <div className="md:hidden border-t px-6 py-4 flex flex-col gap-1" style={{ background: "rgba(255,255,255,0.97)", borderColor: "#eee" }}>
-          <Link to="/" className="py-2 text-sm font-500" style={{ color: "#333" }}>Home</Link>
-          <Link to="/about" className="py-2 text-sm font-500" style={{ color: "#333" }}>About Us</Link>
-          <Link to="/services" className="py-2 text-sm font-500" style={{ color: "#333" }}>Services</Link>
-          <button onClick={() => setMobileWork(!mobileWork)} className="py-2 text-sm font-500 flex items-center justify-between" style={{ color: "#333" }}>
-            Our Work
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`transition-transform ${mobileWork ? "rotate-180" : ""}`}><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-          </button>
-          {mobileWork && (
-            <div className="pl-4 flex flex-col gap-1 border-l-2" style={{ borderColor: "#FF5E00" }}>
-              <Link to="/our-work" className="py-1.5 text-sm" style={{ color: "#555" }}>Overview</Link>
-              <Link to="/our-work/projects/successful" className="py-1.5 text-sm" style={{ color: "#555" }}>Successful Projects</Link>
-              <Link to="/our-work/projects/ongoing" className="py-1.5 text-sm" style={{ color: "#555" }}>Ongoing Projects</Link>
-              <Link to="/our-work/interior/residential" className="py-1.5 text-sm" style={{ color: "#555" }}>Residential Interior</Link>
-              <Link to="/our-work/interior/commercial" className="py-1.5 text-sm" style={{ color: "#555" }}>Commercial Interior</Link>
-              <Link to="/our-work/exterior" className="py-1.5 text-sm" style={{ color: "#555" }}>Exterior Design</Link>
-              <Link to="/our-work/renovation" className="py-1.5 text-sm" style={{ color: "#555" }}>Renovation Projects</Link>
-            </div>
+        <div
+          id="mobile-menu"
+          className="flex flex-col gap-1 border-t border-slate-200 bg-white/97 px-6 py-4 md:hidden"
+        >
+          {NAV_LINKS.map((link) =>
+            link.dropdown ? (
+              <div key={link.label}>
+                <button
+                  type="button"
+                  onClick={() => setOpenMobileGroup((g) => (g === link.label ? null : link.label))}
+                  aria-expanded={openMobileGroup === link.label}
+                  className="font-500 flex w-full items-center justify-between py-2 text-sm text-slate-700"
+                >
+                  {link.label}
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden="true"
+                    className={`transition-transform ${openMobileGroup === link.label ? "rotate-180" : ""}`}
+                  >
+                    <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </button>
+                {openMobileGroup === link.label && (
+                  <div className="flex flex-col gap-1 border-l-2 border-brand pl-4">
+                    <Link to={link.href} className="py-1.5 text-sm text-slate-500">
+                      Overview
+                    </Link>
+                    {link.dropdown.flatMap((item) =>
+                      hasChildren(item)
+                        ? item.children.map((child) => (
+                            <Link key={child.href} to={child.href} className="py-1.5 text-sm text-slate-500">
+                              {child.label}
+                            </Link>
+                          ))
+                        : [
+                            <Link key={item.href} to={item.href} className="py-1.5 text-sm text-slate-500">
+                              {item.label}
+                            </Link>,
+                          ],
+                    )}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link key={link.href} to={link.href} className="font-500 py-2 text-sm text-slate-700">
+                {link.label}
+              </Link>
+            ),
           )}
-          <Link to="/contact" className="btn-orange montserrat font-700 text-sm px-5 py-2.5 text-center mt-2">Contact Us</Link>
+          <Link to="/contact" className="btn-orange montserrat font-700 mt-2 px-5 py-2.5 text-center text-sm">
+            Contact Us
+          </Link>
         </div>
       )}
     </nav>

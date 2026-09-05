@@ -1,22 +1,36 @@
-interface SubNavTab {
-  label: string
-  href: string
-  active: boolean
-}
+import { Link, useLocation } from "react-router-dom"
 
+type SubNavTab = { label: string; href: string }
+
+/**
+ * Section tabs.
+ *
+ * Two things changed here. These were plain `<a href>` elements, so every tab
+ * click tore down the SPA and re-downloaded the whole bundle — `<Link>` keeps
+ * it client-side. And `active` used to be passed in by hand from each of the
+ * four calling pages, which is state the router already knows; deriving it
+ * means a tab can never be mislabelled after a route rename.
+ */
 export default function SubNav({ tabs }: { tabs: SubNavTab[] }) {
+  const { pathname } = useLocation()
+
   return (
-    <div className="flex gap-4 mb-8 border-b pb-4" style={{ borderColor: "#e8e8e8" }}>
-      {tabs.map((tab) => (
-        <a
-          key={tab.label}
-          href={tab.href}
-          className="montserrat font-700 text-sm pb-1 border-b-2 transition-colors"
-          style={tab.active ? { color: "#FF5E00", borderColor: "#FF5E00" } : { color: "#888", borderColor: "transparent" }}
-        >
-          {tab.label}
-        </a>
-      ))}
-    </div>
+    <nav aria-label="Section" className="mb-8 flex gap-4 border-b border-hairline pb-4">
+      {tabs.map((tab) => {
+        const active = pathname === tab.href || pathname.startsWith(`${tab.href}/`)
+        return (
+          <Link
+            key={tab.href}
+            to={tab.href}
+            aria-current={active ? "page" : undefined}
+            className={`montserrat font-700 border-b-2 pb-1 text-sm transition-colors ${
+              active ? "border-brand text-brand" : "border-transparent text-slate-400 hover:text-slate-600"
+            }`}
+          >
+            {tab.label}
+          </Link>
+        )
+      })}
+    </nav>
   )
 }

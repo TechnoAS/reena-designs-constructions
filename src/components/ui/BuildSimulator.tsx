@@ -63,8 +63,7 @@ export default function BuildSimulator() {
           {/* Phase badge over the drawing */}
           <div className="pointer-events-none absolute left-8 top-8 flex items-center gap-2">
             <span
-              className="montserrat font-800 rounded-lg px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white"
-              style={{ background: "#FF5E00" }}
+              className="montserrat font-800 rounded-lg px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white bg-brand"
             >
               {phase.tag}
             </span>
@@ -77,13 +76,13 @@ export default function BuildSimulator() {
         {/* ── Readout ────────────────────────────────────────── */}
         <div className="flex flex-col p-7 lg:p-9">
           <div className="flex items-baseline gap-2">
-            <span className="montserrat font-900 text-5xl leading-none" style={{ color: "#FF5E00" }}>
+            <span className="montserrat font-900 text-5xl leading-none text-brand">
               {String(step).padStart(2, "0")}
             </span>
             <span className="montserrat font-700 text-sm text-slate-300">/ {TOTAL}</span>
           </div>
 
-          <h3 className="montserrat font-800 mt-4 text-xl leading-snug" style={{ color: "#1a2744" }} aria-live="polite">
+          <h3 className="montserrat font-800 mt-4 text-xl leading-snug text-navy" aria-live="polite">
             {stage.label}
           </h3>
 

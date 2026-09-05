@@ -51,7 +51,7 @@ export default function BuildScene({ step }: { step: number }) {
         </linearGradient>
         <linearGradient id="bs-roof" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#2b3f68" />
-          <stop offset="100%" stopColor="#1a2744" />
+          <stop offset="100%" stopColor="var(--color-navy)" />
         </linearGradient>
         <linearGradient id="bs-glow" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#FFCF9E" />
@@ -64,10 +64,10 @@ export default function BuildScene({ step }: { step: number }) {
       {/* Drafting grid — always present, this is a drawing board */}
       <g opacity="0.5">
         {Array.from({ length: 17 }, (_, i) => (
-          <line key={`v${i}`} x1={i * 45} y1="0" x2={i * 45} y2="460" stroke="#1a2744" strokeWidth="0.4" opacity="0.07" />
+          <line key={`v${i}`} x1={i * 45} y1="0" x2={i * 45} y2="460" stroke="var(--color-navy)" strokeWidth="0.4" opacity="0.07" />
         ))}
         {Array.from({ length: 11 }, (_, i) => (
-          <line key={`h${i}`} x1="0" y1={i * 46} x2="720" y2={i * 46} stroke="#1a2744" strokeWidth="0.4" opacity="0.07" />
+          <line key={`h${i}`} x1="0" y1={i * 46} x2="720" y2={i * 46} stroke="var(--color-navy)" strokeWidth="0.4" opacity="0.07" />
         ))}
       </g>
 
@@ -80,8 +80,8 @@ export default function BuildScene({ step }: { step: number }) {
       </L>
 
       {/* ── Ground ───────────────────────────────────────────── */}
-      <line x1="24" y1={GROUND} x2="696" y2={GROUND} stroke="#1a2744" strokeWidth="2" opacity="0.55" />
-      <g stroke="#1a2744" strokeWidth="0.8" opacity="0.28">
+      <line x1="24" y1={GROUND} x2="696" y2={GROUND} stroke="var(--color-navy)" strokeWidth="2" opacity="0.55" />
+      <g stroke="var(--color-navy)" strokeWidth="0.8" opacity="0.28">
         {Array.from({ length: 34 }, (_, i) => (
           <line key={i} x1={32 + i * 20} y1={GROUND} x2={22 + i * 20} y2={GROUND + 10} />
         ))}
@@ -91,7 +91,7 @@ export default function BuildScene({ step }: { step: number }) {
       <L step={step} from={1}>
         <path
           d={`M96 ${GROUND} l40 -34 h448 l40 34`}
-          stroke="#1a2744"
+          stroke="var(--color-navy)"
           strokeWidth="1.2"
           strokeDasharray="7 6"
           opacity="0.35"
@@ -100,13 +100,13 @@ export default function BuildScene({ step }: { step: number }) {
 
       {/* ── 2. Survey ────────────────────────────────────────── */}
       <L step={step} from={2} until={9}>
-        <g stroke="#FF5E00" strokeWidth="1.6" opacity="0.85">
+        <g stroke="var(--color-brand)" strokeWidth="1.6" opacity="0.85">
           <path d="M150 384v-22M570 384v-22M360 350v-14" />
-          <circle cx="150" cy="358" r="3.5" fill="#FF5E00" />
-          <circle cx="570" cy="358" r="3.5" fill="#FF5E00" />
+          <circle cx="150" cy="358" r="3.5" fill="var(--color-brand)" />
+          <circle cx="570" cy="358" r="3.5" fill="var(--color-brand)" />
         </g>
         {/* Dumpy level on a tripod */}
-        <g stroke="#1a2744" strokeWidth="1.6" opacity="0.55">
+        <g stroke="var(--color-navy)" strokeWidth="1.6" opacity="0.55">
           <path d="M646 384l10-30M666 384l-10-30M656 354v-6" />
           <rect x="644" y="336" width="24" height="12" rx="2" fill="#fff" />
         </g>
@@ -114,17 +114,17 @@ export default function BuildScene({ step }: { step: number }) {
 
       {/* ── 3. Plot dimensions ───────────────────────────────── */}
       <L step={step} from={3} until={9}>
-        <g stroke="#1a2744" strokeWidth="0.9" opacity="0.5">
+        <g stroke="var(--color-navy)" strokeWidth="0.9" opacity="0.5">
           <path d="M150 404h420M150 398v12M570 398v12" />
         </g>
-        <text x="360" y="422" fill="#FF5E00" fontSize="12" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
+        <text x="360" y="422" fill="var(--color-brand)" fontSize="12" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
           17.00 m
         </text>
       </L>
 
       {/* ── 4–9. Ghosted design ──────────────────────────────── */}
       <L step={step} from={4} until={10}>
-        <g stroke="#1a2744" strokeWidth="1.4" strokeDasharray="6 5" opacity="0.45">
+        <g stroke="var(--color-navy)" strokeWidth="1.4" strokeDasharray="6 5" opacity="0.45">
           <path d={`M228 ${GROUND}v-176h264v176`} />
           <path d="M208 208l152 -84 152 84" strokeLinejoin="round" />
         </g>
@@ -132,14 +132,14 @@ export default function BuildScene({ step }: { step: number }) {
 
       {/* ── 5. Structural grid ───────────────────────────────── */}
       <L step={step} from={5} until={10}>
-        <g stroke="#FF5E00" strokeWidth="1.1" strokeDasharray="5 5" opacity="0.6">
+        <g stroke="var(--color-brand)" strokeWidth="1.1" strokeDasharray="5 5" opacity="0.6">
           <path d={`M256 ${GROUND}v-176M464 ${GROUND}v-176M228 268h264`} />
         </g>
       </L>
 
       {/* ── 6. Ghost openings ────────────────────────────────── */}
       <L step={step} from={6} until={10}>
-        <g stroke="#1a2744" strokeWidth="1.1" strokeDasharray="4 4" opacity="0.4">
+        <g stroke="var(--color-navy)" strokeWidth="1.1" strokeDasharray="4 4" opacity="0.4">
           <rect x="272" y="234" width="60" height="46" />
           <rect x="388" y="234" width="60" height="46" />
           <rect x="336" y="312" width="48" height="72" />
@@ -162,11 +162,11 @@ export default function BuildScene({ step }: { step: number }) {
       {/* ── 8. Fixed cost tag ────────────────────────────────── */}
       <L step={step} from={8} until={10}>
         <g>
-          <rect x="70" y="150" width="128" height="46" rx="8" fill="#1a2744" opacity="0.92" />
+          <rect x="70" y="150" width="128" height="46" rx="8" fill="var(--color-navy)" opacity="0.92" />
           <text x="134" y="169" fill="#ffffff" fontSize="9" fontFamily="monospace" textAnchor="middle" opacity="0.65">
             FIXED CONTRACT
           </text>
-          <text x="134" y="185" fill="#FF5E00" fontSize="12" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
+          <text x="134" y="185" fill="var(--color-brand)" fontSize="12" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
             ITEMISED ✓
           </text>
         </g>
@@ -211,11 +211,11 @@ export default function BuildScene({ step }: { step: number }) {
       <L step={step} from={11} until={14}>
         <g>
           <rect x="228" y="208" width="264" height={GROUND - 218} fill="url(#bs-wall)" opacity="0.75" />
-          <g stroke="#1a2744" strokeWidth="1.4" opacity="0.5">
+          <g stroke="var(--color-navy)" strokeWidth="1.4" opacity="0.5">
             <path d={`M256 ${GROUND - 10}v-166M464 ${GROUND - 10}v-166M228 268h264M228 208h264`} />
           </g>
           {/* Scaffolding */}
-          <g stroke="#FF5E00" strokeWidth="1.3" opacity="0.55">
+          <g stroke="var(--color-brand)" strokeWidth="1.3" opacity="0.55">
             <path d="M212 200v184M504 200v184M212 248h292M212 306h292M212 364h292" />
             <path d="M212 200l292 48M504 200l-292 48" strokeWidth="0.6" opacity="0.4" />
           </g>
@@ -224,7 +224,7 @@ export default function BuildScene({ step }: { step: number }) {
 
       {/* Roof structure appears with the frame, solid from 15 */}
       <L step={step} from={11} until={14}>
-        <path d="M208 208l152 -84 152 84" stroke="#1a2744" strokeWidth="2" strokeLinejoin="round" opacity="0.6" />
+        <path d="M208 208l152 -84 152 84" stroke="var(--color-navy)" strokeWidth="2" strokeLinejoin="round" opacity="0.6" />
       </L>
 
       {/* ── 12. Electrical ───────────────────────────────────── */}
@@ -247,7 +247,7 @@ export default function BuildScene({ step }: { step: number }) {
 
       {/* ── 14. Flooring ─────────────────────────────────────── */}
       <L step={step} from={14}>
-        <g stroke="#1a2744" strokeWidth="0.7" opacity="0.3">
+        <g stroke="var(--color-navy)" strokeWidth="0.7" opacity="0.3">
           <path d="M228 374h264M228 364h264" />
           <path d="M272 364v20M316 364v20M360 364v20M404 364v20M448 364v20" />
         </g>
@@ -257,19 +257,19 @@ export default function BuildScene({ step }: { step: number }) {
       <L step={step} from={15}>
         <g>
           <rect x="228" y="208" width="264" height={GROUND - 218} fill="url(#bs-wall)" />
-          <rect x="228" y="208" width="264" height={GROUND - 218} fill="none" stroke="#1a2744" strokeWidth="1.6" opacity="0.55" />
+          <rect x="228" y="208" width="264" height={GROUND - 218} fill="none" stroke="var(--color-navy)" strokeWidth="1.6" opacity="0.55" />
           <path d="M208 208l152 -84 152 84z" fill="url(#bs-roof)" />
-          <path d="M208 208l152 -84 152 84" stroke="#1a2744" strokeWidth="2" strokeLinejoin="round" opacity="0.7" />
-          <rect x="196" y="204" width="328" height="10" rx="3" fill="#1a2744" opacity="0.85" />
+          <path d="M208 208l152 -84 152 84" stroke="var(--color-navy)" strokeWidth="2" strokeLinejoin="round" opacity="0.7" />
+          <rect x="196" y="204" width="328" height="10" rx="3" fill="var(--color-navy)" opacity="0.85" />
           {/* Windows */}
-          <rect x="272" y="234" width="60" height="46" rx="3" fill="#cfe0f2" stroke="#1a2744" strokeWidth="1.4" opacity="0.95" />
-          <rect x="388" y="234" width="60" height="46" rx="3" fill="#cfe0f2" stroke="#1a2744" strokeWidth="1.4" opacity="0.95" />
-          <path d="M302 234v46M272 257h60M418 234v46M388 257h60" stroke="#1a2744" strokeWidth="0.9" opacity="0.5" />
+          <rect x="272" y="234" width="60" height="46" rx="3" fill="#cfe0f2" stroke="var(--color-navy)" strokeWidth="1.4" opacity="0.95" />
+          <rect x="388" y="234" width="60" height="46" rx="3" fill="#cfe0f2" stroke="var(--color-navy)" strokeWidth="1.4" opacity="0.95" />
+          <path d="M302 234v46M272 257h60M418 234v46M388 257h60" stroke="var(--color-navy)" strokeWidth="0.9" opacity="0.5" />
           {/* Door */}
-          <rect x="336" y="312" width="48" height="72" rx="3" fill="#8a5a35" stroke="#1a2744" strokeWidth="1.4" opacity="0.95" />
+          <rect x="336" y="312" width="48" height="72" rx="3" fill="#8a5a35" stroke="var(--color-navy)" strokeWidth="1.4" opacity="0.95" />
           <circle cx="374" cy="350" r="2.6" fill="#f8fafc" />
           {/* Chimney */}
-          <rect x="446" y="150" width="20" height="34" rx="2" fill="#1a2744" opacity="0.8" />
+          <rect x="446" y="150" width="20" height="34" rx="2" fill="var(--color-navy)" opacity="0.8" />
         </g>
       </L>
 
@@ -278,7 +278,7 @@ export default function BuildScene({ step }: { step: number }) {
         <g>
           <rect x="274" y="236" width="56" height="42" rx="2" fill="url(#bs-glow)" opacity="0.75" />
           <rect x="390" y="236" width="56" height="42" rx="2" fill="url(#bs-glow)" opacity="0.75" />
-          <path d="M302 236v42M274 257h56M418 236v42M390 257h56" stroke="#1a2744" strokeWidth="0.9" opacity="0.35" />
+          <path d="M302 236v42M274 257h56M418 236v42M390 257h56" stroke="var(--color-navy)" strokeWidth="0.9" opacity="0.35" />
         </g>
       </L>
 
@@ -317,8 +317,8 @@ export default function BuildScene({ step }: { step: number }) {
         <g>
           {/* Key */}
           <g transform="translate(548 268)">
-            <circle cx="0" cy="0" r="11" fill="none" stroke="#FF5E00" strokeWidth="3.4" />
-            <path d="M9 6l26 26M26 26l8 -8M32 32l7 -7" stroke="#FF5E00" strokeWidth="3.4" strokeLinecap="round" />
+            <circle cx="0" cy="0" r="11" fill="none" stroke="var(--color-brand)" strokeWidth="3.4" />
+            <path d="M9 6l26 26M26 26l8 -8M32 32l7 -7" stroke="var(--color-brand)" strokeWidth="3.4" strokeLinecap="round" />
           </g>
           <rect x="522" y="322" width="122" height="34" rx="17" fill="#16a34a" opacity="0.95" />
           <text x="583" y="344" fill="#ffffff" fontSize="13" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
@@ -329,7 +329,7 @@ export default function BuildScene({ step }: { step: number }) {
 
       {/* ── Tower crane — up only while the structure is going up ─ */}
       <L step={step} from={10} until={14}>
-        <g stroke="#1a2744" strokeWidth="1.6" opacity="0.6">
+        <g stroke="var(--color-navy)" strokeWidth="1.6" opacity="0.6">
           <path d="M566 384V116M590 384V116" />
           <path
             d={Array.from({ length: 8 }, (_, i) => `M566 ${132 + i * 32}L590 ${164 + i * 32}M590 ${132 + i * 32}L566 ${164 + i * 32}`).join("")}

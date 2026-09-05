@@ -128,18 +128,18 @@ export default function HeroBlueprint() {
     >
       <defs>
         <pattern id="hb-fine" width="10" height="10" patternUnits="userSpaceOnUse">
-          <path d="M10 0H0v10" fill="none" stroke="#1a2744" strokeWidth="0.3" opacity="0.05" />
+          <path d="M10 0H0v10" fill="none" stroke="var(--color-navy)" strokeWidth="0.3" opacity="0.05" />
         </pattern>
         <pattern id="hb-grid" width="50" height="50" patternUnits="userSpaceOnUse">
-          <path d="M50 0H0v50" fill="none" stroke="#1a2744" strokeWidth="0.5" opacity="0.09" />
+          <path d="M50 0H0v50" fill="none" stroke="var(--color-navy)" strokeWidth="0.5" opacity="0.09" />
         </pattern>
         <linearGradient id="hb-ink" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#1a2744" stopOpacity="0.3" />
-          <stop offset="30%" stopColor="#1a2744" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#1a2744" stopOpacity="0.62" />
+          <stop offset="0%" stopColor="var(--color-navy)" stopOpacity="0.3" />
+          <stop offset="30%" stopColor="var(--color-navy)" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="var(--color-navy)" stopOpacity="0.62" />
         </linearGradient>
         <marker id="hb-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M0 0l7 3.5L0 7z" fill="#1a2744" opacity="0.45" />
+          <path d="M0 0l7 3.5L0 7z" fill="var(--color-navy)" opacity="0.45" />
         </marker>
         <clipPath id="hb-detail-clip">
           <circle cx="1447" cy="286" r="76" />
@@ -177,7 +177,7 @@ export default function HeroBlueprint() {
           <path className="bp-draw" d="M118 110l9 26-9-7-9 7z" style={{ ["--dd" as string]: "0.42s" }} />
           <path className="bp-draw" d="M92 132h-8M144 132h8M118 158v8" style={{ ["--dd" as string]: "0.46s" }} />
         </g>
-        <text className="bp-fade" x="118" y="102" fill="#1a2744" fontSize="10" fontFamily="monospace" textAnchor="middle" style={{ ["--dd" as string]: "0.5s", ["--o" as string]: 0.6 }}>
+        <text className="bp-fade" x="118" y="102" fill="var(--color-navy)" fontSize="10" fontFamily="monospace" textAnchor="middle" style={{ ["--dd" as string]: "0.5s", ["--o" as string]: 0.6 }}>
           N
         </text>
 
@@ -192,7 +192,7 @@ export default function HeroBlueprint() {
             <g key={label as string}>
               <circle className="bp-draw" cx={x as number} cy="196" r="13" style={{ ["--dd" as string]: `${0.5 + i * 0.06}s` }} />
               <path className="bp-draw" d={`M${x} 209v${GROUND - 209}`} strokeDasharray="6 6" strokeWidth="0.6" opacity="0.5" style={{ ["--dd" as string]: `${0.56 + i * 0.06}s` }} />
-              <text className="bp-fade" x={x as number} y="200" fill="#1a2744" fontSize="10" fontFamily="monospace" textAnchor="middle" style={{ ["--dd" as string]: `${0.62 + i * 0.06}s`, ["--o" as string]: 0.65 }}>
+              <text className="bp-fade" x={x as number} y="200" fill="var(--color-navy)" fontSize="10" fontFamily="monospace" textAnchor="middle" style={{ ["--dd" as string]: `${0.62 + i * 0.06}s`, ["--o" as string]: 0.65 }}>
                 {label}
               </text>
             </g>
@@ -382,51 +382,51 @@ export default function HeroBlueprint() {
 
       {/* ── Text annotations ────────────────────────────────── */}
       <g fontFamily="monospace">
-        <text className="bp-fade" x="308" y="405" fill="#FF5E00" fontSize="12" fontWeight="bold" textAnchor="middle" transform="rotate(-90 308 405)" style={{ ["--dd" as string]: "1.9s", ["--o" as string]: 0.92 }}>
+        <text className="bp-fade" x="308" y="405" fill="var(--color-brand)" fontSize="12" fontWeight="bold" textAnchor="middle" transform="rotate(-90 308 405)" style={{ ["--dd" as string]: "1.9s", ["--o" as string]: 0.92 }}>
           18.40 m
         </text>
-        <text className="bp-fade" x="460" y="218" fill="#1a2744" fontSize="10" textAnchor="middle" style={{ ["--dd" as string]: "1.95s", ["--o" as string]: 0.6 }}>
+        <text className="bp-fade" x="460" y="218" fill="var(--color-navy)" fontSize="10" textAnchor="middle" style={{ ["--dd" as string]: "1.95s", ["--o" as string]: 0.6 }}>
           12.00
         </text>
-        <text className="bp-fade" x="1190" y="338" fill="#FF5E00" fontSize="12" fontWeight="bold" textAnchor="middle" style={{ ["--dd" as string]: "2s", ["--o" as string]: 0.92 }}>
+        <text className="bp-fade" x="1190" y="338" fill="var(--color-brand)" fontSize="12" fontWeight="bold" textAnchor="middle" style={{ ["--dd" as string]: "2s", ["--o" as string]: 0.92 }}>
           SPAN L = 47.00 m
         </text>
-        <text className="bp-fade" x="1448" y="376" fill="#1a2744" fontSize="9" textAnchor="middle" style={{ ["--dd" as string]: "2.15s", ["--o" as string]: 0.6 }}>
+        <text className="bp-fade" x="1448" y="376" fill="var(--color-navy)" fontSize="9" textAnchor="middle" style={{ ["--dd" as string]: "2.15s", ["--o" as string]: 0.6 }}>
           DETAIL 1 — PAD FOOTING (1:20)
         </text>
         <text className="bp-fade" x="1450" y="374" fill="none" fontSize="9" style={{ ["--o" as string]: 0 }} />
-        <text className="bp-fade" x="96" y="645" fill="#FF5E00" fontSize="10" fontWeight="bold" textAnchor="middle" transform="rotate(-90 96 645)" style={{ ["--dd" as string]: "2.05s", ["--o" as string]: 0.9 }}>
+        <text className="bp-fade" x="96" y="645" fill="var(--color-brand)" fontSize="10" fontWeight="bold" textAnchor="middle" transform="rotate(-90 96 645)" style={{ ["--dd" as string]: "2.05s", ["--o" as string]: 0.9 }}>
           7.50 m
         </text>
-        <text className="bp-fade" x="880" y="649" fill="#1a2744" fontSize="10" textAnchor="middle" style={{ ["--dd" as string]: "2.1s", ["--o" as string]: 0.7 }}>
+        <text className="bp-fade" x="880" y="649" fill="var(--color-navy)" fontSize="10" textAnchor="middle" style={{ ["--dd" as string]: "2.1s", ["--o" as string]: 0.7 }}>
           A
         </text>
         <text className="bp-fade" x="1446" y="386" fill="none" fontSize="1" style={{ ["--o" as string]: 0 }} />
-        <text className="bp-fade" x="1160" y="720" fill="#1a2744" fontSize="8" style={{ ["--dd" as string]: "2.2s", ["--o" as string]: 0.5 }}>
+        <text className="bp-fade" x="1160" y="720" fill="var(--color-navy)" fontSize="8" style={{ ["--dd" as string]: "2.2s", ["--o" as string]: 0.5 }}>
           0
         </text>
-        <text className="bp-fade" x="1316" y="720" fill="#1a2744" fontSize="8" style={{ ["--dd" as string]: "2.2s", ["--o" as string]: 0.5 }}>
+        <text className="bp-fade" x="1316" y="720" fill="var(--color-navy)" fontSize="8" style={{ ["--dd" as string]: "2.2s", ["--o" as string]: 0.5 }}>
           20 m
         </text>
-        <text className="bp-fade" x="1174" y="630" fill="#1a2744" fontSize="10.5" style={{ ["--dd" as string]: "2.25s", ["--o" as string]: 0.78 }}>
+        <text className="bp-fade" x="1174" y="630" fill="var(--color-navy)" fontSize="10.5" style={{ ["--dd" as string]: "2.25s", ["--o" as string]: 0.78 }}>
           REENA DESIGNS &amp; CONSTRUCTIONS
         </text>
-        <text className="bp-fade" x="1174" y="676" fill="#1a2744" fontSize="9" style={{ ["--dd" as string]: "2.3s", ["--o" as string]: 0.5 }}>
+        <text className="bp-fade" x="1174" y="676" fill="var(--color-navy)" fontSize="9" style={{ ["--dd" as string]: "2.3s", ["--o" as string]: 0.5 }}>
           SITE PLAN / ELEVATION
         </text>
-        <text className="bp-fade" x="1414" y="630" fill="#FF5E00" fontSize="9.5" fontWeight="bold" style={{ ["--dd" as string]: "2.3s", ["--o" as string]: 0.85 }}>
+        <text className="bp-fade" x="1414" y="630" fill="var(--color-brand)" fontSize="9.5" fontWeight="bold" style={{ ["--dd" as string]: "2.3s", ["--o" as string]: 0.85 }}>
           SCALE 1:100
         </text>
-        <text className="bp-fade" x="1414" y="676" fill="#1a2744" fontSize="9" style={{ ["--dd" as string]: "2.35s", ["--o" as string]: 0.5 }}>
+        <text className="bp-fade" x="1414" y="676" fill="var(--color-navy)" fontSize="9" style={{ ["--dd" as string]: "2.35s", ["--o" as string]: 0.5 }}>
           DWG-01 / REV C
         </text>
-        <text className="bp-fade" x="1470" y="500" fill="#1a2744" fontSize="9" textAnchor="end" style={{ ["--dd" as string]: "2.35s", ["--o" as string]: 0.45 }}>
+        <text className="bp-fade" x="1470" y="500" fill="var(--color-navy)" fontSize="9" textAnchor="end" style={{ ["--dd" as string]: "2.35s", ["--o" as string]: 0.45 }}>
           MIDNAPUR · PASCHIM MIDNAPUR
         </text>
       </g>
 
       {/* ── Flow overlays ───────────────────────────────────── */}
-      <g fill="none" strokeLinecap="round" stroke="#FF5E00">
+      <g fill="none" strokeLinecap="round" stroke="var(--color-brand)">
         <path className="bp-flow" d="M40 645h1090" strokeWidth="2.6" style={{ ["--dd" as string]: "0s", ["--seg" as string]: "150" }} />
         <path className="bp-flow" d={`M40 ${GROUND}h1520`} strokeWidth="2.1" style={{ ["--dd" as string]: "0.6s", ["--seg" as string]: "160" }} />
         <path className="bp-flow" d="M700 122h620" strokeWidth="2.2" style={{ ["--dd" as string]: "0.3s", ["--seg" as string]: "110" }} />
@@ -461,7 +461,7 @@ export default function HeroBlueprint() {
             cy={cy}
             r="3.6"
             fill="#ffffff"
-            stroke="#FF5E00"
+            stroke="var(--color-brand)"
             strokeWidth="1.5"
             style={{ ["--dd" as string]: `${1.9 + i * 0.09}s` }}
           />
