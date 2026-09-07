@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import ProjectIndex from "@/components/ui/ProjectIndex"
 
-const IMG = (id: string) => `https://images.unsplash.com/${id}?w=400&h=260&fit=crop&auto=format`
+const IMG = (id: string) => `https://images.unsplash.com/${id}?w=640&h=480&fit=crop&auto=format`
 
 const PROJECTS = [
   { name: "Sunrise Villa", location: "Midnapur, West Bengal", type: "Residential", area: "3200 Sq.ft", completed: "Jan 2024", tag: "Residential", img: IMG("photo-1613490493576-7fde63acd811") },
@@ -35,7 +35,7 @@ export default function ProjectsSuccessful() {
       ]}
       tabs={TABS}
       projects={PROJECTS}
-      cardHeight={200}
+      intro="Builds handed over to the approved drawing, on the contracted date — across Midnapur, Kharagpur, Ghatal, Belda and Jhargram."
       renderMeta={(p) => (
         <>
           <h3 className="montserrat font-700 mb-1 text-base text-navy">{p.name}</h3>
@@ -58,7 +58,7 @@ export default function ProjectsSuccessful() {
               route, so it now opens an enquiry naming this build. */}
           <Link
             to={`/contact?project=${encodeURIComponent(p.name)}`}
-            className="btn-outline montserrat font-700 w-full rounded-lg px-4 py-2 text-xs"
+            className="btn-outline montserrat font-700 mt-auto w-full px-4 py-2.5 text-xs"
           >
             Enquire about this project
           </Link>

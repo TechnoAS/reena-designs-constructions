@@ -88,10 +88,20 @@ export default function CoreServices() {
         entirely inside this box.
       */}
       <div className="relative isolate overflow-hidden md:h-[27rem]">
-        {/* Layer 1 — the photography. */}
-        <div className="absolute inset-0 flex flex-col md:flex-row" aria-hidden="true">
+        {/*
+          Layer 1 — the photography, desktop only.
+
+          These bands are equal-height `flex-1` children of a box stretched to
+          the whole strip, while the captions are sized by their own copy. Side
+          by side that is the same thing; stacked on a phone it is not — the
+          band boundaries drift away from the caption boundaries and each
+          caption ends up over a slice of its neighbour's photograph. On a phone
+          each panel carries its own image instead; the overlap this split
+          exists to allow only ever happens in the row.
+        */}
+        <div className="absolute inset-0 hidden md:flex" aria-hidden="true">
           {SERVICES.map(({ title, img }) => (
-            <div key={title} className="relative min-h-[9rem] flex-1 overflow-hidden md:min-h-0 md:overflow-visible">
+            <div key={title} className="relative flex-1">
               {/*
                 The overhang lives on this wrapper, not on the image.
 
@@ -122,13 +132,28 @@ export default function CoreServices() {
 
         {/* Layer 2 — the copy, each panel carrying its own legibility wash. */}
         <div className="relative flex h-full flex-col md:flex-row">
-          {SERVICES.map(({ title, href, copy, imgAlt }) => (
+          {SERVICES.map(({ title, href, copy, img, imgAlt }) => (
             <Link
               key={title}
               to={href}
               aria-label={`${title} — ${imgAlt}`}
-              className="group relative flex flex-1 flex-col justify-end gap-3 p-7 transition duration-500 md:p-6 md:pb-8 md:first:pl-9 md:last:pr-9 lg:first:pl-14 lg:last:pr-14"
+              className="group relative flex min-h-[16rem] flex-1 flex-col justify-end gap-3 p-7 transition duration-500 md:min-h-0 md:p-6 md:pb-8 md:first:pl-9 md:last:pr-9 lg:first:pl-14 lg:last:pr-14"
             >
+              {/* The panel's own artwork on a phone, where the strip is a
+                  column and there is no neighbour to blend into. Plain
+                  `object-cover`, no `.svc-blend`: that mask's horizontal fade
+                  exists to cross-dissolve into the panel beside it. Same `src`
+                  as the desktop layer, so this costs a second element and not a
+                  second download. */}
+              <span className="absolute inset-0 overflow-hidden md:hidden" aria-hidden="true">
+                <img
+                  src={img}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover"
+                />
+              </span>
               {/*
                 Legibility wash, per panel rather than one across the strip.
 
@@ -145,7 +170,14 @@ export default function CoreServices() {
                 Hover lifts it further.
               */}
               <span
-                className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent transition duration-500 group-hover:from-navy/85 group-hover:via-navy/40"
+                /* The stops differ by breakpoint. A desktop panel is 27rem
+                tall with the copy in its bottom third, so a wash running
+                the full height leaves most of the photograph clear. A
+                phone panel is a fraction of that and the copy fills it, so
+                the same wash covered the picture completely — here it
+                holds solid only up to 52%, under the text, and clears
+                above it. */
+                className="absolute inset-0 bg-gradient-to-t from-navy from-46% via-navy/35 via-76% to-transparent transition duration-500 group-hover:from-navy/85 group-hover:via-navy/20 md:from-0% md:via-navy/60 md:via-50%"
                 aria-hidden="true"
               />
 

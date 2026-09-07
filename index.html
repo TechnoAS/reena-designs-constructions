@@ -15,6 +15,11 @@
       files from gstatic) while the HTML is still being parsed.
       Weights trimmed from six to the four actually used by the app.
     -->
+    <!-- Self-hosted wordmark faces. Preloaded because the lockup is the
+         first thing painted on every page, so a late swap is visible. -->
+    <link rel="preload" href="/fonts/allura-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

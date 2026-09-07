@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import ProjectIndex from "@/components/ui/ProjectIndex"
 
-const IMG = (id: string) => `https://images.unsplash.com/${id}?w=400&h=220&fit=crop&auto=format`
+const IMG = (id: string) => `https://images.unsplash.com/${id}?w=640&h=480&fit=crop&auto=format`
 
 /**
  * Live sites.
@@ -40,7 +40,7 @@ export default function ProjectsOngoing() {
       ]}
       tabs={TABS}
       projects={PROJECTS}
-      cardHeight={180}
+      intro="Sites currently under way, with build progress and the expected handover date for each one. Reviewed as each programme moves."
       renderMeta={(p) => (
         <>
           <h3 className="montserrat font-700 mb-0.5 text-base text-navy">{p.name}</h3>
@@ -64,14 +64,14 @@ export default function ProjectsOngoing() {
             />
           </div>
 
-          <div className="mb-4 text-xs text-slate-500">
+          <div className="mb-5 text-xs text-slate-500">
             <span className="font-600 text-slate-600">Expected: </span>
             {p.expected}
           </div>
 
           <Link
             to={`/contact?project=${encodeURIComponent(p.name)}`}
-            className="btn-outline montserrat font-700 w-full rounded-lg px-4 py-2 text-xs"
+            className="btn-outline montserrat font-700 mt-auto w-full px-4 py-2.5 text-xs"
           >
             Enquire about this project
           </Link>

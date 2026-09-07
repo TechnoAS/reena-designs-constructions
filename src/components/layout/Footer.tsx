@@ -62,6 +62,7 @@ const EXPLORE_LINKS = [
   ["Home", "/"],
   ["About Us", "/about"],
   ["Services", "/services"],
+  ["What's Included", "/whats-included"],
   ["Our Work", "/our-work"],
   ["Before & After", "/our-work/before-after"],
   ["Testimonials", "/our-work/testimonials"],
@@ -164,9 +165,13 @@ export default function Footer({ cta }: FooterProps) {
                 </div>
 
                 <div className="flex flex-none flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-end">
+                  {/* Shown on mobile too. Hiding the number below `md` put the
+                      one action a phone is actually for behind a page
+                      navigation; it is now a full-width tap target there and
+                      collapses to an inline line beside the button on desktop. */}
                   <a
                     href={SITE.phoneHref}
-                    className="hidden items-center gap-1.5 whitespace-nowrap text-[13px] text-slate-500 transition-colors hover:text-navy md:inline-flex"
+                    className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap border border-slate-200 px-4 py-3 text-[13px] text-slate-600 transition-colors hover:border-navy hover:text-navy sm:border-0 sm:px-0 sm:py-0 sm:text-slate-500"
                   >
                     <Phone size={13} className="text-brand" aria-hidden="true" />
                     <strong className="font-600 text-navy">{SITE.phones[0]}</strong>
@@ -205,9 +210,13 @@ export default function Footer({ cta }: FooterProps) {
 
       {/* ── Main Compact Footer Grid ───────────────────────────────── */}
       <div className={`${SITE_CONTAINER} relative z-10 py-10 lg:py-12`}>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1.1fr_1.3fr] lg:gap-10">
+        {/* `grid-cols-2` from the smallest size: stacked single-column, the
+            Explore and Services lists ran to fourteen rows of thumb-scrolling
+            before the address came into view. Side by side they halve that,
+            and the brand block and office details still span the full width. */}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1.1fr_1.3fr] lg:gap-10">
           {/* Column 1: Brand & Overview */}
-          <div className="sm:col-span-2 lg:col-span-1 lg:pr-4">
+          <div className="col-span-2 lg:col-span-1 lg:pr-4">
             <Link to="/" className="mb-4 inline-flex items-center gap-2.5">
               <img
                 src={v4Logo}
@@ -218,10 +227,8 @@ export default function Footer({ cta }: FooterProps) {
                 className="h-10 w-10 rounded-lg object-contain"
               />
               <div>
-                <div className="montserrat font-900 text-sm tracking-wide text-white">
-                  REENA
-                </div>
-                <div className="text-[9px] uppercase tracking-[0.14em] text-orange-400 font-semibold">
+                <div className="allura text-[26px] leading-none text-white">Reena</div>
+                <div className="poppins text-[9px] font-semibold uppercase tracking-[0.16em] text-orange-400">
                   Designs &amp; Constructions
                 </div>
               </div>
@@ -316,8 +323,11 @@ export default function Footer({ cta }: FooterProps) {
             </ul>
           </div>
 
-          {/* Column 4: Office Info */}
-          <div>
+          {/* Column 4: Office Info.
+              Spans both columns on mobile — the address, phone numbers and
+              hours are the reason most phone visitors reach the footer at all,
+              and squeezing them into a half-width column wrapped every line. */}
+          <div className="col-span-2 lg:col-span-1">
             <h4 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
               Head Office
               <span className="mt-2 block h-0.5 w-6 rounded-full bg-orange-500" aria-hidden="true" />

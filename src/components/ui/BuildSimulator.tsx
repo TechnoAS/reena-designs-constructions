@@ -184,8 +184,8 @@ export default function BuildSimulator() {
       </div>
 
       {/* ── Bottom Phase & Stage Navigator ─────────────────────── */}
-      <div className="border-t border-slate-200 bg-slate-50/60 p-4 sm:p-6">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="border-t border-slate-200 bg-slate-50/60 p-3 sm:p-6">
+        <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {PHASE_META.map((p) => {
             const steps = STAGES.filter((s) => s.phase === p.n)
             const isCurrentPhase = stage.phase === p.n
@@ -194,14 +194,23 @@ export default function BuildSimulator() {
             return (
               <div
                 key={p.n}
-                className={`rounded-xl border p-3.5 transition-colors ${
+                className={`rounded-xl border p-3 transition-colors sm:p-3.5 ${
                   isCurrentPhase
                     ? "border-brand/40 bg-white shadow-xs"
                     : "border-slate-200/80 bg-white/70 hover:border-slate-300"
                 }`}
               >
-                {/* Phase Title Row */}
-                <div className="mb-2.5 flex items-center justify-between">
+                {/*
+                  Tag, phase name and count.
+
+                  One flex row that rewraps rather than two fixed rows: on a
+                  phone the name sits inline after the tag, and from `sm` up
+                  `basis-full` pushes it onto a line of its own — the original
+                  desktop layout. Four stacked cards each spending a row on a
+                  tag and another on a name filled a phone viewport before a
+                  single stage pill came into view.
+                */}
+                <div className="mb-2 flex flex-wrap items-baseline gap-x-2 sm:mb-0">
                   <span
                     className={`montserrat font-800 text-[10px] uppercase tracking-[0.16em] ${
                       isCurrentPhase ? "text-brand" : "text-navy"
@@ -209,17 +218,18 @@ export default function BuildSimulator() {
                   >
                     {p.tag}
                   </span>
-                  <span className="font-mono text-[9.5px] font-semibold text-slate-400">
+
+                  <span className="min-w-0 flex-1 truncate text-[11px] font-semibold text-slate-600 sm:order-last sm:mt-2.5 sm:mb-3 sm:basis-full sm:flex-none">
+                    {p.name}
+                  </span>
+
+                  <span className="ml-auto font-mono text-[9.5px] font-semibold text-slate-400">
                     {doneInPhase}/{steps.length}
                   </span>
                 </div>
 
-                <div className="mb-3 text-[11px] font-semibold text-slate-600 truncate">
-                  {p.name}
-                </div>
-
                 {/* Stage Pills */}
-                <div className="flex gap-1.5">
+                <div className="flex gap-1 sm:gap-1.5">
                   {steps.map((s) => {
                     const passed = s.n < step
                     const current = s.n === step
@@ -232,7 +242,7 @@ export default function BuildSimulator() {
                         title={`Stage ${String(s.n).padStart(2, "0")}: ${s.label}`}
                         aria-label={`Go to stage ${s.n}: ${s.label}`}
                         aria-current={current}
-                        className={`h-7 flex-1 rounded-md text-[10px] font-bold transition-all ${
+                        className={`h-6 flex-1 rounded-md text-[9.5px] font-bold transition-all sm:h-7 sm:text-[10px] ${
                           current
                             ? "bg-brand text-white shadow-xs scale-105 ring-2 ring-brand/30"
                             : passed

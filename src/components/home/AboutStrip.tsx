@@ -30,15 +30,6 @@ const ARTWORK_MASK = {
   WebkitMaskComposite: "source-in",
 } as const
 
-const MOBILE_MASK = {
-  maskImage:
-    "linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%), linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-  WebkitMaskImage:
-    "linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%), linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-  maskComposite: "intersect",
-  WebkitMaskComposite: "source-in",
-} as const
-
 export default function AboutStrip() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-surface py-20 md:py-28">
@@ -123,9 +114,11 @@ export default function AboutStrip() {
           </div>
         </div>
 
-        {/* Mobile View: Borderless, box-less image blending softly into surrounding canvas */}
+        {/* Mobile: no mask. The desktop artwork dissolves sideways into the copy
+            beside it; stacked on a phone there is nothing either side of it to
+            blend into, so the fade only ate the image's edges. */}
         <div className="md:hidden">
-          <div className="relative overflow-hidden py-2">
+          <div className="relative -mx-8 overflow-hidden sm:-mx-9">
             <img
               src={drawingImg}
               alt="Architectural visualisation of a living space, resolving from a line drawing on the left into the finished, furnished interior on the right"
@@ -134,7 +127,6 @@ export default function AboutStrip() {
               loading="lazy"
               decoding="async"
               className="h-64 sm:h-72 w-full object-cover object-center"
-              style={MOBILE_MASK}
             />
           </div>
         </div>

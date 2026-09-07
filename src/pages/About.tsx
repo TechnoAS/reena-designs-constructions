@@ -158,9 +158,12 @@ export default function About() {
             </dl>
           </div>
 
-          {/* Mobile view: softly masked artwork for smaller screens */}
+          {/* Mobile: no mask. The side fade exists on desktop so the photograph
+              dissolves into the copy beside it — on a phone the image sits above
+              the copy, with nothing to its left or right to blend into, so the
+              fade only ate its edges. */}
           <div className="md:hidden">
-            <div className="relative overflow-hidden py-2">
+            <div className="relative -mx-8 overflow-hidden sm:-mx-9">
               <img
                 src={draftingTable}
                 alt="A Reena Designs & Constructions architect drawing up a working elevation at the drafting table"
@@ -169,12 +172,6 @@ export default function About() {
                 loading="lazy"
                 decoding="async"
                 className="h-64 sm:h-72 w-full object-cover"
-                style={{
-                  maskImage:
-                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-                  WebkitMaskImage:
-                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-                }}
               />
             </div>
           </div>
@@ -222,7 +219,7 @@ export default function About() {
         <div className={`${SITE_CONTAINER} relative z-10 grid items-center gap-10 md:grid-cols-2`}>
           {/* Mobile view */}
           <div className="order-2 md:hidden">
-            <div className="relative overflow-hidden py-2">
+            <div className="relative -mx-8 overflow-hidden sm:-mx-9">
               <img
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1100&h=720&fit=crop&auto=format&q=80"
                 alt="A completed contemporary home at dusk, lit from within"
@@ -231,12 +228,6 @@ export default function About() {
                 loading="lazy"
                 decoding="async"
                 className="h-64 sm:h-72 w-full object-cover"
-                style={{
-                  maskImage:
-                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-                  WebkitMaskImage:
-                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-                }}
               />
             </div>
           </div>

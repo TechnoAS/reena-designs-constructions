@@ -15,7 +15,7 @@ export default function SubNav({ tabs }: { tabs: SubNavTab[] }) {
   const { pathname } = useLocation()
 
   return (
-    <nav aria-label="Section" className="mb-8 flex gap-4 border-b border-hairline pb-4">
+    <nav aria-label="Section" className="mb-8 flex gap-6 border-b border-hairline">
       {tabs.map((tab) => {
         const active = pathname === tab.href || pathname.startsWith(`${tab.href}/`)
         return (
@@ -23,8 +23,10 @@ export default function SubNav({ tabs }: { tabs: SubNavTab[] }) {
             key={tab.href}
             to={tab.href}
             aria-current={active ? "page" : undefined}
-            className={`montserrat font-700 border-b-2 pb-1 text-sm transition-colors ${
-              active ? "border-brand text-brand" : "border-transparent text-slate-400 hover:text-slate-600"
+            className={`montserrat font-700 -mb-px border-b-2 pb-3 text-sm transition-colors ${
+              active
+                ? "border-brand text-navy"
+                : "border-transparent text-slate-400 hover:text-slate-600"
             }`}
           >
             {tab.label}

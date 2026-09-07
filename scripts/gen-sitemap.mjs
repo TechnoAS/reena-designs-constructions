@@ -16,6 +16,7 @@ const ROUTES = [
   ['/', 'monthly', '1.0'],
   ['/about', 'yearly', '0.8'],
   ['/services', 'monthly', '0.9'],
+  ['/whats-included', 'monthly', '0.8'],
   ['/our-work', 'monthly', '0.8'],
   ['/our-work/projects/successful', 'monthly', '0.8'],
   ['/our-work/projects/ongoing', 'weekly', '0.7'],

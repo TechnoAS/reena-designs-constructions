@@ -3,30 +3,33 @@ import type { ReactNode } from "react"
 interface ProjectCardProps {
   img: string
   alt: string
-  height?: number
   /** Set on the first row of a grid so the largest visible image is not deferred. */
   priority?: boolean
   children?: ReactNode
 }
 
-export default function ProjectCard({ img, alt, height = 200, priority = false, children }: ProjectCardProps) {
+/**
+ * A photograph, optionally with a metadata block under it.
+ *
+ * The image sits in a fixed 4:3 box rather than a pixel height, so every card
+ * in a row is the same shape at every breakpoint — the old fixed `height` left
+ * the grid ragged once the columns narrowed. The zoom on hover is on the image
+ * alone; the card itself does not move, because these now sit shoulder to
+ * shoulder in a hairline grid where a lifting card would break the seams.
+ */
+export default function ProjectCard({ img, alt, priority = false, children }: ProjectCardProps) {
   return (
-    <div className="proj-card">
-      <div style={{ height }}>
+    <article className="proj-card group">
+      <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={img}
           alt={alt}
-          /* Intrinsic size reserves the box before the bytes arrive, so the
-             page below does not jump as each card loads. `height` is the CSS
-             box; the 3:2 ratio matches every source crop. */
-          width={Math.round(height * 1.5)}
-          height={height}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </div>
-      {children && <div className="p-4">{children}</div>}
-    </div>
+      {children && <div className="flex flex-1 flex-col p-5">{children}</div>}
+    </article>
   )
 }

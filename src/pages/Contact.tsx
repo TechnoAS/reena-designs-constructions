@@ -98,7 +98,12 @@ function MapEmbed() {
   }, [])
 
   return (
-    <div ref={holder} className="h-[380px] w-full bg-surface">
+    <div
+      ref={holder}
+      /* 380px is close to half a phone viewport spent on a map that is only
+         confirming a town. It keeps its full height from `lg` up. */
+      className="h-[260px] w-full bg-surface sm:h-[320px] lg:h-[380px]"
+    >
       {visible && (
         <iframe
           title="Reena Designs & Constructions on the map — Midnapur, West Bengal"
@@ -350,7 +355,7 @@ export default function Contact() {
                            property, so hover and keyboard focus both resolve to
                            it in CSS rather than through mouse handlers — which
                            would have left keyboard users with no feedback. */
-                        className="flex h-9 w-9 items-center justify-center border border-slate-300 text-slate-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-(--c) hover:text-(--c) focus-visible:border-(--c) focus-visible:text-(--c) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--c)"
+                        className="flex h-11 w-11 items-center justify-center border border-slate-300 text-slate-500 sm:h-9 sm:w-9 transition-all duration-300 hover:-translate-y-0.5 hover:border-(--c) hover:text-(--c) focus-visible:border-(--c) focus-visible:text-(--c) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--c)"
                         style={{ "--c": colour } as React.CSSProperties}
                       >
                         <Mark size={15} />

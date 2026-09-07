@@ -1,10 +1,18 @@
 import ProjectCard from "./ProjectCard"
 
+/**
+ * A wall of photographs.
+ *
+ * Full-bleed and divided by `gap-px` hairline seams rather than a row of
+ * gapped, rounded cards — the same ledger the rest of the site uses. For a
+ * gallery it also means the imagery reads as one continuous body of work
+ * instead of a set of separate objects.
+ */
 export default function GalleryGrid({ images, title }: { images: string[]; title: string }) {
   const label = title.toLowerCase()
 
   return (
-    <div className="grid grid-cols-2 gap-5 md:grid-cols-3">
+    <div className="grid grid-cols-2 gap-px border-y border-hairline bg-hairline md:grid-cols-3 lg:grid-cols-4">
       {images.map((img, i) => (
         <ProjectCard
           key={img}
@@ -12,8 +20,7 @@ export default function GalleryGrid({ images, title }: { images: string[]; title
           /* Descriptive alt text rather than "Gallery 4" — it is what a search
              engine and a screen reader both index this image by. */
           alt={`${label} project ${i + 1} by Reena Designs & Constructions, Midnapur`}
-          height={220}
-          priority={i < 3}
+          priority={i < 4}
         />
       ))}
     </div>

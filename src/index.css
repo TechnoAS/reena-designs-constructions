@@ -1,5 +1,38 @@
 @import 'tailwindcss';
 
+/* ── Brand lockup faces ─────────────────────────────────────────────
+   Self-hosted rather than pulled from Google's CDN: these two are used
+   only by the wordmark in the header and footer, so a third-party
+   round-trip to fetch them would delay the first thing a visitor reads.
+   Latin subsets only — the lockup is two English words.
+
+   `font-display: swap` keeps the text visible in the fallback while the
+   file arrives, which matters most here precisely because it is the
+   first painted element on every page. */
+@font-face {
+  font-family: 'Allura';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/allura-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/poppins-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/poppins-600.woff2') format('woff2');
+}
+
 /* ── Brand tokens ───────────────────────────────────────────────────
    Tailwind v4 turns each of these into a full utility family, so
    `--color-navy` gives text-navy / bg-navy / border-navy and so on.
@@ -36,9 +69,16 @@ body {
   color: #111827;
 }
 
-img {
-  display: block;
-  max-width: 100%;
+/* In `@layer base`, not unlayered.
+   Tailwind v4 puts its utilities in `@layer utilities`, and unlayered CSS beats
+   *any* layered rule regardless of specificity — so an unlayered `img { display:
+   block }` silently defeated `hidden`, `sm:block` and `md:hidden` on every
+   <img> in the app. Layering it puts the utilities back in charge. */
+@layer base {
+  img {
+    display: block;
+    max-width: 100%;
+  }
 }
 
 * {
@@ -71,6 +111,19 @@ img {
     letter-spacing: -0.01em;
   }
 
+  /* The wordmark. `allura` is a script face with tall ascenders and deep
+     descenders, so it needs its own line-height rather than inheriting a
+     UI one that would clip the flourishes. */
+  .allura {
+    font-family: 'Allura', 'Segoe Script', cursive;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+
+  .poppins {
+    font-family: 'Poppins', 'Inter', sans-serif;
+  }
+
   .font-500 { font-weight: 500; }
   .font-600 { font-weight: 600; }
   .font-700 { font-weight: 700; }
@@ -95,11 +148,11 @@ img {
      but it was never defined — so every card across the eight Our Work
      routes rendered as a bare div with no border, no radius and, crucially,
      no `overflow-hidden`, which is what clips the image to the corners. */
+  /* Square and borderless: these cards now sit inside `gap-px` hairline
+     ledgers, so the grid draws the seams and a per-card border would double up
+     at every join. */
   .proj-card {
-    @apply overflow-hidden rounded-2xl border border-slate-200 bg-white transition duration-300;
-  }
-  .proj-card:hover {
-    @apply -translate-y-1 border-orange-300 shadow-xl shadow-slate-900/5;
+    @apply flex flex-col overflow-hidden bg-white transition duration-300;
   }
   .proj-card img {
     @apply transition-transform duration-500;
@@ -158,8 +211,13 @@ img {
      inline version skipped keyboard users' focus-visible ring entirely. */
   /* Square, to sit with the square button system. Used only by the contact
      form, so the shape change is contained to that page. */
+  /* 16px on a phone, not 14px. iOS Safari zooms the viewport in whenever a
+     focused field's text is under 16px, and it does not zoom back out when the
+     field is blurred — so a visitor filling this form ends up stranded at 1.3x
+     with the layout overflowing sideways. The 14px is kept from `sm` up, where
+     no browser does this. */
   .field {
-    @apply w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition;
+    @apply w-full border border-slate-300 bg-white px-4 py-3 text-base text-slate-700 outline-none transition sm:text-sm;
   }
   .field:focus {
     @apply border-brand ring-2 ring-orange-500/20;
@@ -263,6 +321,31 @@ img {
 
 @keyframes bp-fade-in {
   to { opacity: var(--o, 1); }
+}
+
+/* ── Hero structure: the build line ─────────────────────────────────
+   Two clip rects sit back to back — one covering everything left of the
+   origin, one everything right of it — and both carry this class, so
+   translating it moves the seam between "built" and "still drawn" without
+   moving a single piece of the artwork. The seam graphics carry it too, which
+   is what keeps the line, its glow and its label welded to the boundary.
+
+   The rest position is deliberately past the middle: with the copy sitting on
+   the right of the hero, the solid half is the half a visitor actually reads
+   first, and the drawing trails off under the text. */
+.hs-wipe {
+  transform: translateX(640px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hs-wipe {
+    animation: hs-build 19s cubic-bezier(0.5, 0, 0.5, 1) infinite alternate;
+  }
+}
+
+@keyframes hs-build {
+  from { transform: translateX(430px); }
+  to   { transform: translateX(880px); }
 }
 
 /* ── Blueprint: flow ────────────────────────────────────────────────

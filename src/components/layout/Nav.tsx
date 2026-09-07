@@ -114,8 +114,8 @@ export default function Nav() {
             className="h-[58px] w-[58px] rounded object-contain"
           />
           <div>
-            <div className="text-base leading-tight font-black text-slate-900">REENA</div>
-            <div className="text-[9px] leading-tight font-medium tracking-[0.08em] text-slate-600">
+            <div className="allura text-[28px] leading-none text-slate-900">Reena</div>
+            <div className="poppins text-[9px] leading-tight font-medium tracking-[0.14em] text-slate-600">
               DESIGNS &amp; CONSTRUCTIONS
             </div>
           </div>

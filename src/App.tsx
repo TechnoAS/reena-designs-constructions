@@ -22,6 +22,7 @@ import {
  */
 const About = lazy(() => import("./pages/About"))
 const Services = lazy(() => import("./pages/Services"))
+const WhatsIncluded = lazy(() => import("./pages/WhatsIncluded"))
 const OurWork = lazy(() => import("./pages/OurWork"))
 const ProjectsSuccessful = lazy(() => import("./pages/ProjectsSuccessful"))
 const ProjectsOngoing = lazy(() => import("./pages/ProjectsOngoing"))
@@ -75,6 +76,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/whats-included" element={<WhatsIncluded />} />
           <Route path="/our-work" element={<OurWork />} />
           <Route path="/our-work/projects" element={<Navigate to="/our-work/projects/successful" replace />} />
           <Route path="/our-work/projects/successful" element={<ProjectsSuccessful />} />

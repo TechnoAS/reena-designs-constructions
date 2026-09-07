@@ -120,9 +120,10 @@ export default function Services() {
             </dl>
           </div>
 
-          {/* Mobile view: the same artwork, masked for a narrow screen. */}
+          {/* Mobile: no mask — nothing sits beside the image on a phone for it
+              to dissolve into, so a side fade only ate its edges. */}
           <div className="md:hidden">
-            <div className="relative overflow-hidden py-2">
+            <div className="relative -mx-8 overflow-hidden sm:-mx-9">
               <img
                 src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1100&h=720&fit=crop&auto=format&q=80"
                 alt="A site crew marking out the slab on a live construction site"
@@ -131,12 +132,6 @@ export default function Services() {
                 loading="lazy"
                 decoding="async"
                 className="h-64 w-full object-cover sm:h-72"
-                style={{
-                  maskImage:
-                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-                  WebkitMaskImage:
-                    "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)",
-                }}
               />
             </div>
           </div>

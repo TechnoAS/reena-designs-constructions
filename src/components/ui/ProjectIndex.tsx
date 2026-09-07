@@ -22,7 +22,8 @@ interface ProjectIndexProps<T extends IndexedProject> {
   subNav: { label: string; href: string }[]
   tabs: readonly string[]
   projects: readonly T[]
-  cardHeight?: number
+  /** Sentence under the heading, describing what this listing contains. */
+  intro: string
   /** The part of the card that differs between the two pages. */
   renderMeta: (project: T) => ReactNode
 }
@@ -43,35 +44,52 @@ export default function ProjectIndex<T extends IndexedProject>({
   subNav,
   tabs,
   projects,
-  cardHeight = 200,
+  intro,
   renderMeta,
 }: ProjectIndexProps<T>) {
   const [active, setActive] = useState<string>(tabs[0] ?? "All")
   const filtered = active === "All" ? projects : projects.filter((p) => p.tag === active)
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      cta={{
+        title: "Want something like this built?",
+        subtitle: "Free site visit, itemised quote, and a completion date in writing.",
+        buttonText: "Start Your Project",
+        buttonHref: "/contact",
+      }}
+    >
       <Seo title={seoTitle} description={seoDescription} />
-      <PageHeader title={title} crumbs={crumbs} />
+      <PageHeader title={title} crumbs={crumbs} backdrop />
 
-      <div className={`${SITE_CONTAINER} py-10`}>
+      <section className={`${SITE_CONTAINER} pt-10`}>
         <SubNav tabs={subNav} />
-        <FilterTabs tabs={tabs} active={active} onSelect={setActive} />
 
-        {filtered.length === 0 ? (
-          <p className="py-16 text-center text-sm text-slate-400">
-            No projects in this category yet.
+        <div className="mb-9 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+          <p className="max-w-2xl text-sm leading-7 text-slate-500">{intro}</p>
+          {/* The count tracks the filter, so it is a live answer to "how many
+              of these are there" rather than a static total. */}
+          <p className="flex-none text-[10.5px] uppercase tracking-[0.16em] text-slate-400">
+            Showing {filtered.length} of {projects.length}
           </p>
-        ) : (
-          <div className="mb-10 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-            {filtered.map((p, i) => (
-              <ProjectCard key={p.name} img={p.img} alt={p.name} height={cardHeight} priority={i < 3}>
-                {renderMeta(p)}
-              </ProjectCard>
-            ))}
-          </div>
-        )}
-      </div>
+        </div>
+
+        <FilterTabs tabs={tabs} active={active} onSelect={setActive} />
+      </section>
+
+      {filtered.length === 0 ? (
+        <p className="border-y border-hairline py-20 text-center text-sm text-slate-400">
+          No projects in this category yet.
+        </p>
+      ) : (
+        <div className="grid gap-px border-y border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filtered.map((p, i) => (
+            <ProjectCard key={p.name} img={p.img} alt={p.name} priority={i < 4}>
+              {renderMeta(p)}
+            </ProjectCard>
+          ))}
+        </div>
+      )}
     </PageWrapper>
   )
 }
