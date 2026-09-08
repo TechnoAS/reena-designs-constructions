@@ -1,4 +1,5 @@
 import ProjectCard from "./ProjectCard"
+import type { GalleryImage } from "@/data/galleryData"
 
 /**
  * A wall of photographs.
@@ -8,20 +9,15 @@ import ProjectCard from "./ProjectCard"
  * gallery it also means the imagery reads as one continuous body of work
  * instead of a set of separate objects.
  */
-export default function GalleryGrid({ images, title }: { images: string[]; title: string }) {
-  const label = title.toLowerCase()
-
+export default function GalleryGrid({ images }: { images: GalleryImage[]; title?: string }) {
   return (
     <div className="grid grid-cols-2 gap-px border-y border-hairline bg-hairline md:grid-cols-3 lg:grid-cols-4">
-      {images.map((img, i) => (
-        <ProjectCard
-          key={img}
-          img={img}
-          /* Descriptive alt text rather than "Gallery 4" — it is what a search
-             engine and a screen reader both index this image by. */
-          alt={`${label} project ${i + 1} by Reena Designs & Constructions, Midnapur`}
-          priority={i < 4}
-        />
+      {images.map(({ src, alt }, i) => (
+        /* The alt text is written per photograph in `galleryData` rather than
+           generated from the index here. It is what a search engine and a
+           screen reader both index the image by, and twenty copies of one
+           sentence with the number changed serve neither. */
+        <ProjectCard key={src} img={src} alt={alt} priority={i < 4} />
       ))}
     </div>
   )

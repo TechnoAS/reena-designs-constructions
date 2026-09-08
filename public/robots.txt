@@ -1,7 +1,31 @@
+# Everything on this site is meant to be indexed. The only rule below keeps
+# crawlers off the 404 route, which is noindex anyway.
 User-agent: *
 Allow: /
-
-# The 404 page is noindex anyway; keeping crawlers off it saves budget.
 Disallow: /404
+
+# Image results are a real share of the traffic a construction portfolio gets,
+# so the galleries are explicitly open to the image crawler.
+User-agent: Googlebot-Image
+Allow: /
+
+# The AI answer engines are a growing share of "who builds houses in Midnapur"
+# style questions, and each reads a different token. Listed explicitly so the
+# decision to allow them is a visible one rather than an accident of the
+# wildcard above — flip any of these to Disallow if that changes.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
 
 Sitemap: https://reenabuild.com/sitemap.xml

@@ -17,6 +17,13 @@ import {
   CHANNEL_COLORS,
 } from "@/components/ui/SocialIcons"
 import { SITE, ACTIVE_SOCIAL_LINKS } from "@/data/siteInfo"
+import ServiceAreas from "@/components/ui/ServiceAreas"
+import {
+  webPageSchema,
+  localBusinessSchema,
+  serviceAreaSchema,
+  pageGraph,
+} from "@/data/structuredData"
 
 /** The real trademark marks, not a letter standing in for one. */
 const SOCIAL_MARKS = {
@@ -238,6 +245,20 @@ export default function Contact() {
       <Seo
         title="Contact Us — Free Site Visit & Quote in Midnapur"
         description="Talk to Reena Designs & Constructions about your build. Free site visit across Paschim Midnapur, itemised quotation and a written completion date. Call +91 98765 43210."
+        schema={pageGraph(
+          webPageSchema({
+            path: "/contact",
+            name: "Contact Reena Designs & Constructions — Midnapur, West Bengal",
+            description:
+              "Office address, phone numbers, WhatsApp and enquiry form. Free site visit across Paschim Midnapur, Kharagpur, Ghatal and the surrounding district.",
+            type: "ContactPage",
+          }),
+          /* The office node lives here as well as on the homepage: this is the
+             page a "contractor near me" result lands on, and it is where the
+             address, hours and map pin are actually rendered. */
+          localBusinessSchema(),
+          serviceAreaSchema("/contact"),
+        )}
       />
       <PageHeader
         title="CONTACT US"
@@ -573,6 +594,8 @@ export default function Contact() {
       <section className="border-t border-hairline">
         <MapEmbed />
       </section>
+
+      <ServiceAreas />
     </PageWrapper>
   )
 }

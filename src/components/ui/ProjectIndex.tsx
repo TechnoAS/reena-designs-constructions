@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react"
+import { useLocation } from "react-router-dom"
 import PageWrapper from "@/components/layout/PageWrapper"
 import PageHeader from "@/components/ui/PageHeader"
 import SubNav from "@/components/ui/SubNav"
@@ -6,12 +7,18 @@ import FilterTabs from "@/components/ui/FilterTabs"
 import ProjectCard from "@/components/ui/ProjectCard"
 import Seo from "@/components/Seo"
 import { SITE_CONTAINER } from "@/components/layout/constants"
+import { webPageSchema, pageGraph, ORG_ID } from "@/data/structuredData"
 
 /** Every project entry needs at least these; pages add their own fields. */
 export type IndexedProject = {
   name: string
   img: string
   tag: string
+  /** "Kharagpur, West Bengal". Present on both listings; used to place each
+   *  project in the structured data so the town it was built in is indexable
+   *  and not just readable. */
+  location?: string
+  type?: string
 }
 
 interface ProjectIndexProps<T extends IndexedProject> {
@@ -47,8 +54,51 @@ export default function ProjectIndex<T extends IndexedProject>({
   intro,
   renderMeta,
 }: ProjectIndexProps<T>) {
+  const { pathname } = useLocation()
   const [active, setActive] = useState<string>(tabs[0] ?? "All")
   const filtered = active === "All" ? projects : projects.filter((p) => p.tag === active)
+
+  /*
+    The listing as an ItemList.
+
+    Every project names the town it was built in, and those towns — Ghatal,
+    Belda, Jhargram, Salboni — are exactly the local queries this site has no
+    other page for. Emitting them as `Place` nodes rather than leaving them as
+    card text is what makes the listing readable as evidence of work in each
+    one. Built from the full set rather than `filtered`, because the filter is
+    a client-side view and the page's content is all nine.
+  */
+  const listSchema = {
+    "@type": "ItemList",
+    "@id": `${pathname}#projects`,
+    name: seoTitle,
+    numberOfItems: projects.length,
+    itemListElement: projects.map((project, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "CreativeWork",
+        name: project.name,
+        ...(project.type ? { genre: project.type } : {}),
+        image: project.img,
+        creator: { "@id": ORG_ID },
+        ...(project.location
+          ? {
+              locationCreated: {
+                "@type": "Place",
+                name: project.location,
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: project.location.split(",")[0].trim(),
+                  addressRegion: "West Bengal",
+                  addressCountry: "IN",
+                },
+              },
+            }
+          : {}),
+      },
+    })),
+  }
 
   return (
     <PageWrapper
@@ -59,7 +109,19 @@ export default function ProjectIndex<T extends IndexedProject>({
         buttonHref: "/contact",
       }}
     >
-      <Seo title={seoTitle} description={seoDescription} />
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        schema={pageGraph(
+          webPageSchema({
+            path: pathname,
+            name: seoTitle,
+            description: seoDescription,
+            type: "CollectionPage",
+          }),
+          listSchema,
+        )}
+      />
       <PageHeader title={title} crumbs={crumbs} backdrop />
 
       <section className={`${SITE_CONTAINER} pt-10`}>

@@ -1,5 +1,6 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
+import { webPageSchema, pageGraph } from "@/data/structuredData"
 import PageHeader from "@/components/ui/PageHeader"
 import RollingRibbon from "@/components/home/RollingRibbon"
 import { SITE_CONTAINER } from "@/components/layout/constants"
@@ -87,6 +88,14 @@ export default function WhatsIncluded() {
       <Seo
         title="What's Included — Materials, Grades & Labour in Your Quotation"
         description="The nine cost heads in a Reena Designs & Constructions quotation: cement, sand, TMT bar, bricks, tiles, marble, paints, electrical goods and labour — every grade named, and a plain list of what is not included."
+        schema={pageGraph(
+          webPageSchema({
+            path: "/whats-included",
+            name: "What's Included in a House Construction Quotation — Materials, Grades & Labour",
+            description:
+              "Cement, sand, TMT bar, bricks, tiles, marble, paints, electrical goods and labour — every material grade named, with a plain list of what a quotation does not cover.",
+          }),
+        )}
       />
       <PageHeader
         title="WHAT'S INCLUDED"

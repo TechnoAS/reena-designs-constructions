@@ -3,6 +3,13 @@ import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
 import BuildSimulator from "@/components/ui/BuildSimulator"
 import { SITE_CONTAINER } from "@/components/layout/constants"
+import ServiceAreas from "@/components/ui/ServiceAreas"
+import {
+  webPageSchema,
+  serviceCatalogSchema,
+  serviceAreaSchema,
+  pageGraph,
+} from "@/data/structuredData"
 
 const SERVICES = [
   {
@@ -60,9 +67,24 @@ export default function Services() {
         buttonHref: "/contact",
       }}
     >
+      {/* Each of the eight disciplines is emitted as its own `Service`
+          entity, which is what lets a query naming a service and a town
+          ("renovation contractor in Ghatal") match a page whose copy never
+          uses that exact phrase. */}
       <Seo
         title="Our Services — Construction, Architecture & Interiors"
         description="Eight disciplines delivered in-house: residential and commercial construction, architectural design, structural engineering, renovation, interiors, exteriors and turnkey delivery across India."
+        schema={pageGraph(
+          webPageSchema({
+            path: "/services",
+            name: "Construction, Architecture & Interior Design Services in Midnapur",
+            description:
+              "Residential and commercial construction, architectural design, structural engineering, renovation, interior design, exterior and 3D elevation, and turnkey delivery across Paschim Midnapur and West Bengal.",
+            type: "CollectionPage",
+          }),
+          serviceCatalogSchema("/services"),
+          serviceAreaSchema("/services"),
+        )}
       />
       <PageHeader
         title="OUR SERVICES"
@@ -173,6 +195,8 @@ export default function Services() {
           <BuildSimulator />
         </div>
       </section>
+
+      <ServiceAreas compact />
     </PageWrapper>
   )
 }

@@ -267,8 +267,10 @@ export default function SiteSearch() {
         </ul>
       )}
 
-      {/* Openers, so the field is not a blank box the visitor has to guess at. */}
-      <div className="mt-3 flex flex-wrap items-center gap-2">
+      {/* Openers, so the field is not a blank box the visitor has to guess at.
+          They stand down once there are real results — two rows of things to
+          click, one of them stale, is worse than one. */}
+      <div className="mt-3 flex flex-wrap items-center gap-2" hidden={showList}>
         {SUGGESTED.map((s) => (
           <button
             key={s}

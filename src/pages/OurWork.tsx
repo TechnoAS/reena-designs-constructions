@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { ArrowUpRight } from "lucide-react"
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
+import { webPageSchema, pageGraph } from "@/data/structuredData"
 import PageHeader from "@/components/ui/PageHeader"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import {
@@ -39,31 +40,31 @@ const GALLERIES = [
     label: "Exterior Design",
     blurb: "Elevations, facades and street presence.",
     href: "/our-work/exterior",
-    img: exteriorImgs[0],
+    img: exteriorImgs[0].src,
   },
   {
     label: "Architecture Gallery",
     blurb: "Form, massing and material studies.",
     href: "/our-work/architecture",
-    img: archImgs[0],
+    img: archImgs[0].src,
   },
   {
     label: "3D Design & Elevation",
     blurb: "Visualisations approved before a brick is laid.",
     href: "/our-work/3d-design",
-    img: d3Imgs[0],
+    img: d3Imgs[0].src,
   },
   {
     label: "Renovation Projects",
     blurb: "Retrofits and full-property makeovers.",
     href: "/our-work/renovation",
-    img: renoImgs[0],
+    img: renoImgs[0].src,
   },
   {
     label: "Before & After",
     blurb: "The same property, either side of the work.",
     href: "/our-work/before-after",
-    img: beforeAfterImgs[0],
+    img: beforeAfterImgs[0].src,
   },
   {
     label: "Client Testimonials",
@@ -91,6 +92,15 @@ export default function OurWork() {
       <Seo
         title="Our Work — Project & Design Galleries"
         description="Browse completed and ongoing work from Reena Designs & Constructions: projects, residential and commercial interiors, exteriors, architecture, 3D elevations, renovations and client testimonials."
+        schema={pageGraph(
+          webPageSchema({
+            path: "/our-work",
+            name: "Our Work — Construction & Interior Design Portfolio, Midnapur",
+            description:
+              "Completed and ongoing construction, architecture, interior and renovation projects across Midnapur, Kharagpur and Paschim Midnapur.",
+            type: "CollectionPage",
+          }),
+        )}
       />
       <PageHeader
         title="OUR WORK"

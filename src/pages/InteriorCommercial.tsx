@@ -1,6 +1,7 @@
 import { useState } from "react"
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
+import { serviceSchema, webPageSchema, serviceAreaSchema, pageGraph } from "@/data/structuredData"
 import PageHeader from "@/components/ui/PageHeader"
 import SubNav from "@/components/ui/SubNav"
 import FilterTabs from "@/components/ui/FilterTabs"
@@ -53,6 +54,21 @@ export default function InteriorCommercial() {
       <Seo
         title="Commercial Interior Design — Offices, Retail & Hotels"
         description="Office, restaurant, retail, hotel and institutional interiors delivered on commercial timelines with minimal disruption to trading, across Midnapur, Kharagpur and West Bengal."
+        schema={pageGraph(
+          webPageSchema({
+            path: "/our-work/interior/commercial",
+            name: "Commercial Interior Design — Offices, Retail & Hotels in West Bengal",
+            description:
+              "Office, restaurant, retail, showroom, hotel and institutional interiors delivered on commercial timelines across Midnapur, Kharagpur and West Bengal.",
+            type: "CollectionPage",
+          }),
+          serviceSchema(
+            "Commercial Interior Design",
+            "Office, restaurant, retail, showroom, hotel and institutional interior design and fit-out, delivered on commercial timelines with minimal disruption to trading.",
+            "/our-work/interior/commercial",
+          ),
+          serviceAreaSchema("/our-work/interior/commercial"),
+        )}
       />
       <PageHeader
         title="COMMERCIAL INTERIOR"

@@ -1,5 +1,6 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
+import { organizationSchema, webPageSchema, pageGraph } from "@/data/structuredData"
 import PageHeader from "@/components/ui/PageHeader"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import draftingTable from "@/imports/about-drafting-table.jpg"
@@ -99,6 +100,16 @@ export default function About() {
       <Seo
         title="About Us — 15+ Years of Building in Paschim Midnapur"
         description="Who we are: the architects, engineers and designers behind Reena Designs & Constructions, our story, values, certifications and the team delivering every project in Midnapur and across India."
+        schema={pageGraph(
+          webPageSchema({
+            path: "/about",
+            name: "About Reena Designs & Constructions — Builders in Midnapur since 2010",
+            description:
+              "The architects, engineers and designers behind Reena Designs & Constructions: our story, values, certifications and the team delivering every project across Paschim Midnapur.",
+            type: "AboutPage",
+          }),
+          organizationSchema(),
+        )}
       />
       <PageHeader title="ABOUT US" crumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]} backdrop />
 

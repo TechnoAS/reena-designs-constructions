@@ -57,13 +57,56 @@ function RouteFallback() {
   )
 }
 
-/** The six galleries differ only by title, crumbs and image set. */
+/**
+ * The five galleries differ only by title, crumbs, intro copy and image set.
+ *
+ * The `intro` is not decoration. Without it each of these routes is a heading,
+ * a project count and a grid of photographs — near-identical markup on five
+ * URLs, which is how a set of pages gets folded together as duplicates and
+ * dropped from the index. A paragraph that names the work and the district
+ * gives each one something of its own to rank for.
+ */
 const GALLERIES = [
-  { path: "/our-work/exterior", title: "EXTERIOR DESIGN", crumb: "Exterior Design", images: exteriorImgs },
-  { path: "/our-work/architecture", title: "ARCHITECTURE GALLERY", crumb: "Architecture Gallery", images: archImgs },
-  { path: "/our-work/3d-design", title: "3D DESIGN & ELEVATION", crumb: "3D Design & Elevation", images: d3Imgs },
-  { path: "/our-work/renovation", title: "RENOVATION PROJECTS", crumb: "Renovation Projects", images: renoImgs },
-  { path: "/our-work/before-after", title: "BEFORE & AFTER GALLERY", crumb: "Before & After Gallery", images: beforeAfterImgs },
+  {
+    path: "/our-work/exterior",
+    title: "EXTERIOR DESIGN",
+    crumb: "Exterior Design",
+    images: exteriorImgs,
+    intro:
+      "Front elevations, facade treatments, boundary walls and landscaping for independent houses, apartment blocks and commercial buildings across Midnapur, Kharagpur and Paschim Midnapur. Every elevation is drawn and approved before the first course goes up.",
+  },
+  {
+    path: "/our-work/architecture",
+    title: "ARCHITECTURE GALLERY",
+    crumb: "Architecture Gallery",
+    images: archImgs,
+    intro:
+      "Site-responsive planning, massing studies and sanction-ready working drawings prepared in-house. Our architects handle the municipal and panchayat filing across Paschim Midnapur, so approvals are part of the build rather than your problem.",
+  },
+  {
+    path: "/our-work/3d-design",
+    title: "3D DESIGN & ELEVATION",
+    crumb: "3D Design & Elevation",
+    images: d3Imgs,
+    intro:
+      "3D front elevation and exterior visualisation, produced before construction starts so you approve the finished building rather than a floor plan. Material, colour and detail changes cost nothing at this stage and a great deal later.",
+  },
+  {
+    path: "/our-work/renovation",
+    title: "RENOVATION PROJECTS",
+    crumb: "Renovation Projects",
+    images: renoImgs,
+    intro:
+      "Home renovation, structural retrofits, floor additions and full-property remodelling across Midnapur and the surrounding district — modernising ageing buildings without compromising the structure holding them up.",
+  },
+  {
+    path: "/our-work/before-after",
+    title: "BEFORE & AFTER GALLERY",
+    crumb: "Before & After Gallery",
+    images: beforeAfterImgs,
+    intro:
+      "The same property either side of the work. Renovation and interior makeovers in Midnapur, Kharagpur and Paschim Midnapur, photographed on the day we arrived and on the day we handed the keys back.",
+  },
 ]
 
 export default function App() {
@@ -85,7 +128,7 @@ export default function App() {
           <Route path="/our-work/interior/residential" element={<InteriorResidential />} />
           <Route path="/our-work/interior/commercial" element={<InteriorCommercial />} />
 
-          {GALLERIES.map(({ path, title, crumb, images }) => (
+          {GALLERIES.map(({ path, title, crumb, images, intro }) => (
             <Route
               key={path}
               path={path}
@@ -98,6 +141,7 @@ export default function App() {
                     { label: crumb },
                   ]}
                   images={images}
+                  intro={intro}
                 />
               }
             />

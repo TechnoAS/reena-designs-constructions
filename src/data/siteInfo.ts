@@ -28,6 +28,26 @@ export const SITE = {
   },
   /** Rendered as one block wherever the full address is shown. */
   addressLines: "Midnapur, Paschim Midnapur\nWest Bengal 721101, India",
+  /**
+   * Office coordinates, for `geo` in the LocalBusiness graph and the
+   * geo.position / ICBM meta tags.
+   *
+   * Google does not rank a business by these — proximity is computed from the
+   * verified Business Profile — but they disambiguate "Midnapur" (which is
+   * also spelt Midnapore and Medinipur, and shares a name with nothing else
+   * nearby) for every other crawler that reads the page. Replace with the
+   * exact office pin once the Business Profile is claimed.
+   */
+  geo: { lat: 22.4257, lng: 87.3199 },
+  /** Deep link to the office pin. Swap for the Business Profile short link
+   *  (g.page/…) as soon as the listing is verified — that link is what ties
+   *  the site and the profile together for Google. */
+  mapUrl: "https://www.google.com/maps/search/?api=1&query=22.4257,87.3199",
+  /** Year the practice started, for `foundingDate`. */
+  foundingYear: "2010",
+  /** Absolute paths, resolved against `origin` where schema needs a URL. */
+  logoPath: "/apple-touch-icon.png",
+  ogImagePath: "/og-image.png",
 } as const
 
 /**

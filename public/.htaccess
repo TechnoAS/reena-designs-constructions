@@ -1,12 +1,34 @@
-# SPA fallback: serve index.html for any path that is not a real file, so
-# BrowserRouter deep links like /services resolve instead of 404ing.
+# Routing.
+#
+# `pnpm build` stamps a prerendered shell for every real route into
+# dist/<route>/index.html (scripts/prerender.mjs), each carrying its own title,
+# description, canonical and social card. These rules serve those shells, and
+# fall back to the root one for anything else so BrowserRouter deep links
+# resolve instead of 404ing.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
+
+  # Real files — hashed assets, sitemap.xml, robots.txt — are served as-is.
+  RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^ - [L]
+
+  # A prerendered route: rewrite /services to /services/index.html internally.
+  # An internal rewrite, not a redirect, so the indexed URL stays the one the
+  # canonical tag names — mod_dir's own directory handling would bounce
+  # /services to /services/ and leave the two disagreeing.
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*?)/?$ $1/index.html [L]
+
+  # Any other path is a client route with no shell of its own, or a genuine
+  # 404. Either way React decides, from the root shell.
   RewriteRule ^ index.html [L]
+</IfModule>
+
+# Stops mod_dir issuing the 301 to a trailing slash that the rule above exists
+# to avoid. Without it every route resolves under two URLs.
+<IfModule mod_dir.c>
+  DirectorySlash Off
 </IfModule>
 
 # Hashed assets are immutable; the HTML shell must never be cached.
