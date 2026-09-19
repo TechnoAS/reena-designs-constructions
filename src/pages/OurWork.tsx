@@ -4,6 +4,7 @@ import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
 import { webPageSchema, pageGraph } from "@/data/structuredData"
 import PageHeader from "@/components/ui/PageHeader"
+import SectionTitle from "@/components/ui/SectionTitle"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import {
   exteriorImgs,
@@ -74,10 +75,6 @@ const GALLERIES = [
   },
 ] as const
 
-/** A section heading, matching About, Services and Contact. */
-function Heading({ title }: { title: string }) {
-  return <h2 className="montserrat font-800 mb-4 text-xl text-navy md:text-2xl">{title}</h2>
-}
 
 export default function OurWork() {
   return (
@@ -109,10 +106,10 @@ export default function OurWork() {
       />
 
       <section className={`${SITE_CONTAINER} py-14 lg:py-16`}>
-        <Heading title="BROWSE THE GALLERIES" />
+        <SectionTitle title="BROWSE THE GALLERIES" align="left" className="mb-4" />
         <p className="max-w-2xl text-sm leading-7 text-slate-500">
-          Seven galleries covering everything we build — from the elevation drawings a project starts
-          as to the finished rooms it ends up being.
+          {GALLERIES.length} galleries covering everything we build — from the elevation drawings a
+          project starts as to the finished rooms it ends up being.
         </p>
       </section>
 

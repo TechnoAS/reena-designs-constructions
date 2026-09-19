@@ -91,7 +91,7 @@ export default function InteriorCommercial() {
 
         <div className="mb-9 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
           <p className="max-w-2xl text-sm leading-7 text-slate-500">{INTRO}</p>
-          <p className="flex-none text-[10.5px] uppercase tracking-[0.16em] text-slate-400">
+          <p className="flex-none text-[10.5px] uppercase tracking-[0.16em] text-slate-600">
             {visible.length} {visible.length === 1 ? "project" : "projects"}
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function InteriorCommercial() {
         {visible.map((p, i) => (
           <ProjectCard key={p.title} img={p.img} alt={p.title} priority={i < 4}>
             <h3 className="montserrat font-700 text-sm text-navy">{p.title}</h3>
-            <p className="mt-1 text-xs text-slate-400">{active}</p>
+            <p className="mt-1 text-xs text-slate-500">{active}</p>
           </ProjectCard>
         ))}
       </div>

@@ -8,15 +8,57 @@
  * Local SEO also penalises inconsistent NAP, so it has to come from one place.
  */
 
+/*
+ * ─── BEFORE THIS SITE GOES LIVE ─────────────────────────────────────────────
+ *
+ * The five values marked REPLACE below are placeholders. They are sequential
+ * dummy digits and they are wired into the footer, the contact page, the CTA
+ * hotline, every `tel:` link, the WhatsApp deep link and the LocalBusiness
+ * structured data — so until they are real, every conversion path on the site
+ * reaches nobody.
+ *
+ * Also outstanding, and needing information only you have:
+ *
+ *   1. VITE_CONTACT_ENDPOINT — unset, so the enquiry form falls back to
+ *      opening the visitor's mail client. On a phone that often does nothing
+ *      at all. Point it at Formspree, Web3Forms, Basin or your own handler;
+ *      the submit path, error state and honeypot are already written for it.
+ *
+ *   2. Project photography — the 26 images across the featured slider, both
+ *      project listings and the five galleries are Unsplash stock, captioned
+ *      with specific names, square footages and completion dates. Four real
+ *      handovers will outperform nine invented ones, and they are the only
+ *      thing on the page a prospect can verify.
+ *
+ *   3. A cost band for /whats-included — the page targets "house construction
+ *      cost West Bengal" and contains no figure. One honest range, with a line
+ *      on what moves it, is the difference between answering the visitor's
+ *      question and sending them to a competitor.
+ *
+ *   4. Certification numbers — ISO 9001:2015, IGBC, BIS and CIDC are claimed
+ *      on the About page with nothing to verify them against. Add the
+ *      registration number under each, and remove any that are aspirational.
+ *
+ *   5. The About page story and team photographs — currently generic
+ *      contractor-brochure copy and four sets of initials, on the page where a
+ *      prospect decides whether to call.
+ * ───────────────────────────────────────────────────────────────────────────
+ */
+
 export const SITE = {
   name: "Reena Designs & Constructions",
   /** Canonical origin, no trailing slash. Override per deploy with VITE_SITE_URL. */
   origin: (import.meta.env.VITE_SITE_URL || "https://reenabuild.com").replace(/\/+$/, ""),
+  /** REPLACE — placeholder. */
   email: "info@reenabuild.com",
+  /** REPLACE — placeholder, sequential dummy digits. */
   phones: ["+91 98765 43210", "+91 98765 43211"],
   /** E.164 for tel: links — no spaces, no punctuation. */
+  /** REPLACE — must match phones[0]. */
   phoneHref: "tel:+919876543210",
+  /** REPLACE — placeholder. */
   whatsappNumber: "+91 98765 43210",
+  /** REPLACE — the number in this URL must match whatsappNumber. */
   whatsappHref: "https://wa.me/919876543210?text=Hello%20Reena%20Designs%2C%20I%20would%20like%20to%20inquire%20about%20a%20construction%20or%20interior%20project.",
   hours: "Mon – Sat · 9:30 AM – 7:00 PM",
   address: {

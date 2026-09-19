@@ -149,7 +149,7 @@ export default function NotFound() {
 
           {/* ── Copy ──────────────────────────────────────────── */}
           <div>
-            <p className="montserrat font-700 mb-3 text-[11px] uppercase tracking-[0.3em] text-orange-600">
+            <p className="montserrat font-700 mb-3 text-[11px] uppercase tracking-[0.3em] text-brand-ink">
               Error 404
             </p>
             <h1 className="montserrat font-800 text-3xl leading-tight md:text-4xl text-navy">
@@ -164,15 +164,14 @@ export default function NotFound() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 to="/"
-                className="montserrat font-700 group inline-flex items-center gap-2 rounded-lg px-6 py-3.5 text-sm text-white transition hover:opacity-90"
-                style={{ background: "#1a2744" }}
+                className="btn-navy montserrat font-700 group gap-2 px-6 py-3.5"
               >
                 Back to home
                 <ArrowRight size={15} strokeWidth={2.2} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </Link>
               <Link
                 to="/contact"
-                className="btn-outline montserrat font-700 inline-flex items-center gap-2 rounded-lg px-6 py-3.5 text-sm"
+                className="btn-outline montserrat font-700 gap-2 px-6 py-3.5"
               >
                 <Compass size={15} strokeWidth={2} aria-hidden="true" />
                 Tell us what you were looking for
@@ -181,7 +180,7 @@ export default function NotFound() {
 
             {/* Quick destinations */}
             <div className="mt-10">
-              <div className="montserrat font-800 mb-3 text-[10px] uppercase tracking-[0.22em] text-slate-400">
+              <div className="montserrat font-800 mb-3 text-[10px] uppercase tracking-[0.22em] text-slate-600">
                 Jump to
               </div>
               <div className="grid gap-2.5 sm:grid-cols-2">
@@ -189,16 +188,16 @@ export default function NotFound() {
                   <Link
                     key={href}
                     to={href}
-                    className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 transition duration-300 hover:-translate-y-0.5 hover:border-orange-300 hover:shadow-lg hover:shadow-slate-900/5"
+                    className="group flex items-center gap-3 border border-slate-200 bg-white px-4 py-3 transition duration-300 hover:-translate-y-0.5 hover:border-orange-300 hover:shadow-lg hover:shadow-slate-900/5"
                   >
-                    <span className="inline-flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-orange-50 text-orange-500 transition duration-300 group-hover:bg-orange-500 group-hover:text-white">
+                    <span className="inline-flex h-9 w-9 flex-none items-center justify-center bg-orange-50 text-brand-ink transition duration-300 group-hover:bg-orange-500 group-hover:text-white">
                       <Icon size={16} strokeWidth={1.9} aria-hidden="true" />
                     </span>
                     <span className="min-w-0">
                       <span className="montserrat font-800 block text-[13px] text-navy">
                         {label}
                       </span>
-                      <span className="block truncate text-[11px] text-slate-400">{copy}</span>
+                      <span className="block truncate text-[11px] text-slate-600">{copy}</span>
                     </span>
                     <ArrowRight
                       size={14}

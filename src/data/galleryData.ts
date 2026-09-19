@@ -1,3 +1,5 @@
+import { unsplash, srcSetFor } from "./images"
+
 /**
  * Gallery imagery.
  *
@@ -35,7 +37,13 @@ export type GalleryImage = {
   alt: string
 }
 
-const u = (id: string) => `https://images.unsplash.com/${id}?w=500&h=340&fit=crop&auto=format`
+const CROP = { w: 500, h: 340 }
+const u = (id: string) => unsplash(id, CROP)
+/** Candidates for the same crop, so a phone is not sent a 1000px file. */
+export const gallerySrcSet = (src: string) => {
+  const id = src.split("/").pop()?.split("?")[0]
+  return id ? srcSetFor(id, CROP) : undefined
+}
 
 /** Keeps each entry to a src/alt pair without repeating the Unsplash helper. */
 const img = (id: string, alt: string): GalleryImage => ({ src: u(id), alt })

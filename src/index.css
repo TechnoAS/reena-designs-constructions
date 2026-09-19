@@ -45,6 +45,17 @@
   --color-navy-soft: #23355c;
   --color-brand: #FF5E00;
   --color-brand-light: #FF7A2F;
+  /* The brand orange, stepped down until it is legible as text.
+     #FF5E00 measures 3.06:1 on white — it is a fill colour, not a text
+     colour, and it was being used for both. Every place it carried words
+     (the active nav link most importantly, plus section eyebrows, team
+     roles and inline links) failed AA by a wide margin. This is the same
+     hue at 5.18:1.
+
+     The rule: `brand` for fills, rules, borders and accent bars, where
+     contrast requirements do not apply; `brand-ink` for anything a
+     visitor has to read. */
+  --color-brand-ink: #C2410C;
   --color-hairline: #e8e8e8;
   --color-surface: #f7f7f7;
 }
@@ -79,6 +90,24 @@ body {
     display: block;
     max-width: 100%;
   }
+
+  /* Keyboard focus, as a floor rather than an opt-in.
+
+     `focus-visible` was declared in four files out of forty-five, so most
+     of the site's custom-styled controls — nav links, footer links,
+     carousel arrows, service panels, gallery tiles — fell back to whatever
+     ring the browser draws by default. That default is inconsistent across
+     engines and effectively invisible against the navy and photographic
+     grounds several of those controls sit on.
+
+     Declaring it here means every focusable element has a visible state
+     unless something deliberately overrides it, which is the right way
+     round. Components that need a different offset or colour still set
+     their own; this is only the baseline. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
 }
 
 * {
@@ -98,6 +127,27 @@ body {
 
   .btn-outline {
     @apply inline-flex items-center justify-center border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition duration-200 hover:border-orange-400 hover:text-orange-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500;
+  }
+
+  /* The third button in the system, and the one that was missing.
+
+     Three call sites — the FAQ's "Ask our team", the service-areas
+     "Book a free site visit" and the 404's "Back to home" — each
+     hand-rolled a navy button with an inline `background: "#1a2744"` and
+     its own radius, because there was nothing to reach for. Same square
+     geometry and padding as the other two, so the three read as one
+     family. */
+  /* The navy lockup gradient. Written out by hand in six places — the chat
+     header and its three avatar marks, the About team initials and the
+     testimonial initials — each as an inline `linear-gradient(135deg,
+     #1a2744 0%, #23355c 100%)`. Both stops are tokens, so a rebrand reaches
+     it. */
+  .grad-navy {
+    background-image: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-soft) 100%);
+  }
+
+  .btn-navy {
+    @apply inline-flex items-center justify-center bg-navy px-5 py-3 text-sm font-bold text-white transition duration-200 hover:bg-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy;
   }
 }
 
@@ -134,14 +184,6 @@ body {
      with the heading and centres the pair by default. */
   .section-title-row {
     @apply flex items-center justify-center gap-3;
-  }
-
-  /* Service card — premium lift on hover. */
-  .svc-card {
-    @apply rounded-2xl border border-slate-200 bg-white transition duration-300;
-  }
-  .svc-card:hover {
-    @apply -translate-y-1 border-orange-300 shadow-xl shadow-slate-900/5;
   }
 
   /* Gallery / project card. `ProjectCard` has always referenced this class,
@@ -219,80 +261,36 @@ body {
   .field {
     @apply w-full border border-slate-300 bg-white px-4 py-3 text-base text-slate-700 outline-none transition sm:text-sm;
   }
+  /* The select. `appearance-none` strips the platform chevron, and nothing
+     was drawn in its place — so the control looked identical to the three
+     text inputs above it and nothing signalled that it opens a list. The
+     chevron is an inline SVG data URI so it needs no extra request, and the
+     right padding keeps the value clear of it. */
+  select.field {
+    @apply cursor-pointer appearance-none bg-no-repeat pr-10;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-position: right 1rem center;
+    background-size: 12px 12px;
+  }
+
   .field:focus {
     @apply border-brand ring-2 ring-orange-500/20;
   }
   .field::placeholder {
     @apply text-slate-400;
   }
+  /* A field that failed validation says so on the control itself, not only in
+     the message beneath it — the message can be scrolled off, and on a
+     two-column row the eye does not always connect the two. */
+  .field[aria-invalid="true"] {
+    @apply border-red-400;
+  }
+  .field[aria-invalid="true"]:focus {
+    @apply border-red-500 ring-2 ring-red-500/20;
+  }
+
   .field:disabled {
     @apply cursor-not-allowed bg-slate-50 text-slate-400;
-  }
-
-  /* Stat cell — subtle divider rhythm across the row. */
-  .stat-item {
-    @apply border-slate-100 transition duration-300;
-  }
-  .stat-item:hover {
-    @apply bg-slate-50/70;
-  }
-}
-
-/* ── Flow pulse ─────────────────────────────────────────────────────
-   A travelling highlight that runs along a connector, like fluid moving
-   through a pipe. Used by the process tree and the hero blueprint. The
-   element paints a moving gradient over its own background. */
-@layer components {
-  .flow-line {
-    position: relative;
-    overflow: hidden;
-  }
-  .flow-line::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(255, 94, 0, 0.15) 35%,
-      #ff5e00 50%,
-      rgba(255, 94, 0, 0.15) 65%,
-      transparent 100%
-    );
-    background-size: 100% 250%;
-    animation: flow-down 3.2s linear infinite;
-    animation-delay: var(--flow-delay, 0s);
-  }
-  /* Horizontal runs (the fork bar) sweep left-to-right instead. */
-  .flow-line-x::after {
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(255, 94, 0, 0.15) 35%,
-      #ff5e00 50%,
-      rgba(255, 94, 0, 0.15) 65%,
-      transparent 100%
-    );
-    background-size: 250% 100%;
-    animation-name: flow-right;
-  }
-}
-
-@keyframes flow-down {
-  from { background-position: 0 -150%; }
-  to   { background-position: 0 250%; }
-}
-
-@keyframes flow-right {
-  from { background-position: -150% 0; }
-  to   { background-position: 250% 0; }
-}
-
-/* Respect users who have asked for reduced motion. */
-@media (prefers-reduced-motion: reduce) {
-  .flow-line::after {
-    animation: none;
-    opacity: 0.35;
   }
 }
 

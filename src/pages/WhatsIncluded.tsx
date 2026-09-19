@@ -2,6 +2,7 @@ import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
 import { webPageSchema, pageGraph } from "@/data/structuredData"
 import PageHeader from "@/components/ui/PageHeader"
+import SectionTitle from "@/components/ui/SectionTitle"
 import RollingRibbon from "@/components/home/RollingRibbon"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import headerScene from "@/imports/whats-included-header.jpg"
@@ -66,14 +67,6 @@ const NOT_INCLUDED = [
   "Loose furniture, appliances and soft furnishings",
 ] as const
 
-/** A section heading, matching the About and Services pages. */
-function Heading({ title, onDark = false }: { title: string; onDark?: boolean }) {
-  return (
-    <h2 className={`montserrat font-800 mb-8 text-xl md:text-2xl ${onDark ? "text-white" : "text-navy"}`}>
-      {title}
-    </h2>
-  )
-}
 
 export default function WhatsIncluded() {
   return (
@@ -87,13 +80,13 @@ export default function WhatsIncluded() {
     >
       <Seo
         title="What's Included — Materials, Grades & Labour in Your Quotation"
-        description="The nine cost heads in a Reena Designs & Constructions quotation: cement, sand, TMT bar, bricks, tiles, marble, paints, electrical goods and labour — every grade named, and a plain list of what is not included."
+        description="The four heads that carry a structural build's cost in a Reena Designs & Constructions quotation — sand, TMT bar, bricks and labour — with every grade named, plus a plain list of what is not included."
         schema={pageGraph(
           webPageSchema({
             path: "/whats-included",
             name: "What's Included in a House Construction Quotation — Materials, Grades & Labour",
             description:
-              "Cement, sand, TMT bar, bricks, tiles, marble, paints, electrical goods and labour — every material grade named, with a plain list of what a quotation does not cover.",
+              "Sand, TMT bar, bricks and labour — the four heads that carry a structural build's cost, with every material grade named and a plain list of what a quotation does not cover.",
           }),
         )}
       />
@@ -131,7 +124,7 @@ export default function WhatsIncluded() {
 
         <div className={`${SITE_CONTAINER} relative z-10 grid items-center gap-10 md:grid-cols-2`}>
           <div className="max-w-xl">
-            <Heading title="EVERY LINE IN THE QUOTATION" />
+            <SectionTitle title="EVERY LINE IN THE QUOTATION" align="left" className="mb-8" />
 
             <div className="flex flex-col gap-4 text-sm leading-7 text-slate-500">
               <p>
@@ -149,7 +142,7 @@ export default function WhatsIncluded() {
               {QUOTE_STATS.map(({ value, label }) => (
                 <div key={label}>
                   <dd className="montserrat font-900 text-2xl leading-none text-navy">{value}</dd>
-                  <dt className="mt-2 text-[10.5px] uppercase tracking-[0.16em] text-slate-400">
+                  <dt className="mt-2 text-[10.5px] uppercase tracking-[0.16em] text-slate-600">
                     {label}
                   </dt>
                 </div>
@@ -207,7 +200,7 @@ export default function WhatsIncluded() {
         </div>
 
         <div className={SITE_CONTAINER}>
-          <Heading title="MATERIALS & EXECUTION" onDark />
+          <SectionTitle title="MATERIALS & EXECUTION" align="left" className="mb-8" onDark />
         </div>
 
         {/*
@@ -297,7 +290,7 @@ export default function WhatsIncluded() {
                 />
 
                 <span className="relative flex flex-col gap-3">
-                  <span className="text-[10.5px] uppercase tracking-[0.16em] text-white/45">
+                  <span className="text-[10.5px] uppercase tracking-[0.16em] text-white/70">
                     {group}
                   </span>
 
@@ -335,7 +328,7 @@ export default function WhatsIncluded() {
         <div className={SITE_CONTAINER}>
           <div className="grid gap-10 md:grid-cols-2 md:gap-16">
             <div className="max-w-md">
-              <Heading title="WHAT IS NOT INCLUDED" />
+              <SectionTitle title="WHAT IS NOT INCLUDED" align="left" className="mb-8" />
               <p className="-mt-4 text-sm leading-7 text-slate-500">
                 Every builder has exclusions. Most of them appear after the contract is signed. Here
                 are ours, before it is — and each one is priced separately if you would rather we

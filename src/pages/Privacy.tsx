@@ -90,7 +90,7 @@ export default function Privacy() {
             ))}
           </div>
 
-          <p className="mt-12 border-t border-hairline pt-6 text-xs text-slate-400">
+          <p className="mt-12 border-t border-hairline pt-6 text-xs text-slate-500">
             Last updated {new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long" })}.
           </p>
         </div>

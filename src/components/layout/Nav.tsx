@@ -10,7 +10,7 @@ function hasChildren(item: NavDropdownItem): item is NavChild {
 function DropdownMenu({ items }: { items: readonly NavDropdownItem[] }) {
   return (
     <div className="absolute top-full left-0 z-50 min-w-56 pt-2">
-      <div className="rounded-xl border-[1.5px] border-hairline bg-white py-2 shadow-2xl">
+      <div className="border-[1.5px] border-hairline bg-white py-2 shadow-2xl">
         {items.map((item) =>
           hasChildren(item) ? (
             <div key={item.label} className="group/sub relative">
@@ -25,7 +25,7 @@ function DropdownMenu({ items }: { items: readonly NavDropdownItem[] }) {
               </Link>
               {/* `focus-within` matters as much as `hover` here — without it the
                   submenu could only ever be opened with a mouse. */}
-              <div className="absolute left-full top-0 hidden min-w-48 rounded-xl border-[1.5px] border-hairline bg-white py-2 shadow-xl group-hover/sub:block group-focus-within/sub:block">
+              <div className="absolute left-full top-0 hidden min-w-48 border-[1.5px] border-hairline bg-white py-2 shadow-xl group-hover/sub:block group-focus-within/sub:block">
                 {item.children.map((child) => (
                   <Link
                     key={child.href}
@@ -111,7 +111,7 @@ export default function Nav() {
             alt=""
             width={58}
             height={58}
-            className="h-[58px] w-[58px] rounded object-contain"
+            className="h-[58px] w-[58px] object-contain"
           />
           <div>
             <div className="allura text-[28px] leading-none text-slate-900">Reena</div>
@@ -137,9 +137,10 @@ export default function Nav() {
                   to={link.href}
                   aria-haspopup="true"
                   aria-expanded={dropOpen}
+                  aria-current={isActive(link.href) ? "page" : undefined}
                   onClick={() => setDropOpen(false)}
                   className={`font-500 relative flex items-center gap-1 pb-0.5 text-sm transition-colors ${
-                    isActive(link.href) ? "text-brand" : "text-slate-800"
+                    isActive(link.href) ? "text-brand-ink" : "text-slate-800"
                   }`}
                 >
                   {link.label}
@@ -163,8 +164,9 @@ export default function Nav() {
               <Link
                 key={link.label}
                 to={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
                 className={`font-500 relative pb-0.5 text-sm transition-colors ${
-                  isActive(link.href) ? "text-brand" : "text-slate-800"
+                  isActive(link.href) ? "text-brand-ink" : "text-slate-800"
                 }`}
               >
                 {link.label}

@@ -73,7 +73,7 @@ export default function CookieBanner() {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur-xl sm:flex-row sm:items-center sm:gap-4 sm:rounded-full sm:py-3 sm:pl-4 sm:pr-3">
+      <div className="flex flex-col gap-3 border border-slate-200 bg-white/95 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur-xl sm:flex-row sm:items-center sm:gap-4 sm:py-3 sm:pl-4 sm:pr-3">
         <span
           className="inline-flex h-10 w-10 flex-none items-center justify-center rounded-full"
           style={{ background: "linear-gradient(145deg,#FFE9D6,#FFD0AC)" }}
@@ -100,14 +100,14 @@ export default function CookieBanner() {
           <button
             type="button"
             onClick={() => close("declined")}
-            className="montserrat font-700 rounded-full px-3.5 py-2 text-[12px] text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+            className="montserrat font-700 border border-slate-300 px-3.5 py-2 text-[12px] text-slate-600 transition hover:border-navy hover:text-navy"
           >
             Decline
           </button>
           <button
             type="button"
             onClick={() => close("accepted")}
-            className="montserrat font-700 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[12px] text-white shadow-md shadow-orange-500/25 transition hover:opacity-90 bg-brand"
+            className="btn-orange montserrat font-700 gap-1.5 px-4 py-2 text-[12px] shadow-md shadow-orange-500/25"
           >
             <Check size={13} strokeWidth={3} aria-hidden="true" />
             Accept
@@ -116,7 +116,7 @@ export default function CookieBanner() {
             type="button"
             onClick={() => close()}
             aria-label="Dismiss for now"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
           >
             <X size={15} strokeWidth={2.2} aria-hidden="true" />
           </button>

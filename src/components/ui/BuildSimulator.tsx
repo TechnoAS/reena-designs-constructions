@@ -41,7 +41,7 @@ export default function BuildSimulator() {
 
   return (
     <div
-      className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 transition-all"
+      className="overflow-hidden border border-slate-200 bg-white shadow-xl shadow-slate-900/5 transition-all"
       onKeyDown={(e) => {
         if (e.key === "ArrowRight") goTo(step + 1)
         if (e.key === "ArrowLeft") goTo(step - 1)
@@ -53,7 +53,7 @@ export default function BuildSimulator() {
       {/* ── Architectural Viewport Top Bar ─────────────────────── */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-surface px-5 py-3.5 sm:px-7">
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-orange-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-brand border border-orange-200/60">
+          <span className="inline-flex items-center gap-1.5 bg-orange-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-ink border border-orange-200/60">
             {phase.tag}
           </span>
           <span className="hidden text-slate-300 sm:inline">|</span>
@@ -88,7 +88,7 @@ export default function BuildSimulator() {
             {/* Stage Counter & Kicker */}
             <div className="flex items-center gap-2">
               <span className="h-0.5 w-6 rounded-full bg-brand" aria-hidden="true" />
-              <span className="montserrat font-700 text-[10.5px] uppercase tracking-[0.22em] text-brand">
+              <span className="montserrat font-700 text-[10.5px] uppercase tracking-[0.22em] text-brand-ink">
                 Stage {String(step).padStart(2, "0")} of {TOTAL}
               </span>
             </div>
@@ -104,8 +104,8 @@ export default function BuildSimulator() {
             </p>
 
             {/* Client Deliverable Assurance Card */}
-            <div className="mt-6 rounded-xl border border-slate-200/90 bg-slate-50/80 p-4.5 transition-all">
-              <div className="flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-brand">
+            <div className="mt-6 border border-slate-200/90 bg-slate-50/80 p-4.5 transition-all">
+              <div className="flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-brand-ink">
                 <Check size={13} strokeWidth={2.8} aria-hidden="true" />
                 <span>Client Deliverable</span>
               </div>
@@ -117,15 +117,15 @@ export default function BuildSimulator() {
             {/* Overall Progress Gauge */}
             <div className="mt-6">
               <div className="mb-2 flex items-center justify-between text-xs font-semibold">
-                <span className="text-slate-400">Total Project Progress</span>
-                <span className="montserrat font-800 text-brand">{pct}%</span>
+                <span className="text-slate-500">Total Project Progress</span>
+                <span className="montserrat font-800 text-brand-ink">{pct}%</span>
               </div>
               <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
                 <div
                   className="h-full rounded-full transition-[width] duration-500 ease-out"
                   style={{
                     width: `${pct}%`,
-                    background: "linear-gradient(90deg, #FF7A2F, #FF5E00)",
+                    background: "linear-gradient(90deg, var(--color-brand-light), var(--color-brand))",
                   }}
                 />
               </div>
@@ -139,7 +139,7 @@ export default function BuildSimulator() {
                 type="button"
                 onClick={() => setPlaying((p) => !p)}
                 aria-label={playing ? "Pause simulation" : "Play simulation"}
-                className="btn-orange montserrat font-700 inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs text-white shadow-xs transition-all active:scale-95"
+                className="btn-orange montserrat font-700 gap-2 px-4 py-2.5 text-xs shadow-xs active:scale-95"
               >
                 {playing ? <Pause size={13} strokeWidth={2.5} /> : <Play size={13} strokeWidth={2.5} />}
                 {playing ? "Pause" : "Play"}
@@ -151,7 +151,7 @@ export default function BuildSimulator() {
                   onClick={() => goTo(step - 1)}
                   disabled={step === 1}
                   aria-label="Previous stage"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-navy transition hover:border-brand hover:text-brand disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-navy"
+                  className="inline-flex h-9 w-9 items-center justify-center border border-slate-200 bg-white text-navy transition hover:border-brand hover:text-brand disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-navy"
                 >
                   <ChevronLeft size={16} strokeWidth={2.4} />
                 </button>
@@ -160,7 +160,7 @@ export default function BuildSimulator() {
                   onClick={() => goTo(step + 1)}
                   disabled={step === TOTAL}
                   aria-label="Next stage"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-navy transition hover:border-brand hover:text-brand disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-navy"
+                  className="inline-flex h-9 w-9 items-center justify-center border border-slate-200 bg-white text-navy transition hover:border-brand hover:text-brand disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-navy"
                 >
                   <ChevronRight size={16} strokeWidth={2.4} />
                 </button>
@@ -174,7 +174,7 @@ export default function BuildSimulator() {
                 setPlaying(true)
               }}
               title="Restart from step one"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 transition hover:text-brand"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 transition hover:text-brand"
             >
               <RotateCcw size={13} strokeWidth={2.2} />
               <span>Reset</span>
@@ -194,7 +194,7 @@ export default function BuildSimulator() {
             return (
               <div
                 key={p.n}
-                className={`rounded-xl border p-3 transition-colors sm:p-3.5 ${
+                className={`border p-3 transition-colors sm:p-3.5 ${
                   isCurrentPhase
                     ? "border-brand/40 bg-white shadow-xs"
                     : "border-slate-200/80 bg-white/70 hover:border-slate-300"
@@ -213,7 +213,7 @@ export default function BuildSimulator() {
                 <div className="mb-2 flex flex-wrap items-baseline gap-x-2 sm:mb-0">
                   <span
                     className={`montserrat font-800 text-[10px] uppercase tracking-[0.16em] ${
-                      isCurrentPhase ? "text-brand" : "text-navy"
+                      isCurrentPhase ? "text-brand-ink" : "text-navy"
                     }`}
                   >
                     {p.tag}
@@ -223,7 +223,7 @@ export default function BuildSimulator() {
                     {p.name}
                   </span>
 
-                  <span className="ml-auto font-mono text-[9.5px] font-semibold text-slate-400">
+                  <span className="ml-auto font-mono text-[9.5px] font-semibold text-slate-600">
                     {doneInPhase}/{steps.length}
                   </span>
                 </div>
@@ -246,7 +246,7 @@ export default function BuildSimulator() {
                           current
                             ? "bg-brand text-white shadow-xs scale-105 ring-2 ring-brand/30"
                             : passed
-                            ? "bg-orange-100/80 text-brand hover:bg-orange-200/80"
+                            ? "bg-orange-100/80 text-brand-ink hover:bg-orange-200/80"
                             : "bg-slate-100 text-slate-500 hover:bg-slate-200/80 hover:text-navy"
                         }`}
                       >

@@ -1,5 +1,6 @@
 import ProjectCard from "./ProjectCard"
-import type { GalleryImage } from "@/data/galleryData"
+import { gallerySrcSet, type GalleryImage } from "@/data/galleryData"
+import { CARD_SIZES } from "@/data/images"
 
 /**
  * A wall of photographs.
@@ -17,7 +18,14 @@ export default function GalleryGrid({ images }: { images: GalleryImage[]; title?
            generated from the index here. It is what a search engine and a
            screen reader both index the image by, and twenty copies of one
            sentence with the number changed serve neither. */
-        <ProjectCard key={src} img={src} alt={alt} priority={i < 4} />
+        <ProjectCard
+          key={src}
+          img={src}
+          srcSet={gallerySrcSet(src)}
+          sizes={CARD_SIZES}
+          alt={alt}
+          priority={i < 4}
+        />
       ))}
     </div>
   )

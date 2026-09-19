@@ -69,7 +69,7 @@ export const ROUTES = [
     path: '/whats-included',
     title: "What's Included — Materials, Grades & Labour in Your Quotation",
     description:
-      'The nine cost heads in a Reena Designs & Constructions quotation: cement, sand, TMT bar, bricks, tiles, marble, paints, electrical goods and labour — every grade named, and a plain list of what is not included.',
+      "The four heads that carry a structural build's cost in a Reena Designs & Constructions quotation — sand, TMT bar, bricks and labour — with every grade named, plus a plain list of what is not included.",
     changefreq: 'monthly',
     priority: '0.8',
     source: 'src/pages/WhatsIncluded.tsx',
@@ -174,6 +174,24 @@ export const ROUTES = [
     changefreq: 'monthly',
     priority: '0.7',
     source: 'src/pages/TestimonialsPage.tsx',
+  },
+  {
+    path: '/learn-from-us',
+    title: 'Learn From Us — Drawing & Design Software Training',
+    description:
+      'Learn drawing and design using the software we build with: AutoCAD, Autodesk Revit, SketchUp, Primavera P6, BlenderBIM, STAAD.Pro, ETABS, Lumion and V-Ray — taught at our design studio in Midnapur.',
+    changefreq: 'monthly',
+    priority: '0.5',
+    source: 'src/pages/LearnFromUs.tsx',
+  },
+  {
+    path: '/careers',
+    title: 'Careers — Work With Reena Designs & Constructions',
+    description:
+      'Open roles and how to apply at Reena Designs & Constructions: site engineering, draughting, interior design and structural engineering, based in Midnapur, Paschim Midnapur.',
+    changefreq: 'monthly',
+    priority: '0.5',
+    source: 'src/pages/Careers.tsx',
   },
   {
     path: '/contact',

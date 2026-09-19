@@ -63,7 +63,7 @@ export default function GalleryPage({ title, crumbs, images, intro }: GalleryPag
       <section className={`${SITE_CONTAINER} py-14 lg:py-16`}>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
           <h2 className="montserrat font-800 text-xl text-navy md:text-2xl">{readable}</h2>
-          <p className="text-[10.5px] uppercase tracking-[0.16em] text-slate-400">
+          <p className="text-[10.5px] uppercase tracking-[0.16em] text-slate-600">
             {images.length} {images.length === 1 ? "project" : "projects"}
           </p>
         </div>

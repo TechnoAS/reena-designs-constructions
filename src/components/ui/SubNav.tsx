@@ -26,7 +26,7 @@ export default function SubNav({ tabs }: { tabs: SubNavTab[] }) {
             className={`montserrat font-700 -mb-px border-b-2 pb-3 text-sm transition-colors ${
               active
                 ? "border-brand text-navy"
-                : "border-transparent text-slate-400 hover:text-slate-600"
+                : "border-transparent text-slate-500 hover:text-slate-600"
             }`}
           >
             {tab.label}

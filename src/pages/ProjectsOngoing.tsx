@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom"
 import ProjectIndex from "@/components/ui/ProjectIndex"
+import { unsplash } from "@/data/images"
 
-const IMG = (id: string) => `https://images.unsplash.com/${id}?w=640&h=480&fit=crop&auto=format`
+const CROP = { w: 640, h: 480 }
+const IMG = (id: string) => unsplash(id, CROP)
 
 /**
  * Live sites.
@@ -44,11 +46,11 @@ export default function ProjectsOngoing() {
       renderMeta={(p) => (
         <>
           <h3 className="montserrat font-700 mb-0.5 text-base text-navy">{p.name}</h3>
-          <div className="mb-3 text-xs text-slate-400">{p.location}</div>
+          <div className="mb-3 text-xs text-slate-500">{p.location}</div>
 
           <div className="mb-1 flex items-center justify-between">
             <span className="text-xs text-slate-500">Progress</span>
-            <span className="montserrat font-700 text-xs text-brand">{p.progress}%</span>
+            <span className="montserrat font-700 text-xs text-brand-ink">{p.progress}%</span>
           </div>
           <div
             className="mb-3 h-1.5 w-full rounded-full bg-slate-100"
@@ -60,7 +62,7 @@ export default function ProjectsOngoing() {
           >
             <div
               className="h-1.5 rounded-full"
-              style={{ width: `${p.progress}%`, background: "linear-gradient(90deg, #FF5E00, #ff8c00)" }}
+              style={{ width: `${p.progress}%`, background: "linear-gradient(90deg, var(--color-brand), var(--color-brand-light))" }}
             />
           </div>
 

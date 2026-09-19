@@ -172,10 +172,10 @@ export default function InteriorResidential() {
         />
 
         <div className="mb-10 max-w-3xl">
-          <p className="montserrat font-700 mb-3 text-[11px] uppercase tracking-[0.3em] text-orange-600">
+          <p className="montserrat font-700 mb-3 text-[11px] uppercase tracking-[0.3em] text-brand-ink">
             Residential interior design in Midnapur & across India
           </p>
-          <h2 className="montserrat font-800 text-2xl leading-snug md:text-3xl text-navy">
+          <h2 className="montserrat font-800 text-xl leading-snug md:text-2xl text-navy">
             Interiors detailed to the millimetre, built to last
           </h2>
           <p className="mt-4 text-sm leading-7 text-slate-500">
@@ -245,11 +245,11 @@ export default function InteriorResidential() {
                     </span>
                   ))}
                   {p.materials.length > 2 && (
-                    <span className="text-slate-400">+{p.materials.length - 2} more</span>
+                    <span className="text-slate-500">+{p.materials.length - 2} more</span>
                   )}
                 </span>
 
-                <span className="montserrat font-700 mt-auto inline-flex items-center gap-1.5 pt-6 text-[12px] text-orange-600">
+                <span className="montserrat font-700 mt-auto inline-flex items-center gap-1.5 pt-6 text-[12px] text-brand-ink">
                   Full specification
                   <ChevronRight
                     size={13}
@@ -306,7 +306,7 @@ export default function InteriorResidential() {
                 </span>
                 {/* Position in the current filter, so stepping through with the
                     arrow keys has a sense of where it ends. */}
-                <span className="montserrat font-700 text-[11px] tabular-nums tracking-[0.16em] text-slate-400">
+                <span className="montserrat font-700 text-[11px] tabular-nums tracking-[0.16em] text-slate-600">
                   {String(openIndex + 1).padStart(2, "0")} / {String(visible.length).padStart(2, "0")}
                 </span>
               </div>
@@ -416,7 +416,7 @@ export default function InteriorResidential() {
                           className="flex items-start gap-2.5 py-2 text-[12.5px] leading-relaxed text-slate-600"
                         >
                           <span
-                            className="montserrat font-800 mt-px flex-none text-[10px] tabular-nums text-brand"
+                            className="montserrat font-800 mt-px flex-none text-[10px] tabular-nums text-brand-ink"
                             aria-hidden="true"
                           >
                             {String(i + 1).padStart(2, "0")}

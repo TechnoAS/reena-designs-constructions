@@ -43,6 +43,8 @@ export default function ChatBot() {
   const pupilsRef = useRef<HTMLSpanElement[]>([])
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const launcherRef = useRef<HTMLButtonElement>(null)
   const frame = useRef<number | null>(null)
   const timers = useRef<number[]>([])
   const nextId = useRef(1)
@@ -86,9 +88,54 @@ export default function ChatBot() {
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
   }, [messages, typing, open])
 
-  // Focus the input when the panel opens.
+  /**
+   * Dialog behaviour.
+   *
+   * The panel looked modal and behaved as though it were not: focus could walk
+   * straight out of it into the page behind, and Escape did nothing, so a
+   * keyboard user who opened it had to hunt for the close button to get out.
+   *
+   * This is the same bookkeeping the Residential Interior lightbox already
+   * does — Escape to close, Tab trapped inside, focus returned to whatever
+   * opened it. Background scroll is deliberately *not* locked here: unlike the
+   * lightbox this is a corner panel, not a full-screen overlay, and freezing
+   * the page behind a 22rem box would be wrong.
+   */
   useEffect(() => {
-    if (open) inputRef.current?.focus()
+    if (!open) return
+    inputRef.current?.focus()
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false)
+        return
+      }
+      if (e.key !== "Tab" || !panelRef.current) return
+      const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      )
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [open])
+
+  // Hand focus back to the launcher on close, so the visitor resumes from
+  // where they were rather than at the top of the document.
+  const wasOpen = useRef(false)
+  useEffect(() => {
+    if (wasOpen.current && !open) launcherRef.current?.focus()
+    wasOpen.current = open
   }, [open])
 
   const push = (m: Omit<Message, "id" | "at">) =>
@@ -142,6 +189,7 @@ export default function ChatBot() {
       {/* ── Collapsed launcher ─────────────────────────────────── */}
       {!open && (
         <button
+          ref={launcherRef}
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Open the assistant and ask a question"
@@ -149,8 +197,7 @@ export default function ChatBot() {
         >
           <span
             ref={faceRef}
-            className="chat-ping relative inline-flex h-10 w-10 flex-none items-center justify-center rounded-full"
-            style={{ background: "linear-gradient(135deg, #1a2744 0%, #23355c 100%)" }}
+            className="chat-ping grad-navy relative inline-flex h-10 w-10 flex-none items-center justify-center rounded-full"
           >
             <span className="flex items-center gap-1.5">
               {[0, 1].map((i) => (
@@ -158,7 +205,7 @@ export default function ChatBot() {
                   <span
                     ref={setPupil(i)}
                     className="h-1.5 w-1.5 rounded-full transition-transform duration-100 ease-out"
-                    style={{ background: "#1a2744" }}
+                    style={{ background: "var(--color-navy)" }}
                   />
                 </span>
               ))}
@@ -167,18 +214,27 @@ export default function ChatBot() {
           </span>
           <span className="hidden text-left sm:block">
             <span className="montserrat font-800 block text-[12px] text-slate-800">Ask us anything</span>
-            <span className="block text-[10px] text-slate-400">Costs · timelines · services</span>
+            <span className="block text-[10px] text-slate-600">Costs · timelines · services</span>
           </span>
         </button>
       )}
 
       {/* ── Expanded panel ─────────────────────────────────────── */}
       {open && (
-        <div className="flex h-[30rem] w-[calc(100vw-2rem)] max-w-[22rem] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
+        /* `h-[30rem]` flat put the header — and with it the close button — off
+           the top of the viewport on a landscape phone or with the software
+           keyboard raised. `dvh` accounts for the browser chrome that is
+           actually showing. */
+        <div
+          ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Reena assistant"
+          className="flex h-[min(30rem,calc(100dvh-6rem))] w-[calc(100vw-2rem)] max-w-[22rem] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl"
+        >
           {/* Header */}
           <div
-            className="relative flex items-center gap-3 px-4 py-3.5"
-            style={{ background: "linear-gradient(135deg, #1a2744 0%, #23355c 100%)" }}
+            className="grad-navy relative flex items-center gap-3 px-4 py-3.5"
           >
             <span className="relative inline-flex h-9 w-9 flex-none items-center justify-center rounded-full bg-white/10">
               <span className="flex items-center gap-1">
@@ -187,18 +243,18 @@ export default function ChatBot() {
                     <span
                       ref={setPupil(i)}
                       className="h-1 w-1 rounded-full transition-transform duration-100 ease-out"
-                      style={{ background: "#1a2744" }}
+                      style={{ background: "var(--color-navy)" }}
                     />
                   </span>
                 ))}
               </span>
-              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#1a2744] bg-emerald-400" />
+              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-navy bg-emerald-400" />
             </span>
             <div className="flex-1">
               <div className="montserrat font-800 text-[12.5px] text-white">Reena Assistant</div>
               <div className="flex items-center gap-1.5 text-[10px] text-white/55">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                Online · replies instantly
+                Automated · answers common questions
               </div>
             </div>
             <button
@@ -234,8 +290,7 @@ export default function ChatBot() {
               <div key={m.id} className={`chat-bubble-in flex gap-2 ${m.from === "user" ? "justify-end" : "justify-start"}`}>
                 {m.from === "bot" && (
                   <span
-                    className="mt-auto mb-5 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full"
-                    style={{ background: "linear-gradient(135deg, #1a2744 0%, #23355c 100%)" }}
+                    className="grad-navy mt-auto mb-5 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full"
                     aria-hidden="true"
                   >
                     <Sparkles size={11} strokeWidth={2.2} className="text-orange-400" />
@@ -248,7 +303,7 @@ export default function ChatBot() {
                         ? "rounded-2xl rounded-br-md text-white"
                         : "rounded-2xl rounded-bl-md border border-slate-200 bg-white text-slate-600"
                     }`}
-                    style={m.from === "user" ? { background: "#FF5E00" } : undefined}
+                    style={m.from === "user" ? { background: "var(--color-brand)" } : undefined}
                   >
                     {m.text}
                     {m.link && (
@@ -262,7 +317,7 @@ export default function ChatBot() {
                       </Link>
                     )}
                   </div>
-                  <span className="mt-1 px-1 text-[9.5px] text-slate-400">{m.at}</span>
+                  <span className="mt-1 px-1 text-[9.5px] text-slate-600">{m.at}</span>
                 </div>
               </div>
             ))}
@@ -270,8 +325,7 @@ export default function ChatBot() {
             {typing && (
               <div className="chat-bubble-in flex items-end gap-2">
                 <span
-                  className="inline-flex h-6 w-6 flex-none items-center justify-center rounded-full"
-                  style={{ background: "linear-gradient(135deg, #1a2744 0%, #23355c 100%)" }}
+                  className="grad-navy inline-flex h-6 w-6 flex-none items-center justify-center rounded-full"
                   aria-hidden="true"
                 >
                   <Sparkles size={11} strokeWidth={2.2} className="text-orange-400" />
@@ -315,7 +369,10 @@ export default function ChatBot() {
               onChange={(e) => setDraft(e.target.value)}
               placeholder="Type your question…"
               aria-label="Type your question"
-              className="min-w-0 flex-1 rounded-full bg-slate-100 px-4 py-2.5 text-[12.5px] text-slate-700 outline-none ring-1 ring-transparent transition placeholder:text-slate-400 focus:bg-white focus:ring-orange-300"
+              /* 16px on a phone. Under that, iOS Safari zooms the viewport in on
+                 focus and never zooms back out — the same trap `.field` and the
+                 hero search both fix deliberately, and this one was missed. */
+              className="min-w-0 flex-1 rounded-full bg-slate-100 px-4 py-2.5 text-base text-slate-700 outline-none ring-1 ring-transparent transition placeholder:text-slate-500 focus:bg-white focus:ring-orange-300 sm:text-[12.5px]"
             />
             <button
               type="submit"

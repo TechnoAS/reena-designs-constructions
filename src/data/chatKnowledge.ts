@@ -225,7 +225,7 @@ export const ANSWERS: Answer[] = [
   {
     id: "experience",
     keys: ["experience", "how many year", "since", "established", "old is", "history", "how many project", "track record"],
-    text: "15+ years and 250+ completed projects since 2010, rated 4.9/5 by over 200 clients — with a qualified engineer on every site.",
+    text: "15+ years and 250+ completed projects since 2010, for more than 200 clients — with a qualified engineer on every site.",
     link: { label: "Read testimonials", href: "/our-work/testimonials" },
     next: ["Can I see your work?", "What does it cost?"],
   },
@@ -239,7 +239,7 @@ export const ANSWERS: Answer[] = [
   {
     id: "reviews",
     keys: ["review", "rating", "testimonial", "feedback", "reputation", "trust", "reliable", "genuine"],
-    text: "We are rated 4.9/5 across 200+ clients. The testimonials on our site name the client, their role and the actual project — not anonymous praise.",
+    text: "We have worked with over 200 clients. The testimonials on our site name the client, their role and the actual project — not anonymous praise.",
     link: { label: "Read testimonials", href: "/our-work/testimonials" },
     next: ["Can I see your work?", "Do you give a warranty?"],
   },

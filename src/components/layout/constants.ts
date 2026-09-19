@@ -30,6 +30,7 @@ export const NAV_LINKS: readonly NavLink[] = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "What's Included", href: "/whats-included" },
+  { label: "Learn from us", href: "/learn-from-us" },
   {
     label: "Our Work",
     href: "/our-work",

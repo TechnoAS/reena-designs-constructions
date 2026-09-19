@@ -1,6 +1,7 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
+import SectionTitle from "@/components/ui/SectionTitle"
 import BuildSimulator from "@/components/ui/BuildSimulator"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import ServiceAreas from "@/components/ui/ServiceAreas"
@@ -47,15 +48,11 @@ const SERVICES = [
 ] as const
 
 const CAPABILITY_STATS = [
-  { value: "8", label: "Disciplines" },
+  { value: `${SERVICES.length}`, label: "Disciplines" },
   { value: "In-house", label: "Every stage" },
   { value: "1", label: "Contract" },
 ] as const
 
-/** A section heading, matching the About page. */
-function Heading({ title }: { title: string }) {
-  return <h2 className="montserrat font-800 mb-8 text-xl text-navy md:text-2xl">{title}</h2>
-}
 
 export default function Services() {
   return (
@@ -115,7 +112,7 @@ export default function Services() {
 
         <div className={`${SITE_CONTAINER} relative z-10 grid items-center gap-10 md:grid-cols-2`}>
           <div className="max-w-xl">
-            <Heading title="FULL-SERVICE CAPABILITY" />
+            <SectionTitle title="FULL-SERVICE CAPABILITY" align="left" className="mb-8" />
 
             <div className="flex flex-col gap-4 text-sm leading-7 text-slate-500">
               <p>
@@ -134,7 +131,7 @@ export default function Services() {
               {CAPABILITY_STATS.map(({ value, label }) => (
                 <div key={label}>
                   <dd className="montserrat font-900 text-2xl leading-none text-navy">{value}</dd>
-                  <dt className="mt-2 text-[10.5px] uppercase tracking-[0.16em] text-slate-400">
+                  <dt className="mt-2 text-[10.5px] uppercase tracking-[0.16em] text-slate-600">
                     {label}
                   </dt>
                 </div>
@@ -163,7 +160,7 @@ export default function Services() {
       {/* ── The eight disciplines ─────────────────────────────────── */}
       <section className="border-y border-hairline bg-surface py-14 lg:py-16">
         <div className={SITE_CONTAINER}>
-          <Heading title="SERVICES WE PROVIDE" />
+          <SectionTitle title="SERVICES WE PROVIDE" align="left" className="mb-8" />
         </div>
 
         {/* Full-bleed, divided by hairline seams rather than boxed into cards —
@@ -187,7 +184,7 @@ export default function Services() {
       {/* ── Process ───────────────────────────────────────────────── */}
       <section className="py-14 lg:py-20">
         <div className={SITE_CONTAINER}>
-          <Heading title="WATCH YOUR BUILDING TAKE SHAPE" />
+          <SectionTitle title="WATCH YOUR BUILDING TAKE SHAPE" align="left" className="mb-8" />
           <p className="-mt-4 mb-10 max-w-2xl text-sm leading-7 text-slate-500">
             Nineteen steps, four phases, one documented sequence — from bare plot to keys in your
             hand. Press play, or step through it yourself.

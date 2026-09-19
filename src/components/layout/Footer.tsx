@@ -38,7 +38,7 @@ export interface FooterProps {
 const STATS = [
   { value: "250+", label: "Delivered" },
   { value: "15+", label: "Years Experience" },
-  { value: "4.9/5", label: "Client Rating" },
+  { value: "200+", label: "Clients Served" },
 ] as const
 
 /**
@@ -63,10 +63,12 @@ const EXPLORE_LINKS = [
   ["About Us", "/about"],
   ["Services", "/services"],
   ["What's Included", "/whats-included"],
+  ["Learn From Us", "/learn-from-us"],
   ["Our Work", "/our-work"],
   ["Before & After", "/our-work/before-after"],
   ["Testimonials", "/our-work/testimonials"],
   ["FAQ", "/faq"],
+  ["Careers", "/careers"],
   ["Contact Us", "/contact"],
 ] as const
 
@@ -143,7 +145,7 @@ export default function Footer({ cta }: FooterProps) {
                 edge and rises clear of its top. The brand colour moves from an
                 absolutely-placed bar to a left border so it still follows the
                 corner radius without clipping. */}
-            <div className="relative rounded-2xl border border-l-4 border-slate-200/70 border-l-orange-500 bg-white px-6 py-5 shadow-[0_20px_50px_-24px_rgba(8,13,25,0.55)] sm:px-8 lg:px-10">
+            <div className="relative border border-l-4 border-slate-200/70 border-l-orange-500 bg-white px-6 py-5 shadow-[0_20px_50px_-24px_rgba(8,13,25,0.55)] sm:px-8 lg:px-10">
               {/* Purely decorative, so it is hidden from assistive tech and
                   dropped below sm where there is no room for it. */}
               <img
@@ -224,7 +226,7 @@ export default function Footer({ cta }: FooterProps) {
                 width={42}
                 height={42}
                 loading="lazy"
-                className="h-10 w-10 rounded-lg object-contain"
+                className="h-10 w-10 object-contain"
               />
               <div>
                 <div className="allura text-[26px] leading-none text-white">Reena</div>
@@ -234,7 +236,7 @@ export default function Footer({ cta }: FooterProps) {
               </div>
             </Link>
 
-            <p className="mb-4 max-w-sm text-xs leading-relaxed text-white/55">
+            <p className="mb-4 max-w-sm text-xs leading-relaxed text-white/65">
               Midnapur's design-led construction firm. Turnkey civil building, architecture,
               and interior design under fixed contractual handover timelines.
             </p>
@@ -244,7 +246,7 @@ export default function Footer({ cta }: FooterProps) {
               {STATS.map(({ value, label }) => (
                 <div key={label}>
                   <div className="montserrat font-800 text-base text-white">{value}</div>
-                  <div className="text-[9.5px] uppercase tracking-wider text-white/40">{label}</div>
+                  <div className="text-[10px] uppercase tracking-wider text-white/65">{label}</div>
                 </div>
               ))}
             </div>
@@ -262,7 +264,7 @@ export default function Footer({ cta }: FooterProps) {
                   target="_blank"
                   rel="noreferrer noopener"
                   aria-label={`${SITE.name} on ${label}`}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.06] text-white/55 ring-1 ring-white/10 transition duration-200 hover:-translate-y-0.5 hover:bg-(--c) hover:text-white hover:ring-(--c) focus-visible:bg-(--c) focus-visible:text-white focus-visible:ring-(--c)"
+                  className="flex h-9 w-9 items-center justify-center bg-white/[0.06] text-white/55 ring-1 ring-white/10 transition duration-200 hover:-translate-y-0.5 hover:bg-(--c) hover:text-white hover:ring-(--c) focus-visible:bg-(--c) focus-visible:text-white focus-visible:ring-(--c)"
                   style={{ "--c": colour } as React.CSSProperties}
                 >
                   <Icon size={14} />
@@ -282,7 +284,7 @@ export default function Footer({ cta }: FooterProps) {
                 <li key={label}>
                   <Link
                     to={href}
-                    className="group inline-flex items-center gap-1 text-xs text-white/50 transition-colors duration-200 hover:text-white"
+                    className="group inline-flex items-center gap-1 text-xs text-white/60 transition-colors duration-200 hover:text-white"
                   >
                     <span>{label}</span>
                     <ArrowUpRight
@@ -308,7 +310,7 @@ export default function Footer({ cta }: FooterProps) {
                 <li key={label}>
                   <Link
                     to={href}
-                    className="group inline-flex items-center gap-1 text-xs text-white/50 transition-colors duration-200 hover:text-white"
+                    className="group inline-flex items-center gap-1 text-xs text-white/60 transition-colors duration-200 hover:text-white"
                   >
                     <span>{label}</span>
                     <ArrowUpRight
@@ -369,18 +371,18 @@ export default function Footer({ cta }: FooterProps) {
 
               <div className="flex items-start gap-2.5">
                 <Clock size={14} className="mt-0.5 flex-none text-orange-400" />
-                <div className="text-white/55">
+                <div className="text-white/65">
                   <div>{SITE.hours}</div>
                 </div>
               </div>
 
               {/* Regulatory Assurance */}
-              <div className="mt-3 rounded-lg border border-white/10 bg-white/[0.03] p-2.5">
+              <div className="mt-3 border border-white/10 bg-white/[0.03] p-2.5">
                 <div className="flex items-center gap-1.5 text-[11px] font-semibold text-orange-300">
                   <ShieldCheck size={13} className="text-orange-400" />
                   <span>Licensed Civil Engineers</span>
                 </div>
-                <p className="mt-0.5 text-[10.5px] leading-4 text-white/45">
+                <p className="mt-0.5 text-[10.5px] leading-4 text-white/65">
                   Municipal approval compliant sanction drawings &amp; structural safety.
                 </p>
               </div>
@@ -394,20 +396,20 @@ export default function Footer({ cta }: FooterProps) {
         <div
           className={`${SITE_CONTAINER} flex flex-col items-center justify-between gap-3 py-4 text-center md:flex-row md:text-left`}
         >
-          <div className="text-[11px] text-white/40">
+          <div className="text-xs text-white/65">
             <span>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</span>
           </div>
 
           <div className="flex items-center gap-5">
             <Link
               to="/privacy"
-              className="text-[11px] text-white/40 transition-colors hover:text-white"
+              className="text-xs text-white/65 transition-colors hover:text-white"
             >
               Privacy Policy
             </Link>
             <Link
               to="/cookies"
-              className="text-[11px] text-white/40 transition-colors hover:text-white"
+              className="text-xs text-white/65 transition-colors hover:text-white"
             >
               Cookie Policy
             </Link>
@@ -415,7 +417,7 @@ export default function Footer({ cta }: FooterProps) {
             <button
               onClick={scrollToTop}
               type="button"
-              className="group inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] text-white/50 transition duration-200 hover:border-orange-500/50 hover:bg-orange-500/10 hover:text-white cursor-pointer"
+              className="group inline-flex items-center gap-1 border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-white/65 transition duration-200 hover:border-orange-500/50 hover:bg-orange-500/10 hover:text-white cursor-pointer"
               aria-label="Scroll back to top"
             >
               <span>Top</span>

@@ -49,7 +49,7 @@ export default function ServiceAreas({
       />
 
       <div className={`${SITE_CONTAINER} relative`}>
-        <div className="montserrat font-800 mb-4 flex items-center gap-3 text-[13px] uppercase tracking-[0.2em] text-brand">
+        <div className="montserrat font-800 mb-4 flex items-center gap-3 text-[13px] uppercase tracking-[0.2em] text-brand-ink">
           <MapPin size={17} strokeWidth={2.2} aria-hidden="true" />
           Areas We Serve
           <span className="h-px flex-1 bg-gradient-to-r from-orange-400 to-transparent" />
@@ -132,7 +132,7 @@ export default function ServiceAreas({
 
         <a
           href={SITE.phoneHref}
-          className="montserrat font-700 mt-7 inline-flex items-center gap-2 rounded-lg bg-navy px-5 py-3 text-[13px] text-white transition duration-200 hover:bg-brand"
+          className="btn-navy montserrat font-700 mt-7 gap-2"
         >
           <Phone size={15} strokeWidth={2.2} aria-hidden="true" />
           Book a free site visit — {SITE.phones[0]}

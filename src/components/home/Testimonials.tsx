@@ -1,55 +1,30 @@
 import { useState } from "react"
-import { Quote, Star, ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react"
+import { Quote, ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
-
-const testimonials = [
-  {
-    name: "Rajesh Mehta",
-    rating: 5,
-    role: "Homeowner, Midnapur",
-    project: "3,200 sq ft residence",
-    quote:
-      "Reena Designs & Constructions handed over our home eleven days ahead of the contracted date, and the finish matched the 3D elevation almost exactly. Costing stayed where it started — no revised estimates halfway through.",
-  },
-  {
-    name: "Priya Dutta",
-    rating: 5,
-    role: "Director, Dutta & Associates",
-    project: "Office fit-out, Kharagpur",
-    quote:
-      "They ran our office renovation around a live workday without losing a single hour of business. The site engineer sent progress photographs every evening. That level of communication is rare in this trade.",
-  },
-  {
-    name: "Amit Banerjee",
-    rating: 5,
-    role: "Property Owner, Ghatal",
-    project: "Structural renovation",
-    quote:
-      "I had three quotes. Reena's was not the cheapest, but it was the only one that itemised every material grade. Eighteen months on, not one snag has resurfaced. Worth every rupee.",
-  },
-]
+import SectionTitle from "@/components/ui/SectionTitle"
+import StarRating from "@/components/ui/StarRating"
+import { FEATURED_TESTIMONIALS } from "@/data/testimonials"
 
 export default function Testimonials() {
   const [active, setActive] = useState(0)
-  const total = testimonials.length
-  const t = testimonials[active]
+  const total = FEATURED_TESTIMONIALS.length
+  const t = FEATURED_TESTIMONIALS[active]
   const go = (dir: number) => setActive((i) => (i + dir + total) % total)
 
   return (
     <section id="testimonials" className="relative bg-surface py-10 md:py-14 overflow-hidden">
       <div className={`${SITE_CONTAINER} max-w-4xl`}>
         {/* Refined Header */}
-        <div className="text-center">
-          <p className="montserrat font-700 text-[11px] tracking-[0.25em] text-brand uppercase mb-1.5">
-            Client testimonials
-          </p>
-          <h2 className="montserrat font-800 text-xl sm:text-2xl md:text-3xl tracking-wide text-navy uppercase">
-            TRUSTED BY 200+ CLIENTS ACROSS INDIA
-          </h2>
-          <p className="mt-2 text-xs sm:text-sm text-slate-500 leading-relaxed max-w-md mx-auto">
-            Rated 4.9 out of 5 across 200+ completed residential and commercial projects.
-          </p>
-        </div>
+        {/* The "Rated 4.9 out of 5" line is gone: every review the site shows
+            is five stars, so the average it displays is 5.0, and the figure
+            was not backed by collected reviews anywhere. */}
+        <SectionTitle
+          level="display"
+          eyebrow="Client testimonials"
+          title="TRUSTED BY 200+ CLIENTS ACROSS INDIA"
+          subtitle="Homeowners, business owners and developers on what it was actually like to build with us."
+          className="mb-0"
+        />
 
         {/* Unboxed Quote Stage — Zero cards, zero box borders */}
         <div
@@ -60,17 +35,11 @@ export default function Testimonials() {
           {/* Subtle Quote Symbol & Rating */}
           <div className="flex items-center justify-center gap-3 mb-4">
             <Quote size={20} className="text-brand/50" aria-hidden="true" />
-            <div className="flex gap-1" role="img" aria-label={`Rated ${t.rating} out of 5 stars`}>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  size={14}
-                  strokeWidth={0}
-                  className="fill-amber-400"
-                  aria-hidden="true"
-                />
-              ))}
-            </div>
+            {/* Was five hardcoded amber stars, ignoring the `rating` on the
+                record beside it — a three-star review would have rendered as
+                perfect. StarRating exists for exactly this, and using it also
+                settles the orange-here / amber-there split. */}
+            <StarRating rating={t.rating} />
           </div>
 
           {/* Quote Text */}
@@ -81,8 +50,8 @@ export default function Testimonials() {
           {/* Client Details */}
           <div className="mt-5 flex flex-col items-center">
             <div className="montserrat font-800 text-sm md:text-base text-navy">{t.name}</div>
-            <div className="mt-0.5 text-xs text-slate-500">{t.role} · {t.project}</div>
-            <div className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 bg-emerald-50/80 px-2.5 py-0.5 rounded-full border border-emerald-200/50">
+            <div className="mt-0.5 text-xs text-slate-500">{t.role}, {t.place} · {t.project}</div>
+            <div className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50/80 px-2.5 py-0.5 rounded-full border border-emerald-200/50">
               <BadgeCheck size={12} strokeWidth={2.4} aria-hidden="true" />
               Verified client
             </div>
@@ -93,21 +62,27 @@ export default function Testimonials() {
             <button
               onClick={() => go(-1)}
               aria-label="Previous testimonial"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300/80 text-slate-600 transition hover:border-brand hover:text-brand hover:bg-white"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300/80 text-slate-600 transition hover:border-brand hover:text-brand hover:bg-white"
             >
               <ChevronLeft size={15} strokeWidth={2.2} aria-hidden="true" />
             </button>
 
             {/* Client names / selector tabs */}
             <div className="flex items-center gap-1.5 sm:gap-2">
-              {testimonials.map((item, i) => (
+              {FEATURED_TESTIMONIALS.map((item, i) => (
                 <button
                   key={item.name}
                   onClick={() => setActive(i)}
-                  className={`montserrat font-700 text-[11px] sm:text-xs px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 ${
+                  aria-pressed={i === active}
+                  /* Square, matching FilterTabs. These pills were a fourth
+                     vocabulary for "pick one of these" alongside FilterTabs,
+                     SubNav and the carousel arrows. `aria-pressed` is what
+                     tells a screen-reader user which one is showing — the
+                     colour alone did not. */
+                  className={`montserrat font-700 border px-3 py-1.5 text-[11px] transition duration-200 sm:px-4 sm:text-xs ${
                     i === active
-                      ? "bg-navy text-white shadow-xs"
-                      : "bg-white/60 text-slate-600 hover:bg-white hover:text-navy border border-slate-200/60"
+                      ? "border-navy bg-navy text-white"
+                      : "border-slate-300 bg-white text-slate-600 hover:border-navy hover:text-navy"
                   }`}
                 >
                   {item.name.split(" ")[0]}
@@ -118,7 +93,7 @@ export default function Testimonials() {
             <button
               onClick={() => go(1)}
               aria-label="Next testimonial"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300/80 text-slate-600 transition hover:border-brand hover:text-brand hover:bg-white"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300/80 text-slate-600 transition hover:border-brand hover:text-brand hover:bg-white"
             >
               <ChevronRight size={15} strokeWidth={2.2} aria-hidden="true" />
             </button>

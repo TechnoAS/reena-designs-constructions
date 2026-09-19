@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, ChevronLeft, ChevronRight, MapPin } from "lucide-react"
+import { ArrowRight, ChevronLeft, ChevronRight, MapPin, Pause, Play } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import RollingRibbon from "./RollingRibbon"
+import SectionTitle from "@/components/ui/SectionTitle"
 
 /** Full-bleed slides, so these are requested wide rather than card sized. */
 const shot = (id: string) => `https://images.unsplash.com/${id}?w=1400&h=900&fit=crop&auto=format`
@@ -30,11 +31,34 @@ const AUTOPLAY_MS = 6000
 
 export default function FeaturedProjects() {
   const [active, setActive] = useState(0)
-  const [paused, setPaused] = useState(false)
+  /* Two different reasons the slider can be stopped, kept apart.
+
+     `stopped` is the visitor's explicit choice and persists until they undo
+     it. `hovered` is transient. Collapsing both into one `paused` flag meant
+     the only way to stop the carousel was to keep a pointer on it — which a
+     phone cannot do at all, so on touch the thing simply could not be
+     paused. That is a WCAG 2.2.2 failure for any motion running past five
+     seconds, and this runs on a six-second loop through eight slides. */
+  const [stopped, setStopped] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  const paused = stopped || hovered
   const [warm, setWarm] = useState(false)
   const regionRef = useRef<HTMLDivElement>(null)
   const timer = useRef<number | null>(null)
   const touchStartRef = useRef<number | null>(null)
+
+  /* Read once and kept in state rather than checked inside the autoplay
+     effect, so the slider responds if the visitor changes the setting
+     mid-session instead of staying however it was on mount. */
+  const [reduceMotion, setReduceMotion] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  )
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const onChange = () => setReduceMotion(mq.matches)
+    mq.addEventListener("change", onChange)
+    return () => mq.removeEventListener("change", onChange)
+  }, [])
 
   const go = useCallback((next: number) => {
     setActive((next + PROJECTS.length) % PROJECTS.length)
@@ -67,8 +91,7 @@ export default function FeaturedProjects() {
    * Autoplay, held back whenever the visitor is engaged with the slider.
    */
   useEffect(() => {
-    if (paused) return
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (paused || reduceMotion) return
 
     const tick = () => setActive((i) => (i + 1) % PROJECTS.length)
     timer.current = window.setInterval(tick, AUTOPLAY_MS)
@@ -88,7 +111,7 @@ export default function FeaturedProjects() {
       timer.current = null
       document.removeEventListener("visibilitychange", onVisibility)
     }
-  }, [paused])
+  }, [paused, reduceMotion])
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowRight") { e.preventDefault(); go(active + 1) }
@@ -121,15 +144,14 @@ export default function FeaturedProjects() {
       </div>
 
       {/* Centered Heading in middle */}
-      <div className={`${SITE_CONTAINER} relative z-10 pt-4 pb-10 md:pt-6 md:pb-14 text-center`}>
-        <h2 className="montserrat font-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-wider text-white uppercase drop-shadow-sm">
-          FEATURED WORK
-        </h2>
-
-        {/* Subtitle */}
-        <p className="mx-auto mt-4 md:mt-5 max-w-2xl text-sm sm:text-base md:text-lg font-normal leading-relaxed text-slate-300">
-          A curated showcase of residential builds, luxury villas, commercial fit-outs and turnkey executions delivered across West Bengal and India.
-        </p>
+      <div className={`${SITE_CONTAINER} relative z-10 pt-4 pb-10 md:pt-6 md:pb-14`}>
+        <SectionTitle
+          level="display"
+          onDark
+          title="FEATURED WORK"
+          subtitle="A curated showcase of residential builds, luxury villas, commercial fit-outs and turnkey executions delivered across West Bengal and India."
+          className=""
+        />
       </div>
 
       {/* Full-bleed showcase slider with slight top blend */}
@@ -143,10 +165,10 @@ export default function FeaturedProjects() {
         onKeyDown={onKeyDown}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onFocus={() => setHovered(true)}
+        onBlur={() => setHovered(false)}
       >
         {/* Soft top blend directly into carousel */}
         <div
@@ -232,6 +254,20 @@ export default function FeaturedProjects() {
             driven by swipe, arrow keys or these two buttons. */}
         <div className={`${SITE_CONTAINER} pointer-events-none absolute inset-x-0 bottom-6 md:bottom-10 z-20`}>
           <div className="pointer-events-auto flex items-center gap-2 md:gap-3">
+            {/* Hidden only when the visitor has asked for reduced motion, in
+                which case nothing is moving and there is nothing to pause. */}
+            {!reduceMotion && (
+              <button
+                type="button"
+                onClick={() => setStopped((v) => !v)}
+                aria-label={stopped ? "Resume the project slideshow" : "Pause the project slideshow"}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/70 backdrop-blur-sm transition duration-300 hover:border-brand hover:bg-brand hover:text-white md:h-12 md:w-12"
+              >
+                {stopped
+                  ? <Play size={16} strokeWidth={2} aria-hidden="true" />
+                  : <Pause size={16} strokeWidth={2} aria-hidden="true" />}
+              </button>
+            )}
             <button
               type="button"
               onClick={() => go(active - 1)}
@@ -249,6 +285,22 @@ export default function FeaturedProjects() {
               <ChevronRight size={18} strokeWidth={2} aria-hidden="true" />
             </button>
           </div>
+        </div>
+
+        {/* Position, given back as a rule rather than as dots or an 01/08
+            counter.
+
+            Those were removed deliberately — they competed with the
+            photography — but eight slides is well past the point where a
+            visitor can hold their place unaided, and nothing told them how
+            much work sat behind the slider. A hairline along the foot answers
+            both without putting the chrome back: the filled portion is how far
+            through the set you are. */}
+        <div className="absolute inset-x-0 bottom-0 z-20 h-px bg-white/15" aria-hidden="true">
+          <div
+            className="h-full bg-brand transition-[width] duration-700 ease-out"
+            style={{ width: `${((active + 1) / PROJECTS.length) * 100}%` }}
+          />
         </div>
       </div>
 

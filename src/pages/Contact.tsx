@@ -1,8 +1,17 @@
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { MapPin, Clock, Loader2, AlertCircle, ArrowUpRight } from "lucide-react"
+import {
+  MapPin,
+  Clock,
+  Loader2,
+  AlertCircle,
+  ArrowUpRight,
+  ArrowRight,
+  Navigation,
+} from "lucide-react"
 import PageWrapper from "@/components/layout/PageWrapper"
 import PageHeader from "@/components/ui/PageHeader"
+import SectionTitle from "@/components/ui/SectionTitle"
 import Seo from "@/components/Seo"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import {
@@ -45,6 +54,16 @@ const SOCIAL_MARKS = {
  */
 const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined
 
+/** The message under a field that has failed validation. */
+function FieldError({ id, message }: { id: string; message: string }) {
+  if (!message) return null
+  return (
+    <p id={id} className="mt-1.5 text-[12px] leading-snug text-red-700">
+      {message}
+    </p>
+  )
+}
+
 const PROJECT_TYPES = [
   { value: "residential", label: "Residential Construction" },
   { value: "commercial", label: "Commercial Construction" },
@@ -55,6 +74,41 @@ const PROJECT_TYPES = [
 
 const EMPTY = { name: "", phone: "", email: "", projectType: "", message: "" }
 
+type Field = keyof typeof EMPTY
+
+/**
+ * Field rules.
+ *
+ * Validation was the browser's `required` attribute alone — one bubble at a
+ * time, gone on the next click, and no way to see at a glance which fields
+ * still needed attention.
+ *
+ * Phone is required and email is not, which is the reverse of how this form
+ * was set up. This is a construction firm in Paschim Midnapur whose own
+ * contact panels put "Call the office" first; a homeowner sending plot
+ * details expects a callback, and insisting on an email address loses the
+ * enquiries from people who do not use one.
+ */
+const REQUIRED: Field[] = ["name", "phone", "message"]
+
+function validate(field: Field, value: string): string {
+  const v = value.trim()
+  if (REQUIRED.includes(field) && !v) {
+    return {
+      name: "Please tell us your name.",
+      phone: "We need a number to call you back on.",
+      message: "Tell us a little about the project.",
+    }[(field as "name" | "phone" | "message")]
+  }
+  if (field === "phone" && v && v.replace(/\D/g, "").length < 10) {
+    return "That does not look like a complete phone number."
+  }
+  if (field === "email" && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+    return "Check the email address — it looks incomplete."
+  }
+  return ""
+}
+
 type Status = "idle" | "sending" | "sent" | "error"
 
 /** Static facts — the things you read rather than act on. */
@@ -62,11 +116,6 @@ const DETAILS = [
   { Icon: MapPin, label: "Head office", value: SITE.addressLines },
   { Icon: Clock, label: "Office hours", value: SITE.hours },
 ] as const
-
-/** A section heading, matching About and Services. */
-function Heading({ title }: { title: string }) {
-  return <h2 className="montserrat font-800 mb-8 text-xl text-navy md:text-2xl">{title}</h2>
-}
 
 /**
  * The location map, mounted only once it scrolls into view.
@@ -131,10 +180,20 @@ export default function Contact() {
   const project = params.get("project")
 
   const [form, setForm] = useState(() =>
-    project ? { ...EMPTY, message: `I would like to know more about ${project}.\n\n` } : EMPTY,
+    project
+      ? { ...EMPTY, message: `I would like to know more about ${project}.\n\n` }
+      : EMPTY,
   )
   const [status, setStatus] = useState<Status>("idle")
   const [error, setError] = useState("")
+  /* Errors are only shown once a field has been left, so the form does not
+     scold someone who has not finished typing yet. Submitting marks every
+     field as touched, which is what surfaces the whole set at once. */
+  const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({})
+  const errors = Object.fromEntries(
+    (Object.keys(EMPTY) as Field[]).map((f) => [f, validate(f, form[f])]),
+  ) as Record<Field, string>
+  const showError = (f: Field) => (touched[f] ? errors[f] : "")
 
   /**
    * Honeypot. A field no human sees and no human fills, so anything that
@@ -143,10 +202,13 @@ export default function Contact() {
    */
   const honeypot = useRef<HTMLInputElement>(null)
 
-  const set = (key: keyof typeof EMPTY) => (value: string) => setForm((f) => ({ ...f, [key]: value }))
+  const set = (key: keyof typeof EMPTY) => (value: string) =>
+    setForm((f) => ({ ...f, [key]: value }))
 
   const mailtoFallback = () => {
-    const chosen = PROJECT_TYPES.find((p) => p.value === form.projectType)?.label ?? "Not specified"
+    const chosen =
+      PROJECT_TYPES.find((p) => p.value === form.projectType)?.label ??
+      "Not specified"
     const body = [
       `Name: ${form.name}`,
       `Phone: ${form.phone || "Not provided"}`,
@@ -165,6 +227,13 @@ export default function Contact() {
     e.preventDefault()
     if (status === "sending") return
 
+    // Reveal every outstanding error rather than only the first one the
+    // browser would have stopped on.
+    setTouched(
+      Object.fromEntries((Object.keys(EMPTY) as Field[]).map((f) => [f, true])),
+    )
+    if (Object.values(errors).some(Boolean)) return
+
     if (honeypot.current?.value) {
       setStatus("sent")
       return
@@ -182,17 +251,22 @@ export default function Contact() {
     try {
       const res = await fetch(ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
           ...form,
           projectType:
-            PROJECT_TYPES.find((p) => p.value === form.projectType)?.label ?? form.projectType,
+            PROJECT_TYPES.find((p) => p.value === form.projectType)?.label ??
+            form.projectType,
           source: window.location.href,
           submittedAt: new Date().toISOString(),
         }),
       })
       if (!res.ok) throw new Error(`Server responded ${res.status}`)
       setForm(EMPTY)
+      setTouched({})
       setStatus("sent")
     } catch (err) {
       // Never claim success on a failure — the visitor needs to know their
@@ -273,55 +347,61 @@ export default function Contact() {
           most on a phone, where these are the primary actions. */}
       <section className="border-b border-hairline bg-surface">
         <div className="grid gap-px bg-hairline sm:grid-cols-3">
-          {CHANNELS.map(({ Icon, colour, label, value, note, href, external }) => (
-            <a
-              key={label}
-              href={href}
-              {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
-              className="group relative flex items-center gap-5 bg-surface p-7 transition-colors duration-300 hover:bg-white lg:gap-6 lg:p-8"
-            >
-              {/* The mark stands on its own in its brand colour — no tinted
+          {CHANNELS.map(
+            ({ Icon, colour, label, value, note, href, external }) => (
+              <a
+                key={label}
+                href={href}
+                {...(external
+                  ? { target: "_blank", rel: "noreferrer noopener" }
+                  : {})}
+                className="group relative flex items-center gap-5 bg-surface p-7 transition-colors duration-300 hover:bg-white lg:gap-6 lg:p-8"
+              >
+                {/* The mark stands on its own in its brand colour — no tinted
                   tile behind it. `color` is set here so each icon, drawn with
                   `currentColor`, picks the channel colour up. */}
-              <span
-                className="flex flex-none items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                style={{ color: colour }}
-                aria-hidden="true"
-              >
-                <Icon size={28} />
-              </span>
+                <span
+                  className="flex flex-none items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                  style={{ color: colour }}
+                  aria-hidden="true"
+                >
+                  <Icon size={28} />
+                </span>
 
-              {/* The text block takes the remaining width so the arrow can sit
+                {/* The text block takes the remaining width so the arrow can sit
                   hard against the right edge — laid out as a column, the panels
                   left a third of themselves empty. */}
-              <span className="min-w-0 flex-1">
-                <span className="montserrat font-700 block text-[10.5px] uppercase tracking-[0.22em] text-slate-400">
-                  {label}
+                <span className="min-w-0 flex-1">
+                  <span className="montserrat font-700 block text-[10.5px] uppercase tracking-[0.22em] text-slate-600">
+                    {label}
+                  </span>
+                  <span className="montserrat font-800 mt-1.5 block truncate text-[17px] text-navy">
+                    {value}
+                  </span>
+                  <span className="mt-1 block text-[12.5px] leading-relaxed text-slate-500">
+                    {note}
+                  </span>
                 </span>
-                <span className="montserrat font-800 mt-1.5 block truncate text-[17px] text-navy">
-                  {value}
-                </span>
-                <span className="mt-1 block text-[12.5px] leading-relaxed text-slate-500">{note}</span>
-              </span>
 
-              <ArrowUpRight
-                size={18}
-                strokeWidth={2.4}
-                aria-hidden="true"
-                style={{ color: colour }}
-                className="flex-none translate-x-0 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
-              />
+                <ArrowUpRight
+                  size={18}
+                  strokeWidth={2.4}
+                  aria-hidden="true"
+                  style={{ color: colour }}
+                  className="flex-none translate-x-0 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
+                />
 
-              {/* A rule in the channel's colour that draws itself across the
+                {/* A rule in the channel's colour that draws itself across the
                   panel on hover, so the whole tile reads as the target rather
                   than the words inside it. */}
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
-                style={{ background: colour }}
-              />
-            </a>
-          ))}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                  style={{ background: colour }}
+                />
+              </a>
+            ),
+          )}
         </div>
       </section>
 
@@ -330,26 +410,41 @@ export default function Contact() {
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           {/* Left: what happens next, and the static facts. */}
           <div>
-            <Heading title="TELL US ABOUT YOUR PROJECT" />
+            <SectionTitle
+              title="TELL US ABOUT YOUR PROJECT"
+              align="left"
+              className="mb-8"
+            />
 
             <div className="flex flex-col gap-4 text-sm leading-7 text-slate-500">
               <p>
-                Send us the plot details, a floor plan, or just a rough idea of what you want to
-                build. We will come back with a free site visit across Paschim Midnapur, an itemised
-                quotation naming every material grade, and a completion date in writing.
+                Send us the plot details, a floor plan, or just a rough idea of
+                what you want to build. We will come back with a free site visit
+                across Paschim Midnapur, an itemised quotation naming every
+                material grade, and a completion date in writing.
               </p>
-              <p>No obligation, and no revised estimates halfway through the build.</p>
+              <p>
+                No obligation, and no revised estimates halfway through the
+                build.
+              </p>
             </div>
 
             <dl className="mt-9 flex flex-col gap-6 border-t border-hairline pt-8">
               {DETAILS.map(({ Icon, label, value }) => (
                 <div key={label} className="flex items-start gap-3.5">
-                  <Icon size={16} strokeWidth={2} className="mt-0.5 flex-none text-brand" aria-hidden="true" />
+                  <Icon
+                    size={16}
+                    strokeWidth={2}
+                    className="mt-0.5 flex-none text-brand"
+                    aria-hidden="true"
+                  />
                   <div>
-                    <dt className="montserrat font-700 mb-1 text-[10.5px] uppercase tracking-[0.2em] text-slate-400">
+                    <dt className="montserrat font-700 mb-1 text-[10.5px] uppercase tracking-[0.2em] text-slate-600">
                       {label}
                     </dt>
-                    <dd className="text-sm leading-relaxed whitespace-pre-line text-slate-700">{value}</dd>
+                    <dd className="text-sm leading-relaxed whitespace-pre-line text-slate-700">
+                      {value}
+                    </dd>
                   </div>
                 </div>
               ))}
@@ -357,13 +452,15 @@ export default function Contact() {
 
             {ACTIVE_SOCIAL_LINKS.length > 0 && (
               <div className="mt-8 border-t border-hairline pt-8">
-                <div className="montserrat font-700 mb-3 text-[10.5px] uppercase tracking-[0.2em] text-slate-400">
+                <div className="montserrat font-700 mb-3 text-[10.5px] uppercase tracking-[0.2em] text-slate-600">
                   Follow us
                 </div>
                 <div className="flex gap-2.5">
                   {ACTIVE_SOCIAL_LINKS.map(({ label, url }) => {
-                    const Mark = SOCIAL_MARKS[label as keyof typeof SOCIAL_MARKS]
-                    const colour = CHANNEL_COLORS[label as keyof typeof CHANNEL_COLORS]
+                    const Mark =
+                      SOCIAL_MARKS[(label as keyof typeof SOCIAL_MARKS)]
+                    const colour =
+                      CHANNEL_COLORS[(label as keyof typeof CHANNEL_COLORS)]
                     if (!Mark) return null
                     return (
                       <a
@@ -405,9 +502,18 @@ export default function Contact() {
               <div className="flex flex-col items-center border border-hairline bg-surface py-12 text-center">
                 <div
                   className="mb-4 flex h-14 w-14 items-center justify-center rounded-full"
-                  style={{ background: "#fff4ef", border: "2px solid #FF5E00" }}
+                  style={{
+                    background: "#fff4ef",
+                    border: "2px solid var(--color-brand)",
+                  }}
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
                     <path
                       d="M4 12l6 6L20 6"
                       stroke="var(--color-brand)"
@@ -428,13 +534,21 @@ export default function Contact() {
                 <button
                   type="button"
                   onClick={() => setStatus("idle")}
-                  className="text-sm text-brand underline"
+                  className="btn-outline montserrat font-700"
                 >
                   Send another
                 </button>
               </div>
             ) : (
-              <form onSubmit={handle} className="flex flex-col gap-4">
+              <form
+                onSubmit={handle}
+                noValidate
+                className="flex flex-col gap-4"
+              >
+                <p className="-mt-1 text-[12px] text-slate-500">
+                  Fields marked <span className="text-red-600">*</span> are
+                  required.
+                </p>
                 {/* Off-screen rather than display:none — a bot reading the DOM
                     fills what it can see in the markup, and `hidden` is the
                     first thing they learn to skip. */}
@@ -450,8 +564,14 @@ export default function Contact() {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="montserrat font-600 mb-1.5 block text-xs text-slate-600">
+                    <label
+                      htmlFor="name"
+                      className="montserrat font-600 mb-1.5 flex items-center gap-1 text-xs text-slate-600"
+                    >
                       Your name
+                      <span className="text-red-600" aria-hidden="true">
+                        *
+                      </span>
                     </label>
                     <input
                       id="name"
@@ -460,60 +580,88 @@ export default function Contact() {
                       required
                       autoComplete="name"
                       placeholder="Full name"
+                      aria-invalid={showError("name") ? true : undefined}
+                      aria-describedby={
+                        showError("name") ? "name-error" : undefined
+                      }
+                      onBlur={() => setTouched((t) => ({ ...t, name: true }))}
                       className="field"
                       disabled={sending}
                       value={form.name}
                       onChange={(e) => set("name")(e.target.value)}
                     />
+                    <FieldError id="name-error" message={showError("name")} />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="montserrat font-600 mb-1.5 block text-xs text-slate-600">
+                    <label
+                      htmlFor="phone"
+                      className="montserrat font-600 mb-1.5 flex items-center gap-1 text-xs text-slate-600"
+                    >
                       Phone number
+                      <span className="text-red-600" aria-hidden="true">
+                        *
+                      </span>
                     </label>
                     <input
                       id="phone"
                       name="phone"
                       type="tel"
+                      required
                       autoComplete="tel"
                       inputMode="tel"
                       placeholder="+91 98765 43210"
+                      aria-invalid={showError("phone") ? true : undefined}
+                      aria-describedby={
+                        showError("phone") ? "phone-error" : undefined
+                      }
+                      onBlur={() => setTouched((t) => ({ ...t, phone: true }))}
                       className="field"
                       disabled={sending}
                       value={form.phone}
                       onChange={(e) => set("phone")(e.target.value)}
                     />
+                    <FieldError id="phone-error" message={showError("phone")} />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="montserrat font-600 mb-1.5 block text-xs text-slate-600">
+                  <label
+                    htmlFor="email"
+                    className="montserrat font-600 mb-1.5 flex items-center gap-1 text-xs text-slate-600"
+                  >
                     Email address
+                    <span className="font-400 text-slate-500">(optional)</span>
                   </label>
                   <input
                     id="email"
                     name="email"
                     type="email"
-                    required
                     autoComplete="email"
                     placeholder="you@example.com"
+                    aria-invalid={showError("email") ? true : undefined}
+                    aria-describedby={
+                      showError("email") ? "email-error" : undefined
+                    }
+                    onBlur={() => setTouched((t) => ({ ...t, email: true }))}
                     className="field"
                     disabled={sending}
                     value={form.email}
                     onChange={(e) => set("email")(e.target.value)}
                   />
+                  <FieldError id="email-error" message={showError("email")} />
                 </div>
 
                 <div>
                   <label
                     htmlFor="projectType"
-                    className="montserrat font-600 mb-1.5 block text-xs text-slate-600"
+                    className="montserrat font-600 mb-1.5 flex items-center gap-1 text-xs text-slate-600"
                   >
                     Project type
                   </label>
                   <select
                     id="projectType"
                     name="projectType"
-                    className="field appearance-none"
+                    className="field"
                     disabled={sending}
                     value={form.projectType}
                     onChange={(e) => set("projectType")(e.target.value)}
@@ -528,8 +676,14 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="montserrat font-600 mb-1.5 block text-xs text-slate-600">
+                  <label
+                    htmlFor="message"
+                    className="montserrat font-600 mb-1.5 flex items-center gap-1 text-xs text-slate-600"
+                  >
                     Your message
+                    <span className="text-red-600" aria-hidden="true">
+                      *
+                    </span>
                   </label>
                   <textarea
                     id="message"
@@ -537,10 +691,19 @@ export default function Contact() {
                     required
                     rows={5}
                     placeholder="Plot size, location, budget range, or anything you already know…"
+                    aria-invalid={showError("message") ? true : undefined}
+                    aria-describedby={
+                      showError("message") ? "message-error" : undefined
+                    }
+                    onBlur={() => setTouched((t) => ({ ...t, message: true }))}
                     className="field resize-none"
                     disabled={sending}
                     value={form.message}
                     onChange={(e) => set("message")(e.target.value)}
+                  />
+                  <FieldError
+                    id="message-error"
+                    message={showError("message")}
                   />
                 </div>
 
@@ -549,14 +712,25 @@ export default function Contact() {
                     role="alert"
                     className="flex items-start gap-2.5 border border-red-200 bg-red-50 px-4 py-3 text-[13px] text-red-700"
                   >
-                    <AlertCircle size={16} strokeWidth={2} className="mt-px flex-none" aria-hidden="true" />
+                    <AlertCircle
+                      size={16}
+                      strokeWidth={2}
+                      className="mt-px flex-none"
+                      aria-hidden="true"
+                    />
                     <span>
                       Your message could not be sent ({error}). Please call{" "}
-                      <a href={SITE.phoneHref} className="font-semibold underline">
+                      <a
+                        href={SITE.phoneHref}
+                        className="font-semibold underline"
+                      >
                         {SITE.phones[0]}
                       </a>{" "}
                       or email{" "}
-                      <a href={`mailto:${SITE.email}`} className="font-semibold underline">
+                      <a
+                        href={`mailto:${SITE.email}`}
+                        className="font-semibold underline"
+                      >
                         {SITE.email}
                       </a>
                       .
@@ -571,16 +745,29 @@ export default function Contact() {
                 >
                   {sending ? (
                     <>
-                      <Loader2 size={15} strokeWidth={2.4} className="animate-spin" aria-hidden="true" />
+                      <Loader2
+                        size={15}
+                        strokeWidth={2.4}
+                        className="animate-spin"
+                        aria-hidden="true"
+                      />
                       Sending…
                     </>
                   ) : (
-                    <>Send Message →</>
+                    <>
+                      Send Message
+                      <ArrowRight
+                        size={15}
+                        strokeWidth={2.2}
+                        aria-hidden="true"
+                      />
+                    </>
                   )}
                 </button>
 
-                <p className="text-[11.5px] leading-relaxed text-slate-400">
-                  We use your details only to answer this enquiry. Nothing is shared with anyone else.
+                <p className="text-[11.5px] leading-relaxed text-slate-600">
+                  We use your details only to answer this enquiry. Nothing is
+                  shared with anyone else.
                 </p>
               </form>
             )}
@@ -591,8 +778,23 @@ export default function Contact() {
       {/* ── Location ──────────────────────────────────────────────────
           No heading: a pinned map of the office needs no label, and the
           heading plus its padding left an empty band above it. */}
-      <section className="border-t border-hairline">
+      <section className="relative border-t border-hairline">
         <MapEmbed />
+        {/* `SITE.mapUrl` was already defined and already used by the
+            structured data; the page itself never offered it, so anyone
+            wanting to drive here had to retype the address. */}
+        <a
+          href={SITE.mapUrl}
+          target="_blank"
+          rel="noreferrer noopener"
+          /* Clear of the foot of the frame: OpenStreetMap's attribution runs
+             along the bottom edge and their licence requires it stay legible,
+             so the button sits above it rather than over it. */
+          className="btn-navy montserrat font-700 absolute right-4 bottom-10 gap-2 px-4 py-2.5 text-[13px] shadow-lg"
+        >
+          <Navigation size={14} strokeWidth={2.2} aria-hidden="true" />
+          Get directions
+        </a>
       </section>
 
       <ServiceAreas />

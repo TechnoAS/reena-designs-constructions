@@ -51,14 +51,14 @@ export default function FAQ({ showLabel = true }: { showLabel?: boolean } = {}) 
           {/* Hidden on the dedicated FAQ page, whose <h1> already reads
               "Frequently Asked Questions". */}
           {showLabel && (
-            <div className="montserrat font-800 mb-4 flex items-center gap-3 text-[13px] uppercase tracking-[0.2em] text-brand">
+            <div className="montserrat font-800 mb-4 flex items-center gap-3 text-[13px] uppercase tracking-[0.2em] text-brand-ink">
               <MessageCircleQuestion size={17} strokeWidth={2.2} aria-hidden="true" />
               Frequently Asked Questions
               <span className="h-px flex-1 bg-gradient-to-r from-orange-400 to-transparent" />
             </div>
           )}
 
-          <h2 className="montserrat font-800 text-2xl leading-snug md:text-3xl text-navy">
+          <h2 className="montserrat font-800 text-xl leading-snug md:text-2xl text-navy">
             The questions we get asked before every build
           </h2>
           <p className="mt-4 max-w-md text-sm leading-7 text-slate-500">
@@ -66,15 +66,14 @@ export default function FAQ({ showLabel = true }: { showLabel?: boolean } = {}) 
             before you commit to a contractor.
           </p>
 
-          <div className="mt-7 rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
+          <div className="mt-7 border border-slate-200 bg-slate-50/70 p-5">
             <p className="text-[13px] leading-relaxed text-slate-600">
               Still unsure about something? Ask our assistant in the corner, or send the question
               to an engineer for a proper answer.
             </p>
             <Link
               to="/contact"
-              className="montserrat font-700 group mt-4 inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-[12.5px] text-white transition hover:opacity-90"
-              style={{ background: "#1a2744" }}
+              className="btn-navy montserrat font-700 group mt-4 gap-2"
             >
               Ask our team
               <ArrowRight size={14} strokeWidth={2.2} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
@@ -98,14 +97,14 @@ export default function FAQ({ showLabel = true }: { showLabel?: boolean } = {}) 
                   >
                     <span
                       className="montserrat font-800 mt-0.5 flex-none text-[11px] tabular-nums transition-colors"
-                      style={{ color: isOpen ? "#FF5E00" : "#cbd5e1" }}
+                      style={{ color: isOpen ? "var(--color-brand)" : "#cbd5e1" }}
                       aria-hidden="true"
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span
                       className="montserrat font-700 flex-1 text-[14.5px] leading-snug transition-colors"
-                      style={{ color: isOpen ? "#FF5E00" : "#1a2744" }}
+                      style={{ color: isOpen ? "var(--color-brand-ink)" : "var(--color-navy)" }}
                     >
                       {item.q}
                     </span>
@@ -113,7 +112,7 @@ export default function FAQ({ showLabel = true }: { showLabel?: boolean } = {}) 
                       className={`mt-0.5 inline-flex h-7 w-7 flex-none items-center justify-center rounded-full border transition-all duration-300 ${
                         isOpen
                           ? "rotate-45 border-orange-300 bg-orange-50 text-orange-600"
-                          : "border-slate-200 text-slate-400 group-hover:border-orange-300 group-hover:text-orange-500"
+                          : "border-slate-200 text-slate-500 group-hover:border-orange-300 group-hover:text-orange-500"
                       }`}
                       aria-hidden="true"
                     >

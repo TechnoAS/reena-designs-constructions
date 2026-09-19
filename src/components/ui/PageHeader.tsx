@@ -35,7 +35,7 @@ export default function PageHeader({ title, crumbs, backdrop = false, scene }: P
   return (
     <div
       className="relative isolate overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #1a2744 0%, #24365c 55%, #1e2d4e 100%)" }}
+      style={{ background: "linear-gradient(160deg, var(--color-navy) 0%, #24365c 55%, #1e2d4e 100%)" }}
     >
       {scene ? (
         /*

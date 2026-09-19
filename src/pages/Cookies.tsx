@@ -34,7 +34,7 @@ export default function Cookies() {
 
       <div className={`${SITE_CONTAINER} py-14`}>
         <div className="max-w-2xl">
-          <div className="mb-9 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+          <div className="mb-9 border border-emerald-200 bg-emerald-50 p-5">
             <p className="text-sm leading-7 text-emerald-900">
               <strong className="font-semibold">In short:</strong> this website sets no advertising
               cookies, no analytics cookies and no tracking pixels. It stores one item in your
@@ -51,7 +51,7 @@ export default function Cookies() {
                 <thead>
                   <tr className="border-b border-hairline">
                     {["Name", "Type", "Purpose", "Expires"].map((h) => (
-                      <th key={h} className="montserrat font-700 py-2.5 pr-4 text-xs uppercase tracking-wider text-slate-400">
+                      <th key={h} className="montserrat font-700 py-2.5 pr-4 text-xs uppercase tracking-wider text-slate-500">
                         {h}
                       </th>
                     ))}
@@ -96,17 +96,17 @@ export default function Cookies() {
 
           <p className="text-sm leading-7 text-slate-500">
             For anything else about your information, see our{" "}
-            <Link to="/privacy" className="font-semibold text-brand underline">
+            <Link to="/privacy" className="font-semibold text-brand-ink underline">
               Privacy Policy
             </Link>{" "}
             or email{" "}
-            <a href={`mailto:${SITE.email}`} className="font-semibold text-brand underline">
+            <a href={`mailto:${SITE.email}`} className="font-semibold text-brand-ink underline">
               {SITE.email}
             </a>
             .
           </p>
 
-          <p className="mt-12 border-t border-hairline pt-6 text-xs text-slate-400">
+          <p className="mt-12 border-t border-hairline pt-6 text-xs text-slate-500">
             Last updated {new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long" })}.
           </p>
         </div>

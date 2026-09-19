@@ -2,7 +2,9 @@ import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
 import { organizationSchema, webPageSchema, pageGraph } from "@/data/structuredData"
 import PageHeader from "@/components/ui/PageHeader"
+import SectionTitle from "@/components/ui/SectionTitle"
 import { SITE_CONTAINER } from "@/components/layout/constants"
+import CountUp from "@/components/ui/CountUp"
 import draftingTable from "@/imports/about-drafting-table.jpg"
 
 /**
@@ -33,7 +35,7 @@ const initials = (name: string) =>
 const STORY_STATS = [
   { value: "2010", label: "Founded" },
   { value: "250+", label: "Projects delivered" },
-  { value: "4", label: "Disciplines in-house" },
+  { value: "8", label: "Disciplines in-house" },
 ] as const
 
 const PRINCIPLES = [
@@ -78,14 +80,6 @@ const CERTIFICATIONS = [
   },
 ] as const
 
-/** A section heading. */
-function Heading({ title, onDark = false }: { title: string; onDark?: boolean }) {
-  return (
-    <h2 className={`montserrat font-800 mb-8 text-xl md:text-2xl ${onDark ? "text-white" : "text-navy"}`}>
-      {title}
-    </h2>
-  )
-}
 
 export default function About() {
   return (
@@ -136,7 +130,7 @@ export default function About() {
 
         <div className={`${SITE_CONTAINER} relative z-10 grid items-center gap-10 md:grid-cols-2`}>
           <div className="max-w-xl">
-            <Heading title="OUR STORY" />
+            <SectionTitle title="OUR STORY" align="left" className="mb-8" />
 
             <div className="flex flex-col gap-4 text-sm leading-7 text-slate-500">
               <p>
@@ -160,8 +154,10 @@ export default function About() {
             <dl className="mt-9 flex flex-wrap gap-x-12 gap-y-5 border-t border-hairline pt-7">
               {STORY_STATS.map(({ value, label }) => (
                 <div key={label}>
-                  <dd className="montserrat font-900 text-2xl leading-none text-navy">{value}</dd>
-                  <dt className="mt-2 text-[10.5px] uppercase tracking-[0.16em] text-slate-400">
+                  <dd className="montserrat font-900 text-2xl leading-none text-navy">
+                    <CountUp value={value} />
+                  </dd>
+                  <dt className="mt-2 text-[10.5px] uppercase tracking-[0.16em] text-slate-600">
                     {label}
                   </dt>
                 </div>
@@ -192,7 +188,7 @@ export default function About() {
       {/* ── What we stand for ─────────────────────────────────────── */}
       <section className="border-y border-hairline bg-surface py-14 lg:py-16">
         <div className={SITE_CONTAINER}>
-          <Heading title="MISSION, VISION & VALUES" />
+          <SectionTitle title="MISSION, VISION & VALUES" align="left" className="mb-8" />
           <div className="grid gap-px bg-hairline md:grid-cols-3">
             {PRINCIPLES.map(({ title, text }) => (
               <div key={title} className="bg-surface p-7 md:p-8">
@@ -248,7 +244,7 @@ export default function About() {
 
           {/* Text column */}
           <div className="order-1 md:order-2 max-w-xl">
-            <Heading title="WHY CHOOSE US" />
+            <SectionTitle title="WHY CHOOSE US" align="left" className="mb-8" />
             <ul className="flex flex-col">
               {whyUs.map((item) => (
                 <li
@@ -282,7 +278,7 @@ export default function About() {
       {/* ── Team ──────────────────────────────────────────────────── */}
       <section className="border-t border-hairline py-14 lg:py-16">
         <div className={SITE_CONTAINER}>
-          <Heading title="OUR TEAM" />
+          <SectionTitle title="OUR TEAM" align="left" className="mb-8" />
           <div className="grid grid-cols-2 gap-px bg-hairline md:grid-cols-4">
             {team.map((member) => (
               <div key={member.name} className="bg-white p-6">
@@ -298,8 +294,7 @@ export default function About() {
                     />
                   ) : (
                     <div
-                      className="montserrat font-800 flex h-full w-full items-center justify-center text-3xl text-white"
-                      style={{ background: "linear-gradient(145deg, #1a2744 0%, #23355c 100%)" }}
+                      className="grad-navy montserrat font-800 flex h-full w-full items-center justify-center text-3xl text-white"
                       aria-hidden="true"
                     >
                       {initials(member.name)}
@@ -307,7 +302,7 @@ export default function About() {
                   )}
                 </div>
                 <div className="montserrat font-700 text-sm text-navy">{member.name}</div>
-                <div className="mt-1 text-xs text-brand">{member.role}</div>
+                <div className="mt-1 text-xs text-brand-ink">{member.role}</div>
               </div>
             ))}
           </div>
@@ -317,7 +312,7 @@ export default function About() {
       {/* ── Certifications ────────────────────────────────────────── */}
       <section className="border-t border-hairline bg-surface py-14 lg:py-16">
         <div className={SITE_CONTAINER}>
-          <Heading title="CERTIFICATIONS" />
+          <SectionTitle title="CERTIFICATIONS" align="left" className="mb-8" />
 
           <div className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-4">
             {CERTIFICATIONS.map(({ name, copy }) => (

@@ -1,4 +1,5 @@
 import Nav from "@/components/layout/Nav"
+import SkipLink from "@/components/layout/SkipLink"
 import Seo from "@/components/Seo"
 import Footer from "@/components/layout/Footer"
 import Hero from "@/components/home/Hero"
@@ -8,6 +9,7 @@ import FeaturedProjects from "@/components/home/FeaturedProjects"
 import WhyChooseUs from "@/components/home/WhyChooseUs"
 import Testimonials from "@/components/home/Testimonials"
 import ServiceAreas from "@/components/ui/ServiceAreas"
+import Reveal from "@/components/ui/Reveal"
 import {
   organizationSchema,
   websiteSchema,
@@ -42,14 +44,21 @@ export default function Home() {
           serviceAreaSchema("/"),
         )}
       />
+      {/* Home composes its own chrome rather than using PageWrapper, because
+          the hero sits *under* a transparent header. That is why it also has
+          to carry the skip link and the main landmark itself — without them
+          this was the one route with neither, and it is the most visited. */}
+      <SkipLink />
       <Nav />
-      <Hero />
-      <AboutStrip />
-      <CoreServices />
-      <FeaturedProjects />
-      <WhyChooseUs />
-      <ServiceAreas />
-      <Testimonials />
+      <main id="main">
+        <Hero />
+        <Reveal><AboutStrip /></Reveal>
+        <Reveal><CoreServices /></Reveal>
+        <Reveal><FeaturedProjects /></Reveal>
+        <Reveal><WhyChooseUs /></Reveal>
+        <Reveal><ServiceAreas /></Reveal>
+        <Reveal><Testimonials /></Reveal>
+      </main>
       <Footer
         cta={{
           title: "Let's build something amazing together.",

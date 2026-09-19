@@ -8,6 +8,13 @@ import ProjectCard from "@/components/ui/ProjectCard"
 import Seo from "@/components/Seo"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import { webPageSchema, pageGraph, ORG_ID } from "@/data/structuredData"
+import { srcSetFor, CARD_SIZES } from "@/data/images"
+
+/** Candidates for a listing card, derived from the URL the page already built. */
+const cardSrcSet = (src: string) => {
+  const id = src.split("/").pop()?.split("?")[0]
+  return id ? srcSetFor(id, { w: 640, h: 480 }) : undefined
+}
 
 /** Every project entry needs at least these; pages add their own fields. */
 export type IndexedProject = {
@@ -131,7 +138,7 @@ export default function ProjectIndex<T extends IndexedProject>({
           <p className="max-w-2xl text-sm leading-7 text-slate-500">{intro}</p>
           {/* The count tracks the filter, so it is a live answer to "how many
               of these are there" rather than a static total. */}
-          <p className="flex-none text-[10.5px] uppercase tracking-[0.16em] text-slate-400">
+          <p className="flex-none text-[10.5px] uppercase tracking-[0.16em] text-slate-600">
             Showing {filtered.length} of {projects.length}
           </p>
         </div>
@@ -140,13 +147,29 @@ export default function ProjectIndex<T extends IndexedProject>({
       </section>
 
       {filtered.length === 0 ? (
-        <p className="border-y border-hairline py-20 text-center text-sm text-slate-400">
+        <p className="border-y border-hairline py-20 text-center text-sm text-slate-500">
           No projects in this category yet.
         </p>
       ) : (
         <div className="grid gap-px border-y border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {/* The alt text was the project name alone, which is printed in full
+              directly beneath the photograph — so a screen-reader user heard
+              "Sunrise Villa" twice and learned nothing about the building.
+              Naming the type and the town instead describes the image and
+              carries the local detail the caption does not repeat. */}
           {filtered.map((p, i) => (
-            <ProjectCard key={p.name} img={p.img} alt={p.name} priority={i < 4}>
+            <ProjectCard
+              key={p.name}
+              img={p.img}
+              srcSet={cardSrcSet(p.img)}
+              sizes={CARD_SIZES}
+              alt={
+                p.type && p.location
+                  ? `${p.name} — ${p.type.toLowerCase()} project in ${p.location}`
+                  : `${p.name}, completed by Reena Designs & Constructions`
+              }
+              priority={i < 4}
+            >
               {renderMeta(p)}
             </ProjectCard>
           ))}

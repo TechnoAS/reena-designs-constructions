@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom"
 import ProjectIndex from "@/components/ui/ProjectIndex"
+import { unsplash } from "@/data/images"
 
-const IMG = (id: string) => `https://images.unsplash.com/${id}?w=640&h=480&fit=crop&auto=format`
+const CROP = { w: 640, h: 480 }
+const IMG = (id: string) => unsplash(id, CROP)
 
 const PROJECTS = [
   { name: "Sunrise Villa", location: "Midnapur, West Bengal", type: "Residential", area: "3200 Sq.ft", completed: "Jan 2024", tag: "Residential", img: IMG("photo-1613490493576-7fde63acd811") },
@@ -39,7 +41,7 @@ export default function ProjectsSuccessful() {
       renderMeta={(p) => (
         <>
           <h3 className="montserrat font-700 mb-1 text-base text-navy">{p.name}</h3>
-          <div className="mb-3 text-xs text-slate-400">{p.location}</div>
+          <div className="mb-3 text-xs text-slate-500">{p.location}</div>
           <div className="mb-4 grid grid-cols-2 gap-2 text-xs text-slate-500">
             <div>
               <span className="font-600 text-slate-600">Type: </span>

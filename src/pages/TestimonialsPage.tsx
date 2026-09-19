@@ -2,56 +2,19 @@ import { Quote } from "lucide-react"
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
 import PageHeader from "@/components/ui/PageHeader"
+import SectionTitle from "@/components/ui/SectionTitle"
 import StarRating from "@/components/ui/StarRating"
+import CountUp from "@/components/ui/CountUp"
+import { TESTIMONIALS } from "@/data/testimonials"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 
-const REVIEWS = [
-  {
-    name: "Rajesh Mehta",
-    role: "Homeowner",
-    place: "Midnapur",
-    rating: 5,
-    text: "Reena Designs & Constructions delivered our dream home on time with excellent quality. The team was professional and transparent throughout the entire process.",
-  },
-  {
-    name: "Priya Dutta",
-    role: "Business Owner",
-    place: "Kharagpur",
-    rating: 5,
-    text: "Outstanding craftsmanship and professional team. Our office renovation was completed flawlessly. Highly satisfied with the quality of work.",
-  },
-  {
-    name: "Amit Banerjee",
-    role: "Property Developer",
-    place: "Ghatal",
-    rating: 5,
-    text: "Transparent communication throughout the project. The 3D designs matched perfectly with the final outcome. Will definitely work with them again.",
-  },
-  {
-    name: "Sunita Ghosh",
-    role: "Homeowner",
-    place: "Midnapur",
-    rating: 5,
-    text: "The interior design team understood our brief perfectly. Our home looks exactly like we envisioned — beautiful and functional.",
-  },
-  {
-    name: "Vikram Sharma",
-    role: "Corporate Client",
-    place: "Kharagpur",
-    rating: 5,
-    text: "We have partnered with Reena on three commercial projects. Each time delivered with zero structural issues and on schedule.",
-  },
-  {
-    name: "Anita Roy",
-    role: "Homeowner",
-    place: "Belda",
-    rating: 5,
-    text: "The renovation of our 20-year-old home was done with great care. They preserved the heritage elements while modernizing the interiors.",
-  },
-] as const
-
+/* "4.9/5 average rating" was here, and in WhyChooseUs, and in the footer —
+   but every review the site publishes is five stars, so the average it
+   actually shows is 5.0, and the 4.9 was not backed by collected reviews
+   anywhere. Replaced with a count of what is on this page, which is
+   verifiable by scrolling it. */
 const SUMMARY = [
-  { value: "4.9/5", label: "Average rating" },
+  { value: `${TESTIMONIALS.length}`, label: "Client accounts" },
   { value: "200+", label: "Clients served" },
   { value: "250+", label: "Projects delivered" },
 ] as const
@@ -63,10 +26,6 @@ const initials = (name: string) =>
     .slice(0, 2)
     .join("")
 
-/** A section heading, matching the other pages. */
-function Heading({ title }: { title: string }) {
-  return <h2 className="montserrat font-800 mb-4 text-xl text-navy md:text-2xl">{title}</h2>
-}
 
 export default function TestimonialsPage() {
   return (
@@ -98,7 +57,7 @@ export default function TestimonialsPage() {
       <section className={`${SITE_CONTAINER} py-14 lg:py-16`}>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-14">
           <div className="max-w-2xl">
-            <Heading title="IN THEIR WORDS" />
+            <SectionTitle title="IN THEIR WORDS" align="left" className="mb-4" />
             <p className="text-sm leading-7 text-slate-500">
               Homeowners, business owners and developers on what it was actually like to build with
               us — the parts that only show up once the site is running.
@@ -108,8 +67,10 @@ export default function TestimonialsPage() {
           <dl className="flex flex-none flex-wrap gap-x-10 gap-y-5 lg:justify-end lg:text-right">
             {SUMMARY.map(({ value, label }) => (
               <div key={label}>
-                <dd className="montserrat font-900 text-2xl leading-none text-navy">{value}</dd>
-                <dt className="mt-2 text-[10.5px] uppercase tracking-[0.16em] text-slate-400">
+                <dd className="montserrat font-900 text-2xl leading-none text-navy">
+                  <CountUp value={value} />
+                </dd>
+                <dt className="mt-2 text-[10.5px] uppercase tracking-[0.16em] text-slate-600">
                   {label}
                 </dt>
               </div>
@@ -122,7 +83,7 @@ export default function TestimonialsPage() {
           six bordered tiles read as six separate objects; the ledger reads as
           one body of evidence, which is what a wall of testimony should do. */}
       <div className="grid gap-px border-y border-hairline bg-hairline md:grid-cols-2 lg:grid-cols-3">
-        {REVIEWS.map(({ name, role, place, rating, text }) => (
+        {TESTIMONIALS.map(({ name, role, place, rating, quote }) => (
           <figure key={name} className="flex flex-col bg-white p-7 lg:p-8">
             <Quote
               size={22}
@@ -131,22 +92,21 @@ export default function TestimonialsPage() {
               className="mb-4 flex-none rotate-180 text-orange-200"
             />
 
-            <blockquote className="flex-1 text-sm leading-7 text-slate-600">{text}</blockquote>
+            <blockquote className="flex-1 text-sm leading-7 text-slate-600">{quote}</blockquote>
 
             <figcaption className="mt-6 flex items-center gap-3.5 border-t border-hairline pt-5">
               {/* Initials rather than a stock headshot — putting an unrelated
                   real person's face beside a named client would misrepresent
                   them, and the licence would not cover it either. */}
               <span
-                className="montserrat font-800 flex h-11 w-11 flex-none items-center justify-center text-[13px] text-white"
-                style={{ background: "linear-gradient(145deg, #1a2744 0%, #23355c 100%)" }}
+                className="grad-navy montserrat font-800 flex h-11 w-11 flex-none items-center justify-center text-[13px] text-white"
                 aria-hidden="true"
               >
                 {initials(name)}
               </span>
               <span className="min-w-0">
                 <span className="montserrat font-700 block text-sm text-navy">{name}</span>
-                <span className="block text-xs text-slate-400">
+                <span className="block text-xs text-slate-500">
                   {role} · {place}
                 </span>
               </span>

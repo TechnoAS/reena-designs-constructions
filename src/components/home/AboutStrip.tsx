@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
+import SectionTitle from "@/components/ui/SectionTitle"
 import drawingImg from "@/imports/about-drawing-to-interior.jpg"
 
 const PILLARS = [
@@ -58,12 +59,13 @@ export default function AboutStrip() {
       <div className={`${SITE_CONTAINER} relative z-10 grid items-center gap-12 md:grid-cols-2`}>
         {/* Left Column: Clear Story & Focused Pillars */}
         <div className="max-w-xl">
-          <p className="montserrat font-700 text-[11px] uppercase tracking-[0.3em] text-orange-600">
-            About Reena Designs &amp; Constructions
-          </p>
-          <h2 className="montserrat font-800 mt-2.5 text-2xl leading-tight text-navy sm:text-3xl lg:text-4xl">
-            India's design-led construction partner since 2010
-          </h2>
+          <SectionTitle
+            level="display"
+            align="left"
+            eyebrow="About Reena Designs & Constructions"
+            title="India's design-led construction partner since 2010"
+            className="mb-0"
+          />
           <div className="mt-3.5 h-0.5 w-16 rounded-full bg-brand" />
 
           <div className="mt-6 space-y-3 text-sm leading-relaxed text-slate-600 sm:text-[15px]">
@@ -92,7 +94,7 @@ export default function AboutStrip() {
           <div className="mt-9 flex flex-wrap items-center gap-6">
             <Link
               to="/about"
-              className="btn-outline montserrat font-700 group inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm transition-all duration-300 hover:border-brand hover:text-brand"
+              className="btn-outline montserrat font-700 group gap-2"
             >
               Know More About Us
               <ArrowRight
@@ -104,7 +106,7 @@ export default function AboutStrip() {
             </Link>
 
             <div className="flex items-center gap-3 border-l border-slate-200 pl-4">
-              <span className="montserrat font-900 text-3xl leading-none text-brand">15+</span>
+              <span className="montserrat font-900 text-3xl leading-none text-brand-ink">15+</span>
               <span className="text-[11px] leading-tight font-semibold text-slate-500">
                 Years building
                 <br />

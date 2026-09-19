@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { ArrowUpRight } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
+import SectionTitle from "@/components/ui/SectionTitle"
 import draftingTable from "@/imports/about-drafting-table.jpg"
 
 const stock = (id: string) => `https://images.unsplash.com/${id}?w=800&h=1000&fit=crop&auto=format`
@@ -49,16 +50,18 @@ const SERVICES = [
 export default function CoreServices() {
   return (
     <section id="services" className="relative bg-surface pt-16 md:pt-20">
-      {/* Centered Heading */}
-      <div className={`${SITE_CONTAINER} relative z-10 pb-10 md:pb-14 text-center`}>
-        <h2 className="montserrat font-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-wider text-navy uppercase drop-shadow-xs">
-          OUR CORE SERVICES
-        </h2>
-
-        {/* Subtitle */}
-        <p className="mx-auto mt-4 md:mt-5 max-w-2xl text-sm sm:text-base md:text-lg font-normal leading-relaxed text-slate-600">
-          Five disciplines under one roof — construction, architecture, interiors, renovation and turnkey delivery.
-        </p>
+      {/* The homepage's display step. "Five core services", not "five
+          disciplines" — the firm delivers eight disciplines (see the Services
+          page); this strip shows the five a visitor is most likely to be
+          shopping for, and conflating the two numbers is what had the site
+          claiming five, eight and four in three different places. */}
+      <div className={`${SITE_CONTAINER} relative z-10 pb-10 md:pb-14`}>
+        <SectionTitle
+          level="display"
+          title="OUR CORE SERVICES"
+          subtitle="Five core services drawn from the eight disciplines we run in-house — construction, architecture, interiors, renovation and turnkey delivery."
+          className=""
+        />
       </div>
 
       {/*
@@ -136,7 +139,6 @@ export default function CoreServices() {
             <Link
               key={title}
               to={href}
-              aria-label={`${title} — ${imgAlt}`}
               className="group relative flex min-h-[16rem] flex-1 flex-col justify-end gap-3 p-7 transition duration-500 md:min-h-0 md:p-6 md:pb-8 md:first:pl-9 md:last:pr-9 lg:first:pl-14 lg:last:pr-14"
             >
               {/* The panel's own artwork on a phone, where the strip is a
@@ -208,6 +210,13 @@ export default function CoreServices() {
                 <p className="text-[13px] leading-relaxed text-white/70 md:line-clamp-5 md:min-h-[7rem]">
                   {copy}
                 </p>
+
+                {/* The photographs are decorative in both layers, so this is
+                    where their description actually reaches a screen reader.
+                    It used to be the link's `aria-label`, which meant anyone
+                    navigating by links heard the image caption where the
+                    destination should have been. */}
+                <span className="sr-only">{imgAlt}</span>
 
                 <span className="montserrat font-700 inline-flex items-center gap-1 text-[12px] text-orange-300 transition duration-500 md:translate-y-1 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
                   Explore

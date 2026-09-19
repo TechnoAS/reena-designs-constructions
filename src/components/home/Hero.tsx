@@ -79,19 +79,19 @@ export default function Hero() {
 
       <div className={`${SITE_CONTAINER} relative z-10 w-full py-28 md:py-36`}>
         <div className="max-w-xl md:ml-auto md:max-w-[62%] md:text-right">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-orange-600">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-brand-ink">
             Construction &amp; interiors across India
           </p>
           {/* Two lines, not three. The stacked "creating" had no punctuation
               holding it to either half, so the headline read as three
               fragments rather than one phrase. */}
-          <h1
-            className="text-4xl font-black leading-[0.95] tracking-[-0.04em] text-[#1a2744] md:text-6xl"
-            style={{ fontFamily: "Inter, sans-serif" }}
-          >
-            Building <span className="text-orange-500">dreams</span>,
+          {/* `montserrat`, like every other heading. This carried an inline
+              `fontFamily: Inter` that made the site's single h1 the one piece
+              of type outside the system. */}
+          <h1 className="montserrat font-900 text-4xl leading-[0.95] tracking-[-0.04em] text-navy md:text-6xl">
+            Building <span className="text-orange-600">dreams</span>,
             <span className="mt-2 block">
-              creating <span className="text-orange-500">reality</span>
+              creating <span className="text-orange-600">reality</span>
             </span>
           </h1>
           {/* The second sentence used to carry "fifteen years, 250+ projects".
@@ -114,7 +114,7 @@ export default function Hero() {
             <div className="flex flex-wrap items-center gap-4 md:justify-end">
               <Link
                 to="/contact"
-                className="group inline-flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-500/30 transition hover:bg-orange-400"
+                className="btn-orange group gap-2 px-6 py-3 shadow-lg shadow-orange-500/30"
               >
                 Get a Free Quote
                 <ArrowRight
@@ -126,7 +126,7 @@ export default function Hero() {
               </Link>
               <Link
                 to="/our-work"
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white/60 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-orange-500 hover:text-orange-600 backdrop-blur-sm"
+                className="btn-outline gap-2 bg-white/60 px-6 py-3 backdrop-blur-sm"
               >
                 Explore Projects
               </Link>

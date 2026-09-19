@@ -1,9 +1,11 @@
 import { SITE_CONTAINER } from "@/components/layout/constants"
+import SectionTitle from "@/components/ui/SectionTitle"
+import CountUp from "@/components/ui/CountUp"
 
 const stats = [
   { num: "250+", label: "Projects delivered", sub: "Across Paschim Midnapur & India" },
   { num: "15+", label: "Years of experience", sub: "Since 2010, without a lapsed site" },
-  { num: "200+", label: "Happy clients", sub: "4.9/5 average client rating" },
+  { num: "200+", label: "Happy clients", sub: "Residential, commercial and renovation" },
   { num: "100%", label: "Quality assurance", sub: "Engineer-supervised, ISI-grade material" },
 ]
 
@@ -14,12 +16,13 @@ export default function WhyChooseUs() {
         {/* Top Header Row — small, refined typography */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-8 pb-8 border-b border-slate-200/80">
           <div>
-            <p className="montserrat font-700 text-[11px] tracking-[0.25em] text-brand uppercase mb-1.5">
-              Why choose us
-            </p>
-            <h2 className="montserrat font-800 text-xl sm:text-2xl md:text-3xl tracking-wide text-navy uppercase">
-              A TRACK RECORD YOU CAN AUDIT
-            </h2>
+            <SectionTitle
+              level="display"
+              align="left"
+              eyebrow="Why choose us"
+              title="A TRACK RECORD YOU CAN AUDIT"
+              className="mb-0"
+            />
           </div>
           <p className="text-xs sm:text-sm text-slate-500 max-w-md leading-relaxed md:text-right">
             We publish the numbers because they hold up. Fixed timelines, transparent costing and engineer-supervised quality control on every site we run.
@@ -27,7 +30,12 @@ export default function WhyChooseUs() {
         </div>
 
         {/* Metric Spec Ledger — completely unboxed, no cards, hairline dividers */}
-        <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-0 lg:divide-x divide-slate-200/80">
+        {/* The gap used to be dropped at `md` while the dividing rules did not
+            arrive until `lg` — so across the whole tablet range the four
+            figures sat in a 2×2 block with no gutter and no rule, touching.
+            The gap now runs until the dividers take over, which is also where
+            the cell padding (`lg:px-7`) arrives to hold the type off them. */}
+        <div className="mt-8 grid grid-cols-2 gap-6 divide-slate-200/80 lg:grid-cols-4 lg:gap-0 lg:divide-x">
           {stats.map(({ num, label, sub }) => (
             <div key={label} className="lg:first:pl-0 lg:px-7">
               <div className="mb-2">
@@ -36,7 +44,7 @@ export default function WhyChooseUs() {
                 </span>
               </div>
               <div className="montserrat font-900 text-2xl sm:text-3xl tracking-tight text-navy">
-                {num}
+                <CountUp value={num} />
               </div>
               <p className="mt-1 text-[12px] leading-relaxed text-slate-500">
                 {sub}
