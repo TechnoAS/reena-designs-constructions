@@ -114,8 +114,10 @@ export default function Nav() {
             className="h-[58px] w-[58px] object-contain"
           />
           <div>
-            <div className="allura text-[28px] leading-none text-slate-900">Reena</div>
-            <div className="poppins text-[9px] leading-tight font-medium tracking-[0.14em] text-slate-600">
+            <div className={`allura text-[28px] leading-none ${hasBg ? "text-slate-900" : "text-white"}`}>Reena</div>
+            <div
+              className={`poppins text-[9px] leading-tight font-medium tracking-[0.14em] ${hasBg ? "text-slate-600" : "text-white/80"}`}
+            >
               DESIGNS &amp; CONSTRUCTIONS
             </div>
           </div>
@@ -140,7 +142,7 @@ export default function Nav() {
                   aria-current={isActive(link.href) ? "page" : undefined}
                   onClick={() => setDropOpen(false)}
                   className={`font-500 relative flex items-center gap-1 pb-0.5 text-sm transition-colors ${
-                    isActive(link.href) ? "text-brand-ink" : "text-slate-800"
+                    isActive(link.href) ? "text-brand-ink" : hasBg ? "text-slate-800" : "text-white"
                   }`}
                 >
                   {link.label}
@@ -166,7 +168,7 @@ export default function Nav() {
                 to={link.href}
                 aria-current={isActive(link.href) ? "page" : undefined}
                 className={`font-500 relative pb-0.5 text-sm transition-colors ${
-                  isActive(link.href) ? "text-brand-ink" : "text-slate-800"
+                  isActive(link.href) ? "text-brand-ink" : hasBg ? "text-slate-800" : "text-white"
                 }`}
               >
                 {link.label}
@@ -195,7 +197,7 @@ export default function Nav() {
         {/* Burger */}
         <button
           type="button"
-          className="p-2 text-navy md:hidden"
+          className={`p-2 md:hidden ${hasBg ? "text-navy" : "text-white"}`}
           onClick={() => setMenuOpen((v) => !v)}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"

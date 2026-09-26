@@ -456,7 +456,10 @@ export default function SiteSearch() {
               setQ(s)
               setOpen(true)
             }}
-            className="border border-slate-300/80 bg-white/60 px-2.5 py-1 text-[11px] text-slate-500 backdrop-blur-sm transition hover:border-brand hover:text-brand"
+            /* White on a translucent dark fill, not slate-on-white: these sit
+               over the hero video, where the old light chip lost both its
+               border and its label against the footage. */
+            className="border border-white/35 bg-white/10 px-2.5 py-1 text-[11px] text-white/90 backdrop-blur-sm transition hover:border-orange-400 hover:bg-white/20 hover:text-white"
           >
             {s}
           </button>

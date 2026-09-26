@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
-import HeroStructure from "./HeroStructure"
 import SiteSearch from "@/components/ui/SiteSearch"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 
@@ -14,91 +13,58 @@ export default function Hero() {
       id="home"
       className="relative flex min-h-[100svh] w-full items-center overflow-hidden"
     >
-      {/*
-        Ground.
+      {/* Full-bleed showreel.
 
-        Three layers rather than a flat fill: a cool paper base, a warm bloom
-        low on the left where the built half of the artwork sits, and a cool
-        one high on the right behind the headline. The two tints are what stop
-        a full-bleed line drawing from reading as a screenshot of a CAD window
-        — the sheet has light falling across it.
-      */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[#f7f8fa]" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(120% 90% at 22% 78%, rgba(255,94,0,0.10) 0%, rgba(255,94,0,0.03) 34%, transparent 62%)",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(90% 80% at 88% 12%, rgba(26,39,68,0.09) 0%, transparent 58%)",
-          }}
-        />
-        {/* Drafting rule along the foot of the sheet. */}
-        <div className="absolute inset-x-0 bottom-0 h-px bg-navy/10" />
-      </div>
+          `object-cover` on a w/h-full video is what makes a portrait phone
+          clip fill a landscape viewport without letterboxing. Muted +
+          playsInline are both required for autoplay to be allowed on iOS.
 
-      {/* Artwork — full bleed, masked so it dissolves into the section rather
-          than ending at a hard edge, and pulled clear of the copy on the right. */}
-      <div className="pointer-events-none absolute inset-0 select-none">
-        <div
-          className="absolute inset-0 opacity-70"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(26,39,68,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(26,39,68,0.05) 1px, transparent 1px)",
-            backgroundSize: "44px 44px",
-            maskImage: "radial-gradient(120% 100% at 38% 55%, #000 38%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(120% 100% at 38% 55%, #000 38%, transparent 100%)",
-          }}
-        />
+          These layers sit at z-0/z-1 rather than behind the section: the app
+          shell is `bg-white`, and a negative z-index here paints *under* that
+          ancestor background, which hid the video entirely. */}
+      <video
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+        src="/hero.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+      />
 
-        <div
-          className="absolute inset-0 hidden items-center justify-center md:flex"
-          style={{
-            maskImage:
-              "linear-gradient(to right, transparent 0%, #000 10%, #000 58%, rgba(0,0,0,0.35) 76%, transparent 94%), linear-gradient(to bottom, transparent 0%, #000 12%, #000 86%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent 0%, #000 10%, #000 58%, rgba(0,0,0,0.35) 76%, transparent 94%), linear-gradient(to bottom, transparent 0%, #000 12%, #000 86%, transparent 100%)",
-            maskComposite: "intersect",
-            WebkitMaskComposite: "source-in",
-          }}
-        >
-          <div className="h-full w-full max-w-[1700px] px-4">
-            <HeroStructure />
-          </div>
-        </div>
+      {/* Scrim. Two passes: a flat wash so nothing in the footage can wash the
+          type out, and a stronger gradient on the side the copy sits on. */}
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-navy/45" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-l from-navy/80 via-navy/40 to-transparent" />
+      {/* Drafting rule along the foot of the sheet. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-px bg-white/15" />
 
-        {/* Clean ground under the copy. */}
-        <div className="absolute inset-y-0 right-0 w-[46%] bg-gradient-to-l from-[#f7f8fa] via-[#f7f8fa]/85 to-transparent" />
-      </div>
-
-      <div className={`${SITE_CONTAINER} relative z-10 w-full py-28 md:py-36`}>
+      {/* A laptop at 600–768px tall has to fit the same eight elements as a
+          27" display. Fixed `py-28/36` pushed the CTAs off the bottom there,
+          so the padding and the headline both step down by viewport *height*,
+          not width — a short window is not a narrow one. */}
+      <div
+        className={`${SITE_CONTAINER} relative z-10 w-full pt-24 pb-12 md:pt-32 md:pb-20 [@media(min-height:820px)]:py-36`}
+      >
         <div className="max-w-xl md:ml-auto md:max-w-[62%] md:text-right">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-brand-ink">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-orange-400 [@media(min-height:820px)]:mb-5">
             Construction &amp; interiors across India
           </p>
           {/* Two lines, not three. The stacked "creating" had no punctuation
               holding it to either half, so the headline read as three
               fragments rather than one phrase. */}
-          {/* `montserrat`, like every other heading. This carried an inline
-              `fontFamily: Inter` that made the site's single h1 the one piece
-              of type outside the system. */}
-          <h1 className="montserrat font-900 text-4xl leading-[0.95] tracking-[-0.04em] text-navy md:text-6xl">
-            Building <span className="text-orange-600">dreams</span>,
+          <h1 className="montserrat font-900 text-4xl leading-[0.95] tracking-[-0.04em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] md:text-5xl [@media(min-height:820px)]:md:text-6xl">
+            Building <span className="text-orange-500">dreams</span>,
             <span className="mt-2 block">
-              creating <span className="text-orange-600">reality</span>
+              creating <span className="text-orange-500">reality</span>
             </span>
           </h1>
           {/* The second sentence used to carry "fifteen years, 250+ projects".
               Both numbers appear again in AboutStrip directly below, in
               WhyChooseUs and in the footer — three repeats bought with the
               scarcest copy on the site. */}
-          <p className="mt-6 max-w-md text-sm leading-7 text-slate-600 md:ml-auto md:text-base font-medium">
+          <p className="mt-4 max-w-md text-sm font-medium leading-7 text-white/85 md:ml-auto md:text-base [@media(min-height:820px)]:mt-6">
             Turnkey construction, architecture and interiors under one contract — with a completion
             date in writing.
           </p>
@@ -108,7 +74,7 @@ export default function Hero() {
               guess which of eight nav items hides it; one who does not still
               has the buttons. `md:items-end` keeps the field's right edge on
               the same line as the headline's. */}
-          <div className="mt-8 flex flex-col gap-6 md:items-end">
+          <div className="mt-6 flex flex-col gap-4 md:items-end [@media(min-height:820px)]:mt-8 [@media(min-height:820px)]:gap-6">
             <SiteSearch />
 
             <div className="flex flex-wrap items-center gap-4 md:justify-end">
@@ -126,7 +92,7 @@ export default function Hero() {
               </Link>
               <Link
                 to="/our-work"
-                className="btn-outline gap-2 bg-white/60 px-6 py-3 backdrop-blur-sm"
+                className="btn-outline gap-2 border-white/40 bg-white/10 px-6 py-3 text-white backdrop-blur-sm hover:border-orange-400 hover:bg-white/20 hover:text-white"
               >
                 Explore Projects
               </Link>
