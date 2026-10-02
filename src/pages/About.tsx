@@ -1,6 +1,6 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
-import { organizationSchema, webPageSchema, pageGraph } from "@/data/structuredData"
+import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import { SITE_CONTAINER } from "@/components/layout/constants"
@@ -80,6 +80,7 @@ const CERTIFICATIONS = [
   },
 ] as const
 
+const PAGE = routeSeo("/about")
 
 export default function About() {
   return (
@@ -91,21 +92,9 @@ export default function About() {
         buttonHref: "/contact",
       }}
     >
-      <Seo
-        title="About Us — 15+ Years of Building in Paschim Midnapur"
-        description="Who we are: the architects, engineers and designers behind Reena Designs & Constructions, our story, values, certifications and the team delivering every project in Midnapur and across India."
-        schema={pageGraph(
-          webPageSchema({
-            path: "/about",
-            name: "About Reena Designs & Constructions — Builders in Midnapur since 2010",
-            description:
-              "The architects, engineers and designers behind Reena Designs & Constructions: our story, values, certifications and the team delivering every project across Paschim Midnapur.",
-            type: "AboutPage",
-          }),
-          organizationSchema(),
-        )}
-      />
-      <PageHeader title="ABOUT US" crumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]} backdrop />
+      <Seo route="/about" />
+      <PageHeader title={PAGE.heading}
+        subtitle={PAGE.subheading} crumbs={PAGE.crumbs} backdrop />
 
       {/* ── Our story ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-14 lg:py-20">

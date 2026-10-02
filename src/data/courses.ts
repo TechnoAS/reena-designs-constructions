@@ -3,6 +3,8 @@ export type Course = {
   /** One-line category, shown as a small kicker above the title. */
   group: string
   tagline: string
+  /** What a student can produce on finishing — the work, not the menu. */
+  produces: readonly string[]
   modules: readonly string[]
 }
 
@@ -17,6 +19,7 @@ export const COURSES: readonly Course[] = [
     title: "AutoCAD 2D",
     group: "Draughting",
     tagline: "Draughting and working drawings for building construction, taught on real project files.",
+    produces: ["Floor plans, sections and elevations", "Municipal sanction drawings", "Plotted, dimensioned drawing sets"],
     modules: [
       "Introduction to AutoCAD",
       "Understanding the AutoCAD interface",
@@ -39,6 +42,7 @@ export const COURSES: readonly Course[] = [
     title: "AutoCAD 3D",
     group: "Draughting",
     tagline: "3D modelling, rendering and visualisation for architectural and structural design.",
+    produces: ["3D solid models of buildings", "Rendered views and walkthroughs", "Drawing views generated from the model"],
     modules: [
       "Introduction to 3D drawings",
       "Types of 3D models",
@@ -61,6 +65,7 @@ export const COURSES: readonly Course[] = [
     title: "Autodesk Revit",
     group: "BIM",
     tagline: "Coordinated Building Information Modelling across architecture, structure and MEP.",
+    produces: ["A coordinated BIM model", "Schedules and quantity takeoffs", "Complete construction drawing sets"],
     modules: [
       "Introduction to Building Information Modelling",
       "Revit interface and project setup",
@@ -83,6 +88,7 @@ export const COURSES: readonly Course[] = [
     title: "SketchUp",
     group: "Modelling",
     tagline: "Fast 3D concept modelling and massing studies, from first sketch to presentation.",
+    produces: ["Concept massing studies", "Furnished 3D layouts", "Scenes ready for V-Ray or Lumion"],
     modules: [
       "Introduction to SketchUp and the interface",
       "Navigation — orbit, pan and zoom",
@@ -105,6 +111,7 @@ export const COURSES: readonly Course[] = [
     title: "Primavera P6",
     group: "Planning",
     tagline: "Project scheduling, resource planning and construction-programme tracking.",
+    produces: ["A baselined construction programme", "Critical-path and resource plans", "Progress and earned-value reports"],
     modules: [
       "Introduction to project scheduling and the EPS",
       "Creating a project and defining calendars",
@@ -127,6 +134,7 @@ export const COURSES: readonly Course[] = [
     title: "BlenderBIM",
     group: "BIM",
     tagline: "Open-source BIM authoring and IFC data management, built on Blender.",
+    produces: ["Open IFC building models", "Quantity takeoffs from the model", "Clash-checked, exchange-ready files"],
     modules: [
       "Introduction to the Blender interface for BIM",
       "Installing and configuring the BlenderBIM add-on",
@@ -149,6 +157,7 @@ export const COURSES: readonly Course[] = [
     title: "STAAD.Pro",
     group: "Structural Analysis",
     tagline: "Structural analysis and design of RCC and steel framing to Indian Standard codes.",
+    produces: ["Analysed RCC and steel frames", "IS-code design checks", "Design reports and drawings"],
     modules: [
       "Introduction to structural analysis software",
       "Model geometry: nodes, members and geometry input",
@@ -171,6 +180,7 @@ export const COURSES: readonly Course[] = [
     title: "ETABS",
     group: "Structural Analysis",
     tagline: "Structural analysis and design for multi-storey building systems.",
+    produces: ["Multi-storey building models", "Seismic and wind analysis", "Storey-drift and design reports"],
     modules: [
       "Introduction to ETABS for building analysis",
       "Grid systems and storey definition",
@@ -193,6 +203,7 @@ export const COURSES: readonly Course[] = [
     title: "Lumion",
     group: "Visualisation",
     tagline: "Real-time 3D rendering and walkthroughs for architectural presentation.",
+    produces: ["Exterior renders with landscape", "Video walkthroughs", "Client presentation stills"],
     modules: [
       "Introduction to real-time rendering with Lumion",
       "Importing models from Revit, SketchUp and AutoCAD",
@@ -215,6 +226,7 @@ export const COURSES: readonly Course[] = [
     title: "V-Ray",
     group: "Visualisation",
     tagline: "Photorealistic rendering for architectural and interior visualisation.",
+    produces: ["Photorealistic interior renders", "Daylight and night lighting studies", "Presentation-quality output"],
     modules: [
       "Introduction to the V-Ray rendering engine",
       "The V-Ray interface within SketchUp and Revit",

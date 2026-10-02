@@ -28,7 +28,7 @@
 import { SITE, ACTIVE_SOCIAL_LINKS } from "./siteInfo"
 import { SERVICE_AREA_NAMES, SERVICE_CATALOG } from "./seo"
 
-type Json = Record<string, unknown>
+export type Json = Record<string, unknown>
 
 const abs = (path: string) => `${SITE.origin}${path}`
 
@@ -232,6 +232,10 @@ type WebPageOptions = {
   /** ISO date the page's substance last changed. */
   dateModified?: string
   primaryImage?: string
+  /** Set when the page also emits a BreadcrumbList, so the two are linked. */
+  hasBreadcrumb?: boolean
+  /** Extra properties merged onto the node, e.g. `mainEntity` on an FAQPage. */
+  extra?: Json
 }
 
 /** The page itself, tied to the site and the organisation. */
@@ -242,6 +246,8 @@ export function webPageSchema({
   type = "WebPage",
   dateModified,
   primaryImage,
+  hasBreadcrumb = false,
+  extra,
 }: WebPageOptions): Json {
   return {
     "@type": type,
@@ -255,6 +261,84 @@ export function webPageSchema({
     inLanguage: "en-IN",
     ...(dateModified ? { dateModified } : {}),
     ...(primaryImage ? { primaryImageOfPage: { "@type": "ImageObject", url: primaryImage } } : {}),
+    ...(hasBreadcrumb ? { breadcrumb: { "@id": `${abs(path)}#breadcrumb` } } : {}),
+    ...extra,
+  }
+}
+
+/**
+ * The page trail, matching the visible breadcrumb.
+ *
+ * Google requires an `item` URL on every entry but the last, so a crumb that
+ * is a plain label on screen ("Projects", which has no page of its own) is left
+ * out rather than emitted as a broken entry that fails validation.
+ */
+export function breadcrumbSchema(path: string, crumbs: readonly { label: string; href?: string }[]): Json {
+  const trail = crumbs.filter((c, i) => c.href || i === crumbs.length - 1)
+  return {
+    "@type": "BreadcrumbList",
+    "@id": `${abs(path)}#breadcrumb`,
+    itemListElement: trail.map((crumb, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: crumb.label,
+      item: abs(i === trail.length - 1 ? path : crumb.href!),
+    })),
+  }
+}
+
+/** Questions and answers, for the `mainEntity` of an FAQPage. */
+export function faqEntities(items: readonly { q: string; a: string }[]): Json[] {
+  return items.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  }))
+}
+
+/**
+ * A project listing as an ItemList.
+ *
+ * Every project names the town it was built in, and those towns — Ghatal,
+ * Belda, Jhargram, Salboni — are exactly the local queries this site has no
+ * other page for. Emitting them as `Place` nodes rather than leaving them as
+ * card text is what makes the listing readable as evidence of work in each one.
+ */
+export function projectListSchema(
+  path: string,
+  name: string,
+  projects: readonly { name: string; img: string; location?: string; type?: string }[],
+): Json {
+  return {
+    "@type": "ItemList",
+    "@id": `${abs(path)}#projects`,
+    name,
+    numberOfItems: projects.length,
+    itemListElement: projects.map((project, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "CreativeWork",
+        name: project.name,
+        ...(project.type ? { genre: project.type } : {}),
+        image: project.img,
+        creator: { "@id": ORG_ID },
+        ...(project.location
+          ? {
+              locationCreated: {
+                "@type": "Place",
+                name: project.location,
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: project.location.split(",")[0].trim(),
+                  addressRegion: "West Bengal",
+                  addressCountry: "IN",
+                },
+              },
+            }
+          : {}),
+      },
+    })),
   }
 }
 

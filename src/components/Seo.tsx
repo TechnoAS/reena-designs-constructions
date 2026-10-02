@@ -1,32 +1,30 @@
 import { useEffect } from "react"
-import { useLocation } from "react-router-dom"
 import { SITE } from "@/data/siteInfo"
 import { keywordsFor } from "@/data/seo"
+import { routeSeo, routeGraph, canonicalUrl } from "@/data/routes"
 
-type SeoProps = {
-  /** Page-specific title. The company name is appended automatically. */
-  title: string
-  description: string
-  /** Set on pages that must not be indexed (404, thin utility pages). */
-  noindex?: boolean
-  /**
-   * Target terms for this URL. Omit and the route's entry in `PAGE_KEYWORDS`
-   * is used, which is the normal case — passing them here is for routes
-   * generated at runtime, like the five galleries.
-   */
-  keywords?: string | string[]
-  /**
-   * Social card image. Absolute URL, or a path resolved against the origin.
-   * Falls back to the site-wide card set in index.html.
-   */
-  image?: string
-  /**
-   * JSON-LD for this page. Build it with the helpers in
-   * `@/data/structuredData` — anything passed here replaces the previous
-   * page's graph on navigation rather than stacking on top of it.
-   */
-  schema?: object | object[]
-}
+type SeoProps =
+  | {
+      /**
+       * Path of the page's entry in `src/data/routes.ts`. Title, description,
+       * canonical and JSON-LD all come from there, so the runtime head is
+       * identical to the prerendered one.
+       */
+      route: string
+      /** Social card image. Absolute URL, or a path resolved against the origin. */
+      image?: string
+      title?: never
+      description?: never
+      noindex?: never
+    }
+  | {
+      /** For pages with no route entry — the 404. */
+      route?: never
+      title: string
+      description: string
+      noindex?: boolean
+      image?: string
+    }
 
 /**
  * Per-route document head.
@@ -51,6 +49,17 @@ function upsertMeta(key: "name" | "property", value: string, content: string) {
   }
   el.content = content
   return el
+}
+
+/** Sets the href on a <link>, creating it from the selector's attributes. */
+function upsertLink(selector: string, href: string) {
+  let el = document.head.querySelector<HTMLLinkElement>(selector)
+  if (!el) {
+    el = document.createElement("link")
+    for (const [, attr, value] of selector.matchAll(/\[(\w+)="([^"]+)"\]/g)) el.setAttribute(attr, value)
+    document.head.appendChild(el)
+  }
+  el.href = href
 }
 
 /**
@@ -81,25 +90,17 @@ function upsertJsonLd(schema: object | object[] | undefined) {
   el.textContent = JSON.stringify(schema)
 }
 
-export default function Seo({
-  title,
-  description,
-  noindex = false,
-  keywords,
-  image,
-  schema,
-}: SeoProps) {
-  const { pathname } = useLocation()
-
-  // Arrays and object literals are new on every render, so the effect is keyed
-  // on their serialised form rather than the reference itself — otherwise a
-  // parent re-render rewrites the whole head and the JSON-LD for no reason.
-  const keywordList = Array.isArray(keywords) ? keywords.join(", ") : keywords
-  const schemaJson = schema ? JSON.stringify(schema) : ""
+export default function Seo(props: SeoProps) {
+  const entry = props.route ? routeSeo(props.route) : undefined
+  const title = entry?.title ?? props.title ?? SITE.name
+  const description = entry?.description ?? props.description ?? ""
+  const noindex = !entry && !!props.noindex
+  const image = props.image ?? entry?.images?.[0]?.src
+  const schemaJson = entry ? JSON.stringify(routeGraph(entry)) : ""
+  const path = entry?.path
 
   useEffect(() => {
-    const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`
-    const url = `${SITE.origin}${pathname}`
+    const fullTitle = title.includes("Reena Designs") ? title : `${title} | ${SITE.name}`
     const socialImage = image
       ? image.startsWith("http")
         ? image
@@ -111,38 +112,34 @@ export default function Seo({
     upsertMeta("name", "description", description)
     upsertMeta("property", "og:title", fullTitle)
     upsertMeta("property", "og:description", description)
-    upsertMeta("property", "og:url", url)
     upsertMeta("property", "og:image", socialImage)
     upsertMeta("name", "twitter:title", fullTitle)
     upsertMeta("name", "twitter:description", description)
     upsertMeta("name", "twitter:image", socialImage)
 
-    // Falls back to the route's entry in PAGE_KEYWORDS so that adding a page
-    // to that map is enough — no page has to remember to wire it through.
-    const terms = keywordList ?? keywordsFor(pathname)
+    const terms = path ? keywordsFor(path) : undefined
     if (terms) upsertMeta("name", "keywords", terms)
 
-    // Canonical stops the same content being indexed under a query string or a
-    // trailing-slash variant.
-    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
-    if (!canonical) {
-      canonical = document.createElement("link")
-      canonical.rel = "canonical"
-      document.head.appendChild(canonical)
+    /*
+      The canonical comes from the route table, never from `location`. A
+      visitor who arrives on /Services/ or /services?utm_source=whatsapp is
+      shown the page, but every one of those variants names /services as the
+      URL to index. A page with no entry (the 404) gets no canonical at all —
+      pointing one at a URL that does not exist is worse than having none.
+    */
+    const linkSelectors = [
+      'link[rel="canonical"]',
+      'link[rel="alternate"][hreflang="en-IN"]',
+      'link[rel="alternate"][hreflang="x-default"]',
+    ]
+    if (path) {
+      const url = canonicalUrl(path)
+      upsertMeta("property", "og:url", url)
+      for (const selector of linkSelectors) upsertLink(selector, url)
+    } else {
+      for (const selector of linkSelectors) document.head.querySelector(selector)?.remove()
+      document.head.querySelector('meta[property="og:url"]')?.remove()
     }
-    canonical.href = url
-
-    // One language, one region — but declaring it explicitly stops Google
-    // serving the page against an unrelated locale, and pairs with the
-    // en-IN `lang` on <html>.
-    let alternate = document.head.querySelector<HTMLLinkElement>('link[rel="alternate"][hreflang="en-IN"]')
-    if (!alternate) {
-      alternate = document.createElement("link")
-      alternate.rel = "alternate"
-      alternate.hreflang = "en-IN"
-      document.head.appendChild(alternate)
-    }
-    alternate.href = url
 
     upsertJsonLd(schemaJson ? (JSON.parse(schemaJson) as object) : undefined)
 
@@ -160,7 +157,7 @@ export default function Seo({
     return () => {
       if (robots && previousRobots !== null) robots.content = previousRobots
     }
-  }, [title, description, noindex, pathname, keywordList, image, schemaJson])
+  }, [title, description, noindex, path, image, schemaJson])
 
   return null
 }

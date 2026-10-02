@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Plus, MessageCircleQuestion, ArrowRight } from "lucide-react"
 import { FAQS } from "@/data/faq"
@@ -7,29 +7,12 @@ import { SITE_CONTAINER } from "@/components/layout/constants"
 /**
  * Frequently asked questions.
  *
- * Lives on its own /faq route, linked from the footer of every page. Beyond
- * the accordion, this emits FAQPage structured data while mounted, which is
- * what makes the questions eligible to appear as expandable results in search. The script is removed on unmount so a single page never carries the
- * markup for content it is no longer showing.
+ * Lives on its own /faq route, linked from the footer of every page. The
+ * FAQPage structured data for these questions is part of that route's graph
+ * in `src/data/routes.ts`, so it is also present in the prerendered HTML.
  */
 export default function FAQ({ showLabel = true }: { showLabel?: boolean } = {}) {
   const [open, setOpen] = useState<number | null>(0)
-
-  useEffect(() => {
-    const script = document.createElement("script")
-    script.type = "application/ld+json"
-    script.text = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: FAQS.map(({ q, a }) => ({
-        "@type": "Question",
-        name: q,
-        acceptedAnswer: { "@type": "Answer", text: a },
-      })),
-    })
-    document.head.appendChild(script)
-    return () => script.remove()
-  }, [])
 
   return (
     <section className="relative overflow-hidden bg-white py-20">

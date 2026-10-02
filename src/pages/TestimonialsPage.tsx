@@ -1,6 +1,7 @@
 import { Quote } from "lucide-react"
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
+import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import StarRating from "@/components/ui/StarRating"
@@ -26,6 +27,7 @@ const initials = (name: string) =>
     .slice(0, 2)
     .join("")
 
+const PAGE = routeSeo("/our-work/testimonials")
 
 export default function TestimonialsPage() {
   return (
@@ -37,17 +39,11 @@ export default function TestimonialsPage() {
         buttonHref: "/contact",
       }}
     >
-      <Seo
-        title="Client Testimonials — What Our Clients Say"
-        description="Homeowners, business owners and developers on working with Reena Designs & Constructions: transparency, on-time handover and the quality of the finished build."
-      />
+      <Seo route="/our-work/testimonials" />
       <PageHeader
-        title="CLIENT TESTIMONIALS"
-        crumbs={[
-          { label: "Home", href: "/" },
-          { label: "Our Work", href: "/our-work" },
-          { label: "Client Testimonials" },
-        ]}
+        title={PAGE.heading}
+        subtitle={PAGE.subheading}
+        crumbs={PAGE.crumbs}
         backdrop
       />
 

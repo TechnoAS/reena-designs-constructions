@@ -48,27 +48,34 @@ export default function Hero() {
         className={`${SITE_CONTAINER} relative z-10 w-full pt-24 pb-12 md:pt-32 md:pb-20 [@media(min-height:820px)]:py-36`}
       >
         <div className="max-w-xl md:ml-auto md:max-w-[62%] md:text-right">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-orange-400 [@media(min-height:820px)]:mb-5">
-            Construction &amp; interiors across India
-          </p>
           {/* Two lines, not three. The stacked "creating" had no punctuation
               holding it to either half, so the headline read as three
               fragments rather than one phrase. */}
+          {/* The eyebrow is the first line of the h1 rather than a separate
+              paragraph. The slogan below it names no service and no town, and
+              as the homepage's only h1 it told a search engine nothing; the
+              eyebrow says what the company is and where, in the same words as
+              the title tag. Same look as before — only the element changed. */}
           <h1 className="montserrat font-900 text-4xl leading-[0.95] tracking-[-0.04em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] md:text-5xl [@media(min-height:820px)]:md:text-6xl">
-            Building <span className="text-orange-500">dreams</span>,
+            <span className="mb-3 block [font-family:Inter,sans-serif] text-xs font-semibold uppercase leading-normal tracking-[0.35em] text-orange-400 drop-shadow-none [@media(min-height:820px)]:mb-5">
+              Construction &amp; Interior Design Company in Midnapur
+            </span>
+            {/* Words rise into place one after another, then the two orange
+                words catch a single highlight. CSS only (`.hero-word` in
+                index.css), and static under prefers-reduced-motion. The text
+                content is unchanged, so the h1 still reads as one phrase. */}
+            <HeroWord i={0}>Building</HeroWord>{" "}
+            <HeroWord i={1} accent>
+              dreams
+            </HeroWord>
+            <HeroWord i={1}>,</HeroWord>
             <span className="mt-2 block">
-              creating <span className="text-orange-500">reality</span>
+              <HeroWord i={2}>creating</HeroWord>{" "}
+              <HeroWord i={3} accent>
+                reality
+              </HeroWord>
             </span>
           </h1>
-          {/* The second sentence used to carry "fifteen years, 250+ projects".
-              Both numbers appear again in AboutStrip directly below, in
-              WhyChooseUs and in the footer — three repeats bought with the
-              scarcest copy on the site. */}
-          <p className="mt-4 max-w-md text-sm font-medium leading-7 text-white/85 md:ml-auto md:text-base [@media(min-height:820px)]:mt-6">
-            Turnkey construction, architecture and interiors under one contract — with a completion
-            date in writing.
-          </p>
-
           {/* Search, then the two CTAs.
               A visitor who already knows what they want should not have to
               guess which of eight nav items hides it; one who does not still
@@ -101,5 +108,19 @@ export default function Hero() {
         </div>
       </div>
     </section>
+  )
+}
+
+/** One masked word of the headline. `i` sets its place in the stagger. */
+function HeroWord({ i, accent = false, children }: { i: number; accent?: boolean; children: string }) {
+  return (
+    <span className="hero-word">
+      <span
+        className={`hero-word-inner${accent ? " hero-word-accent text-orange-500" : ""}`}
+        style={{ "--i": i } as React.CSSProperties}
+      >
+        {children}
+      </span>
+    </span>
   )
 }

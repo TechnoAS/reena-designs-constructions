@@ -8,12 +8,12 @@ type CountUpProps = {
 }
 
 /**
- * Animates a stat's leading digits counting up from zero the first time it
- * scrolls into view, keeping whatever suffix followed the number ("+", "%").
+ * Animates a stat's leading digits counting up from zero whenever it scrolls
+ * into view, keeping whatever suffix followed the number ("+", "%").
  *
- * Runs once per mount via `started` — replaying the count every time a
- * visitor scrolls past it would read as broken, not delightful. Values with
- * no leading digits (there are none today, but a future stat might be
+ * It counts once it is 40% visible and resets to zero only after leaving the
+ * viewport entirely, so it replays on each pass like the rest of the page
+ * without restarting while half on screen. Values with no leading digits (there are none today, but a future stat might be
  * "TBD") render as-is rather than animating nothing.
  */
 export default function CountUp({ value, duration = 1400, className }: CountUpProps) {
@@ -26,7 +26,9 @@ export default function CountUp({ value, duration = 1400, className }: CountUpPr
   const format = (n: number) => (grouped ? n.toLocaleString() : String(n))
   const [display, setDisplay] = useState(target === null ? value : "0")
   const ref = useRef<HTMLSpanElement>(null)
-  const started = useRef(false)
+  const frame = useRef(0)
+  /** Set while a count has run on this pass; cleared once fully out of view. */
+  const counted = useRef(false)
 
   useEffect(() => {
     if (target === null) return
@@ -40,22 +42,30 @@ export default function CountUp({ value, duration = 1400, className }: CountUpPr
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting || started.current) return
-        started.current = true
-        io.disconnect()
+        if (!entry.isIntersecting) {
+          cancelAnimationFrame(frame.current)
+          counted.current = false
+          setDisplay(format(0))
+          return
+        }
+        if (entry.intersectionRatio < 0.4 || counted.current) return
+        counted.current = true
         const start = performance.now()
         const tick = (now: number) => {
           const p = Math.min((now - start) / duration, 1)
           const eased = 1 - Math.pow(1 - p, 3)
           setDisplay(format(Math.round(eased * target)))
-          if (p < 1) requestAnimationFrame(tick)
+          if (p < 1) frame.current = requestAnimationFrame(tick)
         }
-        requestAnimationFrame(tick)
+        frame.current = requestAnimationFrame(tick)
       },
-      { threshold: 0.4 },
+      { threshold: [0, 0.4] },
     )
     io.observe(el)
-    return () => io.disconnect()
+    return () => {
+      io.disconnect()
+      cancelAnimationFrame(frame.current)
+    }
   }, [target, duration])
 
   return (

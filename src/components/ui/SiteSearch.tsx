@@ -349,7 +349,7 @@ export default function SiteSearch() {
   const showEmpty = open && typed && results.length === 0
 
   return (
-    <div ref={wrap} className="relative w-full max-w-md">
+    <div ref={wrap} className="relative w-full max-w-lg">
       <div
         className="flex items-center gap-3 border border-slate-300 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-sm transition focus-within:border-brand focus-within:ring-2 focus-within:ring-orange-500/20"
         role="combobox"
@@ -446,8 +446,10 @@ export default function SiteSearch() {
 
       {/* Openers, so the field is not a blank box the visitor has to guess at.
           They stand down once there are real results — two rows of things to
-          click, one of them stale, is worse than one. */}
-      <div className="mt-3 flex flex-wrap items-center gap-2" hidden={showList || showEmpty}>
+          click, one of them stale, is worse than one.
+          Kept to a single row: the field is sized so all five fit on a
+          laptop, and on a phone the row scrolls sideways rather than wrapping. */}
+      <div className="no-scrollbar mt-3 flex flex-nowrap items-center gap-2 overflow-x-auto" hidden={showList || showEmpty}>
         {SUGGESTED.map((s) => (
           <button
             key={s}
@@ -459,7 +461,7 @@ export default function SiteSearch() {
             /* White on a translucent dark fill, not slate-on-white: these sit
                over the hero video, where the old light chip lost both its
                border and its label against the footage. */
-            className="border border-white/35 bg-white/10 px-2.5 py-1 text-[11px] text-white/90 backdrop-blur-sm transition hover:border-orange-400 hover:bg-white/20 hover:text-white"
+            className="shrink-0 whitespace-nowrap border border-white/35 bg-white/10 px-2.5 py-1 text-[11px] text-white/90 backdrop-blur-sm transition hover:border-orange-400 hover:bg-white/20 hover:text-white"
           >
             {s}
           </button>

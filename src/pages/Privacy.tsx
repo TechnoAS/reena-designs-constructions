@@ -1,6 +1,7 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import PageHeader from "@/components/ui/PageHeader"
 import Seo from "@/components/Seo"
+import { routeSeo } from "@/data/routes"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import { SITE } from "@/data/siteInfo"
 
@@ -59,14 +60,13 @@ const SECTIONS = [
   },
 ]
 
+const PAGE = routeSeo("/privacy")
+
 export default function Privacy() {
   return (
     <PageWrapper>
-      <Seo
-        title="Privacy Policy"
-        description={`How ${SITE.name} handles the information you send through this website: what is collected, why, how long it is kept, and how to have it removed.`}
-      />
-      <PageHeader title="PRIVACY POLICY" crumbs={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]} />
+      <Seo route="/privacy" />
+      <PageHeader title={PAGE.heading} subtitle={PAGE.subheading} crumbs={PAGE.crumbs} />
 
       <div className={`${SITE_CONTAINER} py-14`}>
         <div className="max-w-2xl">

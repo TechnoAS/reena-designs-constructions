@@ -275,10 +275,10 @@ export default function Footer({ cta }: FooterProps) {
 
           {/* Column 2: Explore Navigation */}
           <div>
-            <h4 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
+            <h2 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
               Explore
               <span className="mt-2 block h-0.5 w-6 rounded-full bg-orange-500" aria-hidden="true" />
-            </h4>
+            </h2>
             <ul className="space-y-2">
               {EXPLORE_LINKS.map(([label, href]) => (
                 <li key={label}>
@@ -301,10 +301,10 @@ export default function Footer({ cta }: FooterProps) {
 
           {/* Column 3: Services */}
           <div>
-            <h4 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
+            <h2 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
               Services
               <span className="mt-2 block h-0.5 w-6 rounded-full bg-orange-500" aria-hidden="true" />
-            </h4>
+            </h2>
             <ul className="space-y-2">
               {SERVICE_LINKS.map(([label, href]) => (
                 <li key={label}>
@@ -330,10 +330,10 @@ export default function Footer({ cta }: FooterProps) {
               hours are the reason most phone visitors reach the footer at all,
               and squeezing them into a half-width column wrapped every line. */}
           <div className="col-span-2 lg:col-span-1">
-            <h4 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
+            <h2 className="montserrat font-800 mb-3.5 text-[11px] uppercase tracking-[0.18em] text-white">
               Head Office
               <span className="mt-2 block h-0.5 w-6 rounded-full bg-orange-500" aria-hidden="true" />
-            </h4>
+            </h2>
 
             <div className="space-y-3 text-xs">
               <div className="flex items-start gap-2.5">

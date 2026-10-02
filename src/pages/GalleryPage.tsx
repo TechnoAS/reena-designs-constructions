@@ -1,15 +1,14 @@
-import { useLocation } from "react-router-dom"
 import PageWrapper from "@/components/layout/PageWrapper"
 import PageHeader from "@/components/ui/PageHeader"
 import GalleryGrid from "@/components/ui/GalleryGrid"
 import Seo from "@/components/Seo"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import type { GalleryImage } from "@/data/galleryData"
-import { imageGallerySchema, webPageSchema, pageGraph } from "@/data/structuredData"
+import { routeSeo } from "@/data/routes"
 
 interface GalleryPageProps {
-  title: string
-  crumbs: { label: string; href?: string }[]
+  /** Path of the gallery's entry in `src/data/routes.ts`. */
+  route: string
   images: GalleryImage[]
   /**
    * A sentence of real copy under the heading.
@@ -22,14 +21,11 @@ interface GalleryPageProps {
   intro?: string
 }
 
-/** Title-case the ALL CAPS heading for use in a search result. */
-const titleCase = (s: string) =>
-  s.toLowerCase().replace(/(^|\s|&\s)([a-z])/g, (_, p, c) => p + c.toUpperCase())
-
-export default function GalleryPage({ title, crumbs, images, intro }: GalleryPageProps) {
-  const { pathname } = useLocation()
-  const readable = titleCase(title)
-  const description = `${readable} by Reena Designs & Constructions — completed work across Midnapur, Kharagpur and Paschim Midnapur, West Bengal. ${images.length} projects.`
+export default function GalleryPage({ route, images, intro }: GalleryPageProps) {
+  const page = routeSeo(route)
+  // The breadcrumb label is already written in title case ("3D Design &
+  // Elevation"); lower-casing the ALL CAPS heading produced "3d Design".
+  const readable = page.crumbs[page.crumbs.length - 1].label
 
   return (
     <PageWrapper
@@ -40,25 +36,12 @@ export default function GalleryPage({ title, crumbs, images, intro }: GalleryPag
         buttonHref: "/contact",
       }}
     >
-      {/* `ImageGallery` with a caption per photograph. Image results are a real
-          share of the traffic a construction portfolio gets, and this is what
-          attributes each photograph back to the business rather than leaving it
-          floating in Google Images unattached. */}
-      <Seo
-        title={`${readable} — Project Gallery`}
-        description={description}
-        image={images[0]?.src}
-        schema={pageGraph(
-          webPageSchema({
-            path: pathname,
-            name: `${readable} — Reena Designs & Constructions, Midnapur`,
-            description,
-            type: "CollectionPage",
-          }),
-          imageGallerySchema(pathname, readable, description, [...images]),
-        )}
-      />
-      <PageHeader title={title} crumbs={crumbs} backdrop />
+      {/* `ImageGallery` with a caption per photograph — built in
+          `src/data/routes.ts`. Image results are a real share of the traffic a
+          construction portfolio gets, and this is what attributes each
+          photograph back to the business. */}
+      <Seo route={route} />
+      <PageHeader title={page.heading} subtitle={page.subheading} crumbs={page.crumbs} backdrop />
 
       <section className={`${SITE_CONTAINER} py-14 lg:py-16`}>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-10">

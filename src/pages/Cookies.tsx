@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import PageWrapper from "@/components/layout/PageWrapper"
 import PageHeader from "@/components/ui/PageHeader"
 import Seo from "@/components/Seo"
+import { routeSeo } from "@/data/routes"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import { SITE } from "@/data/siteInfo"
 
@@ -23,14 +24,13 @@ const STORED = [
   },
 ]
 
+const PAGE = routeSeo("/cookies")
+
 export default function Cookies() {
   return (
     <PageWrapper>
-      <Seo
-        title="Cookie Policy"
-        description={`What ${SITE.name} stores in your browser. This website sets no advertising or analytics cookies — only a single local record of your answer to the cookie notice.`}
-      />
-      <PageHeader title="COOKIE POLICY" crumbs={[{ label: "Home", href: "/" }, { label: "Cookie Policy" }]} />
+      <Seo route="/cookies" />
+      <PageHeader title={PAGE.heading} subtitle={PAGE.subheading} crumbs={PAGE.crumbs} />
 
       <div className={`${SITE_CONTAINER} py-14`}>
         <div className="max-w-2xl">

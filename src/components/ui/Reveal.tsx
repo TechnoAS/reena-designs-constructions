@@ -12,13 +12,15 @@ type RevealProps = {
  *
  * A plain `<div>` wrapper rather than a hook, so a homepage section can be
  * wrapped at the call site (`<Reveal><Testimonials /></Reveal>`) without the
- * section itself needing to know it is being animated. Runs once per mount —
- * scrolling back up and down past a section should not replay it — and does
- * nothing when the visitor has asked for reduced motion.
+ * section itself needing to know it is being animated. Replays on every pass —
+ * the content hides once it is fully out of view and eases back in from the
+ * side it re-enters — and does nothing when the visitor has asked for reduced
+ * motion.
  */
 export default function Reveal({ children, className, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const [fromAbove, setFromAbove] = useState(false)
 
   useEffect(() => {
     const el = ref.current
@@ -31,11 +33,14 @@ export default function Reveal({ children, className, delay = 0 }: RevealProps) 
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return
-        setVisible(true)
-        io.disconnect()
+        if (entry.isIntersecting) {
+          setVisible(true)
+        } else {
+          setVisible(false)
+          setFromAbove(entry.boundingClientRect.top < 0)
+        }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" },
+      { threshold: 0 },
     )
     io.observe(el)
     return () => io.disconnect()
@@ -47,8 +52,8 @@ export default function Reveal({ children, className, delay = 0 }: RevealProps) 
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? "none" : "translateY(28px)",
-        transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)",
+        transform: visible ? "none" : `translateY(${fromAbove ? -64 : 64}px)`,
+        transition: "opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1)",
         transitionDelay: `${delay}ms`,
       }}
     >

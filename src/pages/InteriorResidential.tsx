@@ -14,7 +14,7 @@ import {
 import { Link } from "react-router-dom"
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
-import { serviceSchema, webPageSchema, serviceAreaSchema, pageGraph } from "@/data/structuredData"
+import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SubNav from "@/components/ui/SubNav"
 import FilterTabs from "@/components/ui/FilterTabs"
@@ -44,6 +44,8 @@ const APPROACH = [
     copy: "Cabinetry is machine-cut and edge-banded off site, then installed — a cleaner finish and a faster handover.",
   },
 ]
+
+const PAGE = routeSeo("/our-work/interior/residential")
 
 export default function InteriorResidential() {
   const [active, setActive] = useState<Room>("Living Room")
@@ -133,33 +135,11 @@ export default function InteriorResidential() {
         buttonHref: "/contact",
       }}
     >
-      <Seo
-        title="Residential Interior Design in Midnapur"
-        description="Living rooms, bedrooms, modular kitchens and pooja rooms designed in 3D and quoted by named material grade, executed by our own carpentry and electrical teams in Midnapur and across India."
-        schema={pageGraph(
-          webPageSchema({
-            path: "/our-work/interior/residential",
-            name: "Residential Interior Design in Midnapur & Paschim Midnapur",
-            description:
-              "Living rooms, bedrooms, modular kitchens, wardrobes, false ceilings and pooja rooms — designed in 3D and quoted by named material grade.",
-            type: "CollectionPage",
-          }),
-          serviceSchema(
-            "Residential Interior Design",
-            "Home interior design and fit-out — living rooms, bedrooms, modular kitchens, wardrobes, false ceilings, lighting and pooja rooms — designed in 3D and executed by in-house carpentry and electrical teams.",
-            "/our-work/interior/residential",
-          ),
-          serviceAreaSchema("/our-work/interior/residential"),
-        )}
-      />
+      <Seo route="/our-work/interior/residential" />
       <PageHeader
-        title="RESIDENTIAL INTERIOR"
-        crumbs={[
-          { label: "Home", href: "/" },
-          { label: "Our Work", href: "/our-work" },
-          { label: "Interior Design" },
-          { label: "Residential Interior" },
-        ]}
+        title={PAGE.heading}
+        subtitle={PAGE.subheading}
+        crumbs={PAGE.crumbs}
         backdrop
       />
 

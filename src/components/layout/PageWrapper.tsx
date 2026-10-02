@@ -1,6 +1,8 @@
+import { useRef } from "react"
 import Nav from "./Nav"
 import Footer, { type FooterCTAProps } from "./Footer"
 import SkipLink from "./SkipLink"
+import useSectionReveal from "./useSectionReveal"
 
 type PageWrapperProps = {
   children: React.ReactNode
@@ -10,6 +12,9 @@ type PageWrapperProps = {
 }
 
 export default function PageWrapper({ children, cta }: PageWrapperProps) {
+  const main = useRef<HTMLElement>(null)
+  useSectionReveal(main)
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       {/* First focusable element on the page, so it is the first thing Tab
@@ -19,7 +24,7 @@ export default function PageWrapper({ children, cta }: PageWrapperProps) {
           content. */}
       <SkipLink />
       <Nav />
-      <main id="main" className="flex-1 pt-20">
+      <main id="main" ref={main} className="flex-1 pt-20">
         {children}
       </main>
       <Footer cta={cta} />

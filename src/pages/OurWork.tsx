@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { ArrowUpRight } from "lucide-react"
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
-import { webPageSchema, pageGraph } from "@/data/structuredData"
+import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import { SITE_CONTAINER } from "@/components/layout/constants"
@@ -75,6 +75,7 @@ const GALLERIES = [
   },
 ] as const
 
+const PAGE = routeSeo("/our-work")
 
 export default function OurWork() {
   return (
@@ -86,22 +87,11 @@ export default function OurWork() {
         buttonHref: "/contact",
       }}
     >
-      <Seo
-        title="Our Work — Project & Design Galleries"
-        description="Browse completed and ongoing work from Reena Designs & Constructions: projects, residential and commercial interiors, exteriors, architecture, 3D elevations, renovations and client testimonials."
-        schema={pageGraph(
-          webPageSchema({
-            path: "/our-work",
-            name: "Our Work — Construction & Interior Design Portfolio, Midnapur",
-            description:
-              "Completed and ongoing construction, architecture, interior and renovation projects across Midnapur, Kharagpur and Paschim Midnapur.",
-            type: "CollectionPage",
-          }),
-        )}
-      />
+      <Seo route="/our-work" />
       <PageHeader
-        title="OUR WORK"
-        crumbs={[{ label: "Home", href: "/" }, { label: "Our Work" }]}
+        title={PAGE.heading}
+        subtitle={PAGE.subheading}
+        crumbs={PAGE.crumbs}
         backdrop
       />
 

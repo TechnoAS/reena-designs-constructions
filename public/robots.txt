@@ -1,8 +1,11 @@
-# Everything on this site is meant to be indexed. The only rule below keeps
-# crawlers off the 404 route, which is noindex anyway.
+# Everything on this site is meant to be indexed. Query-string variants are
+# left crawlable on purpose: blocking them would stop Google seeing the
+# canonical tag that folds them back into the clean URL.
 User-agent: *
 Allow: /
-Disallow: /404
+
+# The Sitemap line below is rewritten to this deploy's origin on every build
+# (scripts/gen-sitemap.mjs).
 
 # Image results are a real share of the traffic a construction portfolio gets,
 # so the galleries are explicitly open to the image crawler.

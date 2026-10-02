@@ -1,6 +1,6 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
-import { webPageSchema, pageGraph } from "@/data/structuredData"
+import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import RollingRibbon from "@/components/home/RollingRibbon"
@@ -67,6 +67,7 @@ const NOT_INCLUDED = [
   "Loose furniture, appliances and soft furnishings",
 ] as const
 
+const PAGE = routeSeo("/whats-included")
 
 export default function WhatsIncluded() {
   return (
@@ -78,21 +79,11 @@ export default function WhatsIncluded() {
         buttonHref: "/contact",
       }}
     >
-      <Seo
-        title="What's Included — Materials, Grades & Labour in Your Quotation"
-        description="The four heads that carry a structural build's cost in a Reena Designs & Constructions quotation — sand, TMT bar, bricks and labour — with every grade named, plus a plain list of what is not included."
-        schema={pageGraph(
-          webPageSchema({
-            path: "/whats-included",
-            name: "What's Included in a House Construction Quotation — Materials, Grades & Labour",
-            description:
-              "Sand, TMT bar, bricks and labour — the four heads that carry a structural build's cost, with every material grade named and a plain list of what a quotation does not cover.",
-          }),
-        )}
-      />
+      <Seo route="/whats-included" />
       <PageHeader
-        title="WHAT'S INCLUDED"
-        crumbs={[{ label: "Home", href: "/" }, { label: "What's Included" }]}
+        title={PAGE.heading}
+        subtitle={PAGE.subheading}
+        crumbs={PAGE.crumbs}
         backdrop
         scene={headerScene}
       />

@@ -63,7 +63,7 @@ export default function AboutStrip() {
             level="display"
             align="left"
             eyebrow="About Reena Designs & Constructions"
-            title="India's design-led construction partner since 2010"
+            title="India's top trusted Construction and Design Company"
             className="mb-0"
           />
           <div className="mt-3.5 h-0.5 w-16 rounded-full bg-brand" />

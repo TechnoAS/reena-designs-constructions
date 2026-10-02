@@ -1,6 +1,6 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
-import { webPageSchema, pageGraph } from "@/data/structuredData"
+import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import { SITE_CONTAINER } from "@/components/layout/constants"
@@ -44,6 +44,8 @@ const ROLES = [
   },
 ] as const
 
+const PAGE = routeSeo("/careers")
+
 export default function Careers() {
   return (
     <PageWrapper
@@ -54,19 +56,8 @@ export default function Careers() {
         buttonHref: "/contact",
       }}
     >
-      <Seo
-        title="Careers — Work With Reena Designs & Constructions"
-        description="Open roles and how to apply at Reena Designs & Constructions: site engineering, draughting, interior design and structural engineering, based in Midnapur, Paschim Midnapur."
-        schema={pageGraph(
-          webPageSchema({
-            path: "/careers",
-            name: "Careers at Reena Designs & Constructions",
-            description:
-              "Site engineering, draughting, interior design and structural engineering roles at Reena Designs & Constructions, based in Midnapur, Paschim Midnapur.",
-          }),
-        )}
-      />
-      <PageHeader title="CAREERS" crumbs={[{ label: "Home", href: "/" }, { label: "Careers" }]} />
+      <Seo route="/careers" />
+      <PageHeader title={PAGE.heading} subtitle={PAGE.subheading} crumbs={PAGE.crumbs} />
 
       <section className="py-14 lg:py-20">
         <div className={SITE_CONTAINER}>

@@ -1,6 +1,7 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import PageHeader from "@/components/ui/PageHeader"
 import Seo from "@/components/Seo"
+import { routeSeo } from "@/data/routes"
 import FAQ from "@/components/ui/FAQ"
 
 /**
@@ -12,6 +13,9 @@ import FAQ from "@/components/ui/FAQ"
  * FAQPage structured data by itself, and is reachable from the footer of every
  * page.
  */
+
+const PAGE = routeSeo("/faq")
+
 export default function Faq() {
   return (
     <PageWrapper
@@ -22,13 +26,11 @@ export default function Faq() {
         buttonHref: "/contact",
       }}
     >
-      <Seo
-        title="Frequently Asked Questions"
-        description="Costs, timelines, municipal approvals, materials, payment stages and warranty — straight answers to the questions we are asked before every build in Midnapur, Paschim Midnapur."
-      />
+      <Seo route="/faq" />
       <PageHeader
-        title="FREQUENTLY ASKED QUESTIONS"
-        crumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
+        title={PAGE.heading}
+        subtitle={PAGE.subheading}
+        crumbs={PAGE.crumbs}
       />
 
       {/* The section carries its own heading block and padding, so it needs no

@@ -13,6 +13,7 @@ import PageWrapper from "@/components/layout/PageWrapper"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import Seo from "@/components/Seo"
+import { routeSeo } from "@/data/routes"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import {
   FacebookIcon,
@@ -27,12 +28,6 @@ import {
 } from "@/components/ui/SocialIcons"
 import { SITE, ACTIVE_SOCIAL_LINKS } from "@/data/siteInfo"
 import ServiceAreas from "@/components/ui/ServiceAreas"
-import {
-  webPageSchema,
-  localBusinessSchema,
-  serviceAreaSchema,
-  pageGraph,
-} from "@/data/structuredData"
 
 /** The real trademark marks, not a letter standing in for one. */
 const SOCIAL_MARKS = {
@@ -171,6 +166,8 @@ function MapEmbed() {
     </div>
   )
 }
+
+const PAGE = routeSeo("/contact")
 
 export default function Contact() {
   // Project cards link here as /contact?project=Sunrise%20Villa. Seeding the
@@ -316,27 +313,11 @@ export default function Contact() {
 
   return (
     <PageWrapper>
-      <Seo
-        title="Contact Us — Free Site Visit & Quote in Midnapur"
-        description="Talk to Reena Designs & Constructions about your build. Free site visit across Paschim Midnapur, itemised quotation and a written completion date. Call +91 98765 43210."
-        schema={pageGraph(
-          webPageSchema({
-            path: "/contact",
-            name: "Contact Reena Designs & Constructions — Midnapur, West Bengal",
-            description:
-              "Office address, phone numbers, WhatsApp and enquiry form. Free site visit across Paschim Midnapur, Kharagpur, Ghatal and the surrounding district.",
-            type: "ContactPage",
-          }),
-          /* The office node lives here as well as on the homepage: this is the
-             page a "contractor near me" result lands on, and it is where the
-             address, hours and map pin are actually rendered. */
-          localBusinessSchema(),
-          serviceAreaSchema("/contact"),
-        )}
-      />
+      <Seo route="/contact" />
       <PageHeader
-        title="CONTACT US"
-        crumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]}
+        title={PAGE.heading}
+        subtitle={PAGE.subheading}
+        crumbs={PAGE.crumbs}
         backdrop
       />
 

@@ -1,16 +1,11 @@
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
+import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import BuildSimulator from "@/components/ui/BuildSimulator"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import ServiceAreas from "@/components/ui/ServiceAreas"
-import {
-  webPageSchema,
-  serviceCatalogSchema,
-  serviceAreaSchema,
-  pageGraph,
-} from "@/data/structuredData"
 
 const SERVICES = [
   {
@@ -53,6 +48,7 @@ const CAPABILITY_STATS = [
   { value: "1", label: "Contract" },
 ] as const
 
+const PAGE = routeSeo("/services")
 
 export default function Services() {
   return (
@@ -68,24 +64,11 @@ export default function Services() {
           entity, which is what lets a query naming a service and a town
           ("renovation contractor in Ghatal") match a page whose copy never
           uses that exact phrase. */}
-      <Seo
-        title="Our Services — Construction, Architecture & Interiors"
-        description="Eight disciplines delivered in-house: residential and commercial construction, architectural design, structural engineering, renovation, interiors, exteriors and turnkey delivery across India."
-        schema={pageGraph(
-          webPageSchema({
-            path: "/services",
-            name: "Construction, Architecture & Interior Design Services in Midnapur",
-            description:
-              "Residential and commercial construction, architectural design, structural engineering, renovation, interior design, exterior and 3D elevation, and turnkey delivery across Paschim Midnapur and West Bengal.",
-            type: "CollectionPage",
-          }),
-          serviceCatalogSchema("/services"),
-          serviceAreaSchema("/services"),
-        )}
-      />
+      <Seo route="/services" />
       <PageHeader
-        title="OUR SERVICES"
-        crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
+        title={PAGE.heading}
+        subtitle={PAGE.subheading}
+        crumbs={PAGE.crumbs}
         backdrop
       />
 

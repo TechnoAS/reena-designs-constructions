@@ -9,6 +9,15 @@
   RewriteEngine On
   RewriteBase /
 
+  # Redirect-only paths get a real 301, so the indexed URL is the destination.
+  RewriteRule ^our-work/projects/?$ /our-work/projects/successful [R=301,L]
+  RewriteRule ^our-work/interior/?$ /our-work/interior/residential [R=301,L]
+
+  # One URL per page: /services/ is 301'd to /services, the form the canonical
+  # tag names.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
   # Real files — hashed assets, sitemap.xml, robots.txt — are served as-is.
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^ - [L]

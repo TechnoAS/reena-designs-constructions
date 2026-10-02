@@ -18,12 +18,15 @@
  *
  * What it does
  * ------------
- * After `vite build`, each route in `routes.mjs` gets its own copy of the
- * built shell at dist/<route>/index.html with the head rewritten: title,
- * description, canonical, hreflang and the full set of Open Graph and Twitter
- * card tags. The JavaScript bundle is unchanged and still renders the real
- * page — <Seo> then writes the same values it would have written anyway, so
- * the two never disagree.
+ * After `vite build`, each route in src/data/routes.ts gets its own copy of
+ * the built shell at dist/<route>/index.html with the head rewritten: title,
+ * description, keywords, canonical, hreflang, the full set of Open Graph and
+ * Twitter card tags, and the page's JSON-LD graph (WebPage, BreadcrumbList,
+ * FAQPage, ImageGallery, Service…). The site-wide organisation graph in the
+ * shell is regenerated from the same builders, so the hand-written fallback in
+ * index.html can never ship stale. The JavaScript bundle is unchanged and still
+ * renders the real page — <Seo> then writes the same values from the same
+ * table, so the two never disagree.
  *
  * Why it works on the host
  * ------------------------
@@ -35,7 +38,8 @@
  * through to the root one and React renders the 404.
  *
  * This is not server-side rendering. The <noscript> block carries the page's
- * heading, its description and a link to every other page — enough that a
+ * <h1> (the same heading and subheading the page renders), its breadcrumb
+ * trail, its description and a link to every other page — enough that a
  * non-rendering crawler gets real text and a crawlable link graph rather than
  * an empty div, and deliberately no more than the page itself says. Actual
  * prerendering (a headless browser writing the rendered DOM into each shell)
@@ -45,7 +49,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { dirname, resolve, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { ROUTES, ORIGIN, SITE_NAME, verifyRoutes } from './routes.mjs'
+import { loadRoutes } from './load-routes.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = resolve(root, 'dist')
@@ -56,7 +60,7 @@ if (!existsSync(shellPath)) {
   process.exit(1)
 }
 
-verifyRoutes()
+const { ROUTES, routeGraph, siteGraph, canonicalUrl, keywordsFor, SITE_NAME, ORIGIN } = await loadRoutes()
 
 /** Escapes a string for use inside an HTML attribute or text node. */
 const esc = (s) =>
@@ -97,37 +101,66 @@ function setLink(html, rel, href, hreflang) {
   return html.replace('</head>', `    ${tag}\n  </head>`)
 }
 
+/** JSON for a <script> body. `</` would end the element early. */
+const jsonForScript = (value) => JSON.stringify(value).replace(/</g, '\\u003c')
+
+/**
+ * Replaces the body of the <script> with this id, or appends one to the head.
+ */
+function setJsonLd(html, id, value) {
+  const tag = `<script type="application/ld+json" id="${id}">${jsonForScript(value)}</script>`
+  const pattern = new RegExp(`<script[^>]*\\bid=["']${id}["'][^>]*>[\\s\\S]*?</script>`, 'i')
+  if (pattern.test(html)) return html.replace(pattern, () => tag)
+  return html.replace('</head>', `    ${tag}\n  </head>`)
+}
+
 /**
  * The text a non-rendering crawler sees.
  *
- * Kept to what the page itself says — its heading, its description, and the
- * site's navigation. Stuffing extra copy in here that the rendered page does
- * not contain would be cloaking, which is a far more expensive problem than
- * the one this file exists to fix.
+ * Kept to what the page itself says — its heading, its trail, its description,
+ * and the site's navigation. Stuffing extra copy in here that the rendered page
+ * does not contain would be cloaking, which is a far more expensive problem
+ * than the one this file exists to fix.
  */
 function noscriptBlock(route) {
+  const heading = route.subheading
+    ? `${esc(route.heading)} — ${esc(route.subheading)}`
+    : esc(route.heading)
+  const trail = route.crumbs
+    .map((c, i) =>
+      c.href && i < route.crumbs.length - 1 ? `<a href="${c.href}">${esc(c.label)}</a>` : esc(c.label),
+    )
+    .join(' / ')
   const links = ROUTES.filter((r) => r.path !== route.path)
-    .map((r) => `<li><a href="${r.path}">${esc(r.title)}</a></li>`)
+    .map((r) => `<li><a href="${r.path}">${esc(r.crumbs[r.crumbs.length - 1].label)}</a></li>`)
     .join('')
-  return `<noscript><div><h1>${esc(route.title)}</h1><p>${esc(route.description)}</p><nav aria-label="Site"><ul>${links}</ul></nav><p>${esc(SITE_NAME)} — Midnapur, Paschim Midnapur, West Bengal 721101, India.</p></div></noscript>`
+  return `<noscript><div>${route.crumbs.length > 1 ? `<nav aria-label="Breadcrumb">${trail}</nav>` : ''}<h1>${heading}</h1><p>${esc(route.description)}</p><nav aria-label="Site"><ul>${links}</ul></nav><p>${esc(SITE_NAME)} — Midnapur, Paschim Midnapur, West Bengal 721101, India.</p></div></noscript>`
 }
 
 function render(route) {
-  const url = `${ORIGIN}${route.path}`
-  const fullTitle = route.title.includes(SITE_NAME) ? route.title : `${route.title} | ${SITE_NAME}`
+  const url = canonicalUrl(route.path)
+  const title = route.title
+  const image = route.images?.[0]?.src ?? `${ORIGIN}/og-image.png`
 
-  let html = shell.replace(/<title>[\s\S]*?<\/title>/i, `<title>${esc(fullTitle)}</title>`)
+  let html = shell.replace(/<title>[\s\S]*?<\/title>/i, `<title>${esc(title)}</title>`)
 
   html = setMeta(html, 'name', 'description', route.description)
-  html = setMeta(html, 'property', 'og:title', fullTitle)
+  const keywords = keywordsFor(route.path)
+  if (keywords) html = setMeta(html, 'name', 'keywords', keywords)
+  html = setMeta(html, 'property', 'og:title', title)
   html = setMeta(html, 'property', 'og:description', route.description)
   html = setMeta(html, 'property', 'og:url', url)
-  html = setMeta(html, 'name', 'twitter:title', fullTitle)
+  html = setMeta(html, 'property', 'og:image', image)
+  html = setMeta(html, 'name', 'twitter:title', title)
   html = setMeta(html, 'name', 'twitter:description', route.description)
+  html = setMeta(html, 'name', 'twitter:image', image)
 
   html = setLink(html, 'canonical', url)
   html = setLink(html, 'alternate', url, 'en-IN')
   html = setLink(html, 'alternate', url, 'x-default')
+
+  html = setJsonLd(html, 'seo-site-jsonld', siteGraph())
+  html = setJsonLd(html, 'seo-page-jsonld', routeGraph(route))
 
   html = html.replace('<div id="root"></div>', `<div id="root"></div>\n    ${noscriptBlock(route)}`)
 

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
-import { serviceSchema, webPageSchema, serviceAreaSchema, pageGraph } from "@/data/structuredData"
+import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SubNav from "@/components/ui/SubNav"
 import FilterTabs from "@/components/ui/FilterTabs"
@@ -38,6 +38,8 @@ const tabs = ["Office", "Restaurant", "Retail Shop", "Hotel", "Others"] as const
 const INTRO =
   "Offices, restaurants, retail floors and hotels fitted out on commercial timelines — sequenced around your trading hours so the doors stay open."
 
+const PAGE = routeSeo("/our-work/interior/commercial")
+
 export default function InteriorCommercial() {
   const [active, setActive] = useState<keyof typeof allProjects>("Office")
   const visible = allProjects[active] ?? []
@@ -51,33 +53,11 @@ export default function InteriorCommercial() {
         buttonHref: "/contact",
       }}
     >
-      <Seo
-        title="Commercial Interior Design — Offices, Retail & Hotels"
-        description="Office, restaurant, retail, hotel and institutional interiors delivered on commercial timelines with minimal disruption to trading, across Midnapur, Kharagpur and West Bengal."
-        schema={pageGraph(
-          webPageSchema({
-            path: "/our-work/interior/commercial",
-            name: "Commercial Interior Design — Offices, Retail & Hotels in West Bengal",
-            description:
-              "Office, restaurant, retail, showroom, hotel and institutional interiors delivered on commercial timelines across Midnapur, Kharagpur and West Bengal.",
-            type: "CollectionPage",
-          }),
-          serviceSchema(
-            "Commercial Interior Design",
-            "Office, restaurant, retail, showroom, hotel and institutional interior design and fit-out, delivered on commercial timelines with minimal disruption to trading.",
-            "/our-work/interior/commercial",
-          ),
-          serviceAreaSchema("/our-work/interior/commercial"),
-        )}
-      />
+      <Seo route="/our-work/interior/commercial" />
       <PageHeader
-        title="COMMERCIAL INTERIOR"
-        crumbs={[
-          { label: "Home", href: "/" },
-          { label: "Our Work", href: "/our-work" },
-          { label: "Interior Design" },
-          { label: "Commercial Interior" },
-        ]}
+        title={PAGE.heading}
+        subtitle={PAGE.subheading}
+        crumbs={PAGE.crumbs}
         backdrop
       />
 

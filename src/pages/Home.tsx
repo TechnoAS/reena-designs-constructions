@@ -10,40 +10,14 @@ import WhyChooseUs from "@/components/home/WhyChooseUs"
 import Testimonials from "@/components/home/Testimonials"
 import ServiceAreas from "@/components/ui/ServiceAreas"
 import Reveal from "@/components/ui/Reveal"
-import {
-  organizationSchema,
-  websiteSchema,
-  localBusinessSchema,
-  webPageSchema,
-  serviceCatalogSchema,
-  serviceAreaSchema,
-  pageGraph,
-} from "@/data/structuredData"
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* The homepage carries the full entity graph — the company, the site,
-          the office and the service catalogue. Every other route ships a
-          page-level node that points back at these by `@id` rather than
-          restating them. */}
-      <Seo
-        title="Construction & Interior Design Company in Midnapur, West Bengal"
-        description="Design-led building construction, architecture, interiors and renovation in Midnapur, Paschim Midnapur. 250+ projects delivered in 15+ years, with a completion date written into the contract."
-        schema={pageGraph(
-          organizationSchema(),
-          websiteSchema(),
-          localBusinessSchema(),
-          webPageSchema({
-            path: "/",
-            name: "Construction & Interior Design Company in Midnapur, West Bengal",
-            description:
-              "Design-led building construction, architecture, interiors and renovation in Midnapur, Paschim Midnapur, serving Kharagpur, Ghatal, Jhargram and clients across India.",
-          }),
-          serviceCatalogSchema("/"),
-          serviceAreaSchema("/"),
-        )}
-      />
+      {/* The homepage carries the office, the service catalogue and the
+          areas served; the organisation and website nodes ship on every page
+          in the site-wide graph. See `src/data/routes.ts`. */}
+      <Seo route="/" />
       {/* Home composes its own chrome rather than using PageWrapper, because
           the hero sits *under* a transparent header. That is why it also has
           to carry the skip link and the main landmark itself — without them

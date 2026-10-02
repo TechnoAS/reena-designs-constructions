@@ -4,6 +4,13 @@ import skyline from "@/imports/construction-skyline.jpg"
 
 interface PageHeaderProps {
   title: string
+  /**
+   * Second line of the <h1>, carrying the page's search term ("Home interior
+   * design in Midnapur"). The large title is a two-word label; without this
+   * the page's only h1 says nothing a search engine can match a query to.
+   * It is part of the heading itself, visible, not hidden copy.
+   */
+  subtitle?: string
   crumbs: { label: string; href?: string }[]
   /**
    * Renders the header as a tall dark band with the construction skyline
@@ -20,13 +27,20 @@ interface PageHeaderProps {
   scene?: string
 }
 
-export default function PageHeader({ title, crumbs, backdrop = false, scene }: PageHeaderProps) {
+export default function PageHeader({ title, subtitle, crumbs, backdrop = false, scene }: PageHeaderProps) {
   if (!backdrop) {
     return (
       <div className="px-6 py-10" style={{ background: "#f7f7f7", borderBottom: "1px solid #e8e8e8" }}>
-        <div className={SITE_CONTAINER}>
+        <div className={`${SITE_CONTAINER} page-header-intro`}>
           <Breadcrumb items={crumbs} />
-          <h1 className="montserrat font-900 text-3xl text-navy md:text-4xl">{title}</h1>
+          <h1 className="montserrat font-900 text-3xl text-navy md:text-4xl">
+            {title}
+            {subtitle && (
+              <span className="font-600 [font-family:Inter,sans-serif] mt-2 block text-base normal-case tracking-normal text-slate-600 md:text-lg">
+                {subtitle}
+              </span>
+            )}
+          </h1>
         </div>
       </div>
     )
@@ -97,9 +111,16 @@ export default function PageHeader({ title, crumbs, backdrop = false, scene }: P
         aria-hidden="true"
       />
 
-      <div className={`${SITE_CONTAINER} relative py-10 md:py-12 lg:py-14`}>
+      <div className={`${SITE_CONTAINER} page-header-intro relative py-10 md:py-12 lg:py-14`}>
         <Breadcrumb items={crumbs} onDark />
-        <h1 className="montserrat font-900 text-3xl text-white md:text-4xl lg:text-5xl">{title}</h1>
+        <h1 className="montserrat font-900 text-3xl text-white md:text-4xl lg:text-5xl">
+          {title}
+          {subtitle && (
+            <span className="font-600 [font-family:Inter,sans-serif] mt-3 block text-base normal-case tracking-normal text-white/80 md:text-lg">
+              {subtitle}
+            </span>
+          )}
+        </h1>
       </div>
     </div>
   )
