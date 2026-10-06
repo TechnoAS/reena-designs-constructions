@@ -590,7 +590,7 @@ export default function Contact() {
                       required
                       autoComplete="tel"
                       inputMode="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 76791 24694"
                       aria-invalid={showError("phone") ? true : undefined}
                       aria-describedby={
                         showError("phone") ? "phone-error" : undefined

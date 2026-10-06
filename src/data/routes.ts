@@ -107,8 +107,8 @@ export const ROUTES: RouteSeo[] = [
     path: "/",
     title: "Construction & Interior Design in Midnapur | Reena Designs",
     description:
-      "Design-led house construction, architecture, interiors and renovation in Midnapur, Paschim Midnapur. 250+ projects, 15+ years, completion date in the contract.",
-    heading: "Building dreams, creating reality",
+      "Design-led house construction, architecture, interiors and renovation in Midnapur, Paschim Midnapur. 250+ projects, 30+ years, completion date in the contract.",
+    heading: "Your vision, Our creation",
     subheading: "Construction & Interior Design Company in Midnapur",
     crumbs: [HOME],
     schema: (r) => [
@@ -122,11 +122,11 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/about",
-    title: "About Us — Builders in Midnapur Since 2010 | Reena Designs",
+    title: "About Us — Builders in Midnapur Since the 1990s | Reena Designs",
     description:
       "The architects, engineers and designers behind Reena Designs & Constructions: our story, values, certifications and the team building across Paschim Midnapur.",
     heading: "ABOUT US",
-    subheading: "Architects, engineers & builders in Paschim Midnapur since 2010",
+    subheading: "Architects, engineers & builders in Paschim Midnapur since the 1990s",
     crumbs: [HOME, { label: "About Us" }],
     pageType: "AboutPage",
     sources: ["src/pages/About.tsx"],

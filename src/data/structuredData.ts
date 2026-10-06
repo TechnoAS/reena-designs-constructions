@@ -146,19 +146,12 @@ export function organizationSchema(): Json {
         areaServed: "IN",
         availableLanguage: ["English", "Hindi", "Bengali"],
       },
-      {
-        "@type": "ContactPoint",
-        contactType: "customer support",
-        telephone: SITE.phones[1].replace(/\s+/g, ""),
-        areaServed: "IN",
-        availableLanguage: ["English", "Hindi", "Bengali"],
-      },
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      opens: "09:30",
-      closes: "19:00",
+      opens: "09:00",
+      closes: "20:00",
     },
     sameAs: ACTIVE_SOCIAL_LINKS.map((s) => s.url),
   }
@@ -207,8 +200,8 @@ export function localBusinessSchema(): Json {
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      opens: "09:30",
-      closes: "19:00",
+      opens: "09:00",
+      closes: "20:00",
     },
     sameAs: ACTIVE_SOCIAL_LINKS.map((s) => s.url),
   }

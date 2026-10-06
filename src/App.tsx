@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react"
 import { Routes, Route, Navigate } from "react-router-dom"
 import ScrollToTop from "./components/layout/ScrollToTop"
+import PreLoader from "./components/layout/PreLoader"
 import Home from "./pages/Home"
 import GalleryPage from "./pages/GalleryPage"
 import {
@@ -105,6 +106,7 @@ const GALLERIES = [
 export default function App() {
   return (
     <>
+      <PreLoader />
       {/* Every navigation starts at the top of the new page. */}
       <ScrollToTop />
       <Suspense fallback={<RouteFallback />}>

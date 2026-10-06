@@ -37,7 +37,7 @@ export interface FooterProps {
 
 const STATS = [
   { value: "250+", label: "Delivered" },
-  { value: "15+", label: "Years Experience" },
+  { value: "30+", label: "Years Experience" },
   { value: "200+", label: "Clients Served" },
 ] as const
 
@@ -82,8 +82,8 @@ const SERVICE_LINKS = [
 ] as const
 
 const SOCIAL_LIST = [
-  { label: "Facebook", href: "https://facebook.com/reenadesigns", Icon: FacebookIcon, colour: CHANNEL_COLORS.Facebook },
-  { label: "Instagram", href: "https://instagram.com/reenadesigns", Icon: InstagramIcon, colour: CHANNEL_COLORS.Instagram },
+  { label: "Facebook", href: "https://www.facebook.com/share/19WNR4c5Ru/", Icon: FacebookIcon, colour: CHANNEL_COLORS.Facebook },
+  { label: "Instagram", href: "https://www.instagram.com/reenadesignconstruction?stkn=OGF0cnQ1eW1lenZ2", Icon: InstagramIcon, colour: CHANNEL_COLORS.Instagram },
   { label: "LinkedIn", href: "https://linkedin.com/company/reena-designs-constructions", Icon: LinkedinIcon, colour: CHANNEL_COLORS.LinkedIn },
   { label: "YouTube", href: "https://youtube.com/@reenadesigns", Icon: YoutubeIcon, colour: CHANNEL_COLORS.YouTube },
   { label: "WhatsApp", href: SITE.whatsappHref, Icon: WhatsAppIcon, colour: CHANNEL_COLORS.WhatsApp },

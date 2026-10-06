@@ -99,14 +99,13 @@ export default function Services() {
 
             <div className="flex flex-col gap-4 text-sm leading-7 text-slate-500">
               <p>
-                Eight construction and design disciplines delivered in-house across India — so
-                responsibility for your project never changes hands, and no part of it is quietly
-                handed to a subcontractor you never met.
+                We provide complete construction solutions under one roof—from AutoCAD drawings and
+                civil construction to interior &amp; exterior design, materials, skilled manpower,
+                finishing, and final project handover.
               </p>
               <p>
-                Drawings, structure, execution and finishing all sit with the same team, under one
-                contract and one fixed cost. That is what lets us put a completion date in writing
-                rather than an estimate.
+                With decades of experience and a strong legacy, we manage every stage of the
+                project with a focus on quality, reliability, and seamless execution.
               </p>
             </div>
 

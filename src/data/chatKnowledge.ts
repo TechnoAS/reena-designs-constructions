@@ -225,7 +225,7 @@ export const ANSWERS: Answer[] = [
   {
     id: "experience",
     keys: ["experience", "how many year", "since", "established", "old is", "history", "how many project", "track record"],
-    text: "15+ years and 250+ completed projects since 2010, for more than 200 clients — with a qualified engineer on every site.",
+    text: "30+ years of legacy since the 1990s and 250+ completed projects, for more than 200 clients — with a qualified engineer on every site.",
     link: { label: "Read testimonials", href: "/our-work/testimonials" },
     next: ["Can I see your work?", "What does it cost?"],
   },
@@ -246,21 +246,21 @@ export const ANSWERS: Answer[] = [
   {
     id: "contact",
     keys: ["contact", "call", "phone", "number", "email", "reach", "talk to", "speak", "whatsapp", "address", "office", "book", "appointment", "site visit", "consultation", "meet"],
-    text: "Call +91 98765 43210, email info@reenabuild.com, or send your floor plan through the contact form. Office hours are Mon–Sat, 9:30 AM – 7:00 PM, and the first consultation is free.",
+    text: "Call +91 76791 24694, email Reena.dc65@gmail.com, or send your floor plan through the contact form. Office hours are Mon–Sat, 9:00 AM – 8:00 PM, and the first consultation is free.",
     link: CONTACT,
     next: ["What does it cost?", "Which areas do you serve?"],
   },
   {
     id: "hours",
     keys: ["office hours", "working hours", "hours", "timing", "open", "closed", "sunday", "when can i", "available"],
-    text: "We are open Monday to Saturday, 9:30 AM – 7:00 PM. Site visits can be arranged outside those hours if that suits you better — just ask.",
+    text: "We are open Monday to Saturday, 9:00 AM – 8:00 PM. Site visits can be arranged outside those hours if that suits you better — just ask.",
     link: CONTACT,
     next: ["Book a site visit", "Which areas do you serve?"],
   },
   {
     id: "careers",
     keys: ["job", "career", "hiring", "vacancy", "internship", "work with you", "resume", "cv"],
-    text: "We do take on engineers, site supervisors and design staff from time to time. Send your CV to info@reenabuild.com and we will keep it on file.",
+    text: "We do take on engineers, site supervisors and design staff from time to time. Send your CV to Reena.dc65@gmail.com and we will keep it on file.",
     link: CONTACT,
   },
 ]

@@ -33,7 +33,7 @@ const initials = (name: string) =>
     .join("")
 
 const STORY_STATS = [
-  { value: "2010", label: "Founded" },
+  { value: "30+", label: "Years of legacy" },
   { value: "250+", label: "Projects delivered" },
   { value: "8", label: "Disciplines in-house" },
 ] as const
@@ -122,21 +122,27 @@ export default function About() {
             <SectionTitle title="OUR STORY" align="left" className="mb-8" />
 
             <div className="flex flex-col gap-4 text-sm leading-7 text-slate-500">
+              <h3 className="montserrat text-base font-bold text-navy">
+                A Trusted Legacy in Construction Since the 1990s
+              </h3>
               <p>
-                Reena Designs &amp; Constructions was founded with a vision to deliver exceptional
-                construction and design solutions. Starting as a small contracting firm, we have grown
-                into a full-service architectural and construction company trusted by hundreds of
-                clients across the region.
+                This is an old trusted construction company since the 90s. It was led by my dear
+                father, who served many construction works at various places, both government and
+                non-government.
               </p>
               <p>
-                We are committed to quality, transparency and customer satisfaction. Every project we
-                undertake is approached with meticulous planning, skilled execution, and a genuine
-                passion for creating spaces that endure.
+                Getting inspired by my father, I started Civil Engineering, and after completing all
+                my degrees, I started leading this company since 2021.
               </p>
               <p>
-                From modest residential homes to large-scale commercial developments, our team of
-                architects, engineers and designers brings the same dedication and craftsmanship to
-                every build.
+                Since then, I have also added many more works with construction, like AutoCAD
+                drawing, interior and exterior design, etc., to provide a complete package to our
+                clients — from drawing to finishing, including interiors and exterior design, and
+                finally handing over the work to the client.
+              </p>
+              <p>
+                A legacy built by my father, continued with my vision, and expanded with complete
+                construction solutions.
               </p>
             </div>
 

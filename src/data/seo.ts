@@ -130,7 +130,7 @@ export const PAGE_KEYWORDS: Record<string, string[]> = {
   ],
   "/about": [
     "about Reena Designs & Constructions",
-    "construction company Midnapur since 2010",
+    "construction company Midnapur since the 1990s",
     "licensed civil engineers Paschim Midnapur",
     "experienced building contractors West Bengal",
     "architecture and construction firm Medinipur",

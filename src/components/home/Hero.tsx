@@ -64,15 +64,15 @@ export default function Hero() {
                 words catch a single highlight. CSS only (`.hero-word` in
                 index.css), and static under prefers-reduced-motion. The text
                 content is unchanged, so the h1 still reads as one phrase. */}
-            <HeroWord i={0}>Building</HeroWord>{" "}
+            <HeroWord i={0}>Your</HeroWord>{" "}
             <HeroWord i={1} accent>
-              dreams
+              vision
             </HeroWord>
             <HeroWord i={1}>,</HeroWord>
             <span className="mt-2 block">
-              <HeroWord i={2}>creating</HeroWord>{" "}
+              <HeroWord i={2}>Our</HeroWord>{" "}
               <HeroWord i={3} accent>
-                reality
+                creation
               </HeroWord>
             </span>
           </h1>

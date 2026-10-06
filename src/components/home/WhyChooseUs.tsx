@@ -4,7 +4,7 @@ import CountUp from "@/components/ui/CountUp"
 
 const stats = [
   { num: "250+", label: "Projects delivered", sub: "Across Paschim Midnapur & India" },
-  { num: "15+", label: "Years of experience", sub: "Since 2010, without a lapsed site" },
+  { num: "30+", label: "Years of experience", sub: "A legacy since the 1990s" },
   { num: "200+", label: "Happy clients", sub: "Residential, commercial and renovation" },
   { num: "100%", label: "Quality assurance", sub: "Engineer-supervised, ISI-grade material" },
 ]

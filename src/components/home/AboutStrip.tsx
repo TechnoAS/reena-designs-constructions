@@ -75,7 +75,7 @@ export default function AboutStrip() {
               and renovation across India under one contract.
             </p>
             <p>
-              Over 15 years and 250+ completed projects, we have built a practice around a simple
+              Over 30 years and 250+ completed projects, we have built a practice around a simple
               promise: <strong className="font-700 text-navy">the drawing you approve is the building you receive</strong> — on the date we committed to.
             </p>
           </div>
@@ -106,7 +106,7 @@ export default function AboutStrip() {
             </Link>
 
             <div className="flex items-center gap-3 border-l border-slate-200 pl-4">
-              <span className="montserrat font-900 text-3xl leading-none text-brand-ink">15+</span>
+              <span className="montserrat font-900 text-3xl leading-none text-brand-ink">30+</span>
               <span className="text-[11px] leading-tight font-semibold text-slate-500">
                 Years building
                 <br />
