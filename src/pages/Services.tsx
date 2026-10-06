@@ -9,38 +9,36 @@ import ServiceAreas from "@/components/ui/ServiceAreas"
 
 const SERVICES = [
   {
-    title: "Residential Construction",
-    copy: "Independent homes and apartments built to your approved drawing, with certified steel and cement at every stage.",
+    title: "Civil Construction",
+    copy: "Complete construction solutions for residential, commercial, government, and non-government projects.",
   },
   {
-    title: "Commercial Construction",
-    copy: "Offices, showrooms and retail shells delivered on commercial timelines, with minimal disruption to trading.",
-  },
-  {
-    title: "Architectural Design",
-    copy: "Site-responsive planning, working drawings and sanction-ready documentation prepared in-house.",
-  },
-  {
-    title: "Structural Engineering",
-    copy: "Load calculations, RCC detailing and seismic-compliant framing signed off by qualified structural engineers.",
-  },
-  {
-    title: "Renovation & Remodeling",
-    copy: "Structural retrofits and full-property makeovers that modernise ageing buildings without touching their integrity.",
+    title: "AutoCAD Drawing",
+    copy: "Accurate and detailed AutoCAD drawings to support proper planning and execution.",
   },
   {
     title: "Interior Design",
-    copy: "Bespoke interiors resolved to the joinery, lighting layer and material palette before execution begins.",
+    copy: "Functional and aesthetic interior solutions designed to suit your space and requirements.",
   },
   {
     title: "Exterior Design",
-    copy: "Elevations, facade treatments and landscaping that give the building its street presence.",
+    copy: "Professional exterior design solutions that enhance the look and overall appeal of your property.",
   },
   {
-    title: "Turnkey Construction",
-    copy: "Design to handover under one contract — a single team, one timeline and one fixed cost.",
+    title: "Materials & Manpower",
+    copy: "Reliable construction materials and skilled manpower for smooth project execution.",
+  },
+  {
+    title: "Finishing Works",
+    copy: "Quality finishing services to bring every project together with attention to detail.",
   },
 ] as const
+
+/** The package the six services add up to, shown as a full-width row. */
+const COMPLETE_PACKAGE = {
+  title: "Complete Construction Solutions",
+  copy: "From drawing and planning to construction, interiors, exteriors, finishing, and final handover, we provide a complete package under one roof.",
+} as const
 
 const CAPABILITY_STATS = [
   { value: `${SERVICES.length}`, label: "Disciplines" },
@@ -60,7 +58,7 @@ export default function Services() {
         buttonHref: "/contact",
       }}
     >
-      {/* Each of the eight disciplines is emitted as its own `Service`
+      {/* Each discipline is emitted as its own `Service`
           entity, which is what lets a query naming a service and a town
           ("renovation contractor in Ghatal") match a page whose copy never
           uses that exact phrase. */}
@@ -139,17 +137,16 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ── The eight disciplines ─────────────────────────────────── */}
+      {/* ── The services ──────────────────────────────────────────── */}
       <section className="border-y border-hairline bg-surface py-14 lg:py-16">
         <div className={SITE_CONTAINER}>
           <SectionTitle title="SERVICES WE PROVIDE" align="left" className="mb-8" />
         </div>
 
         {/* Full-bleed, divided by hairline seams rather than boxed into cards —
-            the same ledger the About page uses. The decorative icon tiles are
-            gone: eight near-identical orange squares carried no information and
-            competed with the titles. */}
-        <div className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-4">
+            the same ledger the About page uses. Six services fill two rows of
+            three; the complete package closes the ledger as a full-width row. */}
+        <div className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map(({ title, copy }) => (
             <article key={title} className="group flex flex-col gap-3.5 bg-surface p-7 lg:p-8">
               <span
@@ -160,6 +157,18 @@ export default function Services() {
               <p className="text-[13px] leading-relaxed text-slate-500">{copy}</p>
             </article>
           ))}
+          <article className="group col-span-full flex flex-col gap-3.5 bg-surface p-7 lg:p-8">
+            <span
+              className="h-0.5 w-9 flex-none rounded-full bg-brand transition-all duration-500 group-hover:w-14"
+              aria-hidden="true"
+            />
+            <h3 className="montserrat font-800 text-[15px] leading-snug text-navy">
+              {COMPLETE_PACKAGE.title}
+            </h3>
+            <p className="max-w-3xl text-[13px] leading-relaxed text-slate-500">
+              {COMPLETE_PACKAGE.copy}
+            </p>
+          </article>
         </div>
       </section>
 
