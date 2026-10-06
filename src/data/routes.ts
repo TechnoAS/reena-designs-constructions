@@ -122,7 +122,7 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/about",
-    title: "About Us — Builders in Midnapur Since the 1990s | Reena Designs",
+    title: "About Us — Midnapur Builders Since the 1990s | Reena Designs",
     description:
       "The architects, engineers and designers behind Reena Designs & Constructions: our story, values, certifications and the team building across Paschim Midnapur.",
     heading: "ABOUT US",
