@@ -421,7 +421,7 @@ export default function HeroBlueprint() {
           DWG-01 / REV C
         </text>
         <text className="bp-fade" x="1470" y="500" fill="var(--color-navy)" fontSize="9" textAnchor="end" style={{ ["--dd" as string]: "2.35s", ["--o" as string]: 0.45 }}>
-          MIDNAPUR · PASCHIM MIDNAPUR
+          MEDINIPUR · PASCHIM MEDINIPUR
         </text>
       </g>
 

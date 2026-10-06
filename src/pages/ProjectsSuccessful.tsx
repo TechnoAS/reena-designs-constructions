@@ -14,7 +14,7 @@ export default function ProjectsSuccessful() {
       ]}
       tabs={TABS}
       projects={PROJECTS}
-      intro="Builds handed over to the approved drawing, on the contracted date — across Midnapur, Kharagpur, Ghatal, Belda and Jhargram."
+      intro="Builds handed over to the approved drawing, on the contracted date — across Medinipur, Kharagpur, Ghatal, Belda and Jhargram."
       renderMeta={(p) => (
         <>
           <h3 className="montserrat font-700 mb-1 text-base text-navy">{p.name}</h3>

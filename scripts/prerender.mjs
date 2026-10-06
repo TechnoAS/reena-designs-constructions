@@ -134,7 +134,7 @@ function noscriptBlock(route) {
   const links = ROUTES.filter((r) => r.path !== route.path)
     .map((r) => `<li><a href="${r.path}">${esc(r.crumbs[r.crumbs.length - 1].label)}</a></li>`)
     .join('')
-  return `<noscript><div>${route.crumbs.length > 1 ? `<nav aria-label="Breadcrumb">${trail}</nav>` : ''}<h1>${heading}</h1><p>${esc(route.description)}</p><nav aria-label="Site"><ul>${links}</ul></nav><p>${esc(SITE_NAME)} — Midnapur, Paschim Midnapur, West Bengal 721101, India.</p></div></noscript>`
+  return `<noscript><div>${route.crumbs.length > 1 ? `<nav aria-label="Breadcrumb">${trail}</nav>` : ''}<h1>${heading}</h1><p>${esc(route.description)}</p><nav aria-label="Site"><ul>${links}</ul></nav><p>${esc(SITE_NAME)} — Medinipur, Paschim Medinipur, West Bengal 721101, India.</p></div></noscript>`
 }
 
 function render(route) {

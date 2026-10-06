@@ -17,7 +17,7 @@ import { unsplash, srcSetFor } from "./images"
  * Each image now carries its own `alt`.
  *
  * The grid used to generate "exterior design project 4 by Reena Designs &
- * Constructions, Midnapur" from the index, which is the same sentence twenty
+ * Constructions, Medinipur" from the index, which is the same sentence twenty
  * times with a number changed — Google Images has nothing to tell the
  * photographs apart by, and a screen reader user hears a counter rather than a
  * description. Written alt text is the only thing that puts a construction
@@ -51,11 +51,11 @@ const img = (id: string, alt: string): GalleryImage => ({ src: u(id), alt })
 export const exteriorImgs: GalleryImage[] = [
   img(
     "photo-1479839672679-a46483c0e7c8",
-    "Contemporary two-storey house exterior with a projecting balcony and boundary wall — exterior design and construction, Midnapur",
+    "Contemporary two-storey house exterior with a projecting balcony and boundary wall — exterior design and construction, Medinipur",
   ),
   img(
     "photo-1567943183748-3a7542120c90",
-    "White rendered independent house with a flat roof parapet and large glazed openings — residential exterior, Paschim Midnapur",
+    "White rendered independent house with a flat roof parapet and large glazed openings — residential exterior, Paschim Medinipur",
   ),
   img(
     "photo-1488972685288-c3fd157d7c7a",
@@ -78,11 +78,11 @@ export const exteriorImgs: GalleryImage[] = [
 export const archImgs: GalleryImage[] = [
   img(
     "photo-1613490493576-7fde63acd811",
-    "Architectural composition of stacked rectilinear volumes in exposed concrete — architecture practice, Midnapur",
+    "Architectural composition of stacked rectilinear volumes in exposed concrete — architecture practice, Medinipur",
   ),
   img(
     "photo-1760246964044-1384f71665b9",
-    "Symmetrical residential elevation with a projecting entrance canopy — architectural design, Paschim Midnapur",
+    "Symmetrical residential elevation with a projecting entrance canopy — architectural design, Paschim Medinipur",
   ),
   img(
     "photo-1783705094622-f2c01a9787b5",
@@ -98,7 +98,7 @@ export const archImgs: GalleryImage[] = [
   ),
   img(
     "photo-1449844908441-8829872d2607",
-    "Detached family house with a pitched roof and landscaped forecourt — house plan and architecture, Midnapur",
+    "Detached family house with a pitched roof and landscaped forecourt — house plan and architecture, Medinipur",
   ),
 ]
 
@@ -106,7 +106,7 @@ export const d3Imgs: GalleryImage[] = [
   // The company's own photograph rather than stock — see the note above.
   {
     src: draftingTable,
-    alt: "Drafting table with a scale rule, set square and a house elevation drawing in progress — 3D elevation design studio, Midnapur",
+    alt: "Drafting table with a scale rule, set square and a house elevation drawing in progress — 3D elevation design studio, Medinipur",
   },
   img(
     "photo-1487958449943-2429e8be8625",
@@ -114,7 +114,7 @@ export const d3Imgs: GalleryImage[] = [
   ),
   img(
     "photo-1494526585095-c41746248156",
-    "Three-dimensional massing study of a residential block with terraces — 3D house design, Paschim Midnapur",
+    "Three-dimensional massing study of a residential block with terraces — 3D house design, Paschim Medinipur",
   ),
   img(
     "photo-1545324418-cc1a3fa10c00",
@@ -125,11 +125,11 @@ export const d3Imgs: GalleryImage[] = [
 export const renoImgs: GalleryImage[] = [
   img(
     "photo-1646987916641-1f3c8992daa2",
-    "Interior stripped back to the structural shell during a full-property renovation — home renovation contractor, Midnapur",
+    "Interior stripped back to the structural shell during a full-property renovation — home renovation contractor, Medinipur",
   ),
   img(
     "photo-1648881806148-e5c51179c826",
-    "Renovated living space with new plaster, flooring and recessed lighting — house remodelling, Paschim Midnapur",
+    "Renovated living space with new plaster, flooring and recessed lighting — house remodelling, Paschim Medinipur",
   ),
   img(
     "photo-1688647063090-36f36f692d95",
@@ -144,11 +144,11 @@ export const renoImgs: GalleryImage[] = [
 export const beforeAfterImgs: GalleryImage[] = [
   img(
     "photo-1523413651479-597eb2da0ad6",
-    "Bare interior before work began, showing the original walls and openings — renovation before photograph, Midnapur",
+    "Bare interior before work began, showing the original walls and openings — renovation before photograph, Medinipur",
   ),
   img(
     "photo-1556909212-d5b604d0c90d",
-    "The same room finished, with new joinery, flooring and a fitted lighting layer — renovation after photograph, Midnapur",
+    "The same room finished, with new joinery, flooring and a fitted lighting layer — renovation after photograph, Medinipur",
   ),
   img(
     "photo-1416339306562-f3d12fefd36f",

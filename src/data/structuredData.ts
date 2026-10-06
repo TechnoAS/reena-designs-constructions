@@ -109,7 +109,7 @@ export function organizationSchema(): Json {
     },
     image: abs(SITE.ogImagePath),
     description:
-      "Design-led building construction, architectural design, structural engineering, interior design, renovation and turnkey project delivery. Based in Midnapur, Paschim Midnapur, West Bengal, serving Kharagpur, Ghatal, Jhargram, Tamluk, Kolkata and clients across India.",
+      "Design-led building construction, architectural design, structural engineering, interior design, renovation and turnkey project delivery. Based in Medinipur, Paschim Medinipur, West Bengal, serving Kharagpur, Ghatal, Jhargram, Tamluk, Kolkata and clients across India.",
     slogan: "Design to handover, under one contract.",
     foundingDate: SITE.foundingYear,
     email: SITE.email,
@@ -175,7 +175,7 @@ export function websiteSchema(): Json {
     url: `${SITE.origin}/`,
     name: SITE.name,
     description:
-      "Construction, architecture and interior design company in Midnapur, Paschim Midnapur, West Bengal.",
+      "Construction, architecture and interior design company in Medinipur, Paschim Medinipur, West Bengal.",
     publisher: { "@id": ORG_ID },
     inLanguage: "en-IN",
   }

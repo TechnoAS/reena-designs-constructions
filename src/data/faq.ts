@@ -7,7 +7,7 @@ export type FaqItem = { q: string; a: string }
  */
 export const FAQS: FaqItem[] = [
   {
-    q: "How much does it cost to build a house in Midnapur?",
+    q: "How much does it cost to build a house in Medinipur?",
     a: "Cost depends on built-up area, structural specification and finish level, so we do not quote a blanket per-square-foot rate. After a free site visit we issue a fully itemised quotation naming every material grade, and that figure is fixed for the duration of the contract — no revised estimates halfway through the build.",
   },
   {
@@ -20,7 +20,7 @@ export const FAQS: FaqItem[] = [
   },
   {
     q: "What areas do you serve?",
-    a: "We are based in Midnapur, Paschim Midnapur, and work throughout the district including Kharagpur, Ghatal, Salboni, Debra, Belda and Jhargram. We also take projects elsewhere in West Bengal and across India. Site visits within Paschim Midnapur are free of charge.",
+    a: "We are based in Medinipur, Paschim Medinipur, and work throughout the district including Kharagpur, Ghatal, Salboni, Debra, Belda and Jhargram. We also take projects elsewhere in West Bengal and across India. Site visits within Paschim Medinipur are free of charge.",
   },
   {
     q: "What materials and quality standards do you use?",

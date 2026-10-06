@@ -75,13 +75,13 @@ const GALLERIES = [
     path: "/our-work/exterior",
     images: exteriorImgs,
     intro:
-      "Front elevations, facade treatments, boundary walls and landscaping for independent houses, apartment blocks and commercial buildings across Midnapur, Kharagpur and Paschim Midnapur. Every elevation is drawn and approved before the first course goes up.",
+      "Front elevations, facade treatments, boundary walls and landscaping for independent houses, apartment blocks and commercial buildings across Medinipur, Kharagpur and Paschim Medinipur. Every elevation is drawn and approved before the first course goes up.",
   },
   {
     path: "/our-work/architecture",
     images: archImgs,
     intro:
-      "Site-responsive planning, massing studies and sanction-ready working drawings prepared in-house. Our architects handle the municipal and panchayat filing across Paschim Midnapur, so approvals are part of the build rather than your problem.",
+      "Site-responsive planning, massing studies and sanction-ready working drawings prepared in-house. Our architects handle the municipal and panchayat filing across Paschim Medinipur, so approvals are part of the build rather than your problem.",
   },
   {
     path: "/our-work/3d-design",
@@ -93,13 +93,13 @@ const GALLERIES = [
     path: "/our-work/renovation",
     images: renoImgs,
     intro:
-      "Home renovation, structural retrofits, floor additions and full-property remodelling across Midnapur and the surrounding district — modernising ageing buildings without compromising the structure holding them up.",
+      "Home renovation, structural retrofits, floor additions and full-property remodelling across Medinipur and the surrounding district — modernising ageing buildings without compromising the structure holding them up.",
   },
   {
     path: "/our-work/before-after",
     images: beforeAfterImgs,
     intro:
-      "The same property either side of the work. Renovation and interior makeovers in Midnapur, Kharagpur and Paschim Midnapur, photographed on the day we arrived and on the day we handed the keys back.",
+      "The same property either side of the work. Renovation and interior makeovers in Medinipur, Kharagpur and Paschim Medinipur, photographed on the day we arrived and on the day we handed the keys back.",
   },
 ]
 

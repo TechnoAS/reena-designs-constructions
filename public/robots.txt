@@ -12,7 +12,7 @@ Allow: /
 User-agent: Googlebot-Image
 Allow: /
 
-# The AI answer engines are a growing share of "who builds houses in Midnapur"
+# The AI answer engines are a growing share of "who builds houses in Medinipur"
 # style questions, and each reads a different token. Listed explicitly so the
 # decision to allow them is a visible one rather than an accident of the
 # wildcard above — flip any of these to Disallow if that changes.

@@ -105,11 +105,11 @@ function gallery(
 export const ROUTES: RouteSeo[] = [
   {
     path: "/",
-    title: "Construction & Interior Design in Midnapur | Reena Designs",
+    title: "Construction & Interior Design in Medinipur | Reena Designs",
     description:
-      "Design-led house construction, architecture, interiors and renovation in Midnapur, Paschim Midnapur. 250+ projects, 30+ years, completion date in the contract.",
+      "Design-led house construction, architecture, interiors and renovation in Medinipur, Paschim Medinipur. 250+ projects, 30+ years, completion date in the contract.",
     heading: "Your vision, Our creation",
-    subheading: "Construction & Interior Design Company in Midnapur",
+    subheading: "Construction & Interior Design Company in Medinipur",
     crumbs: [HOME],
     schema: (r) => [
       localBusinessSchema(),
@@ -122,11 +122,11 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/about",
-    title: "About Us — Midnapur Builders Since the 1990s | Reena Designs",
+    title: "About Us — Medinipur Builders Since the 1990s | Reena Designs",
     description:
-      "The architects, engineers and designers behind Reena Designs & Constructions: our story, values, certifications and the team building across Paschim Midnapur.",
+      "The architects, engineers and designers behind Reena Designs & Constructions: our story, values, certifications and the team building across Paschim Medinipur.",
     heading: "ABOUT US",
-    subheading: "Architects, engineers & builders in Paschim Midnapur since the 1990s",
+    subheading: "Architects, engineers & builders in Paschim Medinipur since the 1990s",
     crumbs: [HOME, { label: "About Us" }],
     pageType: "AboutPage",
     sources: ["src/pages/About.tsx"],
@@ -137,9 +137,9 @@ export const ROUTES: RouteSeo[] = [
     path: "/services",
     title: "Construction & Interior Design Services | Reena Designs",
     description:
-      "Residential and commercial construction, architecture, structural engineering, renovation, interiors, 3D elevation and turnkey delivery from one Midnapur team.",
+      "Residential and commercial construction, architecture, structural engineering, renovation, interiors, 3D elevation and turnkey delivery from one Medinipur team.",
     heading: "OUR SERVICES",
-    subheading: "Construction, architecture & interior design in Midnapur",
+    subheading: "Construction, architecture & interior design in Medinipur",
     crumbs: [HOME, { label: "Services" }],
     pageType: "CollectionPage",
     schema: (r) => [serviceCatalogSchema(r.path), serviceAreaSchema(r.path)],
@@ -163,9 +163,9 @@ export const ROUTES: RouteSeo[] = [
     path: "/our-work",
     title: "Our Work — Construction & Interior Portfolio | Reena Designs",
     description:
-      "Completed and ongoing construction, architecture, interior, 3D elevation and renovation projects across Midnapur, Kharagpur and Paschim Midnapur.",
+      "Completed and ongoing construction, architecture, interior, 3D elevation and renovation projects across Medinipur, Kharagpur and Paschim Medinipur.",
     heading: "OUR WORK",
-    subheading: "Construction & interior design portfolio, Paschim Midnapur",
+    subheading: "Construction & interior design portfolio, Paschim Medinipur",
     crumbs: [HOME, { label: "Our Work" }],
     pageType: "CollectionPage",
     sources: ["src/pages/OurWork.tsx"],
@@ -174,11 +174,11 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/our-work/projects/successful",
-    title: "Completed Construction Projects, Midnapur | Reena Designs",
+    title: "Completed Construction Projects, Medinipur | Reena Designs",
     description:
-      "Completed homes, commercial buildings, interiors and renovations in Midnapur, Kharagpur, Ghatal, Belda and Jhargram — each handed over on the contracted date.",
+      "Completed homes, commercial buildings, interiors and renovations in Medinipur, Kharagpur, Ghatal, Belda and Jhargram — each handed over on the contracted date.",
     heading: "SUCCESSFUL PROJECTS",
-    subheading: "Completed construction projects across Paschim Midnapur",
+    subheading: "Completed construction projects across Paschim Medinipur",
     crumbs: [HOME, OUR_WORK, { label: "Projects" }, { label: "Successful Projects" }],
     pageType: "CollectionPage",
     schema: (r) => [projectListSchema(r.path, "Completed construction projects", SUCCESSFUL_PROJECTS)],
@@ -189,11 +189,11 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/our-work/projects/ongoing",
-    title: "Ongoing Construction Projects, Midnapur | Reena Designs",
+    title: "Ongoing Construction Projects, Medinipur | Reena Designs",
     description:
-      "Live construction sites in Midnapur, Kharagpur, Ghatal and Salboni, with build progress and the expected handover date for each project under way.",
+      "Live construction sites in Medinipur, Kharagpur, Ghatal and Salboni, with build progress and the expected handover date for each project under way.",
     heading: "ONGOING PROJECTS",
-    subheading: "Live construction sites across Paschim Midnapur",
+    subheading: "Live construction sites across Paschim Medinipur",
     crumbs: [HOME, OUR_WORK, { label: "Projects" }, { label: "Ongoing Projects" }],
     pageType: "CollectionPage",
     schema: (r) => [projectListSchema(r.path, "Ongoing construction projects", ONGOING_PROJECTS)],
@@ -204,11 +204,11 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/our-work/interior/residential",
-    title: "Home Interior Designer in Midnapur | Reena Designs",
+    title: "Home Interior Designer in Medinipur | Reena Designs",
     description:
-      "Living rooms, bedrooms, modular kitchens and pooja rooms designed in 3D, quoted by material grade and built by our own carpenters and electricians in Midnapur.",
+      "Living rooms, bedrooms, modular kitchens and pooja rooms designed in 3D, quoted by material grade and built by our own carpenters and electricians in Medinipur.",
     heading: "RESIDENTIAL INTERIOR",
-    subheading: "Home interior design in Midnapur",
+    subheading: "Home interior design in Medinipur",
     crumbs: [HOME, OUR_WORK, { label: "Interior Design" }, { label: "Residential Interior" }],
     pageType: "CollectionPage",
     schema: (r) => [
@@ -225,9 +225,9 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/our-work/interior/commercial",
-    title: "Commercial Interior Design in Midnapur | Reena Designs",
+    title: "Commercial Interior Design in Medinipur | Reena Designs",
     description:
-      "Office, restaurant, retail, hotel and institutional interiors delivered on commercial timelines with minimal disruption, across Midnapur, Kharagpur and Bengal.",
+      "Office, restaurant, retail, hotel and institutional interiors delivered on commercial timelines with minimal disruption, across Medinipur, Kharagpur and Bengal.",
     heading: "COMMERCIAL INTERIOR",
     subheading: "Office, retail & hotel interiors in West Bengal",
     crumbs: [HOME, OUR_WORK, { label: "Interior Design" }, { label: "Commercial Interior" }],
@@ -250,9 +250,9 @@ export const ROUTES: RouteSeo[] = [
     "EXTERIOR DESIGN",
     "Exterior Design",
     "Exterior design gallery",
-    "House Exterior & Facade Design, Midnapur | Reena Designs",
-    "House elevation & facade design in Midnapur",
-    "Front elevations, facades, boundary walls and landscaping for houses, apartments and commercial buildings in Midnapur, Kharagpur and Paschim Midnapur.",
+    "House Exterior & Facade Design, Medinipur | Reena Designs",
+    "House elevation & facade design in Medinipur",
+    "Front elevations, facades, boundary walls and landscaping for houses, apartments and commercial buildings in Medinipur, Kharagpur and Paschim Medinipur.",
     exteriorImgs,
   ),
   gallery(
@@ -260,9 +260,9 @@ export const ROUTES: RouteSeo[] = [
     "ARCHITECTURE GALLERY",
     "Architecture Gallery",
     "Architecture gallery",
-    "Architect & House Plans in Midnapur | Reena Designs",
-    "House plans & sanction drawings in Paschim Midnapur",
-    "Site-responsive house plans, massing studies and sanction-ready drawings, with municipal and panchayat approvals filed for you across Paschim Midnapur.",
+    "Architect & House Plans in Medinipur | Reena Designs",
+    "House plans & sanction drawings in Paschim Medinipur",
+    "Site-responsive house plans, massing studies and sanction-ready drawings, with municipal and panchayat approvals filed for you across Paschim Medinipur.",
     archImgs,
   ),
   gallery(
@@ -270,9 +270,9 @@ export const ROUTES: RouteSeo[] = [
     "3D DESIGN & ELEVATION",
     "3D Design & Elevation",
     "3D design and elevation gallery",
-    "3D Front Elevation Design in Midnapur | Reena Designs",
+    "3D Front Elevation Design in Medinipur | Reena Designs",
     "3D front elevation design before construction starts",
-    "3D front elevation and exterior visualisation, so you approve the finished building before construction starts in Midnapur and across West Bengal.",
+    "3D front elevation and exterior visualisation, so you approve the finished building before construction starts in Medinipur and across West Bengal.",
     d3Imgs,
   ),
   gallery(
@@ -280,9 +280,9 @@ export const ROUTES: RouteSeo[] = [
     "RENOVATION PROJECTS",
     "Renovation Projects",
     "Renovation projects gallery",
-    "Home Renovation Contractor in Midnapur | Reena Designs",
-    "Home renovation & remodelling in Midnapur",
-    "Home renovation, structural retrofits, floor additions and full remodelling across Midnapur — modernising older buildings without weakening the structure.",
+    "Home Renovation Contractor in Medinipur | Reena Designs",
+    "Home renovation & remodelling in Medinipur",
+    "Home renovation, structural retrofits, floor additions and full remodelling across Medinipur — modernising older buildings without weakening the structure.",
     renoImgs,
   ),
   gallery(
@@ -290,15 +290,15 @@ export const ROUTES: RouteSeo[] = [
     "BEFORE & AFTER GALLERY",
     "Before & After Gallery",
     "Before and after gallery",
-    "Renovation Before & After, Midnapur | Reena Designs",
-    "Renovation & interior makeovers in Paschim Midnapur",
-    "The same property either side of the work: renovation and interior makeovers in Midnapur, Kharagpur and Paschim Midnapur, from first visit to handover.",
+    "Renovation Before & After, Medinipur | Reena Designs",
+    "Renovation & interior makeovers in Paschim Medinipur",
+    "The same property either side of the work: renovation and interior makeovers in Medinipur, Kharagpur and Paschim Medinipur, from first visit to handover.",
     beforeAfterImgs,
   ),
 
   {
     path: "/our-work/testimonials",
-    title: "Client Testimonials — Builders in Midnapur | Reena Designs",
+    title: "Client Testimonials — Builders in Medinipur | Reena Designs",
     description:
       "Homeowners, business owners and developers on building with Reena Designs & Constructions: transparency, on-time handover and the quality of the finish.",
     heading: "CLIENT TESTIMONIALS",
@@ -310,11 +310,11 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/learn-from-us",
-    title: "AutoCAD, Revit & SketchUp Training, Midnapur | Reena Designs",
+    title: "AutoCAD, Revit & SketchUp Training, Medinipur | Reena Designs",
     description:
-      "Learn AutoCAD, Revit, SketchUp, Primavera P6, STAAD.Pro, ETABS, Lumion and V-Ray from working architects and engineers at our design studio in Midnapur.",
+      "Learn AutoCAD, Revit, SketchUp, Primavera P6, STAAD.Pro, ETABS, Lumion and V-Ray from working architects and engineers at our design studio in Medinipur.",
     heading: "LEARN FROM US",
-    subheading: "AutoCAD, Revit & design software training in Midnapur",
+    subheading: "AutoCAD, Revit & design software training in Medinipur",
     crumbs: [HOME, { label: "Learn From Us" }],
     sources: ["src/pages/LearnFromUs.tsx", "src/data/courses.ts"],
     changefreq: "monthly",
@@ -322,11 +322,11 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/careers",
-    title: "Construction & Design Jobs in Midnapur | Reena Designs",
+    title: "Construction & Design Jobs in Medinipur | Reena Designs",
     description:
-      "Open roles at Reena Designs & Constructions in site engineering, draughting, interior design and structural engineering, based in Midnapur, Paschim Midnapur.",
+      "Open roles at Reena Designs & Constructions in site engineering, draughting, interior design and structural engineering, based in Medinipur, Paschim Medinipur.",
     heading: "CAREERS",
-    subheading: "Construction & design jobs in Midnapur",
+    subheading: "Construction & design jobs in Medinipur",
     crumbs: [HOME, { label: "Careers" }],
     sources: ["src/pages/Careers.tsx"],
     changefreq: "monthly",
@@ -334,10 +334,10 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/contact",
-    title: "Contact Us — Free Site Visit in Midnapur | Reena Designs",
-    description: `Talk to us about your build: free site visit across Paschim Midnapur, an itemised quotation and a written completion date. Call ${SITE.phones[0]}.`,
+    title: "Contact Us — Free Site Visit in Medinipur | Reena Designs",
+    description: `Talk to us about your build: free site visit across Paschim Medinipur, an itemised quotation and a written completion date. Call ${SITE.phones[0]}.`,
     heading: "CONTACT US",
-    subheading: "Free site visit & itemised quote in Paschim Midnapur",
+    subheading: "Free site visit & itemised quote in Paschim Medinipur",
     crumbs: [HOME, { label: "Contact Us" }],
     pageType: "ContactPage",
     /* The office node lives here as well as on the homepage: this is the page a
@@ -352,9 +352,9 @@ export const ROUTES: RouteSeo[] = [
     path: "/faq",
     title: "House Construction FAQ — Cost & Approvals | Reena Designs",
     description:
-      "Straight answers on house construction cost, timelines, municipal approvals, materials, payment stages and warranty in Midnapur, Paschim Midnapur.",
+      "Straight answers on house construction cost, timelines, municipal approvals, materials, payment stages and warranty in Medinipur, Paschim Medinipur.",
     heading: "FREQUENTLY ASKED QUESTIONS",
-    subheading: "House construction cost, timelines & approvals in Midnapur",
+    subheading: "House construction cost, timelines & approvals in Medinipur",
     crumbs: [HOME, { label: "FAQ" }],
     pageType: "FAQPage",
     sources: ["src/pages/Faq.tsx", "src/data/faq.ts"],

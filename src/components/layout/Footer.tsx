@@ -237,7 +237,7 @@ export default function Footer({ cta }: FooterProps) {
             </Link>
 
             <p className="mb-4 max-w-sm text-xs leading-relaxed text-white/65">
-              Midnapur's design-led construction firm. Turnkey civil building, architecture,
+              Medinipur's design-led construction firm. Turnkey civil building, architecture,
               and interior design under fixed contractual handover timelines.
             </p>
 

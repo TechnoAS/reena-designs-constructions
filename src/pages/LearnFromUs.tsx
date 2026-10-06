@@ -357,7 +357,7 @@ export default function LearnFromUs() {
         <div className={`${SITE_CONTAINER} max-w-2xl`}>
           <SectionTitle title="HOW TO ENROL" align="left" className="mb-6" />
           <p className="text-sm leading-7 text-slate-500">
-            Batches are small and run at our Midnapur studio. Call{" "}
+            Batches are small and run at our Medinipur studio. Call{" "}
             <a href={SITE.phoneHref} className="font-600 text-brand-ink underline underline-offset-2">
               {SITE.phones[0]}
             </a>{" "}

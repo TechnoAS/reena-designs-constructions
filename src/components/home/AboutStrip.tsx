@@ -70,7 +70,7 @@ export default function AboutStrip() {
 
           <div className="mt-6 space-y-3 text-sm leading-relaxed text-slate-600 sm:text-[15px]">
             <p>
-              We are a full-service construction company based in Midnapur, Paschim Midnapur,
+              We are a full-service construction company based in Medinipur, Paschim Medinipur,
               delivering turnkey building construction, architectural design, interior fit-outs
               and renovation across India under one contract.
             </p>

@@ -79,7 +79,7 @@ type Field = keyof typeof EMPTY
  * still needed attention.
  *
  * Phone is required and email is not, which is the reverse of how this form
- * was set up. This is a construction firm in Paschim Midnapur whose own
+ * was set up. This is a construction firm in Paschim Medinipur whose own
  * contact panels put "Call the office" first; a homeowner sending plot
  * details expects a callback, and insisting on an email address loses the
  * enquiries from people who do not use one.
@@ -157,7 +157,7 @@ function MapEmbed() {
     >
       {visible && (
         <iframe
-          title="Reena Designs & Constructions on the map — Midnapur, West Bengal"
+          title="Reena Designs & Constructions on the map — Medinipur, West Bengal"
           src="https://www.openstreetmap.org/export/embed.html?bbox=87.185%2C22.385%2C87.455%2C22.455&layer=mapnik&marker=22.4257%2C87.3199"
           className="h-full w-full border-0 grayscale-[35%]"
           referrerPolicy="no-referrer-when-downgrade"
@@ -401,7 +401,7 @@ export default function Contact() {
               <p>
                 Send us the plot details, a floor plan, or just a rough idea of
                 what you want to build. We will come back with a free site visit
-                across Paschim Midnapur, an itemised quotation naming every
+                across Paschim Medinipur, an itemised quotation naming every
                 material grade, and a completion date in writing.
               </p>
               <p>

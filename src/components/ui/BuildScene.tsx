@@ -222,7 +222,7 @@ export default function BuildScene({ step }: { step: number }) {
             MUNICIPAL SANCTION
           </text>
           <text x="90" y="40" fill="#16a34a" fontSize="8.5" fontFamily="monospace" textAnchor="middle">
-            PASCHIM MIDNAPUR · PERMIT APPROVED
+            PASCHIM MEDINIPUR · PERMIT APPROVED
           </text>
           <text x="90" y="54" fill="#15803d" fontSize="8" fontFamily="monospace" fontWeight="600" textAnchor="middle">
             PLAN NO. RDC/2026/0491

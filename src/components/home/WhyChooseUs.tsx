@@ -3,7 +3,7 @@ import SectionTitle from "@/components/ui/SectionTitle"
 import CountUp from "@/components/ui/CountUp"
 
 const stats = [
-  { num: "250+", label: "Projects delivered", sub: "Across Paschim Midnapur & India" },
+  { num: "250+", label: "Projects delivered", sub: "Across Paschim Medinipur & India" },
   { num: "30+", label: "Years of experience", sub: "A legacy since the 1990s" },
   { num: "200+", label: "Happy clients", sub: "Residential, commercial and renovation" },
   { num: "100%", label: "Quality assurance", sub: "Engineer-supervised, ISI-grade material" },

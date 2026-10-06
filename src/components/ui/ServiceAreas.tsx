@@ -8,7 +8,7 @@ import { SITE } from "@/data/siteInfo"
  * Where the company works.
  *
  * This is the site's only piece of copy that names the towns individually, and
- * it is here for a specific reason. "Construction company in Midnapur" is one
+ * it is here for a specific reason. "Construction company in Medinipur" is one
  * query with a handful of serious competitors; "house construction in Belda",
  * "interior designer in Ghatal" and eighteen more like them are queries almost
  * nobody has written a page for. A search engine cannot return a page for a
@@ -56,12 +56,12 @@ export default function ServiceAreas({
         </div>
 
         <h2 className="montserrat font-800 max-w-3xl text-xl leading-snug text-navy md:text-2xl">
-          Construction, architecture and interior design across Paschim Midnapur and West Bengal
+          Construction, architecture and interior design across Paschim Medinipur and West Bengal
         </h2>
 
         {!compact && (
           <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-500">
-            Our office is in Midnapur and our site teams travel across the district daily. We build
+            Our office is in Medinipur and our site teams travel across the district daily. We build
             independent houses, apartments, shops and offices — and take on renovation, 3D elevation
             and interior fit-out work — in each of the towns below. If yours is not listed, call{" "}
             <a href={SITE.phoneHref} className="font-600 text-navy underline decoration-orange-400 underline-offset-4">

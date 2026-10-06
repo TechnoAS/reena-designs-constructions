@@ -4,7 +4,7 @@
  * Six files each declared their own one-line template for the same thing, and
  * every one of them requested a single fixed width — so a 360px phone
  * downloaded the same pixels as a 2560px desktop. The site is photography-led
- * and a large share of its traffic is on mobile data in Paschim Midnapur,
+ * and a large share of its traffic is on mobile data in Paschim Medinipur,
  * which is the worst combination for that.
  *
  * `srcSetFor` emits the same crop at several widths so the browser can pick.

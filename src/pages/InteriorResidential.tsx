@@ -153,7 +153,7 @@ export default function InteriorResidential() {
 
         <div className="mb-10 max-w-3xl">
           <p className="montserrat font-700 mb-3 text-[11px] uppercase tracking-[0.3em] text-brand-ink">
-            Residential interior design in Midnapur & across India
+            Residential interior design in Medinipur & across India
           </p>
           <h2 className="montserrat font-800 text-xl leading-snug md:text-2xl text-navy">
             Interiors detailed to the millimetre, built to last
@@ -188,7 +188,7 @@ export default function InteriorResidential() {
               <span className="relative block aspect-[4/3] overflow-hidden">
                 <img
                   src={p.img}
-                  alt={`${p.title} — ${p.room.toLowerCase()} interior design by Reena Designs & Constructions, Midnapur`}
+                  alt={`${p.title} — ${p.room.toLowerCase()} interior design by Reena Designs & Constructions, Medinipur`}
                   width={600}
                   height={450}
                   loading="lazy"

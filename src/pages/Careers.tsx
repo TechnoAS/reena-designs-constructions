@@ -10,7 +10,7 @@ const WHY_JOIN = [
   "Named material grades and fixed contracts — you are not asked to defend a corner cut on-site",
   "Your own crew and engineers on every project, not subcontracted labour",
   "Work across residential, commercial, renovation and interior fit-outs — not one repeated job",
-  "A practice built over 30+ years and 250+ handovers, still run out of Midnapur",
+  "A practice built over 30+ years and 250+ handovers, still run out of Medinipur",
 ] as const
 
 /**

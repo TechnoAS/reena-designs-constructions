@@ -6,7 +6,7 @@ interface PageHeaderProps {
   title: string
   /**
    * Second line of the <h1>, carrying the page's search term ("Home interior
-   * design in Midnapur"). The large title is a two-word label; without this
+   * design in Medinipur"). The large title is a two-word label; without this
    * the page's only h1 says nothing a search engine can match a query to.
    * It is part of the heading itself, visible, not hidden copy.
    */

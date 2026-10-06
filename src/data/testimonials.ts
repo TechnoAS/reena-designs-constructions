@@ -39,7 +39,7 @@ export const TESTIMONIALS: readonly Testimonial[] = [
   {
     name: "Rajesh Mehta",
     role: "Homeowner",
-    place: "Midnapur",
+    place: "Medinipur",
     project: "3,200 sq ft residence",
     rating: 5,
     quote:
@@ -66,7 +66,7 @@ export const TESTIMONIALS: readonly Testimonial[] = [
   {
     name: "Sunita Ghosh",
     role: "Homeowner",
-    place: "Midnapur",
+    place: "Medinipur",
     project: "Full interior fit-out",
     rating: 5,
     quote:

@@ -63,8 +63,8 @@ export const SITE = {
   hours: "Mon – Sat · 9:00 AM – 8:00 PM",
   address: {
     street: "Near Sitala Mandir, Rangamati",
-    locality: "Rangamati, Midnapur",
-    region: "Paschim Midnapur, West Bengal",
+    locality: "Rangamati, Medinipur",
+    region: "Paschim Medinipur, West Bengal",
     postalCode: "721101",
     country: "IN",
   },
@@ -75,8 +75,8 @@ export const SITE = {
    * geo.position / ICBM meta tags.
    *
    * Google does not rank a business by these — proximity is computed from the
-   * verified Business Profile — but they disambiguate "Midnapur" (which is
-   * also spelt Midnapore and Medinipur, and shares a name with nothing else
+   * verified Business Profile — but they disambiguate "Medinipur" (which is
+   * also spelt Midnapore and Midnapur, and shares a name with nothing else
    * nearby) for every other crawler that reads the page. Replace with the
    * exact office pin once the Business Profile is claimed.
    */

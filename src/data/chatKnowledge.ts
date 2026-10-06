@@ -218,8 +218,8 @@ export const ANSWERS: Answer[] = [
   // ── Company ─────────────────────────────────────────────────────
   {
     id: "area",
-    keys: ["area", "location", "where are you", "which city", "midnapur", "midnapore", "medinipur", "paschim", "kharagpur", "ghatal", "jhargram", "bengal", "india", "serve", "outside", "travel"],
-    text: "We are based in Midnapur, Paschim Midnapur, and work across the district — Kharagpur, Ghatal, Salboni, Debra, Belda and Jhargram — as well as taking projects elsewhere in West Bengal and across India. Site visits within Paschim Midnapur are free.",
+    keys: ["area", "location", "where are you", "which city", "medinipur", "midnapore", "medinipur", "paschim", "kharagpur", "ghatal", "jhargram", "bengal", "india", "serve", "outside", "travel"],
+    text: "We are based in Medinipur, Paschim Medinipur, and work across the district — Kharagpur, Ghatal, Salboni, Debra, Belda and Jhargram — as well as taking projects elsewhere in West Bengal and across India. Site visits within Paschim Medinipur are free.",
     next: ["Book a site visit", "What does it cost?"],
   },
   {
