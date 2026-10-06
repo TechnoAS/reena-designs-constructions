@@ -107,7 +107,7 @@ export const ROUTES: RouteSeo[] = [
     path: "/",
     title: "Construction & Interior Design in Medinipur | Reena Designs",
     description:
-      "Design-led house construction, architecture, interiors and renovation in Medinipur, Paschim Medinipur. 250+ projects, 30+ years, completion date in the contract.",
+      "Design-led house construction, architecture, interiors and renovation in Medinipur, Paschim Medinipur. 250+ projects, 30+ years, completion date in contract.",
     heading: "Your vision, Our creation",
     subheading: "Construction & Interior Design Company in Medinipur",
     crumbs: [HOME],
@@ -122,7 +122,7 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/about",
-    title: "About Us — Medinipur Builders Since the 1990s | Reena Designs",
+    title: "About Us: Medinipur Builders Since the 1990s | Reena Designs",
     description:
       "The architects, engineers and designers behind Reena Designs & Constructions: our story, values, certifications and the team building across Paschim Medinipur.",
     heading: "ABOUT US",
@@ -310,7 +310,7 @@ export const ROUTES: RouteSeo[] = [
   },
   {
     path: "/learn-from-us",
-    title: "AutoCAD, Revit & SketchUp Training, Medinipur | Reena Designs",
+    title: "AutoCAD, Revit & SketchUp Training Medinipur | Reena Designs",
     description:
       "Learn AutoCAD, Revit, SketchUp, Primavera P6, STAAD.Pro, ETABS, Lumion and V-Ray from working architects and engineers at our design studio in Medinipur.",
     heading: "LEARN FROM US",
