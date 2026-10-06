@@ -122,7 +122,7 @@ export const ANSWERS: Answer[] = [
   {
     id: "services",
     keys: ["service", "provide", "what do you do", "what do you offer", "disciplines", "speciali"],
-    text: "Eight disciplines, all in-house: building construction, architectural design, structural engineering, interior design, exterior design, renovation, remodelling and full turnkey delivery.",
+    text: "Civil construction, AutoCAD drawing, interior design, exterior design, materials & manpower and finishing works — a complete construction package under one roof, from drawing to final handover.",
     link: { label: "See all services", href: "/services" },
     next: ["What is turnkey?", "Do you do interiors?", "What does it cost?"],
   },

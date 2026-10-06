@@ -51,15 +51,14 @@ export default function CoreServices() {
   return (
     <section id="services" className="relative bg-surface pt-16 md:pt-20">
       {/* The homepage's display step. "Five core services", not "five
-          disciplines" — the firm delivers eight disciplines (see the Services
-          page); this strip shows the five a visitor is most likely to be
-          shopping for, and conflating the two numbers is what had the site
-          claiming five, eight and four in three different places. */}
+          disciplines" — the full list lives on the Services page; this strip
+          shows the five a visitor is most likely to be shopping for, so the
+          subtitle names no second number for the two to disagree on. */}
       <div className={`${SITE_CONTAINER} relative z-10 pb-10 md:pb-14`}>
         <SectionTitle
           level="display"
           title="OUR CORE SERVICES"
-          subtitle="Five core services drawn from the eight disciplines we run in-house — construction, architecture, interiors, renovation and turnkey delivery."
+          subtitle="Five core services from our complete construction package — construction, architecture, interiors, renovation and turnkey delivery."
           className=""
         />
       </div>

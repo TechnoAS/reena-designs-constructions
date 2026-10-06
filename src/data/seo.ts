@@ -50,58 +50,53 @@ export const SERVICE_AREAS = [
 export const SERVICE_AREA_NAMES = SERVICE_AREAS.map((a) => a.name)
 
 /**
- * The eight disciplines, in the wording used on /services.
+ * The services, in the wording used on /services, plus the complete package
+ * they add up to.
  *
  * Duplicated as data (rather than imported from the page) so the JSON-LD can
  * be built without pulling a route chunk into the entry bundle.
  */
 export const SERVICE_CATALOG = [
   {
-    name: "Residential Construction",
+    name: "Civil Construction",
     description:
-      "Independent houses, duplexes and apartment blocks built to approved drawings with certified TMT steel and graded cement at every stage.",
+      "Complete construction solutions for residential, commercial, government, and non-government projects.",
     slug: "/services",
   },
   {
-    name: "Commercial Construction",
+    name: "AutoCAD Drawing",
     description:
-      "Offices, showrooms, shops and retail shells delivered on commercial timelines with minimal disruption to trading.",
+      "Accurate and detailed AutoCAD drawings to support proper planning and execution.",
     slug: "/services",
-  },
-  {
-    name: "Architectural Design",
-    description:
-      "Site-responsive planning, 2D working drawings and sanction-ready municipal documentation prepared in-house by licensed architects.",
-    slug: "/services",
-  },
-  {
-    name: "Structural Engineering",
-    description:
-      "Load calculations, RCC detailing and seismic-compliant framing signed off by qualified structural engineers.",
-    slug: "/services",
-  },
-  {
-    name: "Renovation & Remodeling",
-    description:
-      "Structural retrofits, floor additions and full-property makeovers that modernise ageing buildings without touching their integrity.",
-    slug: "/our-work/renovation",
   },
   {
     name: "Interior Design",
     description:
-      "Residential and commercial interiors — modular kitchens, wardrobes, false ceilings, lighting and joinery resolved in 3D before execution.",
+      "Functional and aesthetic interior solutions designed to suit your space and requirements.",
     slug: "/our-work/interior/residential",
   },
   {
-    name: "Exterior Design & 3D Elevation",
+    name: "Exterior Design",
     description:
-      "Front elevations, facade treatments, 3D elevation rendering and landscaping that give the building its street presence.",
+      "Professional exterior design solutions that enhance the look and overall appeal of your property.",
     slug: "/our-work/3d-design",
   },
   {
-    name: "Turnkey Construction",
+    name: "Materials & Manpower",
     description:
-      "Design to handover under a single contract — one team, one timeline, one fixed cost, with the completion date written in.",
+      "Reliable construction materials and skilled manpower for smooth project execution.",
+    slug: "/services",
+  },
+  {
+    name: "Finishing Works",
+    description:
+      "Quality finishing services to bring every project together with attention to detail.",
+    slug: "/services",
+  },
+  {
+    name: "Complete Construction Solutions",
+    description:
+      "From drawing and planning to construction, interiors, exteriors, finishing, and final handover, we provide a complete package under one roof.",
     slug: "/services",
   },
 ] as const

@@ -7,7 +7,7 @@ import { SITE_CONTAINER } from "@/components/layout/constants"
 
 const DESTINATIONS = [
   { label: "Home", href: "/", Icon: Home, copy: "Back to the start" },
-  { label: "Services", href: "/services", Icon: Hammer, copy: "All eight disciplines" },
+  { label: "Services", href: "/services", Icon: Hammer, copy: "Everything we offer" },
   { label: "Our Work", href: "/our-work", Icon: Images, copy: "Completed projects" },
   { label: "Interiors", href: "/our-work/interior/residential", Icon: Sofa, copy: "Residential interiors" },
   { label: "Contact", href: "/contact", Icon: Phone, copy: "Talk to an engineer" },

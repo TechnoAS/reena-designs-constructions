@@ -16,7 +16,7 @@ export const FAQS: FaqItem[] = [
   },
   {
     q: "Do you handle municipal approvals and sanction drawings?",
-    a: "Yes. We prepare sanction-ready architectural and structural drawings and file them with the relevant municipality or panchayat on your behalf. It is step 7 of our documented process — you are not left queuing at a government office.",
+    a: "Yes, we do. We prepare sanction-ready architectural and structural drawings and file them with the relevant municipality or panchayat on your behalf. It is step 7 of our documented process — you are not left queuing at a government office.",
   },
   {
     q: "What areas do you serve?",

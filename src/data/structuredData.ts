@@ -64,7 +64,7 @@ const areaServed: Json[] = SERVICE_AREA_NAMES.map((name) => ({
   },
 }))
 
-/** The eight disciplines as an offer catalogue, so each is its own entity. */
+/** The services as an offer catalogue, so each is its own entity. */
 const hasOfferCatalog: Json = {
   "@type": "OfferCatalog",
   name: "Construction, Architecture & Interior Design Services",
