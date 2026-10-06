@@ -34,7 +34,7 @@ const SERVICES = [
   },
 ] as const
 
-/** The package the six services add up to, shown as a full-width row. */
+/** The package the six services add up to; spans two cells in the grid. */
 const COMPLETE_PACKAGE = {
   title: "Complete Construction Solutions",
   copy: "From drawing and planning to construction, interiors, exteriors, finishing, and final handover, we provide a complete package under one roof.",
@@ -144,9 +144,9 @@ export default function Services() {
         </div>
 
         {/* Full-bleed, divided by hairline seams rather than boxed into cards —
-            the same ledger the About page uses. Six services fill two rows of
-            three; the complete package closes the ledger as a full-width row. */}
-        <div className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-3">
+            the same ledger the About page uses. Four to a row; the complete
+            package spans the last two cells so the second row closes flush. */}
+        <div className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map(({ title, copy }) => (
             <article key={title} className="group flex flex-col gap-3.5 bg-surface p-7 lg:p-8">
               <span
@@ -157,7 +157,7 @@ export default function Services() {
               <p className="text-[13px] leading-relaxed text-slate-500">{copy}</p>
             </article>
           ))}
-          <article className="group col-span-full flex flex-col gap-3.5 bg-surface p-7 lg:p-8">
+          <article className="group flex flex-col gap-3.5 bg-surface p-7 sm:col-span-2 lg:p-8">
             <span
               className="h-0.5 w-9 flex-none rounded-full bg-brand transition-all duration-500 group-hover:w-14"
               aria-hidden="true"
