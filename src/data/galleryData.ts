@@ -140,22 +140,3 @@ export const renoImgs: GalleryImage[] = [
     "Refitted open-plan office after a commercial renovation — commercial remodelling, Kharagpur",
   ),
 ]
-
-export const beforeAfterImgs: GalleryImage[] = [
-  img(
-    "photo-1523413651479-597eb2da0ad6",
-    "Bare interior before work began, showing the original walls and openings — renovation before photograph, Medinipur",
-  ),
-  img(
-    "photo-1556909212-d5b604d0c90d",
-    "The same room finished, with new joinery, flooring and a fitted lighting layer — renovation after photograph, Medinipur",
-  ),
-  img(
-    "photo-1416339306562-f3d12fefd36f",
-    "Tired living room ahead of a full makeover, with dated finishes throughout — home makeover before, West Bengal",
-  ),
-  img(
-    "photo-1556911220-bff31c812dba",
-    "The completed living room after remodelling, with a new ceiling, panelling and furniture layout — home makeover after, West Bengal",
-  ),
-]

@@ -12,8 +12,6 @@ import {
 import {
   FacebookIcon,
   InstagramIcon,
-  LinkedinIcon,
-  YoutubeIcon,
   WhatsAppIcon,
   CHANNEL_COLORS,
 } from "@/components/ui/SocialIcons"
@@ -63,9 +61,8 @@ const EXPLORE_LINKS = [
   ["About Us", "/about"],
   ["Services", "/services"],
   ["What's Included", "/whats-included"],
-  ["Learn From Us", "/learn-from-us"],
+  ["Learn With Us", "/learn-from-us"],
   ["Our Work", "/our-work"],
-  ["Before & After", "/our-work/before-after"],
   ["Testimonials", "/our-work/testimonials"],
   ["FAQ", "/faq"],
   ["Careers", "/careers"],
@@ -84,8 +81,6 @@ const SERVICE_LINKS = [
 const SOCIAL_LIST = [
   { label: "Facebook", href: "https://www.facebook.com/share/19WNR4c5Ru/", Icon: FacebookIcon, colour: CHANNEL_COLORS.Facebook },
   { label: "Instagram", href: "https://www.instagram.com/reenadesignconstruction?stkn=OGF0cnQ1eW1lenZ2", Icon: InstagramIcon, colour: CHANNEL_COLORS.Instagram },
-  { label: "LinkedIn", href: "https://linkedin.com/company/reena-designs-constructions", Icon: LinkedinIcon, colour: CHANNEL_COLORS.LinkedIn },
-  { label: "YouTube", href: "https://youtube.com/@reenadesigns", Icon: YoutubeIcon, colour: CHANNEL_COLORS.YouTube },
   { label: "WhatsApp", href: SITE.whatsappHref, Icon: WhatsAppIcon, colour: CHANNEL_COLORS.WhatsApp },
 ]
 

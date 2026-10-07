@@ -31,63 +31,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://reenabuild.com/our-work/projects/successful</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1567943183748-3a7542120c90?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1783705094622-f2c01a9787b5?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1760246964044-1384f71665b9?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1706164971309-fb4785fe6ceb?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1646987916641-1f3c8992daa2?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://reenabuild.com/our-work/projects/ongoing</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1783705094622-f2c01a9787b5?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1760246964044-1384f71665b9?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1706164971309-fb4785fe6ceb?w=640&amp;h=480&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-  </url>
-  <url>
     <loc>https://reenabuild.com/our-work/interior/residential</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
@@ -181,24 +124,6 @@
     </image:image>
     <image:image>
       <image:loc>https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&amp;h=340&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://reenabuild.com/our-work/before-after</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?w=500&amp;h=340&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=500&amp;h=340&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=500&amp;h=340&amp;fit=crop&amp;auto=format</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1556911220-bff31c812dba?w=500&amp;h=340&amp;fit=crop&amp;auto=format</image:loc>
     </image:image>
   </url>
   <url>

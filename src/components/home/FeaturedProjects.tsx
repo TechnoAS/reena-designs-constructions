@@ -20,10 +20,10 @@ const PROJECTS = [
 ]
 
 const PROJECT_LINKS: Record<string, string> = {
-  "Residential Construction": "/our-work/projects/successful",
+  "Residential Construction": "/our-work",
   "Architecture & Interiors": "/our-work/interior/residential",
   "Commercial Fit-out": "/our-work/interior/commercial",
-  "Turnkey Delivery": "/our-work/projects/successful",
+  "Turnkey Delivery": "/our-work",
   "Renovation": "/our-work/renovation",
 }
 
@@ -178,7 +178,7 @@ export default function FeaturedProjects() {
 
         {PROJECTS.map((p, i) => {
           const isActive = i === active
-          const projectUrl = PROJECT_LINKS[p.type] || "/our-work/projects/successful"
+          const projectUrl = PROJECT_LINKS[p.type] || "/our-work"
 
           return (
             <div

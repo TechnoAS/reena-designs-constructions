@@ -159,16 +159,6 @@ export const PAGE_KEYWORDS: Record<string, string[]> = {
     "house design gallery Midnapore",
     "interior design portfolio Medinipur",
   ],
-  "/our-work/projects/successful": [
-    "completed construction projects Medinipur",
-    "finished house construction Paschim Medinipur",
-    "delivered building projects West Bengal",
-  ],
-  "/our-work/projects/ongoing": [
-    "ongoing construction projects Medinipur",
-    "current building sites Paschim Medinipur",
-    "live construction projects West Bengal",
-  ],
   "/our-work/interior/residential": [
     "residential interior designer in Medinipur",
     "home interior design Paschim Medinipur",
@@ -209,11 +199,6 @@ export const PAGE_KEYWORDS: Record<string, string[]> = {
     "house remodeling West Bengal",
     "building renovation Paschim Medinipur",
     "old house renovation cost India",
-  ],
-  "/our-work/before-after": [
-    "house renovation before and after West Bengal",
-    "home makeover Medinipur",
-    "renovation transformation Medinipur",
   ],
   "/our-work/testimonials": [
     "Reena Designs & Constructions reviews",

@@ -5,7 +5,6 @@ import CountUp from "@/components/ui/CountUp"
 const stats = [
   { num: "250+", label: "Projects delivered", sub: "Across Paschim Medinipur & India" },
   { num: "30+", label: "Years of experience", sub: "A legacy since the 1990s" },
-  { num: "200+", label: "Happy clients", sub: "Residential, commercial and renovation" },
   { num: "100%", label: "Quality assurance", sub: "Engineer-supervised, ISI-grade material" },
 ]
 
@@ -35,9 +34,9 @@ export default function WhyChooseUs() {
             figures sat in a 2×2 block with no gutter and no rule, touching.
             The gap now runs until the dividers take over, which is also where
             the cell padding (`lg:px-7`) arrives to hold the type off them. */}
-        <div className="mt-8 grid grid-cols-2 gap-6 divide-slate-200/80 lg:grid-cols-4 lg:gap-0 lg:divide-x">
+        <div className="mt-8 grid grid-cols-1 gap-6 divide-slate-200/80 sm:grid-cols-3 sm:gap-0 sm:divide-x">
           {stats.map(({ num, label, sub }) => (
-            <div key={label} className="lg:first:pl-0 lg:px-7">
+            <div key={label} className="sm:first:pl-0 sm:px-7">
               <div className="mb-2">
                 <span className="montserrat font-700 text-[11px] tracking-wider uppercase text-slate-600">
                   {label}

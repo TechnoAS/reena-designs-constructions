@@ -27,7 +27,7 @@ export const ANSWERS: Answer[] = [
     id: "greeting",
     keys: ["hi", "hii", "hey", "hello", "helo", "namaste", "namaskar", "good morning", "good afternoon", "good evening", "yo", "hola"],
     text: "Hello! 👋 Welcome to Reena Designs & Constructions. I can help with costs, timelines, services, materials or booking a site visit. What would you like to know?",
-    next: ["What does it cost?", "How long does it take?", "What services do you offer?"],
+    next: ["What does it cost?", "What services do you offer?"],
     instant: true,
   },
   {
@@ -56,7 +56,7 @@ export const ANSWERS: Answer[] = [
     keys: ["who are you", "what are you", "your name", "are you a bot", "are you human", "robot"],
     text: "I am Reena's virtual assistant — a small helper on this site, not a human. 🤖 I can answer common questions instantly; for anything detailed, our engineers will take over.",
     link: CONTACT,
-    next: ["What services do you offer?", "How long does it take?"],
+    next: ["What services do you offer?"],
     instant: true,
   },
   {
@@ -70,7 +70,7 @@ export const ANSWERS: Answer[] = [
     id: "praise",
     keys: ["nice", "great", "awesome", "good work", "beautiful", "love it", "impressive", "wow"],
     text: "That is very kind — thank you! 😊 Our team will be glad to hear it. Would you like to see more of our completed work?",
-    link: { label: "View our projects", href: "/our-work/projects/successful" },
+    link: { label: "View our projects", href: "/our-work" },
     instant: true,
   },
 
@@ -87,7 +87,7 @@ export const ANSWERS: Answer[] = [
     keys: ["included", "inclusion", "what do i get", "cover", "scope", "exclusions"],
     text: "A turnkey quote covers design and drawings, sanction support, structure, masonry, plumbing, electrical, flooring, painting and finishing. Interiors and loose furniture are quoted separately so you can see exactly what each part costs.",
     link: { label: "See our services", href: "/services" },
-    next: ["What does it cost?", "How long does it take?"],
+    next: ["What does it cost?"],
   },
   {
     id: "payment",
@@ -97,25 +97,18 @@ export const ANSWERS: Answer[] = [
     next: ["What does it cost?", "What is included in the quote?"],
   },
 
-  // ── Timeline ────────────────────────────────────────────────────
-  {
-    id: "timeline",
-    keys: ["how long", "time", "duration", "deadline", "schedule", "when will", "months", "fast", "quick", "handover date"],
-    text: "A typical independent home runs 10–14 months from sanction to handover; interiors alone take 6–10 weeks. Your completion date is written into the contract — 250+ projects have been handed over on that basis.",
-    next: ["What if you are late?", "What is your work process?", "Book a site visit"],
-  },
   {
     id: "delay",
     keys: ["late", "delay", "overrun", "penalty", "miss the date", "behind schedule"],
     text: "Delays are the main worry people bring us, so we put the date in writing and report progress weekly with site photographs. If something outside our control does shift the programme, you hear it from us early — not at the end.",
-    next: ["How long does it take?", "How do you supervise sites?"],
+    next: ["How do you supervise sites?"],
   },
   {
     id: "process",
     keys: ["process", "step", "procedure", "how do you work", "stages", "workflow", "phases"],
     text: "We follow a documented 19-step sequence across four phases: Design & Approval, Sanction & Costing, Construction, then Finish & Handover. You always know exactly which step your build is on.",
     link: { label: "See the full process", href: "/services" },
-    next: ["Do you handle approvals?", "How long does it take?"],
+    next: ["Do you handle approvals?"],
   },
 
   // ── Services ────────────────────────────────────────────────────
@@ -131,7 +124,7 @@ export const ANSWERS: Answer[] = [
     keys: ["turnkey", "end to end", "single contract", "one contract", "complete package"],
     text: "Turnkey means one contract from drawing board to keys — one team, one timeline, one fixed cost. You are not left coordinating an architect, a contractor and five vendors who each blame the others.",
     link: { label: "Turnkey delivery", href: "/services" },
-    next: ["What does it cost?", "How long does it take?"],
+    next: ["What does it cost?"],
   },
   {
     id: "interior",
@@ -145,14 +138,14 @@ export const ANSWERS: Answer[] = [
     keys: ["commercial", "office", "shop", "showroom", "retail", "restaurant", "warehouse", "factory", "business"],
     text: "Yes — offices, showrooms, retail and commercial shells. We work around trading hours where needed; one Kharagpur office fit-out was completed without losing a single working day for the client.",
     link: { label: "Commercial interiors", href: "/our-work/interior/commercial" },
-    next: ["How long does it take?", "What does it cost?"],
+    next: ["What does it cost?"],
   },
   {
     id: "renovation",
     keys: ["renovation", "renovate", "remodel", "repair", "old house", "retrofit", "restore", "makeover", "extension"],
     text: "A core service. We assess the existing frame first and tell you honestly what can be kept and what must be rebuilt — no pretending a tired structure is sound just to win the job.",
     link: { label: "Renovation projects", href: "/our-work/renovation" },
-    next: ["What does it cost?", "How long does it take?"],
+    next: ["What does it cost?"],
   },
   {
     id: "architecture",
@@ -166,7 +159,7 @@ export const ANSWERS: Answer[] = [
     keys: ["build a house", "want to build", "new house", "construct", "duplex", "bungalow", "villa", "g+", "storey", "floors", "apartment", "flat"],
     text: "Wonderful — that is exactly what we do. 🏠 Send us your plot dimensions and rough requirements, and we will come back with a concept, a realistic timeline and an itemised cost.",
     link: QUOTE,
-    next: ["What does it cost?", "How long does it take?", "Do you handle approvals?"],
+    next: ["What does it cost?", "Do you handle approvals?"],
   },
 
   // ── Technical ───────────────────────────────────────────────────
@@ -175,7 +168,7 @@ export const ANSWERS: Answer[] = [
     keys: ["approval", "sanction", "permission", "govt", "government", "municipal", "corporation", "legal", "licence", "license", "noc"],
     text: "We prepare sanction-ready drawings and handle the municipal approval process for you — step 7 of our 19-step sequence. You are not left queuing at the corporation office.",
     link: { label: "See our process", href: "/services" },
-    next: ["How long does it take?", "What is your work process?"],
+    next: ["What is your work process?"],
   },
   {
     id: "materials",
@@ -232,7 +225,7 @@ export const ANSWERS: Answer[] = [
   {
     id: "portfolio",
     keys: ["portfolio", "see your work", "previous", "past project", "gallery", "photos", "examples", "sample", "reference"],
-    text: "Of course — our gallery covers completed and ongoing projects, residential and commercial interiors, exteriors, architecture and before-and-after renovations.",
+    text: "Of course — our gallery covers residential and commercial interiors, exteriors and architecture.",
     link: { label: "Browse our work", href: "/our-work" },
     next: ["Do you do interiors?", "Read testimonials"],
   },
@@ -275,7 +268,6 @@ export const FALLBACK: Answer = {
 
 export const OPENING_CHIPS = [
   "What does it cost?",
-  "How long does it take?",
   "What services do you offer?",
   "Book a site visit",
 ]

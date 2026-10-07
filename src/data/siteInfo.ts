@@ -98,8 +98,6 @@ export const SITE = {
 export const SOCIAL_LINKS: { label: string; url: string }[] = [
   { label: "Facebook", url: "https://www.facebook.com/share/19WNR4c5Ru/" },
   { label: "Instagram", url: "https://www.instagram.com/reenadesignconstruction?stkn=OGF0cnQ1eW1lenZ2" },
-  { label: "LinkedIn", url: "https://linkedin.com/company/reena-designs-constructions" },
-  { label: "YouTube", url: "https://youtube.com/@reenadesigns" },
 ]
 
 /** Only the profiles that have actually been published. */

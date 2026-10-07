@@ -10,7 +10,6 @@
   RewriteBase /
 
   # Redirect-only paths get a real 301, so the indexed URL is the destination.
-  RewriteRule ^our-work/projects/?$ /our-work/projects/successful [R=301,L]
   RewriteRule ^our-work/interior/?$ /our-work/interior/residential [R=301,L]
 
   # One URL per page: /services/ is 301'd to /services, the form the canonical

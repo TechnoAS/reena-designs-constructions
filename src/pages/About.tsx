@@ -19,10 +19,10 @@ import draftingTable from "@/imports/about-drafting-table.jpg"
  * src/imports and set `img` to use it.
  */
 const team: { name: string; role: string; img?: string }[] = [
-  { name: "Rajesh Kumar", role: "Chief Architect" },
-  { name: "Priya Sharma", role: "Interior Designer" },
-  { name: "Amit Singh", role: "Project Manager" },
-  { name: "Sunita Patel", role: "Structural Engineer" },
+  { name: "Annyesha Ghosh", role: "Interior Designer, Project Manager" },
+  { name: "Subhadip Batabyal", role: "" },
+  { name: "Aindrila Dutta", role: "" },
+  { name: "Bidipta Pal", role: "" },
 ]
 
 const initials = (name: string) =>
@@ -60,25 +60,6 @@ const whyUs = [
   "Customer satisfaction is our priority",
   "Transparent communication",
 ]
-
-const CERTIFICATIONS = [
-  {
-    name: "ISO 9001:2015 Certified",
-    copy: "Our quality management system is independently audited every year.",
-  },
-  {
-    name: "IGBC Green Buildings",
-    copy: "Accredited to design and deliver green-rated, energy-efficient buildings.",
-  },
-  {
-    name: "BIS Certified",
-    copy: "Structural steel and cement conform to Bureau of Indian Standards grades.",
-  },
-  {
-    name: "CIDC Registered",
-    copy: "Registered with the Construction Industry Development Council of India.",
-  },
-] as const
 
 const PAGE = routeSeo("/about")
 
@@ -281,7 +262,7 @@ export default function About() {
                   {member.img ? (
                     <img
                       src={member.img}
-                      alt={`${member.name}, ${member.role}`}
+                      alt={member.role ? `${member.name}, ${member.role}` : member.name}
                       width={280}
                       height={280}
                       loading="lazy"
@@ -297,30 +278,7 @@ export default function About() {
                   )}
                 </div>
                 <div className="montserrat font-700 text-sm text-navy">{member.name}</div>
-                <div className="mt-1 text-xs text-brand-ink">{member.role}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Certifications ────────────────────────────────────────── */}
-      <section className="border-t border-hairline bg-surface py-14 lg:py-16">
-        <div className={SITE_CONTAINER}>
-          <SectionTitle title="CERTIFICATIONS" align="left" className="mb-8" />
-
-          <div className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-4">
-            {CERTIFICATIONS.map(({ name, copy }) => (
-              <div
-                key={name}
-                className="group flex flex-col gap-3.5 bg-white p-7 transition-colors duration-300 hover:bg-slate-50/80 lg:p-8"
-              >
-                <span
-                  className="h-0.5 w-9 flex-none rounded-full bg-brand transition-all duration-500 group-hover:w-14"
-                  aria-hidden="true"
-                />
-                <h3 className="montserrat font-800 text-[15px] leading-snug text-navy">{name}</h3>
-                <p className="text-[13px] leading-relaxed text-slate-500">{copy}</p>
+                {member.role && <div className="mt-1 text-xs text-brand-ink">{member.role}</div>}
               </div>
             ))}
           </div>

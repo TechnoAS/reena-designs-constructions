@@ -9,7 +9,6 @@ import {
   archImgs,
   d3Imgs,
   renoImgs,
-  beforeAfterImgs,
 } from "./data/galleryData"
 
 /**
@@ -25,8 +24,6 @@ const About = lazy(() => import("./pages/About"))
 const Services = lazy(() => import("./pages/Services"))
 const WhatsIncluded = lazy(() => import("./pages/WhatsIncluded"))
 const OurWork = lazy(() => import("./pages/OurWork"))
-const ProjectsSuccessful = lazy(() => import("./pages/ProjectsSuccessful"))
-const ProjectsOngoing = lazy(() => import("./pages/ProjectsOngoing"))
 const InteriorResidential = lazy(() => import("./pages/InteriorResidential"))
 const InteriorCommercial = lazy(() => import("./pages/InteriorCommercial"))
 const TestimonialsPage = lazy(() => import("./pages/TestimonialsPage"))
@@ -95,12 +92,6 @@ const GALLERIES = [
     intro:
       "Home renovation, structural retrofits, floor additions and full-property remodelling across Medinipur and the surrounding district — modernising ageing buildings without compromising the structure holding them up.",
   },
-  {
-    path: "/our-work/before-after",
-    images: beforeAfterImgs,
-    intro:
-      "The same property either side of the work. Renovation and interior makeovers in Medinipur, Kharagpur and Paschim Medinipur, photographed on the day we arrived and on the day we handed the keys back.",
-  },
 ]
 
 export default function App() {
@@ -116,9 +107,6 @@ export default function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/whats-included" element={<WhatsIncluded />} />
           <Route path="/our-work" element={<OurWork />} />
-          <Route path="/our-work/projects" element={<Navigate to="/our-work/projects/successful" replace />} />
-          <Route path="/our-work/projects/successful" element={<ProjectsSuccessful />} />
-          <Route path="/our-work/projects/ongoing" element={<ProjectsOngoing />} />
           <Route path="/our-work/interior" element={<Navigate to="/our-work/interior/residential" replace />} />
           <Route path="/our-work/interior/residential" element={<InteriorResidential />} />
           <Route path="/our-work/interior/commercial" element={<InteriorCommercial />} />

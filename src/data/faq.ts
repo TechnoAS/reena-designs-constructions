@@ -8,11 +8,7 @@ export type FaqItem = { q: string; a: string }
 export const FAQS: FaqItem[] = [
   {
     q: "How much does it cost to build a house in Medinipur?",
-    a: "Cost depends on built-up area, structural specification and finish level, so we do not quote a blanket per-square-foot rate. After a free site visit we issue a fully itemised quotation naming every material grade, and that figure is fixed for the duration of the contract — no revised estimates halfway through the build.",
-  },
-  {
-    q: "How long does a project take from start to handover?",
-    a: "A typical independent home runs 10 to 14 months from sanction to handover. Interior fit-outs alone take 6 to 10 weeks. Your completion date is written into the contract, and we report progress weekly with site photographs so you always know which of the 19 steps your build is on.",
+    a: "Starting from ₹1,900 per sq. ft.",
   },
   {
     q: "Do you handle municipal approvals and sanction drawings?",
@@ -37,10 +33,6 @@ export const FAQS: FaqItem[] = [
   {
     q: "Do you renovate existing buildings?",
     a: "Yes, including structural retrofits and full-property makeovers. We assess the existing frame first and tell you honestly what can be retained and what must be rebuilt — we will not pretend a tired structure is sound simply to win the work.",
-  },
-  {
-    q: "What happens if the project runs late?",
-    a: "The handover date goes into the contract, and progress is reported weekly so slippage is visible early rather than at the end. If something genuinely outside our control shifts the programme, you hear it from us as soon as we know, with a revised plan.",
   },
   {
     q: "Is there a warranty after handover?",

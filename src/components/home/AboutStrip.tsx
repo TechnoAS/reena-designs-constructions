@@ -63,20 +63,25 @@ export default function AboutStrip() {
             level="display"
             align="left"
             eyebrow="About Reena Designs & Constructions"
-            title="India's top trusted Construction and Design Company"
+            title="Top trusted Construction and Design Company"
             className="mb-0"
           />
           <div className="mt-3.5 h-0.5 w-16 rounded-full bg-brand" />
 
           <div className="mt-6 space-y-3 text-sm leading-relaxed text-slate-600 sm:text-[15px]">
             <p>
-              We are a full-service construction company based in Medinipur, Paschim Medinipur,
-              delivering turnkey building construction, architectural design, interior fit-outs
-              and renovation across India under one contract.
+              At Reena Design and Construction, we handle projects from initial planning to final
+              handover, combining construction, design, materials, and skilled manpower in one
+              complete solution.
             </p>
             <p>
-              Over 30 years and 250+ completed projects, we have built a practice around a simple
-              promise: <strong className="font-700 text-navy">the drawing you approve is the building you receive</strong> — on the date we committed to.
+              Our work includes civil construction, AutoCAD drawings, interior and exterior
+              design, finishing works, material management, and project execution.
+            </p>
+            <p>
+              We focus on delivering every project with quality workmanship, attention to detail,
+              and smooth execution—turning plans and designs into completed spaces that are ready
+              to use.
             </p>
           </div>
 

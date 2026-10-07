@@ -40,7 +40,7 @@ const ROLES = [
   },
   {
     title: "Trainee / Apprentice",
-    copy: "For recent graduates and AutoCAD trainees — see our course on the Learn From Us page.",
+    copy: "For recent graduates and AutoCAD trainees — see our course on the Learn With Us page.",
   },
 ] as const
 

@@ -123,31 +123,13 @@ const PAGES: Entry[] = [
     keys: ["3d", "render", "rendering", "elevation", "visualisation", "visualization", "front design"],
   },
   {
-    label: "Before & After Gallery",
-    href: "/our-work/before-after",
-    kind: "Gallery",
-    keys: ["before after", "before and after", "transformation", "makeover photos"],
-  },
-  {
-    label: "Completed Projects",
-    href: "/our-work/projects/successful",
-    kind: "Work",
-    keys: ["projects", "completed", "successful", "portfolio", "work", "done", "delivered", "handover"],
-  },
-  {
-    label: "Ongoing Projects",
-    href: "/our-work/projects/ongoing",
-    kind: "Work",
-    keys: ["ongoing", "current", "in progress", "live site", "under construction"],
-  },
-  {
     label: "Client Testimonials",
     href: "/our-work/testimonials",
     kind: "Trust",
     keys: ["testimonial", "testimonials", "review", "reviews", "client", "rating", "feedback", "what clients say"],
   },
   {
-    label: "Learn From Us",
+    label: "Learn With Us",
     href: "/learn-from-us",
     kind: "Training",
     keys: [
@@ -172,7 +154,7 @@ const PAGES: Entry[] = [
     label: "About Us",
     href: "/about",
     kind: "Company",
-    keys: ["about", "who", "who we are", "team", "company", "experience", "years", "certification", "certifications", "iso", "story", "values"],
+    keys: ["about", "who", "who we are", "team", "company", "experience", "years", "iso", "story", "values"],
   },
   {
     label: "Privacy Policy",

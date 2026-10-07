@@ -7,7 +7,6 @@ import AboutStrip from "@/components/home/AboutStrip"
 import CoreServices from "@/components/home/CoreServices"
 import FeaturedProjects from "@/components/home/FeaturedProjects"
 import WhyChooseUs from "@/components/home/WhyChooseUs"
-import Testimonials from "@/components/home/Testimonials"
 import ServiceAreas from "@/components/ui/ServiceAreas"
 import Reveal from "@/components/ui/Reveal"
 
@@ -31,7 +30,6 @@ export default function Home() {
         <Reveal><FeaturedProjects /></Reveal>
         <Reveal><WhyChooseUs /></Reveal>
         <Reveal><ServiceAreas /></Reveal>
-        <Reveal><Testimonials /></Reveal>
       </main>
       <Footer
         cta={{

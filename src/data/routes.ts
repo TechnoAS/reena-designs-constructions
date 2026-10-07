@@ -28,8 +28,7 @@
  */
 import { SITE } from "./siteInfo"
 import { FAQS } from "./faq"
-import { SUCCESSFUL_PROJECTS, ONGOING_PROJECTS } from "./projects"
-import { exteriorImgs, archImgs, d3Imgs, renoImgs, beforeAfterImgs, type GalleryImage } from "./galleryData"
+import { exteriorImgs, archImgs, d3Imgs, renoImgs, type GalleryImage } from "./galleryData"
 import {
   type Json,
   breadcrumbSchema,
@@ -38,7 +37,6 @@ import {
   localBusinessSchema,
   organizationSchema,
   pageGraph,
-  projectListSchema,
   serviceAreaSchema,
   serviceCatalogSchema,
   serviceSchema,
@@ -124,7 +122,7 @@ export const ROUTES: RouteSeo[] = [
     path: "/about",
     title: "About Us — Medinipur Builders Since the 1990s | Reena Designs",
     description:
-      "The architects, engineers and designers behind Reena Designs & Constructions: our story, values, certifications and the team building across Paschim Medinipur.",
+      "The architects, engineers and designers behind Reena Designs & Constructions: our story, values and the team building across Paschim Medinipur.",
     heading: "ABOUT US",
     subheading: "Architects, engineers & builders in Paschim Medinipur since the 1990s",
     crumbs: [HOME, { label: "About Us" }],
@@ -171,36 +169,6 @@ export const ROUTES: RouteSeo[] = [
     sources: ["src/pages/OurWork.tsx"],
     changefreq: "monthly",
     priority: "0.8",
-  },
-  {
-    path: "/our-work/projects/successful",
-    title: "Completed Construction Projects, Medinipur | Reena Designs",
-    description:
-      "Completed homes, commercial buildings, interiors and renovations in Medinipur, Kharagpur, Ghatal, Belda and Jhargram — each handed over on the contracted date.",
-    heading: "SUCCESSFUL PROJECTS",
-    subheading: "Completed construction projects across Paschim Medinipur",
-    crumbs: [HOME, OUR_WORK, { label: "Projects" }, { label: "Successful Projects" }],
-    pageType: "CollectionPage",
-    schema: (r) => [projectListSchema(r.path, "Completed construction projects", SUCCESSFUL_PROJECTS)],
-    images: SUCCESSFUL_PROJECTS.map((p) => ({ src: p.img, alt: `${p.name}, ${p.location}` })),
-    sources: ["src/pages/ProjectsSuccessful.tsx", "src/data/projects.ts"],
-    changefreq: "monthly",
-    priority: "0.8",
-  },
-  {
-    path: "/our-work/projects/ongoing",
-    title: "Ongoing Construction Projects, Medinipur | Reena Designs",
-    description:
-      "Live construction sites in Medinipur, Kharagpur, Ghatal and Salboni, with build progress and the expected handover date for each project under way.",
-    heading: "ONGOING PROJECTS",
-    subheading: "Live construction sites across Paschim Medinipur",
-    crumbs: [HOME, OUR_WORK, { label: "Projects" }, { label: "Ongoing Projects" }],
-    pageType: "CollectionPage",
-    schema: (r) => [projectListSchema(r.path, "Ongoing construction projects", ONGOING_PROJECTS)],
-    images: ONGOING_PROJECTS.map((p) => ({ src: p.img, alt: `${p.name}, ${p.location}` })),
-    sources: ["src/pages/ProjectsOngoing.tsx", "src/data/projects.ts"],
-    changefreq: "weekly",
-    priority: "0.7",
   },
   {
     path: "/our-work/interior/residential",
@@ -285,16 +253,6 @@ export const ROUTES: RouteSeo[] = [
     "Home renovation, structural retrofits, floor additions and full remodelling across Medinipur — modernising older buildings without weakening the structure.",
     renoImgs,
   ),
-  gallery(
-    "/our-work/before-after",
-    "BEFORE & AFTER GALLERY",
-    "Before & After Gallery",
-    "Before and after gallery",
-    "Renovation Before & After, Medinipur | Reena Designs",
-    "Renovation & interior makeovers in Paschim Medinipur",
-    "The same property either side of the work: renovation and interior makeovers in Medinipur, Kharagpur and Paschim Medinipur, from first visit to handover.",
-    beforeAfterImgs,
-  ),
 
   {
     path: "/our-work/testimonials",
@@ -313,9 +271,9 @@ export const ROUTES: RouteSeo[] = [
     title: "AutoCAD, Revit & SketchUp Training, Medinipur | Reena Designs",
     description:
       "Learn AutoCAD, Revit, SketchUp, Primavera P6, STAAD.Pro, ETABS, Lumion and V-Ray from working architects and engineers at our design studio in Medinipur.",
-    heading: "LEARN FROM US",
+    heading: "LEARN WITH US",
     subheading: "AutoCAD, Revit & design software training in Medinipur",
-    crumbs: [HOME, { label: "Learn From Us" }],
+    crumbs: [HOME, { label: "Learn With Us" }],
     sources: ["src/pages/LearnFromUs.tsx", "src/data/courses.ts"],
     changefreq: "monthly",
     priority: "0.5",

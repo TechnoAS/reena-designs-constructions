@@ -4,7 +4,7 @@ import csiEtabs from "@/imports/tools/csi-etabs.png"
 import bentleyStaad from "@/imports/tools/bentley-staad.svg"
 
 /**
- * Software marks for the Learn From Us courses.
+ * Software marks for the Learn With Us courses.
  *
  * Every tile is the software's official mark, used only to name the tool a
  * course teaches:

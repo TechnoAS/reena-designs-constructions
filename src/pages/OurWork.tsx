@@ -11,7 +11,6 @@ import {
   archImgs,
   d3Imgs,
   renoImgs,
-  beforeAfterImgs,
 } from "@/data/galleryData"
 import pressMics from "@/imports/testimonials-press-mics.jpg"
 
@@ -25,12 +24,6 @@ import pressMics from "@/imports/testimonials-press-mics.jpg"
  * cover cannot drift apart.
  */
 const GALLERIES = [
-  {
-    label: "Projects",
-    blurb: "Completed and ongoing builds across the district.",
-    href: "/our-work/projects/successful",
-    img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&h=520&fit=crop&auto=format",
-  },
   {
     label: "Interior Design",
     blurb: "Residential and commercial fit-outs, room by room.",
@@ -60,12 +53,6 @@ const GALLERIES = [
     blurb: "Retrofits and full-property makeovers.",
     href: "/our-work/renovation",
     img: renoImgs[0].src,
-  },
-  {
-    label: "Before & After",
-    blurb: "The same property, either side of the work.",
-    href: "/our-work/before-after",
-    img: beforeAfterImgs[0].src,
   },
   {
     label: "Client Testimonials",

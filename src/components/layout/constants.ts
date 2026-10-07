@@ -30,18 +30,11 @@ export const NAV_LINKS: readonly NavLink[] = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "What's Included", href: "/whats-included" },
-  { label: "Learn from us", href: "/learn-from-us" },
+  { label: "Learn with us", href: "/learn-from-us" },
   {
     label: "Our Work",
     href: "/our-work",
     dropdown: [
-      {
-        label: "Projects",
-        children: [
-          { label: "Successful Projects", href: "/our-work/projects/successful" },
-          { label: "Ongoing Projects", href: "/our-work/projects/ongoing" },
-        ],
-      },
       {
         label: "Interior Design",
         children: [
@@ -53,7 +46,6 @@ export const NAV_LINKS: readonly NavLink[] = [
       { label: "Architecture Gallery", href: "/our-work/architecture" },
       { label: "3D Design & Elevation", href: "/our-work/3d-design" },
       { label: "Renovation Projects", href: "/our-work/renovation" },
-      { label: "Before & After Gallery", href: "/our-work/before-after" },
       { label: "Client Testimonials", href: "/our-work/testimonials" },
     ],
   },
