@@ -4,7 +4,9 @@ import { SITE_CONTAINER } from "@/components/layout/constants"
 import SectionTitle from "@/components/ui/SectionTitle"
 import draftingTable from "@/imports/about-drafting-table.jpg"
 
-const stock = (id: string) => `https://images.unsplash.com/${id}?w=800&h=1000&fit=crop&auto=format`
+import interiorImg from "@/imports/interior-living-kitchen-warm.jpg"
+
+const stock = (id: string) => `/stock/${id}-800x1000.jpg`
 
 const SERVICES = [
   {
@@ -25,8 +27,8 @@ const SERVICES = [
     title: "Interior Design",
     href: "/our-work/interior/residential",
     copy: "Bespoke residential and workspace interiors, detailed down to the joinery, lighting layer and material palette.",
-    img: stock("photo-1586023492125-27b2c045efd7"),
-    imgAlt: "Styled living room with accent chair and floor lamp",
+    img: interiorImg,
+    imgAlt: "Open-plan living room and kitchen with fluted timber wall and warm lighting",
   },
   {
     title: "Renovation & Remodeling",

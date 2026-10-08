@@ -93,7 +93,7 @@ function gallery(
     crumbs: [HOME, OUR_WORK, { label: crumb }],
     pageType: "CollectionPage",
     images,
-    schema: (r) => [imageGallerySchema(r.path, name, r.description, [...images])],
+    schema: (r) => (images.length ? [imageGallerySchema(r.path, name, r.description, [...images])] : []),
     sources: GALLERY_SOURCES,
     changefreq: "monthly",
     priority: "0.6",
@@ -107,7 +107,7 @@ export const ROUTES: RouteSeo[] = [
     description:
       "Design-led house construction, architecture, interiors and renovation in Medinipur, Paschim Medinipur. 250+ projects, 30+ years, completion date in contract.",
     heading: "Your vision, Our creation",
-    subheading: "Construction & Interior Design Company in Medinipur",
+    subheading: "Construction & Interior Design Company",
     crumbs: [HOME],
     schema: (r) => [
       localBusinessSchema(),

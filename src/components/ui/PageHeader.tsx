@@ -25,9 +25,11 @@ interface PageHeaderProps {
    * still reads as the same component rather than a one-off.
    */
   scene?: string
+  /** Swaps the default skyline for another wide silhouette strip. */
+  strip?: string
 }
 
-export default function PageHeader({ title, subtitle, crumbs, backdrop = false, scene }: PageHeaderProps) {
+export default function PageHeader({ title, subtitle, crumbs, backdrop = false, scene, strip }: PageHeaderProps) {
   if (!backdrop) {
     return (
       <div className="px-6 py-10" style={{ background: "#f7f7f7", borderBottom: "1px solid #e8e8e8" }}>
@@ -83,7 +85,7 @@ export default function PageHeader({ title, subtitle, crumbs, backdrop = false, 
           behind it.
         */
         <img
-          src={skyline}
+          src={strip ?? skyline}
           alt=""
           aria-hidden="true"
           width={1983}

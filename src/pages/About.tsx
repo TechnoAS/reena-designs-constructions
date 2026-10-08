@@ -189,7 +189,7 @@ export default function About() {
           }}
         >
           <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&h=900&fit=crop&auto=format&q=80"
+            src="/stock/photo-1600585154340-be6161a56a0c-1400x900.jpg"
             alt="A completed contemporary home at dusk, lit from within"
             width={1400}
             height={900}
@@ -204,7 +204,7 @@ export default function About() {
           <div className="order-2 md:hidden">
             <div className="relative -mx-8 overflow-hidden sm:-mx-9">
               <img
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1100&h=720&fit=crop&auto=format&q=80"
+                src="/stock/photo-1600585154340-be6161a56a0c-1400x900.jpg"
                 alt="A completed contemporary home at dusk, lit from within"
                 width={1100}
                 height={720}

@@ -81,7 +81,7 @@ export default function Services() {
           }}
         >
           <img
-            src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1400&h=900&fit=crop&auto=format&q=80"
+            src="/stock/photo-1541888946425-d81bb19240f5-1400x900.jpg"
             alt="A site crew marking out the slab on a live construction site"
             width={1400}
             height={900}
@@ -124,7 +124,7 @@ export default function Services() {
           <div className="md:hidden">
             <div className="relative -mx-8 overflow-hidden sm:-mx-9">
               <img
-                src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1100&h=720&fit=crop&auto=format&q=80"
+                src="/stock/photo-1541888946425-d81bb19240f5-1400x900.jpg"
                 alt="A site crew marking out the slab on a live construction site"
                 width={1100}
                 height={720}

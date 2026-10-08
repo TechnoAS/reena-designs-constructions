@@ -44,16 +44,23 @@ export default function GalleryPage({ route, images, intro }: GalleryPageProps) 
       <PageHeader title={page.heading} subtitle={page.subheading} crumbs={page.crumbs} backdrop />
 
       <section className={`${SITE_CONTAINER} py-14 lg:py-16`}>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
-          <h2 className="montserrat font-800 text-xl text-navy md:text-2xl">{readable}</h2>
-          <p className="text-[10.5px] uppercase tracking-[0.16em] text-slate-600">
-            {images.length} {images.length === 1 ? "project" : "projects"}
-          </p>
-        </div>
+        <h2 className="montserrat font-800 text-xl text-navy md:text-2xl">{readable}</h2>
         {intro && <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-500">{intro}</p>}
       </section>
 
-      <GalleryGrid images={images} />
+      {images.length > 0 ? (
+        <GalleryGrid images={images} />
+      ) : (
+        <section className={`${SITE_CONTAINER} pb-20`}>
+          <div className="border border-hairline bg-surface px-6 py-16 text-center">
+            <p className="montserrat font-800 text-2xl text-navy">Coming soon</p>
+            <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-slate-500">
+              We are preparing photographs of this work. Please check back shortly, or get in touch
+              and we will happily share examples.
+            </p>
+          </div>
+        </section>
+      )}
     </PageWrapper>
   )
 }

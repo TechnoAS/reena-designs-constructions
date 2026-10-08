@@ -6,13 +6,12 @@ import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SectionTitle from "@/components/ui/SectionTitle"
 import { SITE_CONTAINER } from "@/components/layout/constants"
-import {
-  exteriorImgs,
-  archImgs,
-  d3Imgs,
-  renoImgs,
-} from "@/data/galleryData"
 import pressMics from "@/imports/testimonials-press-mics.jpg"
+import skyline from "@/imports/construction-skyline.jpg"
+import draftTable from "@/imports/about-drafting-table.jpg"
+import headerScene from "@/imports/whats-included-header.jpg"
+import drawingInterior from "@/imports/about-drawing-to-interior.jpg"
+import interiorCover from "@/imports/interior-living-kitchen-white.jpg"
 
 /**
  * The gallery index.
@@ -28,31 +27,31 @@ const GALLERIES = [
     label: "Interior Design",
     blurb: "Residential and commercial fit-outs, room by room.",
     href: "/our-work/interior/residential",
-    img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=700&h=520&fit=crop&auto=format",
+    img: interiorCover,
   },
   {
     label: "Exterior Design",
     blurb: "Elevations, facades and street presence.",
     href: "/our-work/exterior",
-    img: exteriorImgs[0].src,
+    img: skyline,
   },
   {
     label: "Architecture Gallery",
     blurb: "Form, massing and material studies.",
     href: "/our-work/architecture",
-    img: archImgs[0].src,
+    img: draftTable,
   },
   {
     label: "3D Design & Elevation",
     blurb: "Visualisations approved before a brick is laid.",
     href: "/our-work/3d-design",
-    img: d3Imgs[0].src,
+    img: headerScene,
   },
   {
     label: "Renovation Projects",
     blurb: "Retrofits and full-property makeovers.",
     href: "/our-work/renovation",
-    img: renoImgs[0].src,
+    img: drawingInterior,
   },
   {
     label: "Client Testimonials",

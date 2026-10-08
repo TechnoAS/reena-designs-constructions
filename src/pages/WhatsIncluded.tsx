@@ -7,13 +7,13 @@ import RollingRibbon from "@/components/home/RollingRibbon"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import headerScene from "@/imports/whats-included-header.jpg"
 
-const stock = (id: string) => `https://images.unsplash.com/${id}?w=800&h=1000&fit=crop&auto=format`
+const stock = (id: string) => `/stock/${id}-800x1000.jpg`
 
 /** Pricing a build off the drawings — the section's own subject, not a stock
  *  building. Two crops: the desktop band is far wider than the phone one. */
 const QUOTE_PHOTO = "photo-1608303588026-884930af2559"
-const QUOTE_IMG = `https://images.unsplash.com/${QUOTE_PHOTO}?w=1400&h=900&fit=crop&auto=format&q=80`
-const QUOTE_IMG_SM = `https://images.unsplash.com/${QUOTE_PHOTO}?w=1100&h=720&fit=crop&auto=format&q=80`
+const QUOTE_IMG = `/stock/${QUOTE_PHOTO}-1400x900.jpg`
+const QUOTE_IMG_SM = `/stock/${QUOTE_PHOTO}-1400x900.jpg`
 
 /**
  * The four heads that carry a structural build's cost.

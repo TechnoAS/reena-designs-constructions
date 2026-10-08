@@ -5,6 +5,8 @@ import kitchenLShaped from "@/imports/interior-kitchen-l-shaped.jpeg"
 import livingTvMarble from "@/imports/interior-living-tv-marble.jpeg"
 import livingTvWalnut from "@/imports/interior-living-tv-walnut.jpeg"
 import poojaRoom from "@/imports/interior-pooja-room.jpeg"
+import livingKitchenWarm from "@/imports/interior-living-kitchen-warm.jpg"
+import livingKitchenWhite from "@/imports/interior-living-kitchen-white.jpg"
 
 export const ROOM_TABS = ["Living Room", "Bedroom", "Kitchen", "Pooja Room"] as const
 export type Room = (typeof ROOM_TABS)[number]
@@ -25,6 +27,40 @@ export type InteriorProject = {
 }
 
 export const INTERIOR_PROJECTS: InteriorProject[] = [
+  {
+    id: "living-kitchen-warm",
+    title: "Warm Timber Open-Plan Living & Kitchen",
+    room: "Living Room",
+    img: livingKitchenWarm,
+    summary: "Fluted timber media wall with LED underglow, open shelving and a tangerine-and-cream kitchen.",
+    detail:
+      "An open-plan living and kitchen space tied together by warm timber. A fluted wood feature wall frames the television, with an LED strip along the plinth and a tall open-shelf column beside it. The tray ceiling carries a recessed cove light and ring pendants, while the kitchen run in cream and tangerine sits on a stone-look backsplash, so the two zones read as one room.",
+    materials: ["Fluted timber panelling", "LED plinth lighting", "Cream and tangerine laminate shutters", "Stone-look backsplash", "Tray ceiling with cove light"],
+    scope: [
+      "Fluted timber media wall with concealed LED strip",
+      "Open-shelf display column with framed side panel",
+      "Tray false ceiling with recessed cove and ring pendants",
+      "Modular kitchen with chimney, hob and built-in oven",
+      "Open-plan layout linking living, dining and kitchen",
+    ],
+  },
+  {
+    id: "living-kitchen-white",
+    title: "Soft White Open-Plan Living & Kitchen",
+    room: "Living Room",
+    img: livingKitchenWhite,
+    summary: "Marble-look TV panel with backlit edge, fluted cream walls and a handle-less white kitchen.",
+    detail:
+      "A bright, calm open-plan interior built around a marble-look television panel with a backlit edge, set into fluted cream wall cladding. Corner shelves, a gallery of framed prints and a carved textured wall panel add layers without clutter. A tray ceiling with a cove light, a crystal chandelier and a ceiling fan light the room, and the white handle-less kitchen runs on from the living area.",
+    materials: ["Marble-look wall panel", "Fluted cream cladding", "Textured relief wall panel", "White handle-less shutters", "Crystal chandelier"],
+    scope: [
+      "Marble-look TV wall with backlit perimeter",
+      "Fluted cream wall cladding with corner display shelves",
+      "Tray false ceiling with cove lighting and chandelier point",
+      "Handle-less white modular kitchen with chimney and hob",
+      "Textured relief feature wall and framed art wall",
+    ],
+  },
   {
     id: "living-tv-marble",
     title: "Backlit Marble Media Wall",

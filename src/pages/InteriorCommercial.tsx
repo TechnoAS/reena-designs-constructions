@@ -1,39 +1,9 @@
-import { useState } from "react"
 import PageWrapper from "@/components/layout/PageWrapper"
 import Seo from "@/components/Seo"
 import { routeSeo } from "@/data/routes"
 import PageHeader from "@/components/ui/PageHeader"
 import SubNav from "@/components/ui/SubNav"
-import FilterTabs from "@/components/ui/FilterTabs"
-import ProjectCard from "@/components/ui/ProjectCard"
 import { SITE_CONTAINER } from "@/components/layout/constants"
-
-const allProjects = {
-  Office: [
-    { title: "Corporate Office Suite", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=640&h=480&fit=crop&auto=format" },
-    { title: "Open Plan Office", img: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=640&h=480&fit=crop&auto=format" },
-    { title: "Executive Boardroom", img: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=640&h=480&fit=crop&auto=format" },
-  ],
-  Restaurant: [
-    { title: "Fine Dining Restaurant", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=640&h=480&fit=crop&auto=format" },
-    { title: "Cafe & Bistro", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=640&h=480&fit=crop&auto=format" },
-  ],
-  "Retail Shop": [
-    { title: "Luxury Boutique", img: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=640&h=480&fit=crop&auto=format" },
-    { title: "Clothing Showroom", img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=640&h=480&fit=crop&auto=format" },
-  ],
-  Hotel: [
-    { title: "Hotel Lobby", img: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=640&h=480&fit=crop&auto=format" },
-    { title: "Hotel Suite", img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=640&h=480&fit=crop&auto=format" },
-    { title: "Hotel Restaurant", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=640&h=480&fit=crop&auto=format" },
-  ],
-  Others: [
-    { title: "Hospital Reception", img: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=640&h=480&fit=crop&auto=format" },
-    { title: "School Interiors", img: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=640&h=480&fit=crop&auto=format" },
-  ],
-}
-
-const tabs = ["Office", "Restaurant", "Retail Shop", "Hotel", "Others"] as const
 
 const INTRO =
   "Offices, restaurants, retail floors and hotels fitted out on commercial timelines — sequenced around your trading hours so the doors stay open."
@@ -41,9 +11,6 @@ const INTRO =
 const PAGE = routeSeo("/our-work/interior/commercial")
 
 export default function InteriorCommercial() {
-  const [active, setActive] = useState<keyof typeof allProjects>("Office")
-  const visible = allProjects[active] ?? []
-
   return (
     <PageWrapper
       cta={{
@@ -61,7 +28,7 @@ export default function InteriorCommercial() {
         backdrop
       />
 
-      <section className={`${SITE_CONTAINER} pt-10`}>
+      <section className={`${SITE_CONTAINER} pt-10 pb-20`}>
         <SubNav
           tabs={[
             { label: "Residential Interior", href: "/our-work/interior/residential" },
@@ -69,28 +36,16 @@ export default function InteriorCommercial() {
           ]}
         />
 
-        <div className="mb-9 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-          <p className="max-w-2xl text-sm leading-7 text-slate-500">{INTRO}</p>
-          <p className="flex-none text-[10.5px] uppercase tracking-[0.16em] text-slate-600">
-            {visible.length} {visible.length === 1 ? "project" : "projects"}
+        <p className="mb-9 max-w-2xl text-sm leading-7 text-slate-500">{INTRO}</p>
+
+        <div className="border border-hairline bg-surface px-6 py-16 text-center">
+          <p className="montserrat font-800 text-2xl text-navy">Coming soon</p>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-slate-500">
+            We are preparing photographs of our commercial interiors. Please check back shortly, or
+            get in touch and we will happily share examples.
           </p>
         </div>
-
-        <FilterTabs
-          tabs={tabs}
-          active={active}
-          onSelect={(t) => setActive(t as keyof typeof allProjects)}
-        />
       </section>
-
-      <div className="grid gap-px border-y border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {visible.map((p, i) => (
-          <ProjectCard key={p.title} img={p.img} alt={p.title} priority={i < 4}>
-            <h3 className="montserrat font-700 text-sm text-navy">{p.title}</h3>
-            <p className="mt-1 text-xs text-slate-500">{active}</p>
-          </ProjectCard>
-        ))}
-      </div>
     </PageWrapper>
   )
 }

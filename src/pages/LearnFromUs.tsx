@@ -10,6 +10,7 @@ import { COURSES } from "@/data/courses"
 import ToolBadge from "@/components/ui/ToolBadge"
 import { SITE } from "@/data/siteInfo"
 import draftingTable from "@/imports/about-drafting-table.jpg"
+import headerStrip from "@/imports/learn-header-strip.png"
 import drawingToInterior from "@/imports/about-drawing-to-interior.jpg"
 import livingTvWalnut from "@/imports/interior-living-tv-walnut.jpeg"
 import masterBedroom from "@/imports/interior-master-bedroom.jpeg"
@@ -113,6 +114,8 @@ export default function LearnFromUs() {
         title={PAGE.heading}
         subtitle={PAGE.subheading}
         crumbs={PAGE.crumbs}
+        backdrop
+        strip={headerStrip}
       />
 
       {/* ── Why train with us ─────────────────────────────────────── */}

@@ -58,7 +58,7 @@ export default function Hero() {
               the title tag. Same look as before — only the element changed. */}
           <h1 className="montserrat font-900 text-4xl leading-[0.95] tracking-[-0.04em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] md:text-5xl [@media(min-height:820px)]:md:text-6xl">
             <span className="mb-3 block [font-family:Inter,sans-serif] text-xs font-semibold uppercase leading-normal tracking-[0.35em] text-orange-400 drop-shadow-none [@media(min-height:820px)]:mb-5">
-              Construction &amp; Interior Design Company in Medinipur
+              Construction &amp; Interior Design Company
             </span>
             {/* Words rise into place one after another, then the two orange
                 words catch a single highlight. CSS only (`.hero-word` in
