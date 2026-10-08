@@ -1,33 +1,34 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, ChevronLeft, ChevronRight, MapPin, Pause, Play } from "lucide-react"
+import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import RollingRibbon from "./RollingRibbon"
 import SectionTitle from "@/components/ui/SectionTitle"
-import luxuryVillaImg from "@/imports/interior-living-kitchen-warm.jpg"
-import riversideDuplexImg from "@/imports/interior-living-kitchen-white.jpg"
+import { INTERIOR_PROJECTS } from "@/data/interiorProjects"
 
-/** Full-bleed slides, so these are requested wide rather than card sized. */
-const shot = (id: string) => `/stock/${id}-1400x900.jpg`
-
-const PROJECTS = [
-  { title: "Modern Residence", type: "Residential Construction", location: "Medinipur, West Bengal", blurb: "A four-bedroom home built to the approved drawing and handed over eleven days ahead of the contracted date.", img: shot("photo-1613490493576-7fde63acd811") },
-  { title: "Luxury Villa", type: "Architecture & Interiors", location: "Kharagpur, West Bengal", blurb: "Architecture and interiors resolved under one contract, from the elevation through to the joinery and lighting layer.", img: luxuryVillaImg },
-  { title: "Corporate Office", type: "Commercial Fit-out", location: "Medinipur, West Bengal", blurb: "A working office refitted around a live business — delivered without the client losing a single trading day.", img: shot("photo-1783705094622-f2c01a9787b5") },
-  { title: "Premium Apartment", type: "Turnkey Delivery", location: "Ghatal, West Bengal", blurb: "Design, sanction, structure and finishing under a single accountable contract and one fixed cost.", img: shot("photo-1567943183748-3a7542120c90") },
-  { title: "Riverside Duplex", type: "Residential Construction", location: "Medinipur, West Bengal", blurb: "A split-level duplex on a narrow riverside plot, planned around the site's setback and flood levels.", img: riversideDuplexImg },
-  { title: "Heritage Restoration", type: "Renovation", location: "Belda, West Bengal", blurb: "A structural retrofit that modernised the property without touching the frame the family wanted kept.", img: shot("photo-1648881806148-e5c51179c826") },
-  { title: "Boutique Retail Fit-out", type: "Commercial Fit-out", location: "Kharagpur, West Bengal", blurb: "Shopfront, joinery and lighting built to a retail launch date that could not move.", img: shot("photo-1441984904996-e0b6ba687e04") },
-  { title: "Garden Villa", type: "Turnkey Delivery", location: "Jhargram, West Bengal", blurb: "A landscaped villa taken from bare plot to keys in hand by a single team on one timeline.", img: shot("photo-1564013799919-ab600027ffc6") },
+/**
+ * The firm's own interior designs — the same 3D renders and copy as the
+ * residential interiors portfolio, so nothing here is stock imagery presented
+ * as our work. The copy says "designed", not "completed": these are renders.
+ * Only the landscape images are used; the two portrait ones crop to a sliver
+ * of the room in a full-bleed slide.
+ */
+const FEATURED_IDS = [
+  "master-bedroom",
+  "living-tv-walnut",
+  "kitchen-l-shaped",
+  "pooja-room",
+  "living-kitchen-warm",
+  "bedroom-blush",
+  "living-kitchen-white",
 ]
 
-const PROJECT_LINKS: Record<string, string> = {
-  "Residential Construction": "/our-work",
-  "Architecture & Interiors": "/our-work/interior/residential",
-  "Commercial Fit-out": "/our-work/interior/commercial",
-  "Turnkey Delivery": "/our-work",
-  "Renovation": "/our-work/renovation",
-}
+const PROJECTS = FEATURED_IDS.map((id) => {
+  const p = INTERIOR_PROJECTS.find((x) => x.id === id)!
+  return { title: p.title, type: `3D Interior Design · ${p.room}`, blurb: p.summary, img: p.img }
+})
+
+const PROJECT_URL = "/our-work/interior/residential"
 
 const AUTOPLAY_MS = 6000
 
@@ -40,7 +41,7 @@ export default function FeaturedProjects() {
      the only way to stop the carousel was to keep a pointer on it — which a
      phone cannot do at all, so on touch the thing simply could not be
      paused. That is a WCAG 2.2.2 failure for any motion running past five
-     seconds, and this runs on a six-second loop through eight slides. */
+     seconds, and this runs on a six-second loop through seven slides. */
   const [stopped, setStopped] = useState(false)
   const [hovered, setHovered] = useState(false)
   const paused = stopped || hovered
@@ -151,7 +152,7 @@ export default function FeaturedProjects() {
           level="display"
           onDark
           title="FEATURED WORK"
-          subtitle="A curated showcase of residential builds, luxury villas, commercial fit-outs and turnkey executions delivered across West Bengal and India."
+          subtitle="Living rooms, bedrooms, kitchens and pooja rooms designed by our in-house team, resolved in 3D down to the joinery, lighting and finishes."
           className=""
         />
       </div>
@@ -180,8 +181,6 @@ export default function FeaturedProjects() {
 
         {PROJECTS.map((p, i) => {
           const isActive = i === active
-          const projectUrl = PROJECT_LINKS[p.type] || "/our-work"
-
           return (
             <div
               key={p.title}
@@ -195,7 +194,7 @@ export default function FeaturedProjects() {
                   next. */}
               <img
                 src={p.img}
-                alt={`${p.title} — ${p.type} in ${p.location}`}
+                alt={`${p.title} — 3D interior design by Reena Designs & Constructions`}
                 loading={i === 0 ? "eager" : "lazy"}
                 decoding="async"
                 className="h-full w-full object-cover"
@@ -221,19 +220,15 @@ export default function FeaturedProjects() {
                   <h3 className="montserrat font-800 text-3xl leading-[1.1] text-white md:text-5xl">
                     {p.title}
                   </h3>
-                  <div className="mt-3 md:mt-4 flex items-center gap-1.5 text-[13px] text-white/60">
-                    <MapPin size={14} strokeWidth={2} aria-hidden="true" />
-                    {p.location}
-                  </div>
                   <p className="mt-4 md:mt-6 max-w-md text-xs md:text-sm leading-6 md:leading-7 text-white/75">
                     {p.blurb}
                   </p>
                   <Link
-                    to={projectUrl}
+                    to={PROJECT_URL}
                     className="montserrat font-700 group mt-6 md:mt-8 inline-flex items-center gap-2 border-b-2 border-brand pb-1.5 text-[13px] text-white transition-colors duration-300 hover:text-orange-300"
                     tabIndex={isActive ? 0 : -1}
                   >
-                    View this project
+                    See our interior designs
                     <ArrowRight
                       size={14}
                       strokeWidth={2.2}
@@ -293,7 +288,7 @@ export default function FeaturedProjects() {
             counter.
 
             Those were removed deliberately — they competed with the
-            photography — but eight slides is well past the point where a
+            photography — but seven slides is well past the point where a
             visitor can hold their place unaided, and nothing told them how
             much work sat behind the slider. A hairline along the foot answers
             both without putting the chrome back: the filled portion is how far
@@ -305,14 +300,6 @@ export default function FeaturedProjects() {
           />
         </div>
       </div>
-
-      {/* Bottom blend into the next section.
-
-          Deepened from 4rem to 8rem: against a 44rem dark slider, a 4rem fade
-          still read as a line rather than a transition. The target colour is
-          `surface` because that is what WhyChooseUs below actually uses — a
-          blend to white would leave a visible seam against it. */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-32 bg-gradient-to-b from-transparent to-surface" />
     </section>
   )
 }

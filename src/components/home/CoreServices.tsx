@@ -3,10 +3,14 @@ import { ArrowUpRight } from "lucide-react"
 import { SITE_CONTAINER } from "@/components/layout/constants"
 import SectionTitle from "@/components/ui/SectionTitle"
 import draftingTable from "@/imports/about-drafting-table.jpg"
+import drawingToInterior from "@/imports/about-drawing-to-interior.jpg"
+import interiorImg from "@/imports/interior-master-bedroom.jpeg"
+import remodelImg from "@/imports/interior-living-tv-walnut.jpeg"
 
-import interiorImg from "@/imports/interior-living-kitchen-warm.jpg"
-
-const stock = (id: string) => `/stock/${id}-800x1000.jpg`
+/* No stock photography: every panel uses the firm's own imagery — the branded
+   drafting-table shot, in-house 3D interior renders and the drawing-to-finish
+   illustrations used on the About page. */
+const drawingToBuilding = "/about-drawing-to-building.jpg"
 
 const SERVICES = [
   {
@@ -20,32 +24,31 @@ const SERVICES = [
     title: "Architectural Design",
     href: "/services",
     copy: "Site-responsive planning, working drawings and municipal-ready documentation — sanctioned faster, built cleaner.",
-    img: stock("photo-1487958449943-2429e8be8625"),
-    imgAlt: "Architectural facade detail",
+    img: drawingToBuilding,
+    imgAlt: "A house shown half as a line drawing and half as the finished building",
   },
   {
     title: "Interior Design",
     href: "/our-work/interior/residential",
     copy: "Bespoke residential and workspace interiors, detailed down to the joinery, lighting layer and material palette.",
     img: interiorImg,
-    imgAlt: "Open-plan living room and kitchen with fluted timber wall and warm lighting",
+    imgAlt: "3D interior design of a master bedroom with a marble-finish wardrobe and upholstered headboard wall",
   },
   {
     title: "Renovation & Remodeling",
     href: "/our-work/renovation",
     copy: "Structural retrofits and full-home makeovers that modernise ageing property without compromising its frame.",
-    img: stock("photo-1646987916641-1f3c8992daa2"),
-    imgAlt: "Interior mid-renovation",
+    img: remodelImg,
+    imgAlt: "3D design for a living-room makeover with fluted walnut panels and a gold-vein marble feature wall",
   },
   {
     title: "Turnkey Solutions",
     href: "/contact",
     copy: "One accountable contract from drawing board to handover — a single team, one timeline, one fixed cost.",
-    // A contract being signed, not a finished building: the service being sold
-    // here is the single accountable agreement, and every other panel already
-    // shows built work.
-    img: stock("photo-1450101499163-c8848c66ca85"),
-    imgAlt: "Client and contractor signing a project agreement",
+    // Drawing on one side, finished room on the other: the whole of what a
+    // turnkey contract covers, in one frame.
+    img: drawingToInterior,
+    imgAlt: "An interior shown half as a line drawing and half as the finished room",
   },
 ]
 
@@ -66,68 +69,36 @@ export default function CoreServices() {
       </div>
 
       {/*
-        Full-bleed strip: five photographs blended into one another, with the
-        copy sitting on top. Deliberately outside SITE_CONTAINER so it runs
-        edge to edge.
+        Full-bleed strip: five images side by side, each in its own slot with
+        a hard edge, divided by hairline seams, with the copy sitting on top.
+        Deliberately outside SITE_CONTAINER so it runs edge to edge. No blend
+        between panels or into the section — every image ends cleanly.
 
-        There is no background colour here. A flat dark band behind the images
-        read as a slab dropped onto the page; instead the photographs fade up
-        into the section colour at their top edge (see .svc-blend) and are
-        weighted down only where the captions sit. The dark is a property of
-        the imagery, not a box around it.
-
-        Images and text are separate layers rather than nested per panel. The
-        panels overlap by design — that is what produces the blend — and if the
-        photographs lived inside each panel, a panel's image would paint over
-        its neighbour's text. Splitting them means the artwork can overlap
-        freely while every caption stays clear of it.
-      */}
-      {/*
-        `overflow-hidden` matters here. Each panel's photograph is drawn 2.5rem
-        wider than its slot on both sides so neighbours can overlap and blend —
-        but on the last panel that overhang has no neighbour to land on, so it
-        spilled 40px past the right edge of the page and gave the whole site a
-        horizontal scrollbar. Clipping at the strip's own bounds kills the
-        spill without touching the panel-to-panel overlap, which happens
-        entirely inside this box.
+        Images and text are separate layers rather than nested per panel, so
+        the desktop images can be laid out as one row independently of the
+        captions above them.
       */}
       <div className="relative isolate overflow-hidden md:h-[27rem]">
         {/*
-          Layer 1 — the photography, desktop only.
+          Layer 1 — the images, desktop only.
 
           These bands are equal-height `flex-1` children of a box stretched to
           the whole strip, while the captions are sized by their own copy. Side
           by side that is the same thing; stacked on a phone it is not — the
           band boundaries drift away from the caption boundaries and each
           caption ends up over a slice of its neighbour's photograph. On a phone
-          each panel carries its own image instead; the overlap this split
-          exists to allow only ever happens in the row.
+          each panel carries its own image instead.
         */}
         <div className="absolute inset-0 hidden md:flex" aria-hidden="true">
           {SERVICES.map(({ title, img }) => (
             <div key={title} className="relative flex-1">
-              {/*
-                The overhang lives on this wrapper, not on the image.
-
-                Setting both `-left-10` and `-right-10` on a plain element
-                stretches it to the panel's width plus 5rem — no calc needed.
-                It cannot be done on the <img> directly: for a replaced
-                element, `width: auto` resolves to the image's intrinsic width
-                rather than to the inset box, so the insets are ignored. The
-                calc() this replaces was silently dead anyway (CSS needs
-                whitespace around `+`, and Tailwind never emitted the utility),
-                which is what left a 2.5rem strip of bare navy down the right
-                of every panel on mobile.
-              */}
-              <span className="absolute inset-y-0 -left-10 -right-10 block">
+              <span className="absolute inset-0 block">
                 <img
                   src={img}
                   alt=""
                   loading="lazy"
                   decoding="async"
-                  /* `max-w-none` is required: index.css caps every image at
-                     100% by default, which would undo the overhang. */
-                  className="svc-blend h-full w-full max-w-none object-cover"
+                  className="h-full w-full max-w-none object-cover"
                 />
               </span>
             </div>
@@ -143,11 +114,8 @@ export default function CoreServices() {
               className="group relative flex min-h-[16rem] flex-1 flex-col justify-end gap-3 p-7 transition duration-500 md:min-h-0 md:p-6 md:pb-8 md:first:pl-9 md:last:pr-9 lg:first:pl-14 lg:last:pr-14"
             >
               {/* The panel's own artwork on a phone, where the strip is a
-                  column and there is no neighbour to blend into. Plain
-                  `object-cover`, no `.svc-blend`: that mask's horizontal fade
-                  exists to cross-dissolve into the panel beside it. Same `src`
-                  as the desktop layer, so this costs a second element and not a
-                  second download. */}
+                  column. Same `src` as the desktop layer, so this costs a
+                  second element and not a second download. */}
               <span className="absolute inset-0 overflow-hidden md:hidden" aria-hidden="true">
                 <img
                   src={img}
@@ -184,8 +152,7 @@ export default function CoreServices() {
                 aria-hidden="true"
               />
 
-              {/* Hairline seams. Subtle enough not to fight the blend, but they
-                  stop the five panels reading as one undivided photograph. */}
+              {/* Hairline seams between the five panels. */}
               <span
                 className="absolute inset-y-6 left-0 hidden w-px bg-white/12 group-first:hidden md:block"
                 aria-hidden="true"
@@ -212,7 +179,7 @@ export default function CoreServices() {
                   {copy}
                 </p>
 
-                {/* The photographs are decorative in both layers, so this is
+                {/* The images are decorative in both layers, so this is
                     where their description actually reaches a screen reader.
                     It used to be the link's `aria-label`, which meant anyone
                     navigating by links heard the image caption where the

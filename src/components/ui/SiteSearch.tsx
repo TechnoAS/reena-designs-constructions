@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { Search, ArrowRight, CornerDownLeft } from "lucide-react"
 import { SITE } from "@/data/siteInfo"
 import { FAQS } from "@/data/faq"
-import { TESTIMONIALS } from "@/data/testimonials"
 
 /**
  * Hero search.
@@ -15,16 +14,14 @@ import { TESTIMONIALS } from "@/data/testimonials"
  * a screen reader `aria-activedescendant`, because moving a visual highlight
  * is not the same as moving focus.
  *
- * The index is built from three layers, not just page titles, because
+ * The index is built from two layers, not just page titles, because
  * visitors do not search for page titles:
  *  1. Every route on the site (`PAGES`), with the terms someone would type to
  *     reach it — "modular kitchen" for the residential interior page, "rate"
  *     or "per sq ft" for the enquiry form.
  *  2. Every FAQ question (`FAQS`), so "warranty" or "home loan" surfaces the
  *     exact answer rather than a generic page.
- *  3. Every client testimonial (`TESTIMONIALS`), so a place name like
- *     "Ghatal" or "Kharagpur" surfaces the review from that town.
- * All three funnel through the same fuzzy, multi-word scorer, so results from
+ * Both funnel through the same fuzzy, multi-word scorer, so results from
  * different layers rank against each other on relevance, not on which layer
  * they came from.
  */
@@ -123,7 +120,7 @@ const PAGES: Entry[] = [
     keys: ["3d", "render", "rendering", "elevation", "visualisation", "visualization", "front design"],
   },
   {
-    label: "Client Testimonials",
+    label: "Client Testimonials (coming soon)",
     href: "/our-work/testimonials",
     kind: "Trust",
     keys: ["testimonial", "testimonials", "review", "reviews", "client", "rating", "feedback", "what clients say"],
@@ -179,16 +176,7 @@ const FAQ_ENTRIES: Entry[] = FAQS.map((f) => ({
   snippet: f.a,
 }))
 
-/** Every testimonial, searchable by client, place or project. */
-const TESTIMONIAL_ENTRIES: Entry[] = TESTIMONIALS.map((t) => ({
-  label: `${t.name} — ${t.project}`,
-  href: "/our-work/testimonials",
-  kind: "Review",
-  keys: [t.name.toLowerCase(), t.place.toLowerCase(), t.project.toLowerCase(), t.role.toLowerCase()],
-  snippet: t.quote,
-}))
-
-const INDEX: Entry[] = [...PAGES, ...FAQ_ENTRIES, ...TESTIMONIAL_ENTRIES]
+const INDEX: Entry[] = [...PAGES, ...FAQ_ENTRIES]
 
 /** Bounded Levenshtein distance — the strings here are never more than a word or two long. */
 function editDistance(a: string, b: string): number {

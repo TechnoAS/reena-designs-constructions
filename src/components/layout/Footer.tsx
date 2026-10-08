@@ -395,7 +395,7 @@ export default function Footer({ cta }: FooterProps) {
             <span>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</span>
           </div>
 
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             <Link
               to="/privacy"
               className="text-xs text-white/65 transition-colors hover:text-white"
@@ -407,6 +407,12 @@ export default function Footer({ cta }: FooterProps) {
               className="text-xs text-white/65 transition-colors hover:text-white"
             >
               Cookie Policy
+            </Link>
+            <Link
+              to="/terms"
+              className="text-xs text-white/65 transition-colors hover:text-white"
+            >
+              Terms &amp; Conditions
             </Link>
 
             <button

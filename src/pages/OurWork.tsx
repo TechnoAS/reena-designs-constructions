@@ -55,7 +55,7 @@ const GALLERIES = [
   },
   {
     label: "Client Testimonials",
-    blurb: "What 200+ clients said after handover.",
+    blurb: "Client stories — coming soon.",
     href: "/our-work/testimonials",
     img: pressMics,
   },

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import {
   MapPin,
   Clock,
@@ -747,8 +747,12 @@ export default function Contact() {
                 </button>
 
                 <p className="text-[11.5px] leading-relaxed text-slate-600">
-                  We use your details only to answer this enquiry. Nothing is
-                  shared with anyone else.
+                  We use your details only to answer this enquiry, and never
+                  sell them or use them for advertising. See our{" "}
+                  <Link to="/privacy" className="font-semibold text-brand-ink underline underline-offset-2">
+                    Privacy Policy
+                  </Link>
+                  .
                 </p>
               </form>
             )}

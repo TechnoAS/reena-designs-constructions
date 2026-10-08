@@ -185,9 +185,9 @@ export const ANSWERS: Answer[] = [
   {
     id: "warranty",
     keys: ["warranty", "guarantee", "after sales", "maintenance", "defect", "snag", "service after"],
-    text: "Structural work carries a written warranty, and we handle snags after handover rather than disappearing. One Ghatal client is eighteen months in with not a single issue resurfacing.",
+    text: "Structural work carries a written warranty, and we handle snags after handover rather than disappearing.",
     link: CONTACT,
-    next: ["What materials do you use?", "Read testimonials"],
+    next: ["What materials do you use?", "Book a site visit"],
   },
   {
     id: "waterproofing",
@@ -219,7 +219,6 @@ export const ANSWERS: Answer[] = [
     id: "experience",
     keys: ["experience", "how many year", "since", "established", "old is", "history", "how many project", "track record"],
     text: "30+ years of legacy since the 1990s and 250+ completed projects, for more than 200 clients — with a qualified engineer on every site.",
-    link: { label: "Read testimonials", href: "/our-work/testimonials" },
     next: ["Can I see your work?", "What does it cost?"],
   },
   {
@@ -227,13 +226,13 @@ export const ANSWERS: Answer[] = [
     keys: ["portfolio", "see your work", "previous", "past project", "gallery", "photos", "examples", "sample", "reference"],
     text: "Of course — our gallery covers residential and commercial interiors, exteriors and architecture.",
     link: { label: "Browse our work", href: "/our-work" },
-    next: ["Do you do interiors?", "Read testimonials"],
+    next: ["Do you do interiors?", "What does it cost?"],
   },
   {
     id: "reviews",
     keys: ["review", "rating", "testimonial", "feedback", "reputation", "trust", "reliable", "genuine"],
-    text: "We have worked with over 200 clients. The testimonials on our site name the client, their role and the actual project — not anonymous praise.",
-    link: { label: "Read testimonials", href: "/our-work/testimonials" },
+    text: "We have worked with over 200 clients. Client testimonials are coming soon — in the meantime, our portfolio shows the work itself, and we are happy to talk you through past projects on a site visit.",
+    link: { label: "Browse our work", href: "/our-work" },
     next: ["Can I see your work?", "Do you give a warranty?"],
   },
   {

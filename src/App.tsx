@@ -31,6 +31,7 @@ const Contact = lazy(() => import("./pages/Contact"))
 const Faq = lazy(() => import("./pages/Faq"))
 const Privacy = lazy(() => import("./pages/Privacy"))
 const Cookies = lazy(() => import("./pages/Cookies"))
+const Terms = lazy(() => import("./pages/Terms"))
 const LearnFromUs = lazy(() => import("./pages/LearnFromUs"))
 const Careers = lazy(() => import("./pages/Careers"))
 const NotFound = lazy(() => import("./pages/NotFound"))
@@ -120,6 +121,7 @@ export default function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cookies" element={<Cookies />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="/learn-from-us" element={<LearnFromUs />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="*" element={<NotFound />} />
