@@ -28,8 +28,8 @@ export default function Hero() {
     // Two layouts share this markup:
     //  - From `md`: the showreel is a full-bleed background behind the copy.
     //  - Below `md`: the showreel is 16:9, and any portrait crop of it threw
-    //    most of the frame away. So it plays whole, in a framed 16:9 window
-    //    aligned to the copy's gutter, over an "ambient" backdrop — a blurred,
+    //    most of the frame away. So it plays whole, edge to edge at 16:9,
+    //    with the copy below it over an "ambient" backdrop — a blurred,
     //    darkened second copy of the same clip that fills the screen and shifts
     //    colour with it. The page reads as one composed sheet rather than a
     //    video strip floating on flat navy.
@@ -56,18 +56,14 @@ export default function Hero() {
       {/* The showreel. Muted + playsInline are both required for autoplay to
           be allowed on iOS.
 
-          Phone: a 16:9 window below the fixed nav (~70px), so `object-cover`
-          crops nothing. From `md`: the wrapper drops its padding and frame
-          and fills the section.
+          Phone: edge to edge at 16:9, directly below the fixed nav (~70px), so
+          `object-cover` crops nothing. From `md`: it fills the section.
 
           These layers sit at z-0/z-1 rather than behind the section: the app
           shell is `bg-white`, and a negative z-index here paints *under* that
           ancestor background, which hid the video entirely. */}
-      {/* Gutter matches SITE_CONTAINER's phone padding (px-8 / sm:px-9), set
-          by hand: SITE_CONTAINER's `lg:px-14` is emitted after any `lg:px-0`
-          reset, so using it here left a 56px inset on desktop. */}
-      <div className="relative z-[1] w-full px-8 pt-[92px] sm:px-9 md:absolute md:inset-0 md:z-0 md:p-0">
-        <div className="relative aspect-video w-full overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.65)] ring-1 ring-white/15 md:aspect-auto md:h-full md:shadow-none md:ring-0">
+      <div className="relative z-[1] w-full pt-[70px] md:absolute md:inset-0 md:z-0 md:pt-0">
+        <div className="relative aspect-video w-full overflow-hidden md:aspect-auto md:h-full">
           <video
             className="pointer-events-none absolute inset-0 h-full w-full object-cover"
             src="/hero.mp4"
@@ -105,8 +101,8 @@ export default function Hero() {
               as the homepage's only h1 it told a search engine nothing; the
               eyebrow says what the company is and where, in the same words as
               the title tag. Same look as before — only the element changed. */}
-          <h1 className="montserrat font-900 text-4xl leading-[0.95] tracking-[-0.04em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] md:text-5xl [@media(min-height:820px)]:md:text-6xl">
-            <span className="mb-3 block [font-family:Inter,sans-serif] text-xs font-semibold uppercase leading-normal tracking-[0.35em] text-orange-400 drop-shadow-none [@media(min-height:820px)]:mb-5">
+          <h1 className="montserrat font-900 text-[28px] leading-[1] tracking-[-0.035em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] sm:text-4xl md:text-5xl md:leading-[0.95] md:tracking-[-0.04em] [@media(min-height:820px)]:md:text-6xl">
+            <span className="mb-2.5 block [font-family:Inter,sans-serif] text-[10px] font-semibold uppercase leading-normal tracking-[0.16em] min-[390px]:tracking-[0.24em] text-orange-400 drop-shadow-none md:mb-3 md:text-xs md:tracking-[0.35em] md:[@media(min-height:820px)]:mb-5">
               Construction &amp; Interior Design Company
             </span>
             {/* Words rise into place one after another, then the two orange
@@ -130,25 +126,25 @@ export default function Hero() {
               guess which of eight nav items hides it; one who does not still
               has the buttons. `md:items-end` keeps the field's right edge on
               the same line as the headline's. */}
-          <div className="mt-6 flex flex-col gap-4 md:items-end [@media(min-height:820px)]:mt-8 [@media(min-height:820px)]:gap-6">
+          <div className="mt-5 flex flex-col gap-4 md:mt-6 md:items-end md:[@media(min-height:820px)]:mt-8 md:[@media(min-height:820px)]:gap-6">
             <SiteSearch />
 
-            <div className="grid gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-4 md:justify-end">
+            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:items-center sm:gap-4 md:justify-end">
               <Link
                 to="/contact"
-                className="btn-orange group gap-2 px-6 py-3 shadow-lg shadow-orange-500/30"
+                className="btn-orange group gap-1.5 whitespace-nowrap px-3 py-2.5 text-[13px] shadow-lg shadow-orange-500/30 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm"
               >
                 Get a Free Quote
                 <ArrowRight
                   size={16}
                   strokeWidth={2.2}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
+                  className="hidden transition-transform duration-300 group-hover:translate-x-1 min-[390px]:block"
                   aria-hidden="true"
                 />
               </Link>
               <Link
                 to="/our-work"
-                className="btn-outline gap-2 border-white/40 bg-white/10 px-6 py-3 text-white backdrop-blur-sm hover:border-orange-400 hover:bg-white/20 hover:text-white"
+                className="btn-outline gap-2 whitespace-nowrap border-white/40 bg-white/10 px-3 py-2.5 text-[13px] text-white backdrop-blur-sm hover:border-orange-400 hover:bg-white/20 hover:text-white sm:px-6 sm:py-3 sm:text-sm"
               >
                 Explore Projects
               </Link>

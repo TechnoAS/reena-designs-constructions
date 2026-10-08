@@ -116,7 +116,10 @@ export default function Nav() {
           <div>
             <div className={`allura text-[28px] leading-none ${hasBg ? "text-slate-900" : "text-white"}`}>Reena</div>
             <div
-              className={`poppins text-[9px] leading-tight font-medium tracking-[0.14em] ${hasBg ? "text-slate-600" : "text-white/80"}`}
+              /* Theme orange. On the white scrolled bar it uses brand-ink, the
+                 darker orange the site uses for small text on light grounds —
+                 #FF5E00 at 9px on white is too faint to read. */
+              className={`poppins text-[9px] leading-tight font-medium tracking-[0.14em] ${hasBg ? "text-brand-ink" : "text-brand"}`}
             >
               DESIGNS &amp; CONSTRUCTIONS
             </div>
