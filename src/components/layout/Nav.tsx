@@ -114,7 +114,7 @@ export default function Nav() {
             className="h-[58px] w-[58px] object-contain"
           />
           <div>
-            <div className={`allura text-[28px] leading-none ${hasBg ? "text-slate-900" : "text-white"}`}>Reena</div>
+            <div className={`allura text-[28px] leading-none ${hasBg ? "text-brand-ink" : "text-brand"}`}>Reena</div>
             <div
               /* Theme orange. On the white scrolled bar it uses brand-ink, the
                  darker orange the site uses for small text on light grounds —

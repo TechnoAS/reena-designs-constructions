@@ -224,7 +224,7 @@ export default function Footer({ cta }: FooterProps) {
                 className="h-10 w-10 object-contain"
               />
               <div>
-                <div className="allura text-[26px] leading-none text-white">Reena</div>
+                <div className="allura text-[26px] leading-none text-orange-400">Reena</div>
                 <div className="poppins text-[9px] font-semibold uppercase tracking-[0.16em] text-orange-400">
                   Designs &amp; Constructions
                 </div>

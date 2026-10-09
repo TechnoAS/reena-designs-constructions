@@ -151,7 +151,7 @@ export function organizationSchema(): Json {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       opens: "09:00",
-      closes: "20:00",
+      closes: "21:00",
     },
     sameAs: ACTIVE_SOCIAL_LINKS.map((s) => s.url),
   }
@@ -201,7 +201,7 @@ export function localBusinessSchema(): Json {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       opens: "09:00",
-      closes: "20:00",
+      closes: "21:00",
     },
     sameAs: ACTIVE_SOCIAL_LINKS.map((s) => s.url),
   }

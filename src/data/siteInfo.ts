@@ -60,7 +60,7 @@ export const SITE = {
   whatsappNumber: "+91 76791 24694",
   /** REPLACE — the number in this URL must match whatsappNumber. */
   whatsappHref: "https://wa.me/917679124694?text=Hello%20Reena%20Designs%2C%20I%20would%20like%20to%20inquire%20about%20a%20construction%20or%20interior%20project.",
-  hours: "Mon – Sat · 9:00 AM – 8:00 PM",
+  hours: "Mon – Sat · 9:00 AM – 9:00 PM",
   address: {
     street: "Near Sitala Mandir, Rangamati",
     locality: "Rangamati, Medinipur",

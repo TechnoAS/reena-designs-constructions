@@ -238,14 +238,14 @@ export const ANSWERS: Answer[] = [
   {
     id: "contact",
     keys: ["contact", "call", "phone", "number", "email", "reach", "talk to", "speak", "whatsapp", "address", "office", "book", "appointment", "site visit", "consultation", "meet"],
-    text: "Call +91 76791 24694, email Reena.dc65@gmail.com, or send your floor plan through the contact form. Office hours are Mon–Sat, 9:00 AM – 8:00 PM, and the first consultation is free.",
+    text: "Call +91 76791 24694, email Reena.dc65@gmail.com, or send your floor plan through the contact form. Office hours are Mon–Sat, 9:00 AM – 9:00 PM, and the first consultation is free.",
     link: CONTACT,
     next: ["What does it cost?", "Which areas do you serve?"],
   },
   {
     id: "hours",
     keys: ["office hours", "working hours", "hours", "timing", "open", "closed", "sunday", "when can i", "available"],
-    text: "We are open Monday to Saturday, 9:00 AM – 8:00 PM. Site visits can be arranged outside those hours if that suits you better — just ask.",
+    text: "We are open Monday to Saturday, 9:00 AM – 9:00 PM. Site visits can be arranged outside those hours if that suits you better — just ask.",
     link: CONTACT,
     next: ["Book a site visit", "Which areas do you serve?"],
   },
